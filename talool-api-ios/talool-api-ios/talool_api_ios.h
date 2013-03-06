@@ -8,6 +8,37 @@
 
 #import <Foundation/Foundation.h>
 
+#import <talool-api-ios/ttCustomer.h>
+#import <talool-api-ios/ttAddress.h>
+#import <talool-api-ios/ttMerchant.h>
+#import <talool-api-ios/TaloolAddress.h>
+#import <talool-api-ios/TaloolCustomer.h>
+#import <talool-api-ios/TaloolMerchant.h>
+#import <talool-api-ios/MerchantController.h>
+#import <talool-api-ios/CustomerController.h>
+
+#import <talool-api-ios/TApplicationException.h>
+#import <talool-api-ios/TException.h>
+#import <talool-api-ios/TOjective-C.h>
+#import <talool-api-ios/TProcessor.h>
+#import <talool-api-ios/TProcessorFactory.h>
+#import <talool-api-ios/TSharedProcessorFactory.h>
+#import <talool-api-ios/talool-service.h>
+#import <talool-api-ios/TBinaryProtocol.h>
+#import <talool-api-ios/TProtocol.h>
+#import <talool-api-ios/TProtocolException.h>
+#import <talool-api-ios/TProtocolFactory.h>
+#import <talool-api-ios/TProtocolUtil.h>
+#import <talool-api-ios/THTTPClient.h>
+#import <talool-api-ios/TMemoryBuffer.h>
+#import <talool-api-ios/TNSFileHandleTransport.h>
+#import <talool-api-ios/TNSStreamTransport.h>
+#import <talool-api-ios/TSocketClient.h>
+#import <talool-api-ios/TTransport.h>
+#import <talool-api-ios/TTransportException.h>
+#import <talool-api-ios/TSocketServer.h>
+
+
 @interface talool_api_ios : NSObject
 
 @end
