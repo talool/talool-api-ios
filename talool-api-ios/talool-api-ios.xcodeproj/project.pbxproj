@@ -711,6 +711,7 @@
 				914A1B0B16E6ECAD0043989A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		914A1B0C16E6ECAD0043989A /* Build configuration list for PBXNativeTarget "talool-api-iosTests" */ = {
 			isa = XCConfigurationList;
@@ -719,6 +720,7 @@
 				914A1B0E16E6ECAD0043989A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
