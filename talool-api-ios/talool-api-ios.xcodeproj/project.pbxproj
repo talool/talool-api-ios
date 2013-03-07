@@ -38,9 +38,7 @@
 		914A1B5716E6ED9B0043989A /* TSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B4616E6ED9B0043989A /* TSocketClient.m */; };
 		914A1B5816E6ED9B0043989A /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B4916E6ED9B0043989A /* TTransportException.m */; };
 		914A1B5916E6ED9B0043989A /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B4B16E6ED9B0043989A /* TSharedProcessorFactory.m */; };
-		914A1B6416E6F8850043989A /* ttCoupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B6316E6F8850043989A /* ttCoupon.m */; };
 		914A1B6916E702D70043989A /* ttCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1616E6ED390043989A /* ttCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		914A1B6A16E703310043989A /* ttCoupon.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B6216E6F8850043989A /* ttCoupon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		914A1B6B16E703310043989A /* ttAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1816E6ED390043989A /* ttAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		914A1B6C16E703310043989A /* ttMerchant.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1A16E6ED390043989A /* ttMerchant.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		914A1B6D16E703310043989A /* TaloolAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1016E6ED390043989A /* TaloolAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -157,8 +155,6 @@
 		914A1B4916E6ED9B0043989A /* TTransportException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTransportException.m; sourceTree = "<group>"; };
 		914A1B4A16E6ED9B0043989A /* TSharedProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSharedProcessorFactory.h; sourceTree = "<group>"; };
 		914A1B4B16E6ED9B0043989A /* TSharedProcessorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSharedProcessorFactory.m; sourceTree = "<group>"; };
-		914A1B6216E6F8850043989A /* ttCoupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttCoupon.h; sourceTree = "<group>"; };
-		914A1B6316E6F8850043989A /* ttCoupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttCoupon.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,8 +326,6 @@
 			children = (
 				914A1B1616E6ED390043989A /* ttCustomer.h */,
 				914A1B1716E6ED390043989A /* ttCustomer.m */,
-				914A1B6216E6F8850043989A /* ttCoupon.h */,
-				914A1B6316E6F8850043989A /* ttCoupon.m */,
 				914A1B1816E6ED390043989A /* ttAddress.h */,
 				914A1B1916E6ED390043989A /* ttAddress.m */,
 				914A1B1A16E6ED390043989A /* ttMerchant.h */,
@@ -375,7 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				914A1B6916E702D70043989A /* ttCustomer.h in Headers */,
-				914A1B6A16E703310043989A /* ttCoupon.h in Headers */,
 				914A1B6B16E703310043989A /* ttAddress.h in Headers */,
 				914A1B6C16E703310043989A /* ttMerchant.h in Headers */,
 				914A1B6D16E703310043989A /* TaloolAddress.h in Headers */,
@@ -543,7 +536,6 @@
 				914A1B5716E6ED9B0043989A /* TSocketClient.m in Sources */,
 				914A1B5816E6ED9B0043989A /* TTransportException.m in Sources */,
 				914A1B5916E6ED9B0043989A /* TSharedProcessorFactory.m in Sources */,
-				914A1B6416E6F8850043989A /* ttCoupon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +711,7 @@
 				914A1B0B16E6ECAD0043989A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		914A1B0C16E6ECAD0043989A /* Build configuration list for PBXNativeTarget "talool-api-iosTests" */ = {
 			isa = XCConfigurationList;
@@ -727,6 +720,7 @@
 				914A1B0E16E6ECAD0043989A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
