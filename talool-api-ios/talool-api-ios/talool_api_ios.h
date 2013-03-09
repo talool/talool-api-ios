@@ -16,6 +16,7 @@
 #import <talool-api-ios/TaloolMerchant.h>
 #import <talool-api-ios/MerchantController.h>
 #import <talool-api-ios/CustomerController.h>
+#import <talool-api-ios/TaloolPersistentStoreCoordinator.h>
 
 #import <talool-api-ios/TApplicationException.h>
 #import <talool-api-ios/TException.h>
