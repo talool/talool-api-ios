@@ -68,6 +68,11 @@
 		914A1B8516E703370043989A /* TSocketServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B3416E6ED9B0043989A /* TSocketServer.h */; settings = {ATTRIBUTES = (); }; };
 		9161489316EBA743001C546C /* TaloolPersistentStoreCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9161489116EBA743001C546C /* TaloolPersistentStoreCoordinator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9161489416EBA743001C546C /* TaloolPersistentStoreCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161489216EBA743001C546C /* TaloolPersistentStoreCoordinator.m */; };
+		916148CA16EBE00B001C546C /* TaloolFrameworkHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 916148C816EBE00B001C546C /* TaloolFrameworkHelper.h */; };
+		916148CB16EBE00B001C546C /* TaloolFrameworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 916148C916EBE00B001C546C /* TaloolFrameworkHelper.m */; };
+		916148CC16EBE00B001C546C /* TaloolFrameworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 916148C916EBE00B001C546C /* TaloolFrameworkHelper.m */; };
+		91F7D6C216ED654100D64C19 /* ttCoupon.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F7D6BF16ED654100D64C19 /* ttCoupon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91F7D6C316ED654100D64C19 /* ttCoupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F7D6C016ED654100D64C19 /* ttCoupon.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +164,11 @@
 		914A1B4B16E6ED9B0043989A /* TSharedProcessorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSharedProcessorFactory.m; sourceTree = "<group>"; };
 		9161489116EBA743001C546C /* TaloolPersistentStoreCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolPersistentStoreCoordinator.h; sourceTree = "<group>"; };
 		9161489216EBA743001C546C /* TaloolPersistentStoreCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolPersistentStoreCoordinator.m; sourceTree = "<group>"; };
+		916148C816EBE00B001C546C /* TaloolFrameworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolFrameworkHelper.h; sourceTree = "<group>"; };
+		916148C916EBE00B001C546C /* TaloolFrameworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolFrameworkHelper.m; sourceTree = "<group>"; };
+		91F7D6BF16ED654100D64C19 /* ttCoupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttCoupon.h; sourceTree = "<group>"; };
+		91F7D6C016ED654100D64C19 /* ttCoupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttCoupon.m; sourceTree = "<group>"; };
+		91F7D6C116ED654100D64C19 /* coupons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = coupons.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +229,8 @@
 				914A1AEC16E6ECAD0043989A /* talool_api_ios.h */,
 				9161489116EBA743001C546C /* TaloolPersistentStoreCoordinator.h */,
 				9161489216EBA743001C546C /* TaloolPersistentStoreCoordinator.m */,
+				916148C816EBE00B001C546C /* TaloolFrameworkHelper.h */,
+				916148C916EBE00B001C546C /* TaloolFrameworkHelper.m */,
 				914A1B5F16E6EE710043989A /* Managed Objects */,
 				914A1B6116E6EEE10043989A /* Model Controllers */,
 				914A1B5D16E6EDED0043989A /* thrift */,
@@ -330,6 +342,8 @@
 		914A1B5F16E6EE710043989A /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
+				91F7D6BF16ED654100D64C19 /* ttCoupon.h */,
+				91F7D6C016ED654100D64C19 /* ttCoupon.m */,
 				914A1B1616E6ED390043989A /* ttCustomer.h */,
 				914A1B1716E6ED390043989A /* ttCustomer.m */,
 				914A1B1816E6ED390043989A /* ttAddress.h */,
@@ -358,6 +372,7 @@
 		914A1B6116E6EEE10043989A /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				91F7D6C116ED654100D64C19 /* coupons.plist */,
 				914A1B1C16E6ED390043989A /* merchants.plist */,
 				914A1B1D16E6ED390043989A /* MerchantController.h */,
 				914A1B1E16E6ED390043989A /* MerchantController.m */,
@@ -377,6 +392,7 @@
 				914A1B6916E702D70043989A /* ttCustomer.h in Headers */,
 				914A1B6B16E703310043989A /* ttAddress.h in Headers */,
 				914A1B6C16E703310043989A /* ttMerchant.h in Headers */,
+				91F7D6C216ED654100D64C19 /* ttCoupon.h in Headers */,
 				914A1B6D16E703310043989A /* TaloolAddress.h in Headers */,
 				914A1B6E16E703310043989A /* TaloolCustomer.h in Headers */,
 				914A1B6F16E703310043989A /* TaloolMerchant.h in Headers */,
@@ -403,6 +419,7 @@
 				914A1B8216E703310043989A /* TSocketClient.h in Headers */,
 				914A1B8316E703310043989A /* TTransport.h in Headers */,
 				914A1B8416E703310043989A /* TTransportException.h in Headers */,
+				916148CA16EBE00B001C546C /* TaloolFrameworkHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +561,8 @@
 				914A1B5816E6ED9B0043989A /* TTransportException.m in Sources */,
 				914A1B5916E6ED9B0043989A /* TSharedProcessorFactory.m in Sources */,
 				9161489416EBA743001C546C /* TaloolPersistentStoreCoordinator.m in Sources */,
+				916148CB16EBE00B001C546C /* TaloolFrameworkHelper.m in Sources */,
+				91F7D6C316ED654100D64C19 /* ttCoupon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,6 +571,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				914A1B0616E6ECAD0043989A /* talool_api_iosTests.m in Sources */,
+				916148CC16EBE00B001C546C /* TaloolFrameworkHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

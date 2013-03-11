@@ -11,6 +11,7 @@
 #import <talool-api-ios/ttCustomer.h>
 #import <talool-api-ios/ttAddress.h>
 #import <talool-api-ios/ttMerchant.h>
+#import <talool-api-ios/ttCoupon.h>
 #import <talool-api-ios/TaloolAddress.h>
 #import <talool-api-ios/TaloolCustomer.h>
 #import <talool-api-ios/TaloolMerchant.h>

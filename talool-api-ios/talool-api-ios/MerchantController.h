@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@class Merchant;
+@class ttMerchant;
+@class ttCustomer;
 
 @interface MerchantController : NSObject {
 	NSMutableArray *merchants;
@@ -19,5 +20,7 @@
 - (void)loadData;
 - (unsigned)countOfMerchants;
 - (id)objectInMerchantsAtIndex:(unsigned)theIndex;
+- (NSMutableArray *) getCouponsByMerchant:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer;
+
 
 @end
