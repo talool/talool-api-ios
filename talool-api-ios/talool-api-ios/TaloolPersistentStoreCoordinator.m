@@ -9,12 +9,11 @@
 #import "TaloolPersistentStoreCoordinator.h"
 #import "TaloolFrameworkHelper.h"
 
+NSString * const CUSTOMER_ENTITY_NAME = @"TaloolCustomer";
+NSString * const ADDRESS_ENTITY_NAME = @"TaloolAddress";
+NSString * const MERCHANT_ENTITY_NAME = @"TaloolMerchant";
 
 @implementation TaloolPersistentStoreCoordinator
-
-const NSString *CUSTOMER_ENTITY_NAME = @"TaloolCustomer";
-const NSString *ADDRESS_ENTITY_NAME = @"TaloolAddress";
-const NSString *MERCHANT_ENTITY_NAME = @"TaloolMerchant";
 
 static NSManagedObjectModel *_managedObjectModel;
 

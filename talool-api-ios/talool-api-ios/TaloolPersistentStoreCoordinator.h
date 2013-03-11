@@ -11,11 +11,11 @@
 
 @interface TaloolPersistentStoreCoordinator : NSObject
 
-extern const NSString *CUSTOMER_ENTITY_NAME;
-extern const NSString *ADDRESS_ENTITY_NAME;
-extern const NSString *MERCHANT_ENTITY_NAME;
-
 +(NSPersistentStoreCoordinator *) initWithStoreUrl:(NSURL *)storeURL;
 +(NSManagedObjectModel *) managedObjectModel;
 
 @end
+
+extern NSString * const CUSTOMER_ENTITY_NAME;
+extern NSString * const ADDRESS_ENTITY_NAME;
+extern NSString * const MERCHANT_ENTITY_NAME;
