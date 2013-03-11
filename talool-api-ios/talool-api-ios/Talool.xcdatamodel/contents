@@ -28,8 +28,8 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TaloolCustomer" positionX="160" positionY="192" width="128" height="163"/>
         <element name="TaloolAddress" positionX="-0" positionY="396" width="128" height="193"/>
+        <element name="TaloolCustomer" positionX="160" positionY="192" width="128" height="163"/>
         <element name="TaloolMerchant" positionX="-153" positionY="114" width="128" height="73"/>
     </elements>
 </model>

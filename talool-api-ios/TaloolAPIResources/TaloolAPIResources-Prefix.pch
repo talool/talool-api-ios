@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'TaloolAPIResources' target in the 'TaloolAPIResources' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

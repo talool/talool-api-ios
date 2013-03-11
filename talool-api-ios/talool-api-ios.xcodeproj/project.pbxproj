@@ -6,6 +6,22 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		916148B916EBCE8F001C546C /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 916148BA16EBCE8F001C546C /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+			);
+			dependencies = (
+				916148C416EBDDFA001C546C /* PBXTargetDependency */,
+				916148C016EBCEA6001C546C /* PBXTargetDependency */,
+				916148BE16EBCEA2001C546C /* PBXTargetDependency */,
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		914A1AE816E6ECAD0043989A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914A1AE716E6ECAD0043989A /* Foundation.framework */; };
 		914A1AED16E6ECAD0043989A /* talool_api_ios.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 914A1AEC16E6ECAD0043989A /* talool_api_ios.h */; };
@@ -68,6 +84,10 @@
 		914A1B8516E703370043989A /* TSocketServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B3416E6ED9B0043989A /* TSocketServer.h */; settings = {ATTRIBUTES = (); }; };
 		9161489316EBA743001C546C /* TaloolPersistentStoreCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9161489116EBA743001C546C /* TaloolPersistentStoreCoordinator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9161489416EBA743001C546C /* TaloolPersistentStoreCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161489216EBA743001C546C /* TaloolPersistentStoreCoordinator.m */; };
+		916148AB16EBC9E1001C546C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9161489A16EBC99C001C546C /* CoreFoundation.framework */; };
+		916148B116EBC9E1001C546C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 916148AF16EBC9E1001C546C /* InfoPlist.strings */; };
+		916148B616EBCBD0001C546C /* Talool.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B0F16E6ED390043989A /* Talool.xcdatamodel */; };
+		916148C516EBDE15001C546C /* merchants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 914A1B1C16E6ED390043989A /* merchants.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +97,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 914A1AE316E6ECAC0043989A;
 			remoteInfo = "talool-api-ios";
+		};
+		916148BD16EBCEA2001C546C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 914A1ADC16E6ECAC0043989A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 914A1AE316E6ECAC0043989A;
+			remoteInfo = "talool-api-ios";
+		};
+		916148BF16EBCEA6001C546C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 914A1ADC16E6ECAC0043989A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 916148A916EBC9E1001C546C;
+			remoteInfo = TaloolAPIResources;
+		};
+		916148C316EBDDFA001C546C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 914A1ADC16E6ECAC0043989A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 914A1AF416E6ECAD0043989A;
+			remoteInfo = "talool-api-iosTests";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -159,6 +200,14 @@
 		914A1B4B16E6ED9B0043989A /* TSharedProcessorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSharedProcessorFactory.m; sourceTree = "<group>"; };
 		9161489116EBA743001C546C /* TaloolPersistentStoreCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolPersistentStoreCoordinator.h; sourceTree = "<group>"; };
 		9161489216EBA743001C546C /* TaloolPersistentStoreCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolPersistentStoreCoordinator.m; sourceTree = "<group>"; };
+		9161489A16EBC99C001C546C /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		9161489E16EBC99D001C546C /* TaloolAPIResources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TaloolAPIResources-Info.plist"; sourceTree = "<group>"; };
+		916148A016EBC99D001C546C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		916148A216EBC99D001C546C /* TaloolAPIResources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TaloolAPIResources-Prefix.pch"; sourceTree = "<group>"; };
+		916148AA16EBC9E1001C546C /* talool-api-ios.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "talool-api-ios.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		916148AE16EBC9E1001C546C /* TaloolAPIResources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TaloolAPIResources-Info.plist"; sourceTree = "<group>"; };
+		916148B016EBC9E1001C546C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		916148B216EBC9E1001C546C /* TaloolAPIResources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TaloolAPIResources-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +230,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		916148A716EBC9E1001C546C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				916148AB16EBC9E1001C546C /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -189,6 +246,8 @@
 			children = (
 				914A1AE916E6ECAD0043989A /* talool-api-ios */,
 				914A1AFE16E6ECAD0043989A /* talool-api-iosTests */,
+				9161489C16EBC99C001C546C /* TaloolAPIResources */,
+				916148AC16EBC9E1001C546C /* TaloolAPIResources */,
 				914A1AE616E6ECAC0043989A /* Frameworks */,
 				914A1AE516E6ECAC0043989A /* Products */,
 			);
@@ -199,6 +258,7 @@
 			children = (
 				914A1AE416E6ECAC0043989A /* libtalool-api-ios.a */,
 				914A1AF516E6ECAD0043989A /* talool-api-iosTests.octest */,
+				916148AA16EBC9E1001C546C /* talool-api-ios.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,6 +269,7 @@
 				914A1AE716E6ECAD0043989A /* Foundation.framework */,
 				914A1AF616E6ECAD0043989A /* SenTestingKit.framework */,
 				914A1AF816E6ECAD0043989A /* UIKit.framework */,
+				9161489A16EBC99C001C546C /* CoreFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -367,6 +428,42 @@
 			name = "Model Controllers";
 			sourceTree = "<group>";
 		};
+		9161489C16EBC99C001C546C /* TaloolAPIResources */ = {
+			isa = PBXGroup;
+			children = (
+				9161489D16EBC99D001C546C /* Supporting Files */,
+			);
+			path = TaloolAPIResources;
+			sourceTree = "<group>";
+		};
+		9161489D16EBC99D001C546C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9161489E16EBC99D001C546C /* TaloolAPIResources-Info.plist */,
+				9161489F16EBC99D001C546C /* InfoPlist.strings */,
+				916148A216EBC99D001C546C /* TaloolAPIResources-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		916148AC16EBC9E1001C546C /* TaloolAPIResources */ = {
+			isa = PBXGroup;
+			children = (
+				916148AD16EBC9E1001C546C /* Supporting Files */,
+			);
+			path = TaloolAPIResources;
+			sourceTree = "<group>";
+		};
+		916148AD16EBC9E1001C546C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				916148AE16EBC9E1001C546C /* TaloolAPIResources-Info.plist */,
+				916148AF16EBC9E1001C546C /* InfoPlist.strings */,
+				916148B216EBC9E1001C546C /* TaloolAPIResources-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -447,6 +544,23 @@
 			productReference = 914A1AF516E6ECAD0043989A /* talool-api-iosTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		916148A916EBC9E1001C546C /* TaloolAPIResources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 916148B316EBC9E1001C546C /* Build configuration list for PBXNativeTarget "TaloolAPIResources" */;
+			buildPhases = (
+				916148A616EBC9E1001C546C /* Sources */,
+				916148A716EBC9E1001C546C /* Frameworks */,
+				916148A816EBC9E1001C546C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TaloolAPIResources;
+			productName = TaloolAPIResources;
+			productReference = 916148AA16EBC9E1001C546C /* talool-api-ios.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -470,6 +584,8 @@
 			targets = (
 				914A1AE316E6ECAC0043989A /* talool-api-ios */,
 				914A1AF416E6ECAD0043989A /* talool-api-iosTests */,
+				916148A916EBC9E1001C546C /* TaloolAPIResources */,
+				916148B916EBCE8F001C546C /* Framework */,
 			);
 		};
 /* End PBXProject section */
@@ -480,6 +596,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				914A1B0316E6ECAD0043989A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		916148A816EBC9E1001C546C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				916148B116EBC9E1001C546C /* InfoPlist.strings in Resources */,
+				916148C516EBDE15001C546C /* merchants.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +680,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		916148A616EBC9E1001C546C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				916148B616EBCBD0001C546C /* Talool.xcdatamodel in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -563,6 +696,21 @@
 			target = 914A1AE316E6ECAC0043989A /* talool-api-ios */;
 			targetProxy = 914A1AFB16E6ECAD0043989A /* PBXContainerItemProxy */;
 		};
+		916148BE16EBCEA2001C546C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 914A1AE316E6ECAC0043989A /* talool-api-ios */;
+			targetProxy = 916148BD16EBCEA2001C546C /* PBXContainerItemProxy */;
+		};
+		916148C016EBCEA6001C546C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 916148A916EBC9E1001C546C /* TaloolAPIResources */;
+			targetProxy = 916148BF16EBCEA6001C546C /* PBXContainerItemProxy */;
+		};
+		916148C416EBDDFA001C546C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 914A1AF416E6ECAD0043989A /* talool-api-iosTests */;
+			targetProxy = 916148C316EBDDFA001C546C /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -570,6 +718,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				914A1B0216E6ECAD0043989A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9161489F16EBC99D001C546C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				916148A016EBC99D001C546C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		916148AF16EBC9E1001C546C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				916148B016EBC9E1001C546C /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -700,6 +864,60 @@
 			};
 			name = Release;
 		};
+		916148B416EBC9E1001C546C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TaloolAPIResources/TaloolAPIResources-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "TaloolAPIResources/TaloolAPIResources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "talool-api-ios";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		916148B516EBC9E1001C546C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TaloolAPIResources/TaloolAPIResources-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "TaloolAPIResources/TaloolAPIResources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "talool-api-ios";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		916148BB16EBCE8F001C546C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		916148BC16EBCE8F001C546C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -729,6 +947,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		916148B316EBC9E1001C546C /* Build configuration list for PBXNativeTarget "TaloolAPIResources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				916148B416EBC9E1001C546C /* Debug */,
+				916148B516EBC9E1001C546C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		916148BA16EBCE8F001C546C /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				916148BB16EBCE8F001C546C /* Debug */,
+				916148BC16EBCE8F001C546C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
