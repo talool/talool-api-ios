@@ -92,6 +92,7 @@
 		91F7D6CC16ED78F400D64C19 /* TaloolFrameworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F7D6C816ED78F400D64C19 /* TaloolFrameworkHelper.m */; };
 		91F7D6CD16ED78F400D64C19 /* ttCoupon.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F7D6C916ED78F400D64C19 /* ttCoupon.h */; };
 		91F7D6CE16ED78F400D64C19 /* ttCoupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F7D6CA16ED78F400D64C19 /* ttCoupon.m */; };
+		91F7D6D716ED7A7E00D64C19 /* coupons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91F7D6C616ED78F400D64C19 /* coupons.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -621,6 +622,7 @@
 			files = (
 				916148B116EBC9E1001C546C /* InfoPlist.strings in Resources */,
 				916148C516EBDE15001C546C /* merchants.plist in Resources */,
+				91F7D6D716ED7A7E00D64C19 /* coupons.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
