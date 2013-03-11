@@ -7,9 +7,14 @@
 //
 
 #import "TaloolPersistentStoreCoordinator.h"
+#import "TaloolFrameworkHelper.h"
 
 
-@implementation TaloolPersistentStoreCoordinator 
+@implementation TaloolPersistentStoreCoordinator
+
+const NSString *CUSTOMER_ENTITY_NAME = @"TaloolCustomer";
+const NSString *ADDRESS_ENTITY_NAME = @"TaloolAddress";
+const NSString *MERCHANT_ENTITY_NAME = @"TaloolMerchant";
 
 static NSManagedObjectModel *_managedObjectModel;
 
@@ -54,7 +59,8 @@ static NSManagedObjectModel *_managedObjectModel;
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Talool" withExtension:@"momd"];
+    
+    NSURL *modelURL = [[TaloolFrameworkHelper frameworkBundle] URLForResource:@"Talool" withExtension:@"mom"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return _managedObjectModel;
 }

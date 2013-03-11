@@ -9,6 +9,9 @@
 #import "MerchantController.h"
 #import "talool-service.h"
 #import "ttMerchant.h"
+#import "ttCustomer.h"
+#import "ttCoupon.h"
+#import "TaloolFrameworkHelper.h"
 
 
 @implementation MerchantController
@@ -49,6 +52,32 @@
     return [merchants objectAtIndex:theIndex];
 }
 
+- (NSMutableArray *) getCouponsByMerchant:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer
+{
+    NSMutableArray *coupons = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    // Create the data model.
+    NSString *path = [[TaloolFrameworkHelper frameworkBundle] pathForResource:@"coupons" ofType:@"plist"];
+    NSData *plistData = [NSData dataWithContentsOfFile:path];
+    NSString *error; NSPropertyListFormat format;
+    NSArray *data = [NSPropertyListSerialization propertyListFromData:plistData
+                                                     mutabilityOption:NSPropertyListImmutable
+                                                               format:&format
+                                                     errorDescription:&error];
+    
+    if (data != nil & [data count] > 0) {
+        coupons = [[NSMutableArray alloc] initWithCapacity:[data count]];
+        for (int i=0; i<[data count]; i++) {
+            ttCoupon *ttc = [ttCoupon alloc];
+            NSDictionary *cd = [data objectAtIndex:i];
+            ttc.name = [cd valueForKey:@"name"];
+            [coupons insertObject:ttc atIndex:i];
+        }
+    }
+    
+    return coupons;
+}
+
 
 // Some dummy data (thrift format)
 + (NSMutableArray *)getData
@@ -57,7 +86,7 @@
     static NSMutableArray *_merchs;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"merchants" ofType:@"plist"];
+        NSString *path = [[TaloolFrameworkHelper frameworkBundle] pathForResource:@"merchants" ofType:@"plist"];
         NSData *plistData = [NSData dataWithContentsOfFile:path];
         NSString *error;
         NSPropertyListFormat format;
