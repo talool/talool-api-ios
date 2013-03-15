@@ -11,7 +11,8 @@
 
 #import "CustomerController.h"
 #import "ttCustomer.h"
-#import "talool-service.h"
+#import "Core.h"
+#import "CustomerService.h"
 
 @implementation CustomerController
 
@@ -35,10 +36,10 @@
                the phone will crash with a EXC_BAD_ACCESS when this
                controller is gabage collected.
          */
-        NSURL *url = [NSURL URLWithString:@"http://66.186.23.208:8080/talool"];
+        NSURL *url = [NSURL URLWithString:@"http://www.talool.com/api"];
         transport = [[THTTPClient alloc] initWithURL:url];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
-        service = [[TaloolServiceClient alloc] initWithProtocol:protocol];
+        service = [[CustomerService_tClient alloc] initWithProtocol:protocol];
     } @catch(NSException * e) {
         NSLog(@"Exception: %@", e);
     }
@@ -75,20 +76,21 @@
 - (BOOL)registerUser:(ttCustomer *)customer error:(NSError**)error {
     
     // validate data before sending to the server
+    // TODO: Fix reg once the API update is complete
     if (![customer isValid:error]){
         return NO;
     }
 
     // Convert the core data obj to a thrift object
-    Customer *newCustomer = [customer hydrateThriftObject];
+    Customer_t *newCustomer = [customer hydrateThriftObject];
     
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     
     @try {
         // Do the Thrift Save
-        [service registerCustomer:newCustomer password:newCustomer.password];
+        [service createAccount:newCustomer password:customer.password];
     }
-    @catch (ServiceException * se) {
+    @catch (ServiceException_t * se) {
         [details setValue:@"Failed to register user, service failed." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"registration" code:200 userInfo:details];
         NSLog(@"failed to complete registration cycle: %@",se.description);

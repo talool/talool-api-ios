@@ -7,7 +7,7 @@
 //
 
 #import "ttAddress.h"
-#import "talool-service.h"
+#import "Core.h"
 
 @implementation ttAddress
 
@@ -16,7 +16,7 @@
     return TRUE;
 }
 
-+(ttAddress *)initWithThrift:(Address *)address
++(ttAddress *)initWithThrift:(Address_t *)address
 {
     ttAddress *a = [ttAddress alloc];
     a.address1 = address.address1;
@@ -28,9 +28,9 @@
     return a;
 }
 
--(Address *)hydrateThriftObject
+-(Address_t *)hydrateThriftObject
 {
-    Address *address = [[Address alloc] init];
+    Address_t *address = [[Address_t alloc] init];
     address.address1 = self.address1;
     address.address2 = self.address2;
     address.city = self.city;

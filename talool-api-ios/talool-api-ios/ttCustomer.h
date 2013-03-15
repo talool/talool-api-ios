@@ -1,21 +1,24 @@
 //
 //  ttCustomer.h
-//  mobile
+//  talool-api-ios
 //
-//  Created by Douglas McCuen on 3/2/13.
+//  Created by Douglas McCuen on 3/13/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "TaloolCustomer.h"
 
-@class Customer;
-@class ttAddress;
+@class Customer_t;
 
 @interface ttCustomer : TaloolCustomer
 
-- (BOOL)isValid: (NSError**)error;
-+ (ttCustomer *)initWithThrift: (Customer *)customer;
-- (Customer *)hydrateThriftObject;
+@property (nonatomic, retain) Customer_t * thrift;
+
+- (BOOL)isValid:(NSError **)error;
++ (ttCustomer *)initWithThrift: (Customer_t *)customer;
+- (Customer_t *)hydrateThriftObject;
 - (NSString *)getFullName;
 
 @end

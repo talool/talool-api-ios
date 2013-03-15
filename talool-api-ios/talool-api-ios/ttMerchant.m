@@ -7,7 +7,7 @@
 //
 
 #import "ttMerchant.h"
-#import "talool-service.h"
+#import "Core.h"
 
 @implementation ttMerchant
 
@@ -18,20 +18,18 @@
     return TRUE;
 }
 
-+(ttMerchant *)initWithThrift:(Merchant *)merchant
++(ttMerchant *)initWithThrift:(Merchant_t *)merchant
 {
     ttMerchant *m = [ttMerchant alloc];
-    m.name = merchant.name;
-    m.email = merchant.email;
+
     
     return m;
 }
 
--(Merchant *)hydrateThriftObject
+-(Merchant_t *)hydrateThriftObject
 {
-    Merchant *merchant = [[Merchant alloc] init];
-    merchant.email = self.email;
-    merchant.name = self.name;
+    Merchant_t *merchant = nil;//[[Merchant_t alloc] init];
+
     return merchant;
 }
 

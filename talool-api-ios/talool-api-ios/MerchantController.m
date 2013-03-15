@@ -38,7 +38,7 @@
     // convert the Thrift object into a ttMerchant and load in the array
     ttMerchant *m;
     for (int i=0; i<[_merchs count]; i++) {
-        Merchant *merch = [_merchs objectAtIndex:i];
+        Merchant_t *merch = [_merchs objectAtIndex:i];
         m = [ttMerchant initWithThrift:merch];
         [merchants insertObject:merch atIndex:i];
     }
@@ -96,13 +96,14 @@
                                                  errorDescription:&error];
         
         _merchs = [[NSMutableArray alloc] initWithCapacity:[_data count]];
-        for (int i=0; i<[_data count]; i++) {
-            Merchant *m = [Merchant alloc];
-            NSDictionary *d = [_data objectAtIndex:i];
-            m.name = [d objectForKey:@"name"];
-            m.email = @"doug@talool.com";
-            [_merchs insertObject:m atIndex:i];
-        }
+        return; // TODO
+        //for (int i=0; i<[_data count]; i++) {
+          //  Merchant_t *m = nil;//[Merchant_t alloc];
+           // NSDictionary *d = [_data objectAtIndex:i];
+            //m.name = [d objectForKey:@"name"];
+            //m.email = @"doug@talool.com";
+            //[_merchs insertObject:m atIndex:i];
+        //}
          
     });
     

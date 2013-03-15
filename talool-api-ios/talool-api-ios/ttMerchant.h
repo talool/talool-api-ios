@@ -8,12 +8,12 @@
 
 #import "TaloolMerchant.h"
 
-@class Merchant;
+@class Merchant_t;
 
 @interface ttMerchant : TaloolMerchant
 
 - (BOOL)isValid;
-+ (ttMerchant *)initWithThrift: (Merchant *)merchant;
-- (Merchant *)hydrateThriftObject;
++ (ttMerchant *)initWithThrift: (Merchant_t *)merchant;
+- (Merchant_t *)hydrateThriftObject;
 
 @end

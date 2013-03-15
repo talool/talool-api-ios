@@ -8,16 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-#import <talool-api-ios/ttCustomer.h>
 #import <talool-api-ios/ttAddress.h>
 #import <talool-api-ios/ttMerchant.h>
 #import <talool-api-ios/ttCoupon.h>
 #import <talool-api-ios/TaloolAddress.h>
 #import <talool-api-ios/TaloolCustomer.h>
 #import <talool-api-ios/TaloolMerchant.h>
+#import <talool-api-ios/SocialAccount.h>
+#import <talool-api-ios/ttSocialAccount.h>
+#import <talool-api-ios/SocialNetworkDetail.h>
+#import <talool-api-ios/ttSocialNetworkDetail.h>
 #import <talool-api-ios/MerchantController.h>
 #import <talool-api-ios/CustomerController.h>
 #import <talool-api-ios/TaloolPersistentStoreCoordinator.h>
+#import <talool-api-ios/TaloolFrameworkHelper.h>
+
+#import <talool-api-ios/Core.h>
+#import <talool-api-ios/CustomerService.h>
 
 #import <talool-api-ios/TApplicationException.h>
 #import <talool-api-ios/TException.h>
@@ -25,7 +32,6 @@
 #import <talool-api-ios/TProcessor.h>
 #import <talool-api-ios/TProcessorFactory.h>
 #import <talool-api-ios/TSharedProcessorFactory.h>
-#import <talool-api-ios/talool-service.h>
 #import <talool-api-ios/TBinaryProtocol.h>
 #import <talool-api-ios/TProtocol.h>
 #import <talool-api-ios/TProtocolException.h>

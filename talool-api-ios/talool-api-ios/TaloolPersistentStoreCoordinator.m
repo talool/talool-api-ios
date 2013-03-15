@@ -12,6 +12,10 @@
 NSString * const CUSTOMER_ENTITY_NAME = @"TaloolCustomer";
 NSString * const ADDRESS_ENTITY_NAME = @"TaloolAddress";
 NSString * const MERCHANT_ENTITY_NAME = @"TaloolMerchant";
+NSString * const SOCIAL_ACCOUNT_ENTITY_NAME = @"SocialAccount";
+int const SOCIAL_NETWORK_FACEBOOK = 1;
+int const SOCIAL_NETWORK_TWITTER = 2;
+int const SOCIAL_NETWORK_PINTEREST = 3;
 
 @implementation TaloolPersistentStoreCoordinator
 

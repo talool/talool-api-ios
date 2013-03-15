@@ -1,22 +1,19 @@
 //
 //  ttCustomer.m
-//  mobile
+//  talool-api-ios
 //
-//  Created by Douglas McCuen on 3/2/13.
+//  Created by Douglas McCuen on 3/13/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import "ttCustomer.h"
-#import "ttAddress.h"
-#import "talool-service.h"
+#import "ttSocialAccount.h"
+#import "Core.h"
+
 
 @implementation ttCustomer
 
-@dynamic address;
-
--(ttAddress *) getAddress {
-    return (ttAddress *) self.address;
-}
+@synthesize thrift;
 
 -(BOOL)isValid:(NSError *__autoreleasing *)error
 {
@@ -37,29 +34,58 @@
     return YES;
 }
 
-+(ttCustomer *)initWithThrift:(Customer *)customer
++(ttCustomer *)initWithThrift:(Customer_t *)c
 {
-    ttCustomer *c = [ttCustomer alloc];
-    c.lastName = customer.lastName;
-    c.firstName = customer.firstName;
-    c.email = customer.email;
-    c.password = customer.password;
-    c.address = [ttAddress initWithThrift:customer.address];
+    ttCustomer *customer = [ttCustomer alloc];
+    customer.firstName = c.firstName;
+    customer.lastName = c.lastName;
+    customer.email = c.email;
+    customer.sex = [[NSNumber alloc] initWithInt:c.sex];
+    customer.customerId = @(c.customerId);
+
+    customer.socialAccounts = [NSSet alloc];
+    if (c.socialAccountsIsSet) {
+        NSMutableArray *keys = [[NSMutableArray alloc] initWithArray:[c.socialAccounts allKeys]];
+        for (int i=0; i<[keys count]; i++) {
+            
+            NSNumber *key = [[NSNumber alloc] initWithInt:(int)[keys objectAtIndex:i]];
+            SocialAccount_t *sat = [c.socialAccounts objectForKey:key];
+            ttSocialAccount *sa = [ttSocialAccount initWithThrift:sat];
+            [customer addSocialAccountsObject:sa];
+        }
+    }
     
-    return c;
+    // TODO it may be better to persist the thrift object and update individual properties
+    customer.thrift = c;
     
+    return customer;
 }
 
--(Customer *)hydrateThriftObject
+-(Customer_t *)hydrateThriftObject
 {
-    Customer *newCustomer = [[Customer alloc] init];
-    newCustomer.lastName = self.lastName;
-    newCustomer.firstName = self.firstName;
-    newCustomer.email = self.email;
-    newCustomer.password = self.password;
-    newCustomer.address = [[self getAddress] hydrateThriftObject];
+    Customer_t *customer = [[Customer_t alloc] init];
+    customer.firstName = self.firstName;
+    customer.lastName = self.lastName;
+    customer.email = self.email;
+    //if (self.sex == nil) {  // TODO WTF
+        customer.sex = 3;
+    //} else {
+        //customer.sex = (int) self.sex;
+    //}
+    if (self.customerId != nil) {
+        customer.customerId = [self.customerId longLongValue];
+    }
     
-    return newCustomer;
+
+    NSEnumerator *enumerator = [self.socialAccounts objectEnumerator];
+    ttSocialAccount *sa;
+    SocialAccount_t *sat;
+    while (sa = [enumerator nextObject]) {
+        sat = [sa hydrateThriftObject];
+        [customer.socialAccounts setObject:sat forKey:[[NSNumber alloc] initWithInt:SocialNetwork_t_Facebook]];
+    }
+    
+    return customer;
 }
 
 -(NSString *) getFullName

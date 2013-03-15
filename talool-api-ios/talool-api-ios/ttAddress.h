@@ -8,12 +8,12 @@
 
 #import "TaloolAddress.h"
 
-@class Address;
+@class Address_t;
 
 @interface ttAddress : TaloolAddress
 
 - (BOOL)isValid;
-+ (ttAddress *)initWithThrift: (Address *)address;
-- (Address *)hydrateThriftObject;
++ (ttAddress *)initWithThrift: (Address_t *)address;
+- (Address_t *)hydrateThriftObject;
 
 @end

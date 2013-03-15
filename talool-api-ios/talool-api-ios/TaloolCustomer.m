@@ -1,24 +1,25 @@
 //
 //  TaloolCustomer.m
-//  mobile
+//  talool-api-ios
 //
-//  Created by Douglas McCuen on 3/2/13.
+//  Created by Douglas McCuen on 3/15/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import "TaloolCustomer.h"
-#import "TaloolAddress.h"
+#import "SocialAccount.h"
 
 
 @implementation TaloolCustomer
 
 @dynamic created;
+@dynamic customerId;
+@dynamic email;
 @dynamic firstName;
 @dynamic lastName;
-@dynamic email;
-@dynamic updated;
 @dynamic password;
-@dynamic customerId;
-@dynamic address;
+@dynamic sex;
+@dynamic updated;
+@dynamic socialAccounts;
 
 @end
