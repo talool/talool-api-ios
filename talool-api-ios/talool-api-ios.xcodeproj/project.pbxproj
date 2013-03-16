@@ -51,11 +51,11 @@
 		914A1B5716E6ED9B0043989A /* TSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B4616E6ED9B0043989A /* TSocketClient.m */; };
 		914A1B5816E6ED9B0043989A /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B4916E6ED9B0043989A /* TTransportException.m */; };
 		914A1B5916E6ED9B0043989A /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B4B16E6ED9B0043989A /* TSharedProcessorFactory.m */; };
-		914A1B6916E702D70043989A /* ttCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1616E6ED390043989A /* ttCustomer.h */; settings = {ATTRIBUTES = (); }; };
+		914A1B6916E702D70043989A /* ttCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1616E6ED390043989A /* ttCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		914A1B6B16E703310043989A /* ttAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1816E6ED390043989A /* ttAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		914A1B6C16E703310043989A /* ttMerchant.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1A16E6ED390043989A /* ttMerchant.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		914A1B6D16E703310043989A /* TaloolAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1016E6ED390043989A /* TaloolAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		914A1B6F16E703310043989A /* TaloolMerchant.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1416E6ED390043989A /* TaloolMerchant.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		914A1B6D16E703310043989A /* TaloolAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1016E6ED390043989A /* TaloolAddress.h */; settings = {ATTRIBUTES = (); }; };
+		914A1B6F16E703310043989A /* TaloolMerchant.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1416E6ED390043989A /* TaloolMerchant.h */; settings = {ATTRIBUTES = (); }; };
 		914A1B7016E703310043989A /* MerchantController.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1D16E6ED390043989A /* MerchantController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		914A1B7116E703310043989A /* CustomerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B1F16E6ED390043989A /* CustomerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		914A1B7216E703310043989A /* TApplicationException.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B3616E6ED9B0043989A /* TApplicationException.h */; settings = {ATTRIBUTES = (); }; };
@@ -88,11 +88,11 @@
 		9175717716F3D907002ACB08 /* SocialAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 9175717516F3D907002ACB08 /* SocialAccount.h */; };
 		9175717816F3D907002ACB08 /* SocialAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9175717616F3D907002ACB08 /* SocialAccount.m */; };
 		9175717F16F3DD75002ACB08 /* libtalool-api-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 914A1AE416E6ECAC0043989A /* libtalool-api-ios.a */; };
-		91F5469616F16A2800BEFF91 /* CustomerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F5469416F16A2800BEFF91 /* CustomerService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91F5469616F16A2800BEFF91 /* CustomerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F5469416F16A2800BEFF91 /* CustomerService.h */; settings = {ATTRIBUTES = (); }; };
 		91F5469716F16A2800BEFF91 /* CustomerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F5469516F16A2800BEFF91 /* CustomerService.m */; };
-		91F5469A16F16BDE00BEFF91 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F5469816F16BDE00BEFF91 /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91F5469A16F16BDE00BEFF91 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F5469816F16BDE00BEFF91 /* Core.h */; settings = {ATTRIBUTES = (); }; };
 		91F5469B16F16BDE00BEFF91 /* Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F5469916F16BDE00BEFF91 /* Core.m */; };
-		91F546A216F16D9B00BEFF91 /* SocialNetworkDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F546A016F16D9B00BEFF91 /* SocialNetworkDetail.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91F546A216F16D9B00BEFF91 /* SocialNetworkDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F546A016F16D9B00BEFF91 /* SocialNetworkDetail.h */; settings = {ATTRIBUTES = (); }; };
 		91F546A316F16D9B00BEFF91 /* SocialNetworkDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F546A116F16D9B00BEFF91 /* SocialNetworkDetail.m */; };
 		91F546AE16F16EC400BEFF91 /* ttSocialAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F546AC16F16EC400BEFF91 /* ttSocialAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91F546AF16F16EC400BEFF91 /* ttSocialAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F546AD16F16EC400BEFF91 /* ttSocialAccount.m */; };
@@ -516,21 +516,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91F5469616F16A2800BEFF91 /* CustomerService.h in Headers */,
-				91F5469A16F16BDE00BEFF91 /* Core.h in Headers */,
+				914A1B6916E702D70043989A /* ttCustomer.h in Headers */,
 				914A1B6B16E703310043989A /* ttAddress.h in Headers */,
 				914A1B6C16E703310043989A /* ttMerchant.h in Headers */,
 				91F7D6CD16ED78F400D64C19 /* ttCoupon.h in Headers */,
-				914A1B6D16E703310043989A /* TaloolAddress.h in Headers */,
-				914A1B6F16E703310043989A /* TaloolMerchant.h in Headers */,
+				91F546AE16F16EC400BEFF91 /* ttSocialAccount.h in Headers */,
+				91F546B216F16EEA00BEFF91 /* ttSocialNetworkDetail.h in Headers */,
 				914A1B7016E703310043989A /* MerchantController.h in Headers */,
 				914A1B7116E703310043989A /* CustomerController.h in Headers */,
 				91F7D6CB16ED78F400D64C19 /* TaloolFrameworkHelper.h in Headers */,
 				9161489316EBA743001C546C /* TaloolPersistentStoreCoordinator.h in Headers */,
+				91F5469616F16A2800BEFF91 /* CustomerService.h in Headers */,
+				91F5469A16F16BDE00BEFF91 /* Core.h in Headers */,
+				914A1B6D16E703310043989A /* TaloolAddress.h in Headers */,
+				914A1B6F16E703310043989A /* TaloolMerchant.h in Headers */,
 				91F546A216F16D9B00BEFF91 /* SocialNetworkDetail.h in Headers */,
-				91F546AE16F16EC400BEFF91 /* ttSocialAccount.h in Headers */,
-				91F546B216F16EEA00BEFF91 /* ttSocialNetworkDetail.h in Headers */,
-				914A1B6916E702D70043989A /* ttCustomer.h in Headers */,
 				914A1B7216E703310043989A /* TApplicationException.h in Headers */,
 				914A1B7316E703310043989A /* TException.h in Headers */,
 				914A1B7416E703310043989A /* TObjective-C.h in Headers */,

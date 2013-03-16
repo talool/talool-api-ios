@@ -76,7 +76,6 @@
 - (BOOL)registerUser:(ttCustomer *)customer error:(NSError**)error {
     
     // validate data before sending to the server
-    // TODO: Fix reg once the API update is complete
     if (![customer isValid:error]){
         return NO;
     }
