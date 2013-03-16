@@ -7,7 +7,7 @@
 //
 
 #import "MerchantController.h"
-#import "talool-service.h"
+#import "Core.h"
 #import "ttMerchant.h"
 #import "ttCustomer.h"
 #import "ttCoupon.h"
