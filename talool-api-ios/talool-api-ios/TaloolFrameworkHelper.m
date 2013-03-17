@@ -8,6 +8,8 @@
 
 #import "TaloolFrameworkHelper.h"
 
+NSString * const API_URL = @"http://www.talool.com/api";
+
 @implementation TaloolFrameworkHelper
 
 + (NSBundle *) frameworkBundle {
@@ -22,3 +24,4 @@
 }
 
 @end
+

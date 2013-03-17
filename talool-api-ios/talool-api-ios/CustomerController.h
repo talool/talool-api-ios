@@ -9,22 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Customer;
 @class ttCustomer;
 @class CustomerService_tClient;
 
 @interface CustomerController : NSObject {
-    NSMutableArray *customers;
-    NSMutableIndexSet *selectedIndexes;
     CustomerService_tClient *service;
 }
 
-@property (nonatomic, readonly) NSMutableArray *customers;
-
-- (void)sortAlphabeticallyAscending:(BOOL)ascending;
-- (void)loadData; 
-- (BOOL)registerUser:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
-- (unsigned)countOfCustomers;
-- (id)objectInCustomersAtIndex:(unsigned)theIndex;
+- (void)disconnect;
+- (ttCustomer *)registerUser:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
+- (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
+- (void)save:(ttCustomer *)customer error:(NSError**)error;
+- (ttCustomer *)refreshToken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 
 @end

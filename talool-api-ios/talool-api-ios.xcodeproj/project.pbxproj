@@ -92,6 +92,8 @@
 		91CC60C716F534FF00647AEC /* TaloolCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC60C516F534FF00647AEC /* TaloolCustomer.m */; };
 		91CC60CA16F5354100647AEC /* ttToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 91CC60C816F5354000647AEC /* ttToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91CC60CB16F5354100647AEC /* ttToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC60C916F5354100647AEC /* ttToken.m */; };
+		91CC60D216F57CD900647AEC /* TaloolHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 91CC60D016F57CD900647AEC /* TaloolHTTPClient.h */; };
+		91CC60D316F57CD900647AEC /* TaloolHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC60D116F57CD900647AEC /* TaloolHTTPClient.m */; };
 		91F5469616F16A2800BEFF91 /* CustomerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F5469416F16A2800BEFF91 /* CustomerService.h */; settings = {ATTRIBUTES = (); }; };
 		91F5469716F16A2800BEFF91 /* CustomerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F5469516F16A2800BEFF91 /* CustomerService.m */; };
 		91F5469A16F16BDE00BEFF91 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F5469816F16BDE00BEFF91 /* Core.h */; settings = {ATTRIBUTES = (); }; };
@@ -231,6 +233,8 @@
 		91CC60C516F534FF00647AEC /* TaloolCustomer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolCustomer.m; sourceTree = "<group>"; };
 		91CC60C816F5354000647AEC /* ttToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttToken.h; sourceTree = "<group>"; };
 		91CC60C916F5354100647AEC /* ttToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttToken.m; sourceTree = "<group>"; };
+		91CC60D016F57CD900647AEC /* TaloolHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolHTTPClient.h; sourceTree = "<group>"; };
+		91CC60D116F57CD900647AEC /* TaloolHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolHTTPClient.m; sourceTree = "<group>"; };
 		91F5469416F16A2800BEFF91 /* CustomerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerService.h; sourceTree = "<group>"; };
 		91F5469516F16A2800BEFF91 /* CustomerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerService.m; sourceTree = "<group>"; };
 		91F5469816F16BDE00BEFF91 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
@@ -481,6 +485,8 @@
 				914A1B1E16E6ED390043989A /* MerchantController.m */,
 				914A1B1F16E6ED390043989A /* CustomerController.h */,
 				914A1B2016E6ED390043989A /* CustomerController.m */,
+				91CC60D016F57CD900647AEC /* TaloolHTTPClient.h */,
+				91CC60D116F57CD900647AEC /* TaloolHTTPClient.m */,
 			);
 			name = "Model Controllers";
 			sourceTree = "<group>";
@@ -566,6 +572,7 @@
 				9175717716F3D907002ACB08 /* SocialAccount.h in Headers */,
 				91CC60C216F534FE00647AEC /* TaloolToken.h in Headers */,
 				91CC60C616F534FF00647AEC /* TaloolCustomer.h in Headers */,
+				91CC60D216F57CD900647AEC /* TaloolHTTPClient.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +752,7 @@
 				91CC60C316F534FE00647AEC /* TaloolToken.m in Sources */,
 				91CC60C716F534FF00647AEC /* TaloolCustomer.m in Sources */,
 				91CC60CB16F5354100647AEC /* ttToken.m in Sources */,
+				91CC60D316F57CD900647AEC /* TaloolHTTPClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

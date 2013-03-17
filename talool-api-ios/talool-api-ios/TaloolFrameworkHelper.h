@@ -13,3 +13,5 @@
 + (NSBundle *) frameworkBundle;
 
 @end
+
+extern NSString * const API_URL;
