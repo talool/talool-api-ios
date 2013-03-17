@@ -9,6 +9,7 @@
 #import "ttCustomer.h"
 #import "ttSocialAccount.h"
 #import "Core.h"
+#import "TaloolPersistentStoreCoordinator.h"
 
 
 @implementation ttCustomer
@@ -34,14 +35,17 @@
     return YES;
 }
 
-+(ttCustomer *)initWithThrift:(Customer_t *)c
++(ttCustomer *)initWithThrift:(Customer_t *)c context:(NSManagedObjectContext *)context
 {
-    ttCustomer *customer = [ttCustomer alloc];
+    ttCustomer *customer = (ttCustomer *)[NSEntityDescription
+                                          insertNewObjectForEntityForName:CUSTOMER_ENTITY_NAME
+                                          inManagedObjectContext:context];
     customer.firstName = c.firstName;
     customer.lastName = c.lastName;
     customer.email = c.email;
     customer.sex = [[NSNumber alloc] initWithInt:c.sex];
     customer.customerId = @(c.customerId);
+    //customer.token = nil;  No Token until auth or reg
 
     customer.socialAccounts = [NSSet alloc];
     if (c.socialAccountsIsSet) {
@@ -50,7 +54,7 @@
             
             NSNumber *key = [[NSNumber alloc] initWithInt:(int)[keys objectAtIndex:i]];
             SocialAccount_t *sat = [c.socialAccounts objectForKey:key];
-            ttSocialAccount *sa = [ttSocialAccount initWithThrift:sat];
+            ttSocialAccount *sa = [ttSocialAccount initWithThrift:sat context:context];
             [customer addSocialAccountsObject:sa];
         }
     }

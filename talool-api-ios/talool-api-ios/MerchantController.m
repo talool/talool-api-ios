@@ -30,7 +30,8 @@
  Create the Merchant objects and initialize them from a plist.
  Eventually, we'll get this from the API
  */
-- (void)loadData {
+- (void)loadData:(NSManagedObjectContext *)context
+{
 	merchants = [[NSMutableArray alloc] init];
     
     // get the Thrift data (dummy data for now)
@@ -39,7 +40,7 @@
     ttMerchant *m;
     for (int i=0; i<[_merchs count]; i++) {
         Merchant_t *merch = [_merchs objectAtIndex:i];
-        m = [ttMerchant initWithThrift:merch];
+        m = [ttMerchant initWithThrift:merch context:context];
         [merchants insertObject:merch atIndex:i];
     }
 }

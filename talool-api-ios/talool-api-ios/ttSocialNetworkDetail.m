@@ -8,6 +8,7 @@
 
 #import "ttSocialNetworkDetail.h"
 #import "Core.h"
+#import "TaloolPersistentStoreCoordinator.h"
 
 @implementation ttSocialNetworkDetail
 
@@ -15,9 +16,11 @@
 {
     return YES;
 }
-+ (ttSocialNetworkDetail *)initWithThrift: (SocialNetworkDetail_t *)snd
++ (ttSocialNetworkDetail *)initWithThrift: (SocialNetworkDetail_t *)snd context:(NSManagedObjectContext *)context
 {
-    ttSocialNetworkDetail *ttsnd = [ttSocialNetworkDetail alloc];
+    ttSocialNetworkDetail *ttsnd = (ttSocialNetworkDetail *)[NSEntityDescription
+                                                  insertNewObjectForEntityForName:SOCIAL_NETWORK_DETAIL_ENTITY_NAME
+                                                  inManagedObjectContext:context];
     
     return ttsnd;
 }

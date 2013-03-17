@@ -13,7 +13,7 @@
 @interface ttAddress : TaloolAddress
 
 - (BOOL)isValid;
-+ (ttAddress *)initWithThrift: (Address_t *)address;
++ (ttAddress *)initWithThrift: (Address_t *)address context:(NSManagedObjectContext *)context;
 - (Address_t *)hydrateThriftObject;
 
 @end

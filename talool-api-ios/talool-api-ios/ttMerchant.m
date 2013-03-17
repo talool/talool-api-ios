@@ -8,6 +8,7 @@
 
 #import "ttMerchant.h"
 #import "Core.h"
+#import "TaloolPersistentStoreCoordinator.h"
 
 @implementation ttMerchant
 
@@ -18,9 +19,12 @@
     return TRUE;
 }
 
-+(ttMerchant *)initWithThrift:(Merchant_t *)merchant
++(ttMerchant *)initWithThrift:(Merchant_t *)merchant context:(NSManagedObjectContext *)context
 {
-    ttMerchant *m = [ttMerchant alloc];
+    ttMerchant *m = (ttMerchant *)[NSEntityDescription
+                                   insertNewObjectForEntityForName:MERCHANT_ENTITY_NAME
+                                   inManagedObjectContext:context];
+
 
     
     return m;

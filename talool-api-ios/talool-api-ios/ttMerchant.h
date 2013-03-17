@@ -13,7 +13,7 @@
 @interface ttMerchant : TaloolMerchant
 
 - (BOOL)isValid;
-+ (ttMerchant *)initWithThrift: (Merchant_t *)merchant;
++ (ttMerchant *)initWithThrift: (Merchant_t *)merchant context:(NSManagedObjectContext *)context;
 - (Merchant_t *)hydrateThriftObject;
 
 @end

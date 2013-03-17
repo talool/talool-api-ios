@@ -15,7 +15,7 @@
 @interface ttSocialNetworkDetail : NSObject
 
 - (BOOL)isValid;
-+ (ttSocialNetworkDetail *)initWithThrift: (SocialNetworkDetail_t *)snd;
++ (ttSocialNetworkDetail *)initWithThrift: (SocialNetworkDetail_t *)snd context:(NSManagedObjectContext *)context;
 - (SocialNetworkDetail_t *)hydrateThriftObject;
 
 @end

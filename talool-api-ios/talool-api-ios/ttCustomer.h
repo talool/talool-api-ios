@@ -17,7 +17,7 @@
 @property (nonatomic, retain) Customer_t * thrift;
 
 - (BOOL)isValid:(NSError **)error;
-+ (ttCustomer *)initWithThrift: (Customer_t *)customer;
++ (ttCustomer *)initWithThrift: (Customer_t *)customer context:(NSManagedObjectContext *)context;
 - (Customer_t *)hydrateThriftObject;
 - (NSString *)getFullName;
 

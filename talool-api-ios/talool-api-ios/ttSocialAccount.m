@@ -8,6 +8,7 @@
 
 #import "ttSocialAccount.h"
 #import "Core.h"
+#import "TaloolPersistentStoreCoordinator.h"
 
 @implementation ttSocialAccount
 
@@ -16,9 +17,11 @@
     return YES;
 }
 
-+ (ttSocialAccount *)initWithThrift: (SocialAccount_t *)sa
++ (ttSocialAccount *)initWithThrift: (SocialAccount_t *)sa context:(NSManagedObjectContext *)context
 {
-    ttSocialAccount *ttsa = [ttSocialAccount alloc];
+    ttSocialAccount *ttsa = (ttSocialAccount *)[NSEntityDescription
+                                           insertNewObjectForEntityForName:SOCIAL_ACCOUNT_ENTITY_NAME
+                                           inManagedObjectContext:context];
     ttsa.token = sa.token;
     ttsa.loginId = sa.loginId;
     ttsa.socialNetwork = [[NSNumber alloc] initWithInt:sa.socalNetwork];

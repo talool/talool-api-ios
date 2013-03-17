@@ -11,6 +11,7 @@
 
 #import "CustomerController.h"
 #import "ttCustomer.h"
+#import "ttToken.h"
 #import "Core.h"
 #import "CustomerService.h"
 
@@ -73,7 +74,7 @@
     return [customers objectAtIndex:theIndex];
 }
 
-- (BOOL)registerUser:(ttCustomer *)customer error:(NSError**)error {
+- (BOOL)registerUser:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error {
     
     // validate data before sending to the server
     if (![customer isValid:error]){
@@ -87,7 +88,8 @@
     
     @try {
         // Do the Thrift Save
-        [service createAccount:newCustomer password:customer.password];
+        CTokenAccess_t *token = [service createAccount:newCustomer password:customer.password];
+        customer.token = [ttToken initWithThrift:token context:context];
     }
     @catch (ServiceException_t * se) {
         [details setValue:@"Failed to register user, service failed." forKey:NSLocalizedDescriptionKey];

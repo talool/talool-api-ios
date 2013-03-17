@@ -14,7 +14,7 @@
 @interface ttSocialAccount : SocialAccount
 
 - (BOOL)isValid;
-+ (ttSocialAccount *)initWithThrift: (SocialAccount_t *)sa;
++ (ttSocialAccount *)initWithThrift: (SocialAccount_t *)sa context:(NSManagedObjectContext *)context;
 - (SocialAccount_t *)hydrateThriftObject;
 
 @end

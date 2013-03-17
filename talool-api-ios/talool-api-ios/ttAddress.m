@@ -8,6 +8,7 @@
 
 #import "ttAddress.h"
 #import "Core.h"
+#import "TaloolPersistentStoreCoordinator.h"
 
 @implementation ttAddress
 
@@ -16,9 +17,11 @@
     return TRUE;
 }
 
-+(ttAddress *)initWithThrift:(Address_t *)address
++(ttAddress *)initWithThrift:(Address_t *)address context:(NSManagedObjectContext *)context
 {
-    ttAddress *a = [ttAddress alloc];
+    ttAddress *a = (ttAddress *)[NSEntityDescription
+                                  insertNewObjectForEntityForName:ADDRESS_ENTITY_NAME
+                                  inManagedObjectContext:context];
     a.address1 = address.address1;
     a.address2 = address.address2;
     a.city = address.city;

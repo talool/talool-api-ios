@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @class Customer;
 @class ttCustomer;
@@ -22,7 +23,7 @@
 
 - (void)sortAlphabeticallyAscending:(BOOL)ascending;
 - (void)loadData; 
-- (BOOL)registerUser:(ttCustomer *)customer error:(NSError**)error;
+- (BOOL)registerUser:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (unsigned)countOfCustomers;
 - (id)objectInCustomersAtIndex:(unsigned)theIndex;
 

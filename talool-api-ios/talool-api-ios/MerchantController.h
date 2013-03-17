@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @class ttMerchant;
 @class ttCustomer;
@@ -17,7 +18,7 @@
 
 @property (nonatomic, readonly) NSMutableArray *merchants;
 
-- (void)loadData;
+- (void)loadData:(NSManagedObjectContext *)context;
 - (unsigned)countOfMerchants;
 - (id)objectInMerchantsAtIndex:(unsigned)theIndex;
 - (NSMutableArray *) getCouponsByMerchant:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer;
