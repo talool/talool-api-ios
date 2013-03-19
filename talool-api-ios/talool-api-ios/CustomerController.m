@@ -57,7 +57,7 @@
     @try {
         NSURL *url = [NSURL URLWithString:API_URL];
         transport = [[TaloolHTTPClient alloc] initWithURL:url];
-        [[transport getRequest] setValue:token.token forHTTPHeaderField:@"ttok"];
+        [[transport getRequest] setValue:token.token forHTTPHeaderField:CustomerServiceConstants.CTOKEN_NAME];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
         service = [[CustomerService_tClient alloc] initWithProtocol:protocol];
     } @catch(NSException * e) {
@@ -115,7 +115,6 @@
         return nil;
     }
     @finally {
-        NSLog(@"API: completed registration cycle for customerId:%lld and token:%@", token.customer.customerId, token.token);
         [self disconnect];
         
         // delete all TaloolCustomer objects
@@ -136,7 +135,6 @@
         ttToken *ttt = [ttToken initWithThrift:token context:context];
         customer = (ttCustomer *)ttt.customer;
         customer.token = ttt;
-        NSLog(@"API: transformed token for customerId:%d and token:%@", [ttt.customer.customerId intValue], customer.token.token);
         NSError *err = nil;
         [context save:&err];
     }
@@ -187,7 +185,6 @@
         return nil;
     }
     @finally {
-        NSLog(@"completed login cycle");
         [self disconnect];
     }
     
@@ -220,35 +217,48 @@
     }
     @catch (ServiceException_t * se) {
         [details setValue:@"Failed to save user, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customer save" code:200 userInfo:details];
+        *error = [NSError errorWithDomain:@"customer save" code:se.errorCode userInfo:details];
         NSLog(@"failed to complete customer save cycle: %@",se.description);
     }
     @catch (TApplicationException * tae) {
         [details setValue:@"Failed to save user; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customer save" code:200 userInfo:details];
+        *error = [NSError errorWithDomain:@"customer save" code:500 userInfo:details];
         NSLog(@"failed to complete customer save cycle: %@",tae.description);
     }
     @catch (TTransportException * tpe) {
         [details setValue:@"Failed to save user, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customer save" code:200 userInfo:details];
+        *error = [NSError errorWithDomain:@"customer save" code:500 userInfo:details];
         NSLog(@"failed to complete customer save cycle: %@",tpe.description);
     }
     @catch (NSException * e) {
         [details setValue:@"Failed to save user... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customer save" code:200 userInfo:details];
+        *error = [NSError errorWithDomain:@"customer save" code:500 userInfo:details];
         NSLog(@"failed to complete customer save cycle: %@",e.description);
     }
     @finally {
-        NSLog(@"completed save cycle");
         [self disconnect];
     }
     return;
 }
 
-- (ttCustomer *)refreshToken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+- (BOOL)userExists:(NSString *) email
 {
-    // TODO
-    return customer;
+    
+    BOOL userExists = NO;
+    @try {
+        [self connect];
+        userExists = [service customerEmailExists:email];
+    }
+    @catch (ServiceException_t * se) {
+        NSLog(@"failed to search email: %@",se.description);
+    }
+    @catch (NSException * e) {
+        NSLog(@"failed to search email: %@",e.description);
+    }
+    @finally {
+        [self disconnect];
+    }
+    return userExists;
 }
 
 

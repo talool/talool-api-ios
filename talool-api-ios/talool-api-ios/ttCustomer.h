@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "TaloolCustomer.h"
+#import "ttToken.h"
 
 @class Customer_t;
 
@@ -20,5 +21,7 @@
 + (ttCustomer *)initWithThrift: (Customer_t *)customer context:(NSManagedObjectContext *)context;
 - (Customer_t *)hydrateThriftObject;
 - (NSString *)getFullName;
+- (ttToken *)getTaloolToken;
 
 @end
+

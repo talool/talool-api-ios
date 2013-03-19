@@ -21,169 +21,169 @@
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
 - (id) initWithCustomer: (Customer_t *) customer token: (NSString *) token
 {
-  self = [super init];
-  __customer = [customer retain_stub];
-  __customer_isset = YES;
-  __token = [token retain_stub];
-  __token_isset = YES;
-  return self;
+    self = [super init];
+    __customer = [customer retain_stub];
+    __customer_isset = YES;
+    __token = [token retain_stub];
+    __token_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"customer"])
-  {
-    __customer = [[decoder decodeObjectForKey: @"customer"] retain_stub];
-    __customer_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"token"])
-  {
-    __token = [[decoder decodeObjectForKey: @"token"] retain_stub];
-    __token_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"customer"])
+    {
+        __customer = [[decoder decodeObjectForKey: @"customer"] retain_stub];
+        __customer_isset = YES;
+    }
+    if ([decoder containsValueForKey: @"token"])
+    {
+        __token = [[decoder decodeObjectForKey: @"token"] retain_stub];
+        __token_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__customer_isset)
-  {
-    [encoder encodeObject: __customer forKey: @"customer"];
-  }
-  if (__token_isset)
-  {
-    [encoder encodeObject: __token forKey: @"token"];
-  }
+    if (__customer_isset)
+    {
+        [encoder encodeObject: __customer forKey: @"customer"];
+    }
+    if (__token_isset)
+    {
+        [encoder encodeObject: __token forKey: @"token"];
+    }
 }
 
 - (void) dealloc
 {
-  [__customer release_stub];
-  [__token release_stub];
-  [super dealloc_stub];
+    [__customer release_stub];
+    [__token release_stub];
+    [super dealloc_stub];
 }
 
 - (Customer_t *) customer {
-  return [[__customer retain_stub] autorelease_stub];
+    return [[__customer retain_stub] autorelease_stub];
 }
 
 - (void) setCustomer: (Customer_t *) customer {
-  [customer retain_stub];
-  [__customer release_stub];
-  __customer = customer;
-  __customer_isset = YES;
+    [customer retain_stub];
+    [__customer release_stub];
+    __customer = customer;
+    __customer_isset = YES;
 }
 
 - (BOOL) customerIsSet {
-  return __customer_isset;
+    return __customer_isset;
 }
 
 - (void) unsetCustomer {
-  [__customer release_stub];
-  __customer = nil;
-  __customer_isset = NO;
+    [__customer release_stub];
+    __customer = nil;
+    __customer_isset = NO;
 }
 
 - (NSString *) token {
-  return [[__token retain_stub] autorelease_stub];
+    return [[__token retain_stub] autorelease_stub];
 }
 
 - (void) setToken: (NSString *) token {
-  [token retain_stub];
-  [__token release_stub];
-  __token = token;
-  __token_isset = YES;
+    [token retain_stub];
+    [__token release_stub];
+    __token = token;
+    __token_isset = YES;
 }
 
 - (BOOL) tokenIsSet {
-  return __token_isset;
+    return __token_isset;
 }
 
 - (void) unsetToken {
-  [__token release_stub];
-  __token = nil;
-  __token_isset = NO;
+    [__token release_stub];
+    __token = nil;
+    __token_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          Customer_t *fieldValue = [[Customer_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setCustomer: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      case 2:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setToken: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        switch (fieldID)
+        {
+            case 1:
+                if (fieldType == TType_STRUCT) {
+                    Customer_t *fieldValue = [[Customer_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setCustomer: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            case 2:
+                if (fieldType == TType_STRING) {
+                    NSString * fieldValue = [inProtocol readString];
+                    [self setToken: fieldValue];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"CTokenAccess_t"];
-  if (__customer_isset) {
-    if (__customer != nil) {
-      [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
-      [__customer write: outProtocol];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"CTokenAccess_t"];
+    if (__customer_isset) {
+        if (__customer != nil) {
+            [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
+            [__customer write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  if (__token_isset) {
-    if (__token != nil) {
-      [outProtocol writeFieldBeginWithName: @"token" type: TType_STRING fieldID: 2];
-      [outProtocol writeString: __token];
-      [outProtocol writeFieldEnd];
+    if (__token_isset) {
+        if (__token != nil) {
+            [outProtocol writeFieldBeginWithName: @"token" type: TType_STRING fieldID: 2];
+            [outProtocol writeString: __token];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"CTokenAccess_t("];
-  [ms appendString: @"customer:"];
-  [ms appendFormat: @"%@", __customer];
-  [ms appendString: @",token:"];
-  [ms appendFormat: @"\"%@\"", __token];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"CTokenAccess_t("];
+    [ms appendString: @"customer:"];
+    [ms appendFormat: @"%@", __customer];
+    [ms appendString: @",token:"];
+    [ms appendFormat: @"\"%@\"", __token];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
@@ -194,16 +194,16 @@ static NSString * CTOKEN_NAME = @"ctok";
 + (void) initialize {
 }
 + (NSString *) CTOKEN_NAME{
-  return CTOKEN_NAME;
+    return CTOKEN_NAME;
 }
 @end
 
 @interface createAccount_args : NSObject <NSCoding> {
-  Customer_t * __customer;
-  NSString * __password;
-
-  BOOL __customer_isset;
-  BOOL __password_isset;
+    Customer_t * __customer;
+    NSString * __password;
+    
+    BOOL __customer_isset;
+    BOOL __password_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -235,179 +235,179 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
 - (id) initWithCustomer: (Customer_t *) customer password: (NSString *) password
 {
-  self = [super init];
-  __customer = [customer retain_stub];
-  __customer_isset = YES;
-  __password = [password retain_stub];
-  __password_isset = YES;
-  return self;
+    self = [super init];
+    __customer = [customer retain_stub];
+    __customer_isset = YES;
+    __password = [password retain_stub];
+    __password_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"customer"])
-  {
-    __customer = [[decoder decodeObjectForKey: @"customer"] retain_stub];
-    __customer_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"password"])
-  {
-    __password = [[decoder decodeObjectForKey: @"password"] retain_stub];
-    __password_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"customer"])
+    {
+        __customer = [[decoder decodeObjectForKey: @"customer"] retain_stub];
+        __customer_isset = YES;
+    }
+    if ([decoder containsValueForKey: @"password"])
+    {
+        __password = [[decoder decodeObjectForKey: @"password"] retain_stub];
+        __password_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__customer_isset)
-  {
-    [encoder encodeObject: __customer forKey: @"customer"];
-  }
-  if (__password_isset)
-  {
-    [encoder encodeObject: __password forKey: @"password"];
-  }
+    if (__customer_isset)
+    {
+        [encoder encodeObject: __customer forKey: @"customer"];
+    }
+    if (__password_isset)
+    {
+        [encoder encodeObject: __password forKey: @"password"];
+    }
 }
 
 - (void) dealloc
 {
-  [__customer release_stub];
-  [__password release_stub];
-  [super dealloc_stub];
+    [__customer release_stub];
+    [__password release_stub];
+    [super dealloc_stub];
 }
 
 - (Customer_t *) customer {
-  return [[__customer retain_stub] autorelease_stub];
+    return [[__customer retain_stub] autorelease_stub];
 }
 
 - (void) setCustomer: (Customer_t *) customer {
-  [customer retain_stub];
-  [__customer release_stub];
-  __customer = customer;
-  __customer_isset = YES;
+    [customer retain_stub];
+    [__customer release_stub];
+    __customer = customer;
+    __customer_isset = YES;
 }
 
 - (BOOL) customerIsSet {
-  return __customer_isset;
+    return __customer_isset;
 }
 
 - (void) unsetCustomer {
-  [__customer release_stub];
-  __customer = nil;
-  __customer_isset = NO;
+    [__customer release_stub];
+    __customer = nil;
+    __customer_isset = NO;
 }
 
 - (NSString *) password {
-  return [[__password retain_stub] autorelease_stub];
+    return [[__password retain_stub] autorelease_stub];
 }
 
 - (void) setPassword: (NSString *) password {
-  [password retain_stub];
-  [__password release_stub];
-  __password = password;
-  __password_isset = YES;
+    [password retain_stub];
+    [__password release_stub];
+    __password = password;
+    __password_isset = YES;
 }
 
 - (BOOL) passwordIsSet {
-  return __password_isset;
+    return __password_isset;
 }
 
 - (void) unsetPassword {
-  [__password release_stub];
-  __password = nil;
-  __password_isset = NO;
+    [__password release_stub];
+    __password = nil;
+    __password_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          Customer_t *fieldValue = [[Customer_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setCustomer: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      case 2:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setPassword: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        switch (fieldID)
+        {
+            case 1:
+                if (fieldType == TType_STRUCT) {
+                    Customer_t *fieldValue = [[Customer_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setCustomer: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            case 2:
+                if (fieldType == TType_STRING) {
+                    NSString * fieldValue = [inProtocol readString];
+                    [self setPassword: fieldValue];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"createAccount_args"];
-  if (__customer_isset) {
-    if (__customer != nil) {
-      [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
-      [__customer write: outProtocol];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"createAccount_args"];
+    if (__customer_isset) {
+        if (__customer != nil) {
+            [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
+            [__customer write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  if (__password_isset) {
-    if (__password != nil) {
-      [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
-      [outProtocol writeString: __password];
-      [outProtocol writeFieldEnd];
+    if (__password_isset) {
+        if (__password != nil) {
+            [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
+            [outProtocol writeString: __password];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"createAccount_args("];
-  [ms appendString: @"customer:"];
-  [ms appendFormat: @"%@", __customer];
-  [ms appendString: @",password:"];
-  [ms appendFormat: @"\"%@\"", __password];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"createAccount_args("];
+    [ms appendString: @"customer:"];
+    [ms appendFormat: @"%@", __customer];
+    [ms appendString: @",password:"];
+    [ms appendFormat: @"\"%@\"", __password];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
 
 @interface CreateAccount_result : NSObject <NSCoding> {
-  CTokenAccess_t * __success;
-  ServiceException_t * __error;
-
-  BOOL __success_isset;
-  BOOL __error_isset;
+    CTokenAccess_t * __success;
+    ServiceException_t * __error;
+    
+    BOOL __success_isset;
+    BOOL __error_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -439,181 +439,181 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
 - (id) initWithSuccess: (CTokenAccess_t *) success error: (ServiceException_t *) error
 {
-  self = [super init];
-  __success = [success retain_stub];
-  __success_isset = YES;
-  __error = [error retain_stub];
-  __error_isset = YES;
-  return self;
+    self = [super init];
+    __success = [success retain_stub];
+    __success_isset = YES;
+    __error = [error retain_stub];
+    __error_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"success"])
-  {
-    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
-    __success_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"error"])
-  {
-    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
-    __error_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"success"])
+    {
+        __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+        __success_isset = YES;
+    }
+    if ([decoder containsValueForKey: @"error"])
+    {
+        __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+        __error_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__success_isset)
-  {
-    [encoder encodeObject: __success forKey: @"success"];
-  }
-  if (__error_isset)
-  {
-    [encoder encodeObject: __error forKey: @"error"];
-  }
+    if (__success_isset)
+    {
+        [encoder encodeObject: __success forKey: @"success"];
+    }
+    if (__error_isset)
+    {
+        [encoder encodeObject: __error forKey: @"error"];
+    }
 }
 
 - (void) dealloc
 {
-  [__success release_stub];
-  [__error release_stub];
-  [super dealloc_stub];
+    [__success release_stub];
+    [__error release_stub];
+    [super dealloc_stub];
 }
 
 - (CTokenAccess_t *) success {
-  return [[__success retain_stub] autorelease_stub];
+    return [[__success retain_stub] autorelease_stub];
 }
 
 - (void) setSuccess: (CTokenAccess_t *) success {
-  [success retain_stub];
-  [__success release_stub];
-  __success = success;
-  __success_isset = YES;
+    [success retain_stub];
+    [__success release_stub];
+    __success = success;
+    __success_isset = YES;
 }
 
 - (BOOL) successIsSet {
-  return __success_isset;
+    return __success_isset;
 }
 
 - (void) unsetSuccess {
-  [__success release_stub];
-  __success = nil;
-  __success_isset = NO;
+    [__success release_stub];
+    __success = nil;
+    __success_isset = NO;
 }
 
 - (ServiceException_t *) error {
-  return [[__error retain_stub] autorelease_stub];
+    return [[__error retain_stub] autorelease_stub];
 }
 
 - (void) setError: (ServiceException_t *) error {
-  [error retain_stub];
-  [__error release_stub];
-  __error = error;
-  __error_isset = YES;
+    [error retain_stub];
+    [__error release_stub];
+    __error = error;
+    __error_isset = YES;
 }
 
 - (BOOL) errorIsSet {
-  return __error_isset;
+    return __error_isset;
 }
 
 - (void) unsetError {
-  [__error release_stub];
-  __error = nil;
-  __error_isset = NO;
+    [__error release_stub];
+    __error = nil;
+    __error_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 0:
-        if (fieldType == TType_STRUCT) {
-          CTokenAccess_t *fieldValue = [[CTokenAccess_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setSuccess: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setError: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        switch (fieldID)
+        {
+            case 0:
+                if (fieldType == TType_STRUCT) {
+                    CTokenAccess_t *fieldValue = [[CTokenAccess_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setSuccess: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            case 1:
+                if (fieldType == TType_STRUCT) {
+                    ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setError: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"CreateAccount_result"];
-
-  if (__success_isset) {
-    if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
-      [__success write: outProtocol];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"CreateAccount_result"];
+    
+    if (__success_isset) {
+        if (__success != nil) {
+            [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+            [__success write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
+    } else if (__error_isset) {
+        if (__error != nil) {
+            [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+            [__error write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
     }
-  } else if (__error_isset) {
-    if (__error != nil) {
-      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
-      [__error write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"CreateAccount_result("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%@", __success];
-  [ms appendString: @",error:"];
-  [ms appendFormat: @"%@", __error];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"CreateAccount_result("];
+    [ms appendString: @"success:"];
+    [ms appendFormat: @"%@", __success];
+    [ms appendString: @",error:"];
+    [ms appendFormat: @"%@", __error];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
 
 @interface authenticate_args : NSObject <NSCoding> {
-  NSString * __email;
-  NSString * __password;
-
-  BOOL __email_isset;
-  BOOL __password_isset;
+    NSString * __email;
+    NSString * __password;
+    
+    BOOL __email_isset;
+    BOOL __password_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -645,177 +645,177 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
 - (id) initWithEmail: (NSString *) email password: (NSString *) password
 {
-  self = [super init];
-  __email = [email retain_stub];
-  __email_isset = YES;
-  __password = [password retain_stub];
-  __password_isset = YES;
-  return self;
+    self = [super init];
+    __email = [email retain_stub];
+    __email_isset = YES;
+    __password = [password retain_stub];
+    __password_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"email"])
-  {
-    __email = [[decoder decodeObjectForKey: @"email"] retain_stub];
-    __email_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"password"])
-  {
-    __password = [[decoder decodeObjectForKey: @"password"] retain_stub];
-    __password_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"email"])
+    {
+        __email = [[decoder decodeObjectForKey: @"email"] retain_stub];
+        __email_isset = YES;
+    }
+    if ([decoder containsValueForKey: @"password"])
+    {
+        __password = [[decoder decodeObjectForKey: @"password"] retain_stub];
+        __password_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__email_isset)
-  {
-    [encoder encodeObject: __email forKey: @"email"];
-  }
-  if (__password_isset)
-  {
-    [encoder encodeObject: __password forKey: @"password"];
-  }
+    if (__email_isset)
+    {
+        [encoder encodeObject: __email forKey: @"email"];
+    }
+    if (__password_isset)
+    {
+        [encoder encodeObject: __password forKey: @"password"];
+    }
 }
 
 - (void) dealloc
 {
-  [__email release_stub];
-  [__password release_stub];
-  [super dealloc_stub];
+    [__email release_stub];
+    [__password release_stub];
+    [super dealloc_stub];
 }
 
 - (NSString *) email {
-  return [[__email retain_stub] autorelease_stub];
+    return [[__email retain_stub] autorelease_stub];
 }
 
 - (void) setEmail: (NSString *) email {
-  [email retain_stub];
-  [__email release_stub];
-  __email = email;
-  __email_isset = YES;
+    [email retain_stub];
+    [__email release_stub];
+    __email = email;
+    __email_isset = YES;
 }
 
 - (BOOL) emailIsSet {
-  return __email_isset;
+    return __email_isset;
 }
 
 - (void) unsetEmail {
-  [__email release_stub];
-  __email = nil;
-  __email_isset = NO;
+    [__email release_stub];
+    __email = nil;
+    __email_isset = NO;
 }
 
 - (NSString *) password {
-  return [[__password retain_stub] autorelease_stub];
+    return [[__password retain_stub] autorelease_stub];
 }
 
 - (void) setPassword: (NSString *) password {
-  [password retain_stub];
-  [__password release_stub];
-  __password = password;
-  __password_isset = YES;
+    [password retain_stub];
+    [__password release_stub];
+    __password = password;
+    __password_isset = YES;
 }
 
 - (BOOL) passwordIsSet {
-  return __password_isset;
+    return __password_isset;
 }
 
 - (void) unsetPassword {
-  [__password release_stub];
-  __password = nil;
-  __password_isset = NO;
+    [__password release_stub];
+    __password = nil;
+    __password_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 1:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setEmail: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      case 2:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setPassword: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        switch (fieldID)
+        {
+            case 1:
+                if (fieldType == TType_STRING) {
+                    NSString * fieldValue = [inProtocol readString];
+                    [self setEmail: fieldValue];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            case 2:
+                if (fieldType == TType_STRING) {
+                    NSString * fieldValue = [inProtocol readString];
+                    [self setPassword: fieldValue];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"authenticate_args"];
-  if (__email_isset) {
-    if (__email != nil) {
-      [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 1];
-      [outProtocol writeString: __email];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"authenticate_args"];
+    if (__email_isset) {
+        if (__email != nil) {
+            [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 1];
+            [outProtocol writeString: __email];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  if (__password_isset) {
-    if (__password != nil) {
-      [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
-      [outProtocol writeString: __password];
-      [outProtocol writeFieldEnd];
+    if (__password_isset) {
+        if (__password != nil) {
+            [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
+            [outProtocol writeString: __password];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"authenticate_args("];
-  [ms appendString: @"email:"];
-  [ms appendFormat: @"\"%@\"", __email];
-  [ms appendString: @",password:"];
-  [ms appendFormat: @"\"%@\"", __password];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"authenticate_args("];
+    [ms appendString: @"email:"];
+    [ms appendFormat: @"\"%@\"", __email];
+    [ms appendString: @",password:"];
+    [ms appendFormat: @"\"%@\"", __password];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
 
 @interface Authenticate_result : NSObject <NSCoding> {
-  CTokenAccess_t * __success;
-  ServiceException_t * __error;
-
-  BOOL __success_isset;
-  BOOL __error_isset;
+    CTokenAccess_t * __success;
+    ServiceException_t * __error;
+    
+    BOOL __success_isset;
+    BOOL __error_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -847,263 +847,340 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
 - (id) initWithSuccess: (CTokenAccess_t *) success error: (ServiceException_t *) error
 {
-  self = [super init];
-  __success = [success retain_stub];
-  __success_isset = YES;
-  __error = [error retain_stub];
-  __error_isset = YES;
-  return self;
+    self = [super init];
+    __success = [success retain_stub];
+    __success_isset = YES;
+    __error = [error retain_stub];
+    __error_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"success"])
-  {
-    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
-    __success_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"error"])
-  {
-    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
-    __error_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"success"])
+    {
+        __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+        __success_isset = YES;
+    }
+    if ([decoder containsValueForKey: @"error"])
+    {
+        __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+        __error_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__success_isset)
-  {
-    [encoder encodeObject: __success forKey: @"success"];
-  }
-  if (__error_isset)
-  {
-    [encoder encodeObject: __error forKey: @"error"];
-  }
+    if (__success_isset)
+    {
+        [encoder encodeObject: __success forKey: @"success"];
+    }
+    if (__error_isset)
+    {
+        [encoder encodeObject: __error forKey: @"error"];
+    }
 }
 
 - (void) dealloc
 {
-  [__success release_stub];
-  [__error release_stub];
-  [super dealloc_stub];
+    [__success release_stub];
+    [__error release_stub];
+    [super dealloc_stub];
 }
 
 - (CTokenAccess_t *) success {
-  return [[__success retain_stub] autorelease_stub];
+    return [[__success retain_stub] autorelease_stub];
 }
 
 - (void) setSuccess: (CTokenAccess_t *) success {
-  [success retain_stub];
-  [__success release_stub];
-  __success = success;
-  __success_isset = YES;
+    [success retain_stub];
+    [__success release_stub];
+    __success = success;
+    __success_isset = YES;
 }
 
 - (BOOL) successIsSet {
-  return __success_isset;
+    return __success_isset;
 }
 
 - (void) unsetSuccess {
-  [__success release_stub];
-  __success = nil;
-  __success_isset = NO;
+    [__success release_stub];
+    __success = nil;
+    __success_isset = NO;
 }
 
 - (ServiceException_t *) error {
-  return [[__error retain_stub] autorelease_stub];
+    return [[__error retain_stub] autorelease_stub];
 }
 
 - (void) setError: (ServiceException_t *) error {
-  [error retain_stub];
-  [__error release_stub];
-  __error = error;
-  __error_isset = YES;
+    [error retain_stub];
+    [__error release_stub];
+    __error = error;
+    __error_isset = YES;
 }
 
 - (BOOL) errorIsSet {
-  return __error_isset;
+    return __error_isset;
 }
 
 - (void) unsetError {
-  [__error release_stub];
-  __error = nil;
-  __error_isset = NO;
+    [__error release_stub];
+    __error = nil;
+    __error_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 0:
-        if (fieldType == TType_STRUCT) {
-          CTokenAccess_t *fieldValue = [[CTokenAccess_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setSuccess: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setError: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        switch (fieldID)
+        {
+            case 0:
+                if (fieldType == TType_STRUCT) {
+                    CTokenAccess_t *fieldValue = [[CTokenAccess_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setSuccess: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            case 1:
+                if (fieldType == TType_STRUCT) {
+                    ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setError: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"Authenticate_result"];
-
-  if (__success_isset) {
-    if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
-      [__success write: outProtocol];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"Authenticate_result"];
+    
+    if (__success_isset) {
+        if (__success != nil) {
+            [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+            [__success write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
+    } else if (__error_isset) {
+        if (__error != nil) {
+            [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+            [__error write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
     }
-  } else if (__error_isset) {
-    if (__error != nil) {
-      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
-      [__error write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"Authenticate_result("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%@", __success];
-  [ms appendString: @",error:"];
-  [ms appendFormat: @"%@", __error];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"Authenticate_result("];
+    [ms appendString: @"success:"];
+    [ms appendFormat: @"%@", __success];
+    [ms appendString: @",error:"];
+    [ms appendFormat: @"%@", __error];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
 
-@interface newToken_args : NSObject <NSCoding> {
-}
-
-- (id) init;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-@end
-
-@implementation newToken_args
-
-- (id) init
-{
-  self = [super init];
-  return self;
-}
-
-- (id) initWithCoder: (NSCoder *) decoder
-{
-  self = [super init];
-  return self;
-}
-
-- (void) encodeWithCoder: (NSCoder *) encoder
-{
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"newToken_args"];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"newToken_args("];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
-}
-
-@end
-
-@interface NewToken_result : NSObject <NSCoding> {
-  CTokenAccess_t * __success;
-  ServiceException_t * __error;
-
-  BOOL __success_isset;
-  BOOL __error_isset;
+@interface customerEmailExists_args : NSObject <NSCoding> {
+    NSString * __email;
+    
+    BOOL __email_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=success, setter=setSuccess:) CTokenAccess_t * success;
-@property (nonatomic, retain, getter=error, setter=setError:) ServiceException_t * error;
+@property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
 #endif
 
 - (id) init;
-- (id) initWithSuccess: (CTokenAccess_t *) success error: (ServiceException_t *) error;
+- (id) initWithEmail: (NSString *) email;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if !__has_feature(objc_arc)
-- (CTokenAccess_t *) success;
-- (void) setSuccess: (CTokenAccess_t *) success;
+- (NSString *) email;
+- (void) setEmail: (NSString *) email;
+#endif
+- (BOOL) emailIsSet;
+
+@end
+
+@implementation customerEmailExists_args
+
+- (id) init
+{
+    self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+    return self;
+}
+
+- (id) initWithEmail: (NSString *) email
+{
+    self = [super init];
+    __email = [email retain_stub];
+    __email_isset = YES;
+    return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+    self = [super init];
+    if ([decoder containsValueForKey: @"email"])
+    {
+        __email = [[decoder decodeObjectForKey: @"email"] retain_stub];
+        __email_isset = YES;
+    }
+    return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+    if (__email_isset)
+    {
+        [encoder encodeObject: __email forKey: @"email"];
+    }
+}
+
+- (void) dealloc
+{
+    [__email release_stub];
+    [super dealloc_stub];
+}
+
+- (NSString *) email {
+    return [[__email retain_stub] autorelease_stub];
+}
+
+- (void) setEmail: (NSString *) email {
+    [email retain_stub];
+    [__email release_stub];
+    __email = email;
+    __email_isset = YES;
+}
+
+- (BOOL) emailIsSet {
+    return __email_isset;
+}
+
+- (void) unsetEmail {
+    [__email release_stub];
+    __email = nil;
+    __email_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
+    {
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
+        }
+        switch (fieldID)
+        {
+            case 1:
+                if (fieldType == TType_STRING) {
+                    NSString * fieldValue = [inProtocol readString];
+                    [self setEmail: fieldValue];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
+        }
+        [inProtocol readFieldEnd];
+    }
+    [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+    [outProtocol writeStructBeginWithName: @"customerEmailExists_args"];
+    if (__email_isset) {
+        if (__email != nil) {
+            [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 1];
+            [outProtocol writeString: __email];
+            [outProtocol writeFieldEnd];
+        }
+    }
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+    NSMutableString * ms = [NSMutableString stringWithString: @"customerEmailExists_args("];
+    [ms appendString: @"email:"];
+    [ms appendFormat: @"\"%@\"", __email];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface CustomerEmailExists_result : NSObject <NSCoding> {
+    BOOL __success;
+    ServiceException_t * __error;
+    
+    BOOL __success_isset;
+    BOOL __error_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=success, setter=setSuccess:) BOOL success;
+@property (nonatomic, retain, getter=error, setter=setError:) ServiceException_t * error;
+#endif
+
+- (id) init;
+- (id) initWithSuccess: (BOOL) success error: (ServiceException_t *) error;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (BOOL) success;
+- (void) setSuccess: (BOOL) success;
 #endif
 - (BOOL) successIsSet;
 
@@ -1115,183 +1192,174 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
-@implementation NewToken_result
+@implementation CustomerEmailExists_result
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
-- (id) initWithSuccess: (CTokenAccess_t *) success error: (ServiceException_t *) error
+- (id) initWithSuccess: (BOOL) success error: (ServiceException_t *) error
 {
-  self = [super init];
-  __success = [success retain_stub];
-  __success_isset = YES;
-  __error = [error retain_stub];
-  __error_isset = YES;
-  return self;
+    self = [super init];
+    __success = success;
+    __success_isset = YES;
+    __error = [error retain_stub];
+    __error_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"success"])
-  {
-    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
-    __success_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"error"])
-  {
-    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
-    __error_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"success"])
+    {
+        __success = [decoder decodeBoolForKey: @"success"];
+        __success_isset = YES;
+    }
+    if ([decoder containsValueForKey: @"error"])
+    {
+        __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+        __error_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__success_isset)
-  {
-    [encoder encodeObject: __success forKey: @"success"];
-  }
-  if (__error_isset)
-  {
-    [encoder encodeObject: __error forKey: @"error"];
-  }
+    if (__success_isset)
+    {
+        [encoder encodeBool: __success forKey: @"success"];
+    }
+    if (__error_isset)
+    {
+        [encoder encodeObject: __error forKey: @"error"];
+    }
 }
 
 - (void) dealloc
 {
-  [__success release_stub];
-  [__error release_stub];
-  [super dealloc_stub];
+    [__error release_stub];
+    [super dealloc_stub];
 }
 
-- (CTokenAccess_t *) success {
-  return [[__success retain_stub] autorelease_stub];
+- (BOOL) success {
+    return __success;
 }
 
-- (void) setSuccess: (CTokenAccess_t *) success {
-  [success retain_stub];
-  [__success release_stub];
-  __success = success;
-  __success_isset = YES;
+- (void) setSuccess: (BOOL) success {
+    __success = success;
+    __success_isset = YES;
 }
 
 - (BOOL) successIsSet {
-  return __success_isset;
+    return __success_isset;
 }
 
 - (void) unsetSuccess {
-  [__success release_stub];
-  __success = nil;
-  __success_isset = NO;
+    __success_isset = NO;
 }
 
 - (ServiceException_t *) error {
-  return [[__error retain_stub] autorelease_stub];
+    return [[__error retain_stub] autorelease_stub];
 }
 
 - (void) setError: (ServiceException_t *) error {
-  [error retain_stub];
-  [__error release_stub];
-  __error = error;
-  __error_isset = YES;
+    [error retain_stub];
+    [__error release_stub];
+    __error = error;
+    __error_isset = YES;
 }
 
 - (BOOL) errorIsSet {
-  return __error_isset;
+    return __error_isset;
 }
 
 - (void) unsetError {
-  [__error release_stub];
-  __error = nil;
-  __error_isset = NO;
+    [__error release_stub];
+    __error = nil;
+    __error_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 0:
-        if (fieldType == TType_STRUCT) {
-          CTokenAccess_t *fieldValue = [[CTokenAccess_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setSuccess: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setError: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        switch (fieldID)
+        {
+            case 0:
+                if (fieldType == TType_BOOL) {
+                    BOOL fieldValue = [inProtocol readBool];
+                    [self setSuccess: fieldValue];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            case 1:
+                if (fieldType == TType_STRUCT) {
+                    ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setError: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"NewToken_result"];
-
-  if (__success_isset) {
-    if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
-      [__success write: outProtocol];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"CustomerEmailExists_result"];
+    
+    if (__success_isset) {
+        [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
+        [outProtocol writeBool: __success];
+        [outProtocol writeFieldEnd];
+    } else if (__error_isset) {
+        if (__error != nil) {
+            [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+            [__error write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
     }
-  } else if (__error_isset) {
-    if (__error != nil) {
-      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
-      [__error write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"NewToken_result("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%@", __success];
-  [ms appendString: @",error:"];
-  [ms appendFormat: @"%@", __error];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"CustomerEmailExists_result("];
+    [ms appendString: @"success:"];
+    [ms appendFormat: @"%i", __success];
+    [ms appendString: @",error:"];
+    [ms appendFormat: @"%@", __error];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
 
 @interface save_args : NSObject <NSCoding> {
-  Customer_t * __customer;
-
-  BOOL __customer_isset;
+    Customer_t * __customer;
+    
+    BOOL __customer_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -1316,127 +1384,127 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
 - (id) initWithCustomer: (Customer_t *) customer
 {
-  self = [super init];
-  __customer = [customer retain_stub];
-  __customer_isset = YES;
-  return self;
+    self = [super init];
+    __customer = [customer retain_stub];
+    __customer_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"customer"])
-  {
-    __customer = [[decoder decodeObjectForKey: @"customer"] retain_stub];
-    __customer_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"customer"])
+    {
+        __customer = [[decoder decodeObjectForKey: @"customer"] retain_stub];
+        __customer_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__customer_isset)
-  {
-    [encoder encodeObject: __customer forKey: @"customer"];
-  }
+    if (__customer_isset)
+    {
+        [encoder encodeObject: __customer forKey: @"customer"];
+    }
 }
 
 - (void) dealloc
 {
-  [__customer release_stub];
-  [super dealloc_stub];
+    [__customer release_stub];
+    [super dealloc_stub];
 }
 
 - (Customer_t *) customer {
-  return [[__customer retain_stub] autorelease_stub];
+    return [[__customer retain_stub] autorelease_stub];
 }
 
 - (void) setCustomer: (Customer_t *) customer {
-  [customer retain_stub];
-  [__customer release_stub];
-  __customer = customer;
-  __customer_isset = YES;
+    [customer retain_stub];
+    [__customer release_stub];
+    __customer = customer;
+    __customer_isset = YES;
 }
 
 - (BOOL) customerIsSet {
-  return __customer_isset;
+    return __customer_isset;
 }
 
 - (void) unsetCustomer {
-  [__customer release_stub];
-  __customer = nil;
-  __customer_isset = NO;
+    [__customer release_stub];
+    __customer = nil;
+    __customer_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          Customer_t *fieldValue = [[Customer_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setCustomer: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        switch (fieldID)
+        {
+            case 1:
+                if (fieldType == TType_STRUCT) {
+                    Customer_t *fieldValue = [[Customer_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setCustomer: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
+        }
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"save_args"];
-  if (__customer_isset) {
-    if (__customer != nil) {
-      [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
-      [__customer write: outProtocol];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"save_args"];
+    if (__customer_isset) {
+        if (__customer != nil) {
+            [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
+            [__customer write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"save_args("];
-  [ms appendString: @"customer:"];
-  [ms appendFormat: @"%@", __customer];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"save_args("];
+    [ms appendString: @"customer:"];
+    [ms appendFormat: @"%@", __customer];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
 
 @interface Save_result : NSObject <NSCoding> {
-  ServiceException_t * __error;
-
-  BOOL __error_isset;
+    ServiceException_t * __error;
+    
+    BOOL __error_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -1461,128 +1529,128 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
 - (id) initWithError: (ServiceException_t *) error
 {
-  self = [super init];
-  __error = [error retain_stub];
-  __error_isset = YES;
-  return self;
+    self = [super init];
+    __error = [error retain_stub];
+    __error_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"error"])
-  {
-    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
-    __error_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"error"])
+    {
+        __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+        __error_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__error_isset)
-  {
-    [encoder encodeObject: __error forKey: @"error"];
-  }
+    if (__error_isset)
+    {
+        [encoder encodeObject: __error forKey: @"error"];
+    }
 }
 
 - (void) dealloc
 {
-  [__error release_stub];
-  [super dealloc_stub];
+    [__error release_stub];
+    [super dealloc_stub];
 }
 
 - (ServiceException_t *) error {
-  return [[__error retain_stub] autorelease_stub];
+    return [[__error retain_stub] autorelease_stub];
 }
 
 - (void) setError: (ServiceException_t *) error {
-  [error retain_stub];
-  [__error release_stub];
-  __error = error;
-  __error_isset = YES;
+    [error retain_stub];
+    [__error release_stub];
+    __error = error;
+    __error_isset = YES;
 }
 
 - (BOOL) errorIsSet {
-  return __error_isset;
+    return __error_isset;
 }
 
 - (void) unsetError {
-  [__error release_stub];
-  __error = nil;
-  __error_isset = NO;
+    [__error release_stub];
+    __error = nil;
+    __error_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setError: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        switch (fieldID)
+        {
+            case 1:
+                if (fieldType == TType_STRUCT) {
+                    ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setError: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
+        }
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"Save_result"];
-
-  if (__error_isset) {
-    if (__error != nil) {
-      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
-      [__error write: outProtocol];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"Save_result"];
+    
+    if (__error_isset) {
+        if (__error != nil) {
+            [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+            [__error write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"Save_result("];
-  [ms appendString: @"error:"];
-  [ms appendFormat: @"%@", __error];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"Save_result("];
+    [ms appendString: @"error:"];
+    [ms appendFormat: @"%@", __error];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
 
 @interface addSocialAccount_args : NSObject <NSCoding> {
-  SocialAccount_t * __socialAccount;
-
-  BOOL __socialAccount_isset;
+    SocialAccount_t * __socialAccount;
+    
+    BOOL __socialAccount_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -1607,127 +1675,127 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
 - (id) initWithSocialAccount: (SocialAccount_t *) socialAccount
 {
-  self = [super init];
-  __socialAccount = [socialAccount retain_stub];
-  __socialAccount_isset = YES;
-  return self;
+    self = [super init];
+    __socialAccount = [socialAccount retain_stub];
+    __socialAccount_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"socialAccount"])
-  {
-    __socialAccount = [[decoder decodeObjectForKey: @"socialAccount"] retain_stub];
-    __socialAccount_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"socialAccount"])
+    {
+        __socialAccount = [[decoder decodeObjectForKey: @"socialAccount"] retain_stub];
+        __socialAccount_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__socialAccount_isset)
-  {
-    [encoder encodeObject: __socialAccount forKey: @"socialAccount"];
-  }
+    if (__socialAccount_isset)
+    {
+        [encoder encodeObject: __socialAccount forKey: @"socialAccount"];
+    }
 }
 
 - (void) dealloc
 {
-  [__socialAccount release_stub];
-  [super dealloc_stub];
+    [__socialAccount release_stub];
+    [super dealloc_stub];
 }
 
 - (SocialAccount_t *) socialAccount {
-  return [[__socialAccount retain_stub] autorelease_stub];
+    return [[__socialAccount retain_stub] autorelease_stub];
 }
 
 - (void) setSocialAccount: (SocialAccount_t *) socialAccount {
-  [socialAccount retain_stub];
-  [__socialAccount release_stub];
-  __socialAccount = socialAccount;
-  __socialAccount_isset = YES;
+    [socialAccount retain_stub];
+    [__socialAccount release_stub];
+    __socialAccount = socialAccount;
+    __socialAccount_isset = YES;
 }
 
 - (BOOL) socialAccountIsSet {
-  return __socialAccount_isset;
+    return __socialAccount_isset;
 }
 
 - (void) unsetSocialAccount {
-  [__socialAccount release_stub];
-  __socialAccount = nil;
-  __socialAccount_isset = NO;
+    [__socialAccount release_stub];
+    __socialAccount = nil;
+    __socialAccount_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          SocialAccount_t *fieldValue = [[SocialAccount_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setSocialAccount: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        switch (fieldID)
+        {
+            case 1:
+                if (fieldType == TType_STRUCT) {
+                    SocialAccount_t *fieldValue = [[SocialAccount_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setSocialAccount: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
+        }
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"addSocialAccount_args"];
-  if (__socialAccount_isset) {
-    if (__socialAccount != nil) {
-      [outProtocol writeFieldBeginWithName: @"socialAccount" type: TType_STRUCT fieldID: 1];
-      [__socialAccount write: outProtocol];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"addSocialAccount_args"];
+    if (__socialAccount_isset) {
+        if (__socialAccount != nil) {
+            [outProtocol writeFieldBeginWithName: @"socialAccount" type: TType_STRUCT fieldID: 1];
+            [__socialAccount write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"addSocialAccount_args("];
-  [ms appendString: @"socialAccount:"];
-  [ms appendFormat: @"%@", __socialAccount];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"addSocialAccount_args("];
+    [ms appendString: @"socialAccount:"];
+    [ms appendFormat: @"%@", __socialAccount];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
 
 @interface AddSocialAccount_result : NSObject <NSCoding> {
-  ServiceException_t * __error;
-
-  BOOL __error_isset;
+    ServiceException_t * __error;
+    
+    BOOL __error_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -1752,120 +1820,120 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (id) init
 {
-  self = [super init];
+    self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 #endif
-  return self;
+    return self;
 }
 
 - (id) initWithError: (ServiceException_t *) error
 {
-  self = [super init];
-  __error = [error retain_stub];
-  __error_isset = YES;
-  return self;
+    self = [super init];
+    __error = [error retain_stub];
+    __error_isset = YES;
+    return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
-  self = [super init];
-  if ([decoder containsValueForKey: @"error"])
-  {
-    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
-    __error_isset = YES;
-  }
-  return self;
+    self = [super init];
+    if ([decoder containsValueForKey: @"error"])
+    {
+        __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+        __error_isset = YES;
+    }
+    return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__error_isset)
-  {
-    [encoder encodeObject: __error forKey: @"error"];
-  }
+    if (__error_isset)
+    {
+        [encoder encodeObject: __error forKey: @"error"];
+    }
 }
 
 - (void) dealloc
 {
-  [__error release_stub];
-  [super dealloc_stub];
+    [__error release_stub];
+    [super dealloc_stub];
 }
 
 - (ServiceException_t *) error {
-  return [[__error retain_stub] autorelease_stub];
+    return [[__error retain_stub] autorelease_stub];
 }
 
 - (void) setError: (ServiceException_t *) error {
-  [error retain_stub];
-  [__error release_stub];
-  __error = error;
-  __error_isset = YES;
+    [error retain_stub];
+    [__error release_stub];
+    __error = error;
+    __error_isset = YES;
 }
 
 - (BOOL) errorIsSet {
-  return __error_isset;
+    return __error_isset;
 }
 
 - (void) unsetError {
-  [__error release_stub];
-  __error = nil;
-  __error_isset = NO;
+    [__error release_stub];
+    __error = nil;
+    __error_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
 {
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
+    NSString * fieldName;
+    int fieldType;
+    int fieldID;
+    
+    [inProtocol readStructBeginReturningName: NULL];
+    while (true)
     {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setError: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+        if (fieldType == TType_STOP) {
+            break;
         }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
+        switch (fieldID)
+        {
+            case 1:
+                if (fieldType == TType_STRUCT) {
+                    ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
+                    [fieldValue read: inProtocol];
+                    [self setError: fieldValue];
+                    [fieldValue release_stub];
+                } else {
+                    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                }
+                break;
+            default:
+                [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+                break;
+        }
+        [inProtocol readFieldEnd];
     }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
+    [inProtocol readStructEnd];
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"AddSocialAccount_result"];
-
-  if (__error_isset) {
-    if (__error != nil) {
-      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
-      [__error write: outProtocol];
-      [outProtocol writeFieldEnd];
+    [outProtocol writeStructBeginWithName: @"AddSocialAccount_result"];
+    
+    if (__error_isset) {
+        if (__error != nil) {
+            [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+            [__error write: outProtocol];
+            [outProtocol writeFieldEnd];
+        }
     }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"AddSocialAccount_result("];
-  [ms appendString: @"error:"];
-  [ms appendFormat: @"%@", __error];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
+    NSMutableString * ms = [NSMutableString stringWithString: @"AddSocialAccount_result("];
+    [ms appendString: @"error:"];
+    [ms appendFormat: @"%@", __error];
+    [ms appendString: @")"];
+    return [NSString stringWithString: ms];
 }
 
 @end
@@ -1873,234 +1941,239 @@ static NSString * CTOKEN_NAME = @"ctok";
 @implementation CustomerService_tClient
 - (id) initWithProtocol: (id <TProtocol>) protocol
 {
-  return [self initWithInProtocol: protocol outProtocol: protocol];
+    return [self initWithInProtocol: protocol outProtocol: protocol];
 }
 
 - (id) initWithInProtocol: (id <TProtocol>) anInProtocol outProtocol: (id <TProtocol>) anOutProtocol
 {
-  self = [super init];
-  inProtocol = [anInProtocol retain_stub];
-  outProtocol = [anOutProtocol retain_stub];
-  return self;
+    self = [super init];
+    inProtocol = [anInProtocol retain_stub];
+    outProtocol = [anOutProtocol retain_stub];
+    return self;
 }
 
 - (void) dealloc
 {
-  [inProtocol release_stub];
-  [outProtocol release_stub];
-  [super dealloc_stub];
+    [inProtocol release_stub];
+    [outProtocol release_stub];
+    [super dealloc_stub];
 }
 
 - (void) send_createAccount: (Customer_t *) customer password: (NSString *) password
 {
-  [outProtocol writeMessageBeginWithName: @"createAccount" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"createAccount_args"];
-  if (customer != nil)  {
-    [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
-    [customer write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (password != nil)  {
-    [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
-    [outProtocol writeString: password];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+    [outProtocol writeMessageBeginWithName: @"createAccount" type: TMessageType_CALL sequenceID: 0];
+    [outProtocol writeStructBeginWithName: @"createAccount_args"];
+    if (customer != nil)  {
+        [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
+        [customer write: outProtocol];
+        [outProtocol writeFieldEnd];
+    }
+    if (password != nil)  {
+        [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
+        [outProtocol writeString: password];
+        [outProtocol writeFieldEnd];
+    }
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
 }
 
 - (CTokenAccess_t *) recv_createAccount
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
+    int msgType = 0;
+    [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+    if (msgType == TMessageType_EXCEPTION) {
+        TApplicationException * x = [TApplicationException read: inProtocol];
+        [inProtocol readMessageEnd];
+        @throw x;
+    }
+    CreateAccount_result * result = [[[CreateAccount_result alloc] init] autorelease_stub];
+    [result read: inProtocol];
     [inProtocol readMessageEnd];
-    @throw x;
-  }
-  CreateAccount_result * result = [[[CreateAccount_result alloc] init] autorelease_stub];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errorIsSet]) {
-    @throw [result error];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"createAccount failed: unknown result"];
+    if ([result successIsSet]) {
+        return [result success];
+    }
+    if ([result errorIsSet]) {
+        @throw [result error];
+    }
+    @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                             reason: @"createAccount failed: unknown result"];
 }
 
 - (CTokenAccess_t *) createAccount: (Customer_t *) customer password: (NSString *) password
 {
-  [self send_createAccount : customer password: password];
-  return [self recv_createAccount];
+    [self send_createAccount : customer password: password];
+    return [self recv_createAccount];
 }
 
 - (void) send_authenticate: (NSString *) email password: (NSString *) password
 {
-  [outProtocol writeMessageBeginWithName: @"authenticate" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"authenticate_args"];
-  if (email != nil)  {
-    [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: email];
-    [outProtocol writeFieldEnd];
-  }
-  if (password != nil)  {
-    [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
-    [outProtocol writeString: password];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+    [outProtocol writeMessageBeginWithName: @"authenticate" type: TMessageType_CALL sequenceID: 0];
+    [outProtocol writeStructBeginWithName: @"authenticate_args"];
+    if (email != nil)  {
+        [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 1];
+        [outProtocol writeString: email];
+        [outProtocol writeFieldEnd];
+    }
+    if (password != nil)  {
+        [outProtocol writeFieldBeginWithName: @"password" type: TType_STRING fieldID: 2];
+        [outProtocol writeString: password];
+        [outProtocol writeFieldEnd];
+    }
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
 }
 
 - (CTokenAccess_t *) recv_authenticate
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
+    int msgType = 0;
+    [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+    if (msgType == TMessageType_EXCEPTION) {
+        TApplicationException * x = [TApplicationException read: inProtocol];
+        [inProtocol readMessageEnd];
+        @throw x;
+    }
+    Authenticate_result * result = [[[Authenticate_result alloc] init] autorelease_stub];
+    [result read: inProtocol];
     [inProtocol readMessageEnd];
-    @throw x;
-  }
-  Authenticate_result * result = [[[Authenticate_result alloc] init] autorelease_stub];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errorIsSet]) {
-    @throw [result error];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"authenticate failed: unknown result"];
+    if ([result successIsSet]) {
+        return [result success];
+    }
+    if ([result errorIsSet]) {
+        @throw [result error];
+    }
+    @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                             reason: @"authenticate failed: unknown result"];
 }
 
 - (CTokenAccess_t *) authenticate: (NSString *) email password: (NSString *) password
 {
-  [self send_authenticate : email password: password];
-  return [self recv_authenticate];
+    [self send_authenticate : email password: password];
+    return [self recv_authenticate];
 }
 
-- (void) send_newToken
+- (void) send_customerEmailExists: (NSString *) email
 {
-  [outProtocol writeMessageBeginWithName: @"newToken" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"newToken_args"];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+    [outProtocol writeMessageBeginWithName: @"customerEmailExists" type: TMessageType_CALL sequenceID: 0];
+    [outProtocol writeStructBeginWithName: @"customerEmailExists_args"];
+    if (email != nil)  {
+        [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 1];
+        [outProtocol writeString: email];
+        [outProtocol writeFieldEnd];
+    }
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
 }
 
-- (CTokenAccess_t *) recv_newToken
+- (BOOL) recv_customerEmailExists
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
+    int msgType = 0;
+    [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+    if (msgType == TMessageType_EXCEPTION) {
+        TApplicationException * x = [TApplicationException read: inProtocol];
+        [inProtocol readMessageEnd];
+        @throw x;
+    }
+    CustomerEmailExists_result * result = [[[CustomerEmailExists_result alloc] init] autorelease_stub];
+    [result read: inProtocol];
     [inProtocol readMessageEnd];
-    @throw x;
-  }
-  NewToken_result * result = [[[NewToken_result alloc] init] autorelease_stub];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errorIsSet]) {
-    @throw [result error];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"newToken failed: unknown result"];
+    if ([result successIsSet]) {
+        return [result success];
+    }
+    if ([result errorIsSet]) {
+        @throw [result error];
+    }
+    @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                             reason: @"customerEmailExists failed: unknown result"];
 }
 
-- (CTokenAccess_t *) newToken
+- (BOOL) customerEmailExists: (NSString *) email
 {
-  [self send_newToken];
-  return [self recv_newToken];
+    [self send_customerEmailExists : email];
+    return [self recv_customerEmailExists];
 }
 
 - (void) send_save: (Customer_t *) customer
 {
-  [outProtocol writeMessageBeginWithName: @"save" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"save_args"];
-  if (customer != nil)  {
-    [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
-    [customer write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+    [outProtocol writeMessageBeginWithName: @"save" type: TMessageType_CALL sequenceID: 0];
+    [outProtocol writeStructBeginWithName: @"save_args"];
+    if (customer != nil)  {
+        [outProtocol writeFieldBeginWithName: @"customer" type: TType_STRUCT fieldID: 1];
+        [customer write: outProtocol];
+        [outProtocol writeFieldEnd];
+    }
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
 }
 
 - (void) recv_save
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
+    int msgType = 0;
+    [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+    if (msgType == TMessageType_EXCEPTION) {
+        TApplicationException * x = [TApplicationException read: inProtocol];
+        [inProtocol readMessageEnd];
+        @throw x;
+    }
+    Save_result * result = [[[Save_result alloc] init] autorelease_stub];
+    [result read: inProtocol];
     [inProtocol readMessageEnd];
-    @throw x;
-  }
-  Save_result * result = [[[Save_result alloc] init] autorelease_stub];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result errorIsSet]) {
-    @throw [result error];
-  }
-  return;
+    if ([result errorIsSet]) {
+        @throw [result error];
+    }
+    return;
 }
 
 - (void) save: (Customer_t *) customer
 {
-  [self send_save : customer];
-  [self recv_save];
+    [self send_save : customer];
+    [self recv_save];
 }
 
 - (void) send_addSocialAccount: (SocialAccount_t *) socialAccount
 {
-  [outProtocol writeMessageBeginWithName: @"addSocialAccount" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"addSocialAccount_args"];
-  if (socialAccount != nil)  {
-    [outProtocol writeFieldBeginWithName: @"socialAccount" type: TType_STRUCT fieldID: 1];
-    [socialAccount write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+    [outProtocol writeMessageBeginWithName: @"addSocialAccount" type: TMessageType_CALL sequenceID: 0];
+    [outProtocol writeStructBeginWithName: @"addSocialAccount_args"];
+    if (socialAccount != nil)  {
+        [outProtocol writeFieldBeginWithName: @"socialAccount" type: TType_STRUCT fieldID: 1];
+        [socialAccount write: outProtocol];
+        [outProtocol writeFieldEnd];
+    }
+    [outProtocol writeFieldStop];
+    [outProtocol writeStructEnd];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
 }
 
 - (void) recv_addSocialAccount
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
+    int msgType = 0;
+    [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+    if (msgType == TMessageType_EXCEPTION) {
+        TApplicationException * x = [TApplicationException read: inProtocol];
+        [inProtocol readMessageEnd];
+        @throw x;
+    }
+    AddSocialAccount_result * result = [[[AddSocialAccount_result alloc] init] autorelease_stub];
+    [result read: inProtocol];
     [inProtocol readMessageEnd];
-    @throw x;
-  }
-  AddSocialAccount_result * result = [[[AddSocialAccount_result alloc] init] autorelease_stub];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result errorIsSet]) {
-    @throw [result error];
-  }
-  return;
+    if ([result errorIsSet]) {
+        @throw [result error];
+    }
+    return;
 }
 
 - (void) addSocialAccount: (SocialAccount_t *) socialAccount
 {
-  [self send_addSocialAccount : socialAccount];
-  [self recv_addSocialAccount];
+    [self send_addSocialAccount : socialAccount];
+    [self recv_addSocialAccount];
 }
 
 @end
@@ -2109,183 +2182,183 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (id) initWithCustomerService_t: (id <CustomerService_t>) service
 {
-  self = [super init];
-  if (!self) {
-    return nil;
-  }
-  mService = [service retain_stub];
-  mMethodMap = [[NSMutableDictionary dictionary] retain_stub];
-  {
-    SEL s = @selector(process_createAccount_withSequenceID:inProtocol:outProtocol:);
-    NSMethodSignature * sig = [self methodSignatureForSelector: s];
-    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
-    [invocation setSelector: s];
-    [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"createAccount"];
-  }
-  {
-    SEL s = @selector(process_authenticate_withSequenceID:inProtocol:outProtocol:);
-    NSMethodSignature * sig = [self methodSignatureForSelector: s];
-    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
-    [invocation setSelector: s];
-    [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"authenticate"];
-  }
-  {
-    SEL s = @selector(process_newToken_withSequenceID:inProtocol:outProtocol:);
-    NSMethodSignature * sig = [self methodSignatureForSelector: s];
-    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
-    [invocation setSelector: s];
-    [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"newToken"];
-  }
-  {
-    SEL s = @selector(process_save_withSequenceID:inProtocol:outProtocol:);
-    NSMethodSignature * sig = [self methodSignatureForSelector: s];
-    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
-    [invocation setSelector: s];
-    [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"save"];
-  }
-  {
-    SEL s = @selector(process_addSocialAccount_withSequenceID:inProtocol:outProtocol:);
-    NSMethodSignature * sig = [self methodSignatureForSelector: s];
-    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
-    [invocation setSelector: s];
-    [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"addSocialAccount"];
-  }
-  return self;
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    mService = [service retain_stub];
+    mMethodMap = [[NSMutableDictionary dictionary] retain_stub];
+    {
+        SEL s = @selector(process_createAccount_withSequenceID:inProtocol:outProtocol:);
+        NSMethodSignature * sig = [self methodSignatureForSelector: s];
+        NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+        [invocation setSelector: s];
+        [invocation retainArguments];
+        [mMethodMap setValue: invocation forKey: @"createAccount"];
+    }
+    {
+        SEL s = @selector(process_authenticate_withSequenceID:inProtocol:outProtocol:);
+        NSMethodSignature * sig = [self methodSignatureForSelector: s];
+        NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+        [invocation setSelector: s];
+        [invocation retainArguments];
+        [mMethodMap setValue: invocation forKey: @"authenticate"];
+    }
+    {
+        SEL s = @selector(process_customerEmailExists_withSequenceID:inProtocol:outProtocol:);
+        NSMethodSignature * sig = [self methodSignatureForSelector: s];
+        NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+        [invocation setSelector: s];
+        [invocation retainArguments];
+        [mMethodMap setValue: invocation forKey: @"customerEmailExists"];
+    }
+    {
+        SEL s = @selector(process_save_withSequenceID:inProtocol:outProtocol:);
+        NSMethodSignature * sig = [self methodSignatureForSelector: s];
+        NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+        [invocation setSelector: s];
+        [invocation retainArguments];
+        [mMethodMap setValue: invocation forKey: @"save"];
+    }
+    {
+        SEL s = @selector(process_addSocialAccount_withSequenceID:inProtocol:outProtocol:);
+        NSMethodSignature * sig = [self methodSignatureForSelector: s];
+        NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+        [invocation setSelector: s];
+        [invocation retainArguments];
+        [mMethodMap setValue: invocation forKey: @"addSocialAccount"];
+    }
+    return self;
 }
 
 - (id<CustomerService_t>) service
 {
-  return [[mService retain_stub] autorelease_stub];
+    return [[mService retain_stub] autorelease_stub];
 }
 
 - (BOOL) processOnInputProtocol: (id <TProtocol>) inProtocol
                  outputProtocol: (id <TProtocol>) outProtocol
 {
-  NSString * messageName;
-  int messageType;
-  int seqID;
-  [inProtocol readMessageBeginReturningName: &messageName
-                                       type: &messageType
-                                 sequenceID: &seqID];
-  NSInvocation * invocation = [mMethodMap valueForKey: messageName];
-  if (invocation == nil) {
-    [TProtocolUtil skipType: TType_STRUCT onProtocol: inProtocol];
-    [inProtocol readMessageEnd];
-    TApplicationException * x = [TApplicationException exceptionWithType: TApplicationException_UNKNOWN_METHOD reason: [NSString stringWithFormat: @"Invalid method name: '%@'", messageName]];
-    [outProtocol writeMessageBeginWithName: messageName
-                                      type: TMessageType_EXCEPTION
-                                sequenceID: seqID];
-    [x write: outProtocol];
-    [outProtocol writeMessageEnd];
-    [[outProtocol transport] flush];
+    NSString * messageName;
+    int messageType;
+    int seqID;
+    [inProtocol readMessageBeginReturningName: &messageName
+                                         type: &messageType
+                                   sequenceID: &seqID];
+    NSInvocation * invocation = [mMethodMap valueForKey: messageName];
+    if (invocation == nil) {
+        [TProtocolUtil skipType: TType_STRUCT onProtocol: inProtocol];
+        [inProtocol readMessageEnd];
+        TApplicationException * x = [TApplicationException exceptionWithType: TApplicationException_UNKNOWN_METHOD reason: [NSString stringWithFormat: @"Invalid method name: '%@'", messageName]];
+        [outProtocol writeMessageBeginWithName: messageName
+                                          type: TMessageType_EXCEPTION
+                                    sequenceID: seqID];
+        [x write: outProtocol];
+        [outProtocol writeMessageEnd];
+        [[outProtocol transport] flush];
+        return YES;
+    }
+    // NSInvocation does not conform to NSCopying protocol
+    NSInvocation * i = [NSInvocation invocationWithMethodSignature: [invocation methodSignature]];
+    [i setSelector: [invocation selector]];
+    [i setArgument: &seqID atIndex: 2];
+    [i setArgument: &inProtocol atIndex: 3];
+    [i setArgument: &outProtocol atIndex: 4];
+    [i setTarget: self];
+    [i invoke];
     return YES;
-  }
-  // NSInvocation does not conform to NSCopying protocol
-  NSInvocation * i = [NSInvocation invocationWithMethodSignature: [invocation methodSignature]];
-  [i setSelector: [invocation selector]];
-  [i setArgument: &seqID atIndex: 2];
-  [i setArgument: &inProtocol atIndex: 3];
-  [i setArgument: &outProtocol atIndex: 4];
-  [i setTarget: self];
-  [i invoke];
-  return YES;
 }
 
 - (void) process_createAccount_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  createAccount_args * args = [[createAccount_args alloc] init];
-  [args read: inProtocol];
-  [inProtocol readMessageEnd];
-  CreateAccount_result * result = [[CreateAccount_result alloc] init];
-  [result setSuccess: [mService createAccount: [args customer] password: [args password]]];
-  [outProtocol writeMessageBeginWithName: @"createAccount"
-                                    type: TMessageType_REPLY
-                              sequenceID: seqID];
-  [result write: outProtocol];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-  [result release_stub];
-  [args release_stub];
+    createAccount_args * args = [[createAccount_args alloc] init];
+    [args read: inProtocol];
+    [inProtocol readMessageEnd];
+    CreateAccount_result * result = [[CreateAccount_result alloc] init];
+    [result setSuccess: [mService createAccount: [args customer] password: [args password]]];
+    [outProtocol writeMessageBeginWithName: @"createAccount"
+                                      type: TMessageType_REPLY
+                                sequenceID: seqID];
+    [result write: outProtocol];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
+    [result release_stub];
+    [args release_stub];
 }
 
 - (void) process_authenticate_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  authenticate_args * args = [[authenticate_args alloc] init];
-  [args read: inProtocol];
-  [inProtocol readMessageEnd];
-  Authenticate_result * result = [[Authenticate_result alloc] init];
-  [result setSuccess: [mService authenticate: [args email] password: [args password]]];
-  [outProtocol writeMessageBeginWithName: @"authenticate"
-                                    type: TMessageType_REPLY
-                              sequenceID: seqID];
-  [result write: outProtocol];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-  [result release_stub];
-  [args release_stub];
+    authenticate_args * args = [[authenticate_args alloc] init];
+    [args read: inProtocol];
+    [inProtocol readMessageEnd];
+    Authenticate_result * result = [[Authenticate_result alloc] init];
+    [result setSuccess: [mService authenticate: [args email] password: [args password]]];
+    [outProtocol writeMessageBeginWithName: @"authenticate"
+                                      type: TMessageType_REPLY
+                                sequenceID: seqID];
+    [result write: outProtocol];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
+    [result release_stub];
+    [args release_stub];
 }
 
-- (void) process_newToken_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+- (void) process_customerEmailExists_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  newToken_args * args = [[newToken_args alloc] init];
-  [args read: inProtocol];
-  [inProtocol readMessageEnd];
-  NewToken_result * result = [[NewToken_result alloc] init];
-  [result setSuccess: [mService newToken]];
-  [outProtocol writeMessageBeginWithName: @"newToken"
-                                    type: TMessageType_REPLY
-                              sequenceID: seqID];
-  [result write: outProtocol];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-  [result release_stub];
-  [args release_stub];
+    customerEmailExists_args * args = [[customerEmailExists_args alloc] init];
+    [args read: inProtocol];
+    [inProtocol readMessageEnd];
+    CustomerEmailExists_result * result = [[CustomerEmailExists_result alloc] init];
+    [result setSuccess: [mService customerEmailExists: [args email]]];
+    [outProtocol writeMessageBeginWithName: @"customerEmailExists"
+                                      type: TMessageType_REPLY
+                                sequenceID: seqID];
+    [result write: outProtocol];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
+    [result release_stub];
+    [args release_stub];
 }
 
 - (void) process_save_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  save_args * args = [[save_args alloc] init];
-  [args read: inProtocol];
-  [inProtocol readMessageEnd];
-  Save_result * result = [[Save_result alloc] init];
-  [mService save: [args customer]];
-  [outProtocol writeMessageBeginWithName: @"save"
-                                    type: TMessageType_REPLY
-                              sequenceID: seqID];
-  [result write: outProtocol];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-  [result release_stub];
-  [args release_stub];
+    save_args * args = [[save_args alloc] init];
+    [args read: inProtocol];
+    [inProtocol readMessageEnd];
+    Save_result * result = [[Save_result alloc] init];
+    [mService save: [args customer]];
+    [outProtocol writeMessageBeginWithName: @"save"
+                                      type: TMessageType_REPLY
+                                sequenceID: seqID];
+    [result write: outProtocol];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
+    [result release_stub];
+    [args release_stub];
 }
 
 - (void) process_addSocialAccount_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  addSocialAccount_args * args = [[addSocialAccount_args alloc] init];
-  [args read: inProtocol];
-  [inProtocol readMessageEnd];
-  AddSocialAccount_result * result = [[AddSocialAccount_result alloc] init];
-  [mService addSocialAccount: [args socialAccount]];
-  [outProtocol writeMessageBeginWithName: @"addSocialAccount"
-                                    type: TMessageType_REPLY
-                              sequenceID: seqID];
-  [result write: outProtocol];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-  [result release_stub];
-  [args release_stub];
+    addSocialAccount_args * args = [[addSocialAccount_args alloc] init];
+    [args read: inProtocol];
+    [inProtocol readMessageEnd];
+    AddSocialAccount_result * result = [[AddSocialAccount_result alloc] init];
+    [mService addSocialAccount: [args socialAccount]];
+    [outProtocol writeMessageBeginWithName: @"addSocialAccount"
+                                      type: TMessageType_REPLY
+                                sequenceID: seqID];
+    [result write: outProtocol];
+    [outProtocol writeMessageEnd];
+    [[outProtocol transport] flush];
+    [result release_stub];
+    [args release_stub];
 }
 
 - (void) dealloc
 {
-  [mService release_stub];
-  [mMethodMap release_stub];
-  [super dealloc_stub];
+    [mService release_stub];
+    [mMethodMap release_stub];
+    [super dealloc_stub];
 }
 
 @end

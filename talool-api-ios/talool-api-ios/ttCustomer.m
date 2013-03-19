@@ -45,9 +45,8 @@
     customer.email = c.email;
     customer.sex = [[NSNumber alloc] initWithInt:c.sex];
     customer.customerId = @(c.customerId);
-    //customer.token = nil;  No Token until auth or reg
-
-    customer.socialAccounts = [NSSet alloc];
+    customer.token = nil;  //No Token until auth or reg
+    
     if (c.socialAccountsIsSet) {
         NSMutableArray *keys = [[NSMutableArray alloc] initWithArray:[c.socialAccounts allKeys]];
         for (int i=0; i<[keys count]; i++) {
@@ -72,15 +71,15 @@
     customer.lastName = self.lastName;
     customer.email = self.email;
     //if (self.sex == nil) {  // TODO WTF
-        customer.sex = 3;
+    customer.sex = 3;
     //} else {
-        //customer.sex = (int) self.sex;
+    //customer.sex = (int) self.sex;
     //}
     if (self.customerId != nil) {
         customer.customerId = [self.customerId longLongValue];
     }
     
-
+    
     NSEnumerator *enumerator = [self.socialAccounts objectEnumerator];
     ttSocialAccount *sa;
     SocialAccount_t *sat;
@@ -95,6 +94,11 @@
 -(NSString *) getFullName
 {
     return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+}
+
+-(ttToken *) getTaloolToken
+{
+    return (ttToken *)self.token;
 }
 
 @end
