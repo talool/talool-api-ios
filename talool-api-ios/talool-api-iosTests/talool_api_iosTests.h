@@ -7,7 +7,13 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "CustomerController.h"
 
-@interface talool_api_iosTests : SenTestCase
+@interface talool_api_iosTests : SenTestCase{
+@private
+    CustomerController *cController;
+    NSManagedObjectContext *context;
+    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+}
 
 @end

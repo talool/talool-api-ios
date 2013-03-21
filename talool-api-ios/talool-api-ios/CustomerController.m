@@ -5,9 +5,9 @@
 //  Created by Douglas McCuen on 2/21/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
-#import <THTTPClient.h>
-#import <TBinaryProtocol.h>
-#import <TTransportException.h>
+#import "THTTPClient.h"
+#import "TBinaryProtocol.h"
+#import "TTransportException.h"
 #import "TaloolHTTPClient.h"
 #import "CustomerController.h"
 #import "ttCustomer.h"

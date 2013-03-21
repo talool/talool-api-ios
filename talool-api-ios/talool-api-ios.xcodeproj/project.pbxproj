@@ -94,6 +94,7 @@
 		91CC60CB16F5354100647AEC /* ttToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC60C916F5354100647AEC /* ttToken.m */; };
 		91CC60D216F57CD900647AEC /* TaloolHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 91CC60D016F57CD900647AEC /* TaloolHTTPClient.h */; };
 		91CC60D316F57CD900647AEC /* TaloolHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC60D116F57CD900647AEC /* TaloolHTTPClient.m */; };
+		91CC610D16FB5A9400647AEC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CC610C16FB5A9400647AEC /* CoreData.framework */; };
 		91F5469616F16A2800BEFF91 /* CustomerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F5469416F16A2800BEFF91 /* CustomerService.h */; settings = {ATTRIBUTES = (); }; };
 		91F5469716F16A2800BEFF91 /* CustomerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F5469516F16A2800BEFF91 /* CustomerService.m */; };
 		91F5469A16F16BDE00BEFF91 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F5469816F16BDE00BEFF91 /* Core.h */; settings = {ATTRIBUTES = (); }; };
@@ -112,13 +113,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		914A1AFB16E6ECAD0043989A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 914A1ADC16E6ECAC0043989A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 914A1AE316E6ECAC0043989A;
-			remoteInfo = "talool-api-ios";
-		};
 		916148BD16EBCEA2001C546C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 914A1ADC16E6ECAC0043989A /* Project object */;
@@ -139,6 +133,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 914A1AF416E6ECAD0043989A;
 			remoteInfo = "talool-api-iosTests";
+		};
+		91CC610A16FA023100647AEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 914A1ADC16E6ECAC0043989A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 914A1AE316E6ECAC0043989A;
+			remoteInfo = "talool-api-ios";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -235,6 +236,7 @@
 		91CC60C916F5354100647AEC /* ttToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttToken.m; sourceTree = "<group>"; };
 		91CC60D016F57CD900647AEC /* TaloolHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolHTTPClient.h; sourceTree = "<group>"; };
 		91CC60D116F57CD900647AEC /* TaloolHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolHTTPClient.m; sourceTree = "<group>"; };
+		91CC610C16FB5A9400647AEC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		91F5469416F16A2800BEFF91 /* CustomerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerService.h; sourceTree = "<group>"; };
 		91F5469516F16A2800BEFF91 /* CustomerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerService.m; sourceTree = "<group>"; };
 		91F5469816F16BDE00BEFF91 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91CC610D16FB5A9400647AEC /* CoreData.framework in Frameworks */,
 				914A1AF716E6ECAD0043989A /* SenTestingKit.framework in Frameworks */,
 				914A1AF916E6ECAD0043989A /* UIKit.framework in Frameworks */,
 				914A1AFA16E6ECAD0043989A /* Foundation.framework in Frameworks */,
@@ -286,6 +289,7 @@
 		914A1ADB16E6ECAC0043989A = {
 			isa = PBXGroup;
 			children = (
+				91CC610C16FB5A9400647AEC /* CoreData.framework */,
 				914A1AE916E6ECAD0043989A /* talool-api-ios */,
 				914A1AFE16E6ECAD0043989A /* talool-api-iosTests */,
 				9161489C16EBC99C001C546C /* TaloolAPIResources */,
@@ -586,7 +590,6 @@
 				914A1AE016E6ECAC0043989A /* Sources */,
 				914A1AE116E6ECAC0043989A /* Frameworks */,
 				914A1AE216E6ECAC0043989A /* CopyFiles */,
-				914A1B6516E6F9CB0043989A /* Prepare Framework */,
 				914A1B6716E702A70043989A /* Headers */,
 			);
 			buildRules = (
@@ -610,7 +613,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				914A1AFC16E6ECAD0043989A /* PBXTargetDependency */,
+				91CC610B16FA023100647AEC /* PBXTargetDependency */,
 			);
 			name = "talool-api-iosTests";
 			productName = "talool-api-iosTests";
@@ -698,20 +701,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-		914A1B6516E6F9CB0043989A /* Prepare Framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Prepare Framework";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -775,11 +764,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		914A1AFC16E6ECAD0043989A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 914A1AE316E6ECAC0043989A /* talool-api-ios */;
-			targetProxy = 914A1AFB16E6ECAD0043989A /* PBXContainerItemProxy */;
-		};
 		916148BE16EBCEA2001C546C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 914A1AE316E6ECAC0043989A /* talool-api-ios */;
@@ -794,6 +778,11 @@
 			isa = PBXTargetDependency;
 			target = 914A1AF416E6ECAD0043989A /* talool-api-iosTests */;
 			targetProxy = 916148C316EBDDFA001C546C /* PBXContainerItemProxy */;
+		};
+		91CC610B16FA023100647AEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 914A1AE316E6ECAC0043989A /* talool-api-ios */;
+			targetProxy = 91CC610A16FA023100647AEC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -921,6 +910,7 @@
 		914A1B0D16E6ECAD0043989A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -929,6 +919,7 @@
 				GCC_PREFIX_HEADER = "talool-api-ios/talool-api-ios-Prefix.pch";
 				INFOPLIST_FILE = "talool-api-iosTests/talool-api-iosTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -936,6 +927,7 @@
 		914A1B0E16E6ECAD0043989A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -944,6 +936,7 @@
 				GCC_PREFIX_HEADER = "talool-api-ios/talool-api-ios-Prefix.pch";
 				INFOPLIST_FILE = "talool-api-iosTests/talool-api-iosTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;

@@ -16,7 +16,6 @@
     CustomerService_tClient *service;
 }
 
-- (void)disconnect;
 - (ttCustomer *)registerUser:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (void)save:(ttCustomer *)customer error:(NSError**)error;
