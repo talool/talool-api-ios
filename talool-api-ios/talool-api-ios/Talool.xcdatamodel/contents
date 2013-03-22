@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Friend" representedClassName="Friend" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isCustomer" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="socialNetwork" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="customer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="friends" inverseEntity="TaloolCustomer" syncable="YES"/>
+    </entity>
     <entity name="SocialAccount" representedClassName="ttSocialAccount" syncable="YES">
         <attribute name="apiUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
@@ -35,6 +43,7 @@
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sex" optional="YES" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="friends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Friend" inverseName="customer" inverseEntity="Friend" syncable="YES"/>
         <relationship name="socialAccounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SocialAccount" inverseName="customersocialaccount" inverseEntity="SocialAccount" syncable="YES"/>
         <relationship name="token" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolToken" inverseName="customer" inverseEntity="TaloolToken" syncable="YES"/>
         <userInfo/>
@@ -51,8 +60,9 @@
         <element name="SocialAccount" positionX="160" positionY="192" width="128" height="150"/>
         <element name="SocialNetworkDetail" positionX="313" positionY="192" width="128" height="105"/>
         <element name="TaloolAddress" positionX="-234" positionY="297" width="128" height="180"/>
-        <element name="TaloolCustomer" positionX="-45" positionY="189" width="128" height="195"/>
+        <element name="TaloolCustomer" positionX="-45" positionY="189" width="128" height="210"/>
         <element name="TaloolMerchant" positionX="-236" positionY="189" width="128" height="73"/>
         <element name="TaloolToken" positionX="160" positionY="360" width="128" height="75"/>
+        <element name="Friend" positionX="160" positionY="192" width="128" height="135"/>
     </elements>
 </model>

@@ -13,6 +13,7 @@
 #import <talool-api-ios/ttAddress.h>
 #import <talool-api-ios/ttMerchant.h>
 #import <talool-api-ios/ttCoupon.h>
+#import <talool-api-ios/Friend.h>
 #import <talool-api-ios/ttSocialAccount.h>
 #import <talool-api-ios/ttSocialNetworkDetail.h>
 

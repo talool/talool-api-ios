@@ -101,4 +101,14 @@
     return (ttToken *)self.token;
 }
 
+- (void)saveFriend:(Friend *)socialFriend
+{
+    [self addFriendsObject:socialFriend];
+}
+
+- (NSSet *) getFriends
+{
+    return [self getFriends];
+}
+
 @end

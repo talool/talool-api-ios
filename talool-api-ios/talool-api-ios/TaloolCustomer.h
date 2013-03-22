@@ -2,14 +2,14 @@
 //  TaloolCustomer.h
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 3/16/13.
+//  Created by Douglas McCuen on 3/21/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class TaloolToken, ttSocialAccount;
+@class Friend, ttSocialAccount, ttToken;
 
 @interface TaloolCustomer : NSManagedObject
 
@@ -22,7 +22,8 @@
 @property (nonatomic, retain) NSNumber * sex;
 @property (nonatomic, retain) NSDate * updated;
 @property (nonatomic, retain) NSSet *socialAccounts;
-@property (nonatomic, retain) TaloolToken *token;
+@property (nonatomic, retain) ttToken *token;
+@property (nonatomic, retain) NSSet *friends;
 @end
 
 @interface TaloolCustomer (CoreDataGeneratedAccessors)
@@ -31,5 +32,10 @@
 - (void)removeSocialAccountsObject:(ttSocialAccount *)value;
 - (void)addSocialAccounts:(NSSet *)values;
 - (void)removeSocialAccounts:(NSSet *)values;
+
+- (void)addFriendsObject:(Friend *)value;
+- (void)removeFriendsObject:(Friend *)value;
+- (void)addFriends:(NSSet *)values;
+- (void)removeFriends:(NSSet *)values;
 
 @end

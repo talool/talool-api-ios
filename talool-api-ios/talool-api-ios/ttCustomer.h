@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "TaloolCustomer.h"
 #import "ttToken.h"
+#import "Friend.h"
 
 @class Customer_t;
 
@@ -22,6 +23,8 @@
 - (Customer_t *)hydrateThriftObject;
 - (NSString *)getFullName;
 - (ttToken *)getTaloolToken;
+- (void)saveFriend:(Friend *)socialFriend;
+- (NSSet *) getFriends;
 
 @end
 
