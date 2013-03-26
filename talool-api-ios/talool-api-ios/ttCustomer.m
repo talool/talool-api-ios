@@ -10,6 +10,7 @@
 #import "ttSocialAccount.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import "MerchantController.h"
 
 
 @implementation ttCustomer
@@ -106,9 +107,17 @@
     [self addFriendsObject:socialFriend];
 }
 
-- (NSSet *) getFriends
+- (NSSet *) getSocialFriends
 {
-    return [self getFriends];
+    return self.friends;
+}
+
+- (NSSet *) getMerchants: (NSManagedObjectContext *)context
+{
+    // TODO this will be part of the Thrift Object
+    MerchantController *mc = [[MerchantController alloc] init];
+    [mc loadData:context];
+    return (NSSet *)mc.merchants;
 }
 
 @end
