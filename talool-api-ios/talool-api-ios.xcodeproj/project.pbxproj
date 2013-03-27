@@ -23,7 +23,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		910FEB2016FBE45500B4CCFD /* TaloolCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 910FEB1E16FBE45500B4CCFD /* TaloolCustomer.h */; };
+		910FEB2016FBE45500B4CCFD /* TaloolCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 910FEB1E16FBE45500B4CCFD /* TaloolCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		910FEB2116FBE45500B4CCFD /* TaloolCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 910FEB1F16FBE45500B4CCFD /* TaloolCustomer.m */; };
 		910FEB2816FBEBD400B4CCFD /* Friend.h in Headers */ = {isa = PBXBuildFile; fileRef = 910FEB2616FBEBD400B4CCFD /* Friend.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		910FEB2916FBEBD400B4CCFD /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 910FEB2716FBEBD400B4CCFD /* Friend.m */; };
@@ -554,6 +554,7 @@
 				910FEB2816FBEBD400B4CCFD /* Friend.h in Headers */,
 				914A1B7016E703310043989A /* MerchantController.h in Headers */,
 				914A1B7116E703310043989A /* CustomerController.h in Headers */,
+				910FEB2016FBE45500B4CCFD /* TaloolCustomer.h in Headers */,
 				9161489316EBA743001C546C /* TaloolPersistentStoreCoordinator.h in Headers */,
 				91F7D6CB16ED78F400D64C19 /* TaloolFrameworkHelper.h in Headers */,
 				91F5469616F16A2800BEFF91 /* CustomerService.h in Headers */,
@@ -583,7 +584,6 @@
 				9175717716F3D907002ACB08 /* SocialAccount.h in Headers */,
 				91CC60C216F534FE00647AEC /* TaloolToken.h in Headers */,
 				91CC60D216F57CD900647AEC /* TaloolHTTPClient.h in Headers */,
-				910FEB2016FBE45500B4CCFD /* TaloolCustomer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

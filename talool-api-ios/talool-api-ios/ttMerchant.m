@@ -9,6 +9,7 @@
 #import "ttMerchant.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import "MerchantController.h"
 
 @implementation ttMerchant
 
@@ -35,6 +36,13 @@
     Merchant_t *merchant = nil;//[[Merchant_t alloc] init];
 
     return merchant;
+}
+
+- (NSSet *) getDeals: (NSManagedObjectContext *)context
+{
+    // TODO this will be part of the Thrift Object
+    MerchantController *mc = [[MerchantController alloc] init];
+    return (NSSet *)[mc getCouponsByMerchant:self forCustomer:nil];
 }
 
 @end

@@ -15,5 +15,6 @@
 - (BOOL)isValid;
 + (ttMerchant *)initWithThrift: (Merchant_t *)merchant context:(NSManagedObjectContext *)context;
 - (Merchant_t *)hydrateThriftObject;
+- (NSSet *) getDeals: (NSManagedObjectContext *)context;
 
 @end
