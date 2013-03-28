@@ -44,7 +44,7 @@
     return [merchants objectAtIndex:theIndex];
 }
 
-- (NSMutableArray *) getCouponsByMerchant:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer
+- (NSMutableArray *) getCouponsByMerchant:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context
 {
     NSMutableArray *coupons = [[NSMutableArray alloc] initWithCapacity:0];
     
@@ -60,10 +60,9 @@
     if (data != nil & [data count] > 0) {
         coupons = [[NSMutableArray alloc] initWithCapacity:[data count]];
         for (int i=0; i<[data count]; i++) {
-            ttCoupon *ttc = [ttCoupon alloc];
             NSDictionary *cd = [data objectAtIndex:i];
-            ttc.title = [cd valueForKey:@"name"];
-            ttc.redeemed = NO;
+            NSString *name = [cd valueForKey:@"name"];
+            ttCoupon *ttc = [ttCoupon initWithName:name context:context];
             [coupons insertObject:ttc atIndex:i];
         }
     }

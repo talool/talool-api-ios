@@ -12,5 +12,7 @@
 
 //+ (ttDeal *)initWithThrift: (Deal_t *)deal context:(NSManagedObjectContext *)context;
 //- (Deal_t *)hydrateThriftObject;
++ (ttCoupon *)initWithName:(NSString *)name  context:(NSManagedObjectContext *)context;
+- (BOOL) hasBeenRedeemed;
 
 @end

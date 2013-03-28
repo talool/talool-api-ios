@@ -41,8 +41,13 @@
 - (NSSet *) getDeals: (NSManagedObjectContext *)context
 {
     // TODO this will be part of the Thrift Object
+    if ([self.deals count] > 0) {
+        [self removeDeals:self.deals];
+    }
     MerchantController *mc = [[MerchantController alloc] init];
-    return (NSSet *)[mc getCouponsByMerchant:self forCustomer:nil];
+    NSSet *newDeals = [[NSSet alloc] initWithArray:[mc getCouponsByMerchant:self forCustomer:nil context:context]];
+    [self addDeals:newDeals];
+    return newDeals;
 }
 
 @end

@@ -21,7 +21,7 @@
 - (void)loadData:(NSManagedObjectContext *)context;
 - (unsigned)countOfMerchants;
 - (id)objectInMerchantsAtIndex:(unsigned)theIndex;
-- (NSMutableArray *) getCouponsByMerchant:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer;
+- (NSMutableArray *) getCouponsByMerchant:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context;
 
 
 @end
