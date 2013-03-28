@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "TaloolDeal.h"
 
-@interface ttCoupon : NSObject
+@interface ttCoupon : TaloolDeal
 
-@property (nonatomic, retain) NSString * name;
+//+ (ttDeal *)initWithThrift: (Deal_t *)deal context:(NSManagedObjectContext *)context;
+//- (Deal_t *)hydrateThriftObject;
 
 @end

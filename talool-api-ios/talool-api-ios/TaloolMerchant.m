@@ -1,17 +1,19 @@
 //
 //  TaloolMerchant.m
-//  mobile
+//  talool-api-ios
 //
-//  Created by Douglas McCuen on 3/2/13.
+//  Created by Douglas McCuen on 3/27/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import "TaloolMerchant.h"
+#import "TaloolDeal.h"
 
 
 @implementation TaloolMerchant
 
-@dynamic name;
 @dynamic email;
+@dynamic name;
+@dynamic deals;
 
 @end

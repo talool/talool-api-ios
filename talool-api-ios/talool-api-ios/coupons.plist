@@ -14,5 +14,37 @@
 		<key>name</key>
 		<string>20% off Entire Bill</string>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>Free Appetizer</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>$15 Off</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Buy 1, Get 1 free</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>50% Off</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Buy 12, Get 6 free</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>$5 Off</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Kids Eat Free</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Free Guacamole</string>
+	</dict>
 </array>
 </plist>

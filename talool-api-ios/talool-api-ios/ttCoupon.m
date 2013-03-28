@@ -10,6 +10,5 @@
 
 @implementation ttCoupon
 
-@synthesize name;
 
 @end

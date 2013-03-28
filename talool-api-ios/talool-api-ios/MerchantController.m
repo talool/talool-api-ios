@@ -62,7 +62,8 @@
         for (int i=0; i<[data count]; i++) {
             ttCoupon *ttc = [ttCoupon alloc];
             NSDictionary *cd = [data objectAtIndex:i];
-            ttc.name = [cd valueForKey:@"name"];
+            ttc.title = [cd valueForKey:@"name"];
+            ttc.redeemed = NO;
             [coupons insertObject:ttc atIndex:i];
         }
     }
