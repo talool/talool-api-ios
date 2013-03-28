@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 @class ttCustomer;
+@class ttMerchant;
 @class CustomerService_tClient;
 
 @interface CustomerController : NSObject {
@@ -20,5 +21,7 @@
 - (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (void)save:(ttCustomer *)customer error:(NSError**)error;
 - (BOOL)userExists:(NSString *) email;
+- (NSMutableArray *) getMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
+- (NSMutableArray *) getDeals:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 
 @end

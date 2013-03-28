@@ -180,8 +180,6 @@ typedef int64_t Timestamp;
   NSString * __stateProvinceCounty;
   NSString * __zip;
   NSString * __country;
-  Timestamp __created;
-  Timestamp __updated;
 
   BOOL __addressId_isset;
   BOOL __address1_isset;
@@ -190,8 +188,6 @@ typedef int64_t Timestamp;
   BOOL __stateProvinceCounty_isset;
   BOOL __zip_isset;
   BOOL __country_isset;
-  BOOL __created_isset;
-  BOOL __updated_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -202,12 +198,10 @@ typedef int64_t Timestamp;
 @property (nonatomic, retain, getter=stateProvinceCounty, setter=setStateProvinceCounty:) NSString * stateProvinceCounty;
 @property (nonatomic, retain, getter=zip, setter=setZip:) NSString * zip;
 @property (nonatomic, retain, getter=country, setter=setCountry:) NSString * country;
-@property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
-@property (nonatomic, getter=updated, setter=setUpdated:) Timestamp updated;
 #endif
 
 - (id) init;
-- (id) initWithAddressId: (int64_t) addressId address1: (NSString *) address1 address2: (NSString *) address2 city: (NSString *) city stateProvinceCounty: (NSString *) stateProvinceCounty zip: (NSString *) zip country: (NSString *) country created: (Timestamp) created updated: (Timestamp) updated;
+- (id) initWithAddressId: (int64_t) addressId address1: (NSString *) address1 address2: (NSString *) address2 city: (NSString *) city stateProvinceCounty: (NSString *) stateProvinceCounty zip: (NSString *) zip country: (NSString *) country;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -253,18 +247,6 @@ typedef int64_t Timestamp;
 - (void) setCountry: (NSString *) country;
 #endif
 - (BOOL) countryIsSet;
-
-#if !__has_feature(objc_arc)
-- (Timestamp) created;
-- (void) setCreated: (Timestamp) created;
-#endif
-- (BOOL) createdIsSet;
-
-#if !__has_feature(objc_arc)
-- (Timestamp) updated;
-- (void) setUpdated: (Timestamp) updated;
-#endif
-- (BOOL) updatedIsSet;
 
 @end
 
@@ -394,6 +376,207 @@ typedef int64_t Timestamp;
 - (void) setExpires: (int64_t) expires;
 #endif
 - (BOOL) expiresIsSet;
+
+@end
+
+@interface Merchant_t : NSObject <NSCoding> {
+  int64_t __merchantId;
+  NSString * __name;
+  NSString * __email;
+  NSString * __websiteUrl;
+  NSString * __logoUrl;
+  NSString * __phone;
+  Address_t * __address;
+  Timestamp __created;
+  Timestamp __updated;
+
+  BOOL __merchantId_isset;
+  BOOL __name_isset;
+  BOOL __email_isset;
+  BOOL __websiteUrl_isset;
+  BOOL __logoUrl_isset;
+  BOOL __phone_isset;
+  BOOL __address_isset;
+  BOOL __created_isset;
+  BOOL __updated_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=merchantId, setter=setMerchantId:) int64_t merchantId;
+@property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
+@property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
+@property (nonatomic, retain, getter=websiteUrl, setter=setWebsiteUrl:) NSString * websiteUrl;
+@property (nonatomic, retain, getter=logoUrl, setter=setLogoUrl:) NSString * logoUrl;
+@property (nonatomic, retain, getter=phone, setter=setPhone:) NSString * phone;
+@property (nonatomic, retain, getter=address, setter=setAddress:) Address_t * address;
+@property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
+@property (nonatomic, getter=updated, setter=setUpdated:) Timestamp updated;
+#endif
+
+- (id) init;
+- (id) initWithMerchantId: (int64_t) merchantId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl phone: (NSString *) phone address: (Address_t *) address created: (Timestamp) created updated: (Timestamp) updated;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (int64_t) merchantId;
+- (void) setMerchantId: (int64_t) merchantId;
+#endif
+- (BOOL) merchantIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) name;
+- (void) setName: (NSString *) name;
+#endif
+- (BOOL) nameIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) email;
+- (void) setEmail: (NSString *) email;
+#endif
+- (BOOL) emailIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) websiteUrl;
+- (void) setWebsiteUrl: (NSString *) websiteUrl;
+#endif
+- (BOOL) websiteUrlIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) logoUrl;
+- (void) setLogoUrl: (NSString *) logoUrl;
+#endif
+- (BOOL) logoUrlIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) phone;
+- (void) setPhone: (NSString *) phone;
+#endif
+- (BOOL) phoneIsSet;
+
+#if !__has_feature(objc_arc)
+- (Address_t *) address;
+- (void) setAddress: (Address_t *) address;
+#endif
+- (BOOL) addressIsSet;
+
+#if !__has_feature(objc_arc)
+- (Timestamp) created;
+- (void) setCreated: (Timestamp) created;
+#endif
+- (BOOL) createdIsSet;
+
+#if !__has_feature(objc_arc)
+- (Timestamp) updated;
+- (void) setUpdated: (Timestamp) updated;
+#endif
+- (BOOL) updatedIsSet;
+
+@end
+
+@interface Deal_t : NSObject <NSCoding> {
+  int64_t __dealId;
+  Merchant_t * __merchant;
+  NSString * __title;
+  NSString * __summary;
+  NSString * __details;
+  NSString * __code;
+  NSString * __imageUrl;
+  Timestamp __expires;
+  Timestamp __created;
+  Timestamp __updated;
+
+  BOOL __dealId_isset;
+  BOOL __merchant_isset;
+  BOOL __title_isset;
+  BOOL __summary_isset;
+  BOOL __details_isset;
+  BOOL __code_isset;
+  BOOL __imageUrl_isset;
+  BOOL __expires_isset;
+  BOOL __created_isset;
+  BOOL __updated_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=dealId, setter=setDealId:) int64_t dealId;
+@property (nonatomic, retain, getter=merchant, setter=setMerchant:) Merchant_t * merchant;
+@property (nonatomic, retain, getter=title, setter=setTitle:) NSString * title;
+@property (nonatomic, retain, getter=summary, setter=setSummary:) NSString * summary;
+@property (nonatomic, retain, getter=details, setter=setDetails:) NSString * details;
+@property (nonatomic, retain, getter=code, setter=setCode:) NSString * code;
+@property (nonatomic, retain, getter=imageUrl, setter=setImageUrl:) NSString * imageUrl;
+@property (nonatomic, getter=expires, setter=setExpires:) Timestamp expires;
+@property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
+@property (nonatomic, getter=updated, setter=setUpdated:) Timestamp updated;
+#endif
+
+- (id) init;
+- (id) initWithDealId: (int64_t) dealId merchant: (Merchant_t *) merchant title: (NSString *) title summary: (NSString *) summary details: (NSString *) details code: (NSString *) code imageUrl: (NSString *) imageUrl expires: (Timestamp) expires created: (Timestamp) created updated: (Timestamp) updated;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (int64_t) dealId;
+- (void) setDealId: (int64_t) dealId;
+#endif
+- (BOOL) dealIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (Merchant_t *) merchant;
+- (void) setMerchant: (Merchant_t *) merchant;
+#endif
+- (BOOL) merchantIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) title;
+- (void) setTitle: (NSString *) title;
+#endif
+- (BOOL) titleIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) summary;
+- (void) setSummary: (NSString *) summary;
+#endif
+- (BOOL) summaryIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) details;
+- (void) setDetails: (NSString *) details;
+#endif
+- (BOOL) detailsIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) code;
+- (void) setCode: (NSString *) code;
+#endif
+- (BOOL) codeIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) imageUrl;
+- (void) setImageUrl: (NSString *) imageUrl;
+#endif
+- (BOOL) imageUrlIsSet;
+
+#if !__has_feature(objc_arc)
+- (Timestamp) expires;
+- (void) setExpires: (Timestamp) expires;
+#endif
+- (BOOL) expiresIsSet;
+
+#if !__has_feature(objc_arc)
+- (Timestamp) created;
+- (void) setCreated: (Timestamp) created;
+#endif
+- (BOOL) createdIsSet;
+
+#if !__has_feature(objc_arc)
+- (Timestamp) updated;
+- (void) setUpdated: (Timestamp) updated;
+#endif
+- (BOOL) updatedIsSet;
 
 @end
 

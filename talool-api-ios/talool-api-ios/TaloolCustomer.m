@@ -2,12 +2,13 @@
 //  TaloolCustomer.m
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 3/21/13.
+//  Created by Douglas McCuen on 3/28/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import "TaloolCustomer.h"
 #import "Friend.h"
+#import "TaloolMerchant.h"
 #import "ttSocialAccount.h"
 #import "ttToken.h"
 
@@ -22,8 +23,9 @@
 @dynamic password;
 @dynamic sex;
 @dynamic updated;
+@dynamic friends;
 @dynamic socialAccounts;
 @dynamic token;
-@dynamic friends;
+@dynamic favoriteMerchants;
 
 @end

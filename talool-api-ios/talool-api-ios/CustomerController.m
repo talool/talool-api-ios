@@ -12,6 +12,8 @@
 #import "CustomerController.h"
 #import "ttCustomer.h"
 #import "ttToken.h"
+#import "ttMerchant.h"
+#import "ttDeal.h"
 #import "Core.h"
 #import "CustomerService.h"
 #import "TaloolFrameworkHelper.h"
@@ -259,6 +261,118 @@
         [self disconnect];
     }
     return userExists;
+}
+
+- (NSMutableArray *) getMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+{
+    NSMutableArray *merchants;
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        // Do the Thrift Merchants
+        [self connectWithToken:(ttToken *)customer.token];
+        merchants = [service getMerchants];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to getMerchants, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
+        NSLog(@"failed to getMerchants: %@",se.description);
+        return nil;
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to getMerchants; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
+        NSLog(@"failed to getMerchants: %@",tae.description);
+        return nil;
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to getMerchants, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
+        NSLog(@"failed to getMerchants: %@",tpe.description);
+        return nil;
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to getMerchants... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
+        NSLog(@"failed to getMerchants: %@",e.description);
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response into a ttMerchant array
+        for (int i=0; i<[merchants count]; i++) {
+            Merchant_t *tm = [merchants objectAtIndex:i];
+            ttMerchant *m = [ttMerchant initWithThrift:tm context:context];
+            [merchants setObject:m atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to create the merchant object." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"post-login" code:200 userInfo:details];
+        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        return nil;
+    }
+    
+    return merchants;
+}
+
+- (NSMutableArray *) getDeals:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+{
+    NSMutableArray *deals;
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        // Do the Thrift Merchants
+        [self connectWithToken:(ttToken *)customer.token];
+        deals = [service getDeals:[merchant.merchantId integerValue]];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to getDeals, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
+        NSLog(@"failed to getDeals: %@",se.description);
+        return nil;
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to getDeals; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
+        NSLog(@"failed to getDeals: %@",tae.description);
+        return nil;
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to getDeals, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
+        NSLog(@"failed to getDeals: %@",tpe.description);
+        return nil;
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to getDeals... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
+        NSLog(@"failed to getDeals: %@",e.description);
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response into a ttMerchant array
+        for (int i=0; i<[deals count]; i++) {
+            Deal_t *td = [deals objectAtIndex:i];
+            ttDeal *d = [ttDeal initWithThrift:td context:context];
+            [deals setObject:d atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to create the merchant object." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"post-login" code:200 userInfo:details];
+        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        return nil;
+    }
+    
+    return deals;
 }
 
 

@@ -16,11 +16,11 @@
 #import "Core.h"
 
 @interface CTokenAccess_t : NSObject <NSCoding> {
-    Customer_t * __customer;
-    NSString * __token;
-    
-    BOOL __customer_isset;
-    BOOL __token_isset;
+  Customer_t * __customer;
+  NSString * __token;
+
+  BOOL __customer_isset;
+  BOOL __token_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -54,19 +54,21 @@
 - (BOOL) customerEmailExists: (NSString *) email;  // throws ServiceException_t *, TException
 - (void) save: (Customer_t *) customer;  // throws ServiceException_t *, TException
 - (void) addSocialAccount: (SocialAccount_t *) socialAccount;  // throws ServiceException_t *, TException
+- (NSMutableArray *) getMerchants;  // throws ServiceException_t *, TException
+- (NSMutableArray *) getDeals: (int64_t) merchantId;  // throws ServiceException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {
-    id <TProtocol> inProtocol;
-    id <TProtocol> outProtocol;
+  id <TProtocol> inProtocol;
+  id <TProtocol> outProtocol;
 }
 - (id) initWithProtocol: (id <TProtocol>) protocol;
 - (id) initWithInProtocol: (id <TProtocol>) inProtocol outProtocol: (id <TProtocol>) outProtocol;
 @end
 
 @interface CustomerService_tProcessor : NSObject <TProcessor> {
-    id <CustomerService_t> mService;
-    NSDictionary * mMethodMap;
+  id <CustomerService_t> mService;
+  NSDictionary * mMethodMap;
 }
 - (id) initWithCustomerService_t: (id <CustomerService_t>) service;
 - (id<CustomerService_t>) service;

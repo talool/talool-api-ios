@@ -7,6 +7,7 @@
 //
 
 #import "ttMerchant.h"
+#import "ttAddress.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "MerchantController.h"
@@ -26,14 +27,30 @@
                                    insertNewObjectForEntityForName:MERCHANT_ENTITY_NAME
                                    inManagedObjectContext:context];
 
-
+    m.merchantId = @(merchant.merchantId);
+    m.name = merchant.name;
+    m.email = merchant.email;
+    m.websiteUrl = merchant.websiteUrl;
+    m.logoUrl = merchant.logoUrl;
+    m.phone = merchant.phone;
+    m.address = [ttAddress initWithThrift:merchant.address context:context];
+    m.created = [[NSDate alloc] initWithTimeIntervalSince1970:merchant.created];
+    m.updated = [[NSDate alloc] initWithTimeIntervalSince1970:merchant.updated];
     
     return m;
 }
 
 -(Merchant_t *)hydrateThriftObject
 {
-    Merchant_t *merchant = nil;//[[Merchant_t alloc] init];
+    Merchant_t *merchant = [[Merchant_t alloc] init];
+    
+    merchant.merchantId = [self.merchantId integerValue];
+    merchant.name = self.name;
+    merchant.email = self.email;
+    merchant.websiteUrl = self.websiteUrl;
+    merchant.logoUrl = self.logoUrl;
+    merchant.phone = self.phone;
+    merchant.address = [(ttAddress *)self.address hydrateThriftObject];
 
     return merchant;
 }

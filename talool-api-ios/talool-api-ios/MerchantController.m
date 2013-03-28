@@ -10,7 +10,7 @@
 #import "Core.h"
 #import "ttMerchant.h"
 #import "ttCustomer.h"
-#import "ttCoupon.h"
+#import "ttDeal.h"
 #import "TaloolFrameworkHelper.h"
 
 
@@ -62,7 +62,7 @@
         for (int i=0; i<[data count]; i++) {
             NSDictionary *cd = [data objectAtIndex:i];
             NSString *name = [cd valueForKey:@"name"];
-            ttCoupon *ttc = [ttCoupon initWithName:name context:context];
+            ttDeal *ttc = [ttDeal initWithName:name context:context];
             [coupons insertObject:ttc atIndex:i];
         }
     }
