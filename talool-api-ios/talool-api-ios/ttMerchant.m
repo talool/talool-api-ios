@@ -11,6 +11,7 @@
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "MerchantController.h"
+#import "CustomerController.h"
 
 @implementation ttMerchant
 
@@ -55,16 +56,26 @@
     return merchant;
 }
 
-- (NSSet *) getDeals: (NSManagedObjectContext *)context
+- (NSSet *) getDeals:(ttCustomer *)customer context:(NSManagedObjectContext *)context
 {
     // TODO this will be part of the Thrift Object
     if ([self.deals count] > 0) {
         [self removeDeals:self.deals];
     }
-    MerchantController *mc = [[MerchantController alloc] init];
-    NSSet *newDeals = [[NSSet alloc] initWithArray:[mc getCouponsByMerchant:self forCustomer:nil context:context]];
-    [self addDeals:newDeals];
-    return newDeals;
+    
+    // Dummy Data
+    //MerchantController *mc = [[MerchantController alloc] init];
+    //NSSet *newDeals = [[NSSet alloc] initWithArray:[mc getCouponsByMerchant:self forCustomer:nil context:context]];
+    //[self addDeals:newDeals];
+    //return newDeals;
+    
+    CustomerController *cc = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    NSMutableArray *deals = [cc getDeals:self forCustomer:customer context:context error:&error];
+    NSSet *myDeals = [[NSSet alloc] initWithArray:deals];
+    [self addDeals:myDeals];
+    
+    return myDeals;
 }
 
 @end

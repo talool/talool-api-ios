@@ -11,6 +11,7 @@
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "MerchantController.h"
+#import "CustomerController.h"
 
 
 @implementation ttCustomer
@@ -114,10 +115,18 @@
 
 - (NSSet *) getMerchants: (NSManagedObjectContext *)context
 {
-    // TODO this will be part of the Thrift Object
-    MerchantController *mc = [[MerchantController alloc] init];
-    [mc loadData:context];
-    return (NSSet *)mc.merchants;
+    // Dummy Data
+    //MerchantController *mc = [[MerchantController alloc] init];
+    //[mc loadData:context];
+    //return (NSSet *)mc.merchants;
+    
+    CustomerController *cc = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    NSMutableArray *merchants = [cc getMerchants:self context:context error:&error];
+    NSSet *favoriteMerchants = [[NSSet alloc] initWithArray:merchants];
+    [self addFavoriteMerchants:favoriteMerchants];
+    
+    return favoriteMerchants;
 }
 
 @end

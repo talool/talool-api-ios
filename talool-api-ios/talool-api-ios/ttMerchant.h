@@ -9,12 +9,13 @@
 #import "TaloolMerchant.h"
 
 @class Merchant_t;
+@class ttCustomer;
 
 @interface ttMerchant : TaloolMerchant
 
 - (BOOL)isValid;
 + (ttMerchant *)initWithThrift: (Merchant_t *)merchant context:(NSManagedObjectContext *)context;
 - (Merchant_t *)hydrateThriftObject;
-- (NSSet *) getDeals: (NSManagedObjectContext *)context;
+- (NSSet *) getDeals:(ttCustomer *)customer context:(NSManagedObjectContext *)context;
 
 @end
