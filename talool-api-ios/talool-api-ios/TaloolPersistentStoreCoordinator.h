@@ -23,6 +23,7 @@ extern NSString * const SOCIAL_ACCOUNT_ENTITY_NAME;
 extern NSString * const SOCIAL_NETWORK_DETAIL_ENTITY_NAME;
 extern NSString * const TOKEN_ENTITY_NAME;
 extern NSString * const FRIEND_ENTITY_NAME;
+extern NSString * const DEAL_ENTITY_NAME;
 extern int const SOCIAL_NETWORK_FACEBOOK;
 extern int const SOCIAL_NETWORK_TWITTER;
 extern int const SOCIAL_NETWORK_PINTEREST;

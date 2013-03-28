@@ -15,6 +15,7 @@ NSString * const MERCHANT_ENTITY_NAME = @"TaloolMerchant";
 NSString * const SOCIAL_ACCOUNT_ENTITY_NAME = @"SocialAccount";
 NSString * const SOCIAL_NETWORK_DETAIL_ENTITY_NAME = @"SocialNetworkDetail";
 NSString * const TOKEN_ENTITY_NAME = @"TaloolToken";
+NSString * const DEAL_ENTITY_NAME = @"TaloolDeal";
 NSString * const FRIEND_ENTITY_NAME = @"Friend";
 int const SOCIAL_NETWORK_FACEBOOK = 1;
 int const SOCIAL_NETWORK_TWITTER = 2;
