@@ -88,10 +88,10 @@
 		9175717716F3D907002ACB08 /* SocialAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 9175717516F3D907002ACB08 /* SocialAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9175717816F3D907002ACB08 /* SocialAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9175717616F3D907002ACB08 /* SocialAccount.m */; };
 		9175717F16F3DD75002ACB08 /* libtalool-api-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 914A1AE416E6ECAC0043989A /* libtalool-api-ios.a */; };
-		9183F4EF1703D0ED00ED4844 /* TaloolDeal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9183F4ED1703D0ED00ED4844 /* TaloolDeal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9183F4F01703D0ED00ED4844 /* TaloolDeal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9183F4EE1703D0ED00ED4844 /* TaloolDeal.m */; };
-		9183F4F31703D0EE00ED4844 /* TaloolMerchant.h in Headers */ = {isa = PBXBuildFile; fileRef = 9183F4F11703D0EE00ED4844 /* TaloolMerchant.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9183F4F41703D0EE00ED4844 /* TaloolMerchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 9183F4F21703D0EE00ED4844 /* TaloolMerchant.m */; };
+		9183F4F91703E47A00ED4844 /* TaloolDeal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9183F4F71703E47A00ED4844 /* TaloolDeal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9183F4FA1703E47A00ED4844 /* TaloolDeal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9183F4F81703E47A00ED4844 /* TaloolDeal.m */; };
+		9183F4FD1703E47A00ED4844 /* TaloolMerchant.h in Headers */ = {isa = PBXBuildFile; fileRef = 9183F4FB1703E47A00ED4844 /* TaloolMerchant.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9183F4FE1703E47A00ED4844 /* TaloolMerchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 9183F4FC1703E47A00ED4844 /* TaloolMerchant.m */; };
 		91CC60C216F534FE00647AEC /* TaloolToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 91CC60C016F534FD00647AEC /* TaloolToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91CC60C316F534FE00647AEC /* TaloolToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CC60C116F534FE00647AEC /* TaloolToken.m */; };
 		91CC60CA16F5354100647AEC /* ttToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 91CC60C816F5354000647AEC /* ttToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -234,10 +234,10 @@
 		916148B216EBC9E1001C546C /* TaloolAPIResources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TaloolAPIResources-Prefix.pch"; sourceTree = "<group>"; };
 		9175717516F3D907002ACB08 /* SocialAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialAccount.h; sourceTree = "<group>"; };
 		9175717616F3D907002ACB08 /* SocialAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialAccount.m; sourceTree = "<group>"; };
-		9183F4ED1703D0ED00ED4844 /* TaloolDeal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolDeal.h; sourceTree = "<group>"; };
-		9183F4EE1703D0ED00ED4844 /* TaloolDeal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolDeal.m; sourceTree = "<group>"; };
-		9183F4F11703D0EE00ED4844 /* TaloolMerchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolMerchant.h; sourceTree = "<group>"; };
-		9183F4F21703D0EE00ED4844 /* TaloolMerchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolMerchant.m; sourceTree = "<group>"; };
+		9183F4F71703E47A00ED4844 /* TaloolDeal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolDeal.h; sourceTree = "<group>"; };
+		9183F4F81703E47A00ED4844 /* TaloolDeal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolDeal.m; sourceTree = "<group>"; };
+		9183F4FB1703E47A00ED4844 /* TaloolMerchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolMerchant.h; sourceTree = "<group>"; };
+		9183F4FC1703E47A00ED4844 /* TaloolMerchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolMerchant.m; sourceTree = "<group>"; };
 		91CC60C016F534FD00647AEC /* TaloolToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolToken.h; sourceTree = "<group>"; };
 		91CC60C116F534FE00647AEC /* TaloolToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolToken.m; sourceTree = "<group>"; };
 		91CC60C816F5354000647AEC /* ttToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttToken.h; sourceTree = "<group>"; };
@@ -474,10 +474,10 @@
 				910FEB2616FBEBD400B4CCFD /* Friend.h */,
 				910FEB2716FBEBD400B4CCFD /* Friend.m */,
 				914A1B0F16E6ED390043989A /* Talool.xcdatamodel */,
-				9183F4F11703D0EE00ED4844 /* TaloolMerchant.h */,
-				9183F4F21703D0EE00ED4844 /* TaloolMerchant.m */,
-				9183F4ED1703D0ED00ED4844 /* TaloolDeal.h */,
-				9183F4EE1703D0ED00ED4844 /* TaloolDeal.m */,
+				9183F4FB1703E47A00ED4844 /* TaloolMerchant.h */,
+				9183F4FC1703E47A00ED4844 /* TaloolMerchant.m */,
+				9183F4F71703E47A00ED4844 /* TaloolDeal.h */,
+				9183F4F81703E47A00ED4844 /* TaloolDeal.m */,
 				910FEB1E16FBE45500B4CCFD /* TaloolCustomer.h */,
 				910FEB1F16FBE45500B4CCFD /* TaloolCustomer.m */,
 				91CC60C016F534FD00647AEC /* TaloolToken.h */,
@@ -559,14 +559,14 @@
 				91F546B216F16EEA00BEFF91 /* ttSocialNetworkDetail.h in Headers */,
 				910FEB2816FBEBD400B4CCFD /* Friend.h in Headers */,
 				914A1B7016E703310043989A /* MerchantController.h in Headers */,
+				9183F4F91703E47A00ED4844 /* TaloolDeal.h in Headers */,
+				9183F4FD1703E47A00ED4844 /* TaloolMerchant.h in Headers */,
 				914A1B7116E703310043989A /* CustomerController.h in Headers */,
 				910FEB2016FBE45500B4CCFD /* TaloolCustomer.h in Headers */,
 				91CC60C216F534FE00647AEC /* TaloolToken.h in Headers */,
 				914A1B6D16E703310043989A /* TaloolAddress.h in Headers */,
 				9175717716F3D907002ACB08 /* SocialAccount.h in Headers */,
 				91F546A216F16D9B00BEFF91 /* SocialNetworkDetail.h in Headers */,
-				9183F4EF1703D0ED00ED4844 /* TaloolDeal.h in Headers */,
-				9183F4F31703D0EE00ED4844 /* TaloolMerchant.h in Headers */,
 				9161489316EBA743001C546C /* TaloolPersistentStoreCoordinator.h in Headers */,
 				91F7D6CB16ED78F400D64C19 /* TaloolFrameworkHelper.h in Headers */,
 				91F5469616F16A2800BEFF91 /* CustomerService.h in Headers */,
@@ -756,8 +756,8 @@
 				91CC60D316F57CD900647AEC /* TaloolHTTPClient.m in Sources */,
 				910FEB2116FBE45500B4CCFD /* TaloolCustomer.m in Sources */,
 				910FEB2916FBEBD400B4CCFD /* Friend.m in Sources */,
-				9183F4F01703D0ED00ED4844 /* TaloolDeal.m in Sources */,
-				9183F4F41703D0EE00ED4844 /* TaloolMerchant.m in Sources */,
+				9183F4FA1703E47A00ED4844 /* TaloolDeal.m in Sources */,
+				9183F4FE1703E47A00ED4844 /* TaloolMerchant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

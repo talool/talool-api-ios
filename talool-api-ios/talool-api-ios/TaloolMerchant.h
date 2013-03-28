@@ -15,6 +15,14 @@
 
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) TaloolDeal *deals;
+@property (nonatomic, retain) NSSet *deals;
+@end
+
+@interface TaloolMerchant (CoreDataGeneratedAccessors)
+
+- (void)addDealsObject:(TaloolDeal *)value;
+- (void)removeDealsObject:(TaloolDeal *)value;
+- (void)addDeals:(NSSet *)values;
+- (void)removeDeals:(NSSet *)values;
 
 @end
