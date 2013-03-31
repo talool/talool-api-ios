@@ -25,7 +25,7 @@
 - (ttToken *)getTaloolToken;
 - (void)saveFriend:(Friend *)socialFriend;
 - (NSSet *) getSocialFriends;
-- (NSSet *) getMerchants: (NSManagedObjectContext *)context;
+- (void) refreshMerchants: (NSManagedObjectContext *)context;
 
 @end
 

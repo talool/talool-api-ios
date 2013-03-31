@@ -113,20 +113,14 @@
     return self.friends;
 }
 
-- (NSSet *) getMerchants: (NSManagedObjectContext *)context
+- (void) refreshMerchants: (NSManagedObjectContext *)context
 {
-    // Dummy Data
-    //MerchantController *mc = [[MerchantController alloc] init];
-    //[mc loadData:context];
-    //return (NSSet *)mc.merchants;
-    
     CustomerController *cc = [[CustomerController alloc] init];
     NSError *error = [NSError alloc];
     NSMutableArray *merchants = [cc getMerchants:self context:context error:&error];
     NSSet *favoriteMerchants = [[NSSet alloc] initWithArray:merchants];
     [self addFavoriteMerchants:favoriteMerchants];
-    
-    return favoriteMerchants;
+
 }
 
 @end

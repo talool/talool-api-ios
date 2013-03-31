@@ -29,6 +29,7 @@
     
     // TODO redeemedOn
     // TODO redeemed
+    newDeal.redeemed = 0;
     
     return newDeal;
 }

@@ -208,12 +208,15 @@
 
 - (void)save:(ttCustomer *)customer error:(NSError**)error
 {
+    // TODO Queue it!
+    NSLog(@"FIX IT: SAVE: Queue this server call if needed.");
+    
     // Convert the core data obj to a thrift object
     Customer_t *newCustomer = [customer hydrateThriftObject];
     
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     @try {
-        // Do the Thrift Authentication
+        // Do the Thrift Save
         [self connectWithToken:(ttToken *)customer.token];
         [service save:newCustomer];
     }
@@ -265,6 +268,9 @@
 
 - (NSMutableArray *) getMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
+    // TODO Queue it!
+    NSLog(@"FIX IT: GET MERCHANTS: Queue this server call if needed.");
+    
     NSMutableArray *merchants;
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     
@@ -321,6 +327,9 @@
 
 - (NSMutableArray *) getDeals:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
+    // TODO Queue it!
+    NSLog(@"FIX IT: GET DEALS: Queue this server call if needed.");
+    
     NSMutableArray *deals;
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     
