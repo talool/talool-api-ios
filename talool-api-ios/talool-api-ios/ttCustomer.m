@@ -115,11 +115,14 @@
 
 - (void) refreshMerchants: (NSManagedObjectContext *)context
 {
+    [self removeFavoriteMerchants:self.favoriteMerchants];
+    
     CustomerController *cc = [[CustomerController alloc] init];
     NSError *error = [NSError alloc];
     NSMutableArray *merchants = [cc getMerchants:self context:context error:&error];
-    NSSet *favoriteMerchants = [[NSSet alloc] initWithArray:merchants];
-    [self addFavoriteMerchants:favoriteMerchants];
+    NSSet *fMerchants = [[NSSet alloc] initWithArray:merchants];
+    
+    [self addFavoriteMerchants:fMerchants];
 
 }
 
