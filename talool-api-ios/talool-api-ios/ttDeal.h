@@ -7,7 +7,8 @@
 //
 
 #import "TaloolDeal.h"
-#import "Core.h"
+
+@class Deal_t;
 
 @interface ttDeal : TaloolDeal
 
