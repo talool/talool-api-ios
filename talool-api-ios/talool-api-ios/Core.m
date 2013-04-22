@@ -448,15 +448,13 @@
   return self;
 }
 
-- (id) initWithSocalNetwork: (int) socalNetwork loginId: (NSString *) loginId token: (NSString *) token created: (Timestamp) created updated: (Timestamp) updated
+- (id) initWithSocalNetwork: (int) socalNetwork loginId: (NSString *) loginId created: (Timestamp) created updated: (Timestamp) updated
 {
   self = [super init];
   __socalNetwork = socalNetwork;
   __socalNetwork_isset = YES;
   __loginId = [loginId retain_stub];
   __loginId_isset = YES;
-  __token = [token retain_stub];
-  __token_isset = YES;
   __created = created;
   __created_isset = YES;
   __updated = updated;
@@ -476,11 +474,6 @@
   {
     __loginId = [[decoder decodeObjectForKey: @"loginId"] retain_stub];
     __loginId_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"token"])
-  {
-    __token = [[decoder decodeObjectForKey: @"token"] retain_stub];
-    __token_isset = YES;
   }
   if ([decoder containsValueForKey: @"created"])
   {
@@ -505,10 +498,6 @@
   {
     [encoder encodeObject: __loginId forKey: @"loginId"];
   }
-  if (__token_isset)
-  {
-    [encoder encodeObject: __token forKey: @"token"];
-  }
   if (__created_isset)
   {
     [encoder encodeInt64: __created forKey: @"created"];
@@ -522,7 +511,6 @@
 - (void) dealloc
 {
   [__loginId release_stub];
-  [__token release_stub];
   [super dealloc_stub];
 }
 
@@ -562,27 +550,6 @@
   [__loginId release_stub];
   __loginId = nil;
   __loginId_isset = NO;
-}
-
-- (NSString *) token {
-  return [[__token retain_stub] autorelease_stub];
-}
-
-- (void) setToken: (NSString *) token {
-  [token retain_stub];
-  [__token release_stub];
-  __token = token;
-  __token_isset = YES;
-}
-
-- (BOOL) tokenIsSet {
-  return __token_isset;
-}
-
-- (void) unsetToken {
-  [__token release_stub];
-  __token = nil;
-  __token_isset = NO;
 }
 
 - (int64_t) created {
@@ -650,14 +617,6 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 3:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setToken: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
       case 20:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
@@ -697,13 +656,6 @@
       [outProtocol writeFieldEnd];
     }
   }
-  if (__token_isset) {
-    if (__token != nil) {
-      [outProtocol writeFieldBeginWithName: @"token" type: TType_STRING fieldID: 3];
-      [outProtocol writeString: __token];
-      [outProtocol writeFieldEnd];
-    }
-  }
   if (__created_isset) {
     [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 20];
     [outProtocol writeI64: __created];
@@ -724,8 +676,6 @@
   [ms appendFormat: @"%i", __socalNetwork];
   [ms appendString: @",loginId:"];
   [ms appendFormat: @"\"%@\"", __loginId];
-  [ms appendString: @",token:"];
-  [ms appendFormat: @"\"%@\"", __token];
   [ms appendString: @",created:"];
   [ms appendFormat: @"%qi", __created];
   [ms appendString: @",updated:"];
@@ -1148,6 +1098,420 @@
 
 @end
 
+@implementation MerchantLocation_t
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logUrl: (NSString *) logUrl phone: (NSString *) phone address: (Address_t *) address
+{
+  self = [super init];
+  __locationId = locationId;
+  __locationId_isset = YES;
+  __name = [name retain_stub];
+  __name_isset = YES;
+  __email = [email retain_stub];
+  __email_isset = YES;
+  __websiteUrl = [websiteUrl retain_stub];
+  __websiteUrl_isset = YES;
+  __logUrl = [logUrl retain_stub];
+  __logUrl_isset = YES;
+  __phone = [phone retain_stub];
+  __phone_isset = YES;
+  __address = [address retain_stub];
+  __address_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"locationId"])
+  {
+    __locationId = [decoder decodeInt64ForKey: @"locationId"];
+    __locationId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"name"])
+  {
+    __name = [[decoder decodeObjectForKey: @"name"] retain_stub];
+    __name_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"email"])
+  {
+    __email = [[decoder decodeObjectForKey: @"email"] retain_stub];
+    __email_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"websiteUrl"])
+  {
+    __websiteUrl = [[decoder decodeObjectForKey: @"websiteUrl"] retain_stub];
+    __websiteUrl_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"logUrl"])
+  {
+    __logUrl = [[decoder decodeObjectForKey: @"logUrl"] retain_stub];
+    __logUrl_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"phone"])
+  {
+    __phone = [[decoder decodeObjectForKey: @"phone"] retain_stub];
+    __phone_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"address"])
+  {
+    __address = [[decoder decodeObjectForKey: @"address"] retain_stub];
+    __address_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__locationId_isset)
+  {
+    [encoder encodeInt64: __locationId forKey: @"locationId"];
+  }
+  if (__name_isset)
+  {
+    [encoder encodeObject: __name forKey: @"name"];
+  }
+  if (__email_isset)
+  {
+    [encoder encodeObject: __email forKey: @"email"];
+  }
+  if (__websiteUrl_isset)
+  {
+    [encoder encodeObject: __websiteUrl forKey: @"websiteUrl"];
+  }
+  if (__logUrl_isset)
+  {
+    [encoder encodeObject: __logUrl forKey: @"logUrl"];
+  }
+  if (__phone_isset)
+  {
+    [encoder encodeObject: __phone forKey: @"phone"];
+  }
+  if (__address_isset)
+  {
+    [encoder encodeObject: __address forKey: @"address"];
+  }
+}
+
+- (void) dealloc
+{
+  [__name release_stub];
+  [__email release_stub];
+  [__websiteUrl release_stub];
+  [__logUrl release_stub];
+  [__phone release_stub];
+  [__address release_stub];
+  [super dealloc_stub];
+}
+
+- (int64_t) locationId {
+  return __locationId;
+}
+
+- (void) setLocationId: (int64_t) locationId {
+  __locationId = locationId;
+  __locationId_isset = YES;
+}
+
+- (BOOL) locationIdIsSet {
+  return __locationId_isset;
+}
+
+- (void) unsetLocationId {
+  __locationId_isset = NO;
+}
+
+- (NSString *) name {
+  return [[__name retain_stub] autorelease_stub];
+}
+
+- (void) setName: (NSString *) name {
+  [name retain_stub];
+  [__name release_stub];
+  __name = name;
+  __name_isset = YES;
+}
+
+- (BOOL) nameIsSet {
+  return __name_isset;
+}
+
+- (void) unsetName {
+  [__name release_stub];
+  __name = nil;
+  __name_isset = NO;
+}
+
+- (NSString *) email {
+  return [[__email retain_stub] autorelease_stub];
+}
+
+- (void) setEmail: (NSString *) email {
+  [email retain_stub];
+  [__email release_stub];
+  __email = email;
+  __email_isset = YES;
+}
+
+- (BOOL) emailIsSet {
+  return __email_isset;
+}
+
+- (void) unsetEmail {
+  [__email release_stub];
+  __email = nil;
+  __email_isset = NO;
+}
+
+- (NSString *) websiteUrl {
+  return [[__websiteUrl retain_stub] autorelease_stub];
+}
+
+- (void) setWebsiteUrl: (NSString *) websiteUrl {
+  [websiteUrl retain_stub];
+  [__websiteUrl release_stub];
+  __websiteUrl = websiteUrl;
+  __websiteUrl_isset = YES;
+}
+
+- (BOOL) websiteUrlIsSet {
+  return __websiteUrl_isset;
+}
+
+- (void) unsetWebsiteUrl {
+  [__websiteUrl release_stub];
+  __websiteUrl = nil;
+  __websiteUrl_isset = NO;
+}
+
+- (NSString *) logUrl {
+  return [[__logUrl retain_stub] autorelease_stub];
+}
+
+- (void) setLogUrl: (NSString *) logUrl {
+  [logUrl retain_stub];
+  [__logUrl release_stub];
+  __logUrl = logUrl;
+  __logUrl_isset = YES;
+}
+
+- (BOOL) logUrlIsSet {
+  return __logUrl_isset;
+}
+
+- (void) unsetLogUrl {
+  [__logUrl release_stub];
+  __logUrl = nil;
+  __logUrl_isset = NO;
+}
+
+- (NSString *) phone {
+  return [[__phone retain_stub] autorelease_stub];
+}
+
+- (void) setPhone: (NSString *) phone {
+  [phone retain_stub];
+  [__phone release_stub];
+  __phone = phone;
+  __phone_isset = YES;
+}
+
+- (BOOL) phoneIsSet {
+  return __phone_isset;
+}
+
+- (void) unsetPhone {
+  [__phone release_stub];
+  __phone = nil;
+  __phone_isset = NO;
+}
+
+- (Address_t *) address {
+  return [[__address retain_stub] autorelease_stub];
+}
+
+- (void) setAddress: (Address_t *) address {
+  [address retain_stub];
+  [__address release_stub];
+  __address = address;
+  __address_isset = YES;
+}
+
+- (BOOL) addressIsSet {
+  return __address_isset;
+}
+
+- (void) unsetAddress {
+  [__address release_stub];
+  __address = nil;
+  __address_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setLocationId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setName: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setEmail: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setWebsiteUrl: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 5:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setLogUrl: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 6:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setPhone: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 7:
+        if (fieldType == TType_STRUCT) {
+          Address_t *fieldValue = [[Address_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setAddress: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"MerchantLocation_t"];
+  if (__locationId_isset) {
+    [outProtocol writeFieldBeginWithName: @"locationId" type: TType_I64 fieldID: 1];
+    [outProtocol writeI64: __locationId];
+    [outProtocol writeFieldEnd];
+  }
+  if (__name_isset) {
+    if (__name != nil) {
+      [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __name];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__email_isset) {
+    if (__email != nil) {
+      [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 3];
+      [outProtocol writeString: __email];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__websiteUrl_isset) {
+    if (__websiteUrl != nil) {
+      [outProtocol writeFieldBeginWithName: @"websiteUrl" type: TType_STRING fieldID: 4];
+      [outProtocol writeString: __websiteUrl];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__logUrl_isset) {
+    if (__logUrl != nil) {
+      [outProtocol writeFieldBeginWithName: @"logUrl" type: TType_STRING fieldID: 5];
+      [outProtocol writeString: __logUrl];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__phone_isset) {
+    if (__phone != nil) {
+      [outProtocol writeFieldBeginWithName: @"phone" type: TType_STRING fieldID: 6];
+      [outProtocol writeString: __phone];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__address_isset) {
+    if (__address != nil) {
+      [outProtocol writeFieldBeginWithName: @"address" type: TType_STRUCT fieldID: 7];
+      [__address write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"MerchantLocation_t("];
+  [ms appendString: @"locationId:"];
+  [ms appendFormat: @"%qi", __locationId];
+  [ms appendString: @",name:"];
+  [ms appendFormat: @"\"%@\"", __name];
+  [ms appendString: @",email:"];
+  [ms appendFormat: @"\"%@\"", __email];
+  [ms appendString: @",websiteUrl:"];
+  [ms appendFormat: @"\"%@\"", __websiteUrl];
+  [ms appendString: @",logUrl:"];
+  [ms appendFormat: @"\"%@\"", __logUrl];
+  [ms appendString: @",phone:"];
+  [ms appendFormat: @"\"%@\"", __phone];
+  [ms appendString: @",address:"];
+  [ms appendFormat: @"%@", __address];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 @implementation Customer_t
 
 - (id) init
@@ -1158,10 +1522,10 @@
   return self;
 }
 
-- (id) initWithCustomerId: (int64_t) customerId firstName: (NSString *) firstName lastName: (NSString *) lastName email: (NSString *) email sex: (int) sex socialAccounts: (NSMutableDictionary *) socialAccounts created: (Timestamp) created updated: (Timestamp) updated
+- (id) initWithCustomerId: (NSString *) customerId firstName: (NSString *) firstName lastName: (NSString *) lastName email: (NSString *) email sex: (int) sex socialAccounts: (NSMutableDictionary *) socialAccounts created: (Timestamp) created updated: (Timestamp) updated
 {
   self = [super init];
-  __customerId = customerId;
+  __customerId = [customerId retain_stub];
   __customerId_isset = YES;
   __firstName = [firstName retain_stub];
   __firstName_isset = YES;
@@ -1185,7 +1549,7 @@
   self = [super init];
   if ([decoder containsValueForKey: @"customerId"])
   {
-    __customerId = [decoder decodeInt64ForKey: @"customerId"];
+    __customerId = [[decoder decodeObjectForKey: @"customerId"] retain_stub];
     __customerId_isset = YES;
   }
   if ([decoder containsValueForKey: @"firstName"])
@@ -1230,7 +1594,7 @@
 {
   if (__customerId_isset)
   {
-    [encoder encodeInt64: __customerId forKey: @"customerId"];
+    [encoder encodeObject: __customerId forKey: @"customerId"];
   }
   if (__firstName_isset)
   {
@@ -1264,6 +1628,7 @@
 
 - (void) dealloc
 {
+  [__customerId release_stub];
   [__firstName release_stub];
   [__lastName release_stub];
   [__email release_stub];
@@ -1271,11 +1636,13 @@
   [super dealloc_stub];
 }
 
-- (int64_t) customerId {
-  return __customerId;
+- (NSString *) customerId {
+  return [[__customerId retain_stub] autorelease_stub];
 }
 
-- (void) setCustomerId: (int64_t) customerId {
+- (void) setCustomerId: (NSString *) customerId {
+  [customerId retain_stub];
+  [__customerId release_stub];
   __customerId = customerId;
   __customerId_isset = YES;
 }
@@ -1285,6 +1652,8 @@
 }
 
 - (void) unsetCustomerId {
+  [__customerId release_stub];
+  __customerId = nil;
   __customerId_isset = NO;
 }
 
@@ -1439,8 +1808,8 @@
     switch (fieldID)
     {
       case 1:
-        if (fieldType == TType_I64) {
-          int64_t fieldValue = [inProtocol readI64];
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
           [self setCustomerId: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -1499,7 +1868,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 20:
+      case 8:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setCreated: fieldValue];
@@ -1507,7 +1876,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 21:
+      case 9:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUpdated: fieldValue];
@@ -1527,9 +1896,11 @@
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"Customer_t"];
   if (__customerId_isset) {
-    [outProtocol writeFieldBeginWithName: @"customerId" type: TType_I64 fieldID: 1];
-    [outProtocol writeI64: __customerId];
-    [outProtocol writeFieldEnd];
+    if (__customerId != nil) {
+      [outProtocol writeFieldBeginWithName: @"customerId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __customerId];
+      [outProtocol writeFieldEnd];
+    }
   }
   if (__firstName_isset) {
     if (__firstName != nil) {
@@ -1575,12 +1946,12 @@
     }
   }
   if (__created_isset) {
-    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 20];
+    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 8];
     [outProtocol writeI64: __created];
     [outProtocol writeFieldEnd];
   }
   if (__updated_isset) {
-    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 21];
+    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 9];
     [outProtocol writeI64: __updated];
     [outProtocol writeFieldEnd];
   }
@@ -1591,7 +1962,7 @@
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"Customer_t("];
   [ms appendString: @"customerId:"];
-  [ms appendFormat: @"%qi", __customerId];
+  [ms appendFormat: @"\"%@\"", __customerId];
   [ms appendString: @",firstName:"];
   [ms appendFormat: @"\"%@\"", __firstName];
   [ms appendString: @",lastName:"];
@@ -1834,23 +2205,15 @@
   return self;
 }
 
-- (id) initWithMerchantId: (int64_t) merchantId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl phone: (NSString *) phone address: (Address_t *) address created: (Timestamp) created updated: (Timestamp) updated
+- (id) initWithMerchantId: (NSString *) merchantId name: (NSString *) name locations: (NSMutableArray *) locations created: (Timestamp) created updated: (Timestamp) updated
 {
   self = [super init];
-  __merchantId = merchantId;
+  __merchantId = [merchantId retain_stub];
   __merchantId_isset = YES;
   __name = [name retain_stub];
   __name_isset = YES;
-  __email = [email retain_stub];
-  __email_isset = YES;
-  __websiteUrl = [websiteUrl retain_stub];
-  __websiteUrl_isset = YES;
-  __logoUrl = [logoUrl retain_stub];
-  __logoUrl_isset = YES;
-  __phone = [phone retain_stub];
-  __phone_isset = YES;
-  __address = [address retain_stub];
-  __address_isset = YES;
+  __locations = [locations retain_stub];
+  __locations_isset = YES;
   __created = created;
   __created_isset = YES;
   __updated = updated;
@@ -1863,7 +2226,7 @@
   self = [super init];
   if ([decoder containsValueForKey: @"merchantId"])
   {
-    __merchantId = [decoder decodeInt64ForKey: @"merchantId"];
+    __merchantId = [[decoder decodeObjectForKey: @"merchantId"] retain_stub];
     __merchantId_isset = YES;
   }
   if ([decoder containsValueForKey: @"name"])
@@ -1871,30 +2234,10 @@
     __name = [[decoder decodeObjectForKey: @"name"] retain_stub];
     __name_isset = YES;
   }
-  if ([decoder containsValueForKey: @"email"])
+  if ([decoder containsValueForKey: @"locations"])
   {
-    __email = [[decoder decodeObjectForKey: @"email"] retain_stub];
-    __email_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"websiteUrl"])
-  {
-    __websiteUrl = [[decoder decodeObjectForKey: @"websiteUrl"] retain_stub];
-    __websiteUrl_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"logoUrl"])
-  {
-    __logoUrl = [[decoder decodeObjectForKey: @"logoUrl"] retain_stub];
-    __logoUrl_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"phone"])
-  {
-    __phone = [[decoder decodeObjectForKey: @"phone"] retain_stub];
-    __phone_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"address"])
-  {
-    __address = [[decoder decodeObjectForKey: @"address"] retain_stub];
-    __address_isset = YES;
+    __locations = [[decoder decodeObjectForKey: @"locations"] retain_stub];
+    __locations_isset = YES;
   }
   if ([decoder containsValueForKey: @"created"])
   {
@@ -1913,31 +2256,15 @@
 {
   if (__merchantId_isset)
   {
-    [encoder encodeInt64: __merchantId forKey: @"merchantId"];
+    [encoder encodeObject: __merchantId forKey: @"merchantId"];
   }
   if (__name_isset)
   {
     [encoder encodeObject: __name forKey: @"name"];
   }
-  if (__email_isset)
+  if (__locations_isset)
   {
-    [encoder encodeObject: __email forKey: @"email"];
-  }
-  if (__websiteUrl_isset)
-  {
-    [encoder encodeObject: __websiteUrl forKey: @"websiteUrl"];
-  }
-  if (__logoUrl_isset)
-  {
-    [encoder encodeObject: __logoUrl forKey: @"logoUrl"];
-  }
-  if (__phone_isset)
-  {
-    [encoder encodeObject: __phone forKey: @"phone"];
-  }
-  if (__address_isset)
-  {
-    [encoder encodeObject: __address forKey: @"address"];
+    [encoder encodeObject: __locations forKey: @"locations"];
   }
   if (__created_isset)
   {
@@ -1951,20 +2278,19 @@
 
 - (void) dealloc
 {
+  [__merchantId release_stub];
   [__name release_stub];
-  [__email release_stub];
-  [__websiteUrl release_stub];
-  [__logoUrl release_stub];
-  [__phone release_stub];
-  [__address release_stub];
+  [__locations release_stub];
   [super dealloc_stub];
 }
 
-- (int64_t) merchantId {
-  return __merchantId;
+- (NSString *) merchantId {
+  return [[__merchantId retain_stub] autorelease_stub];
 }
 
-- (void) setMerchantId: (int64_t) merchantId {
+- (void) setMerchantId: (NSString *) merchantId {
+  [merchantId retain_stub];
+  [__merchantId release_stub];
   __merchantId = merchantId;
   __merchantId_isset = YES;
 }
@@ -1974,6 +2300,8 @@
 }
 
 - (void) unsetMerchantId {
+  [__merchantId release_stub];
+  __merchantId = nil;
   __merchantId_isset = NO;
 }
 
@@ -1998,109 +2326,25 @@
   __name_isset = NO;
 }
 
-- (NSString *) email {
-  return [[__email retain_stub] autorelease_stub];
+- (NSMutableArray *) locations {
+  return [[__locations retain_stub] autorelease_stub];
 }
 
-- (void) setEmail: (NSString *) email {
-  [email retain_stub];
-  [__email release_stub];
-  __email = email;
-  __email_isset = YES;
+- (void) setLocations: (NSMutableArray *) locations {
+  [locations retain_stub];
+  [__locations release_stub];
+  __locations = locations;
+  __locations_isset = YES;
 }
 
-- (BOOL) emailIsSet {
-  return __email_isset;
+- (BOOL) locationsIsSet {
+  return __locations_isset;
 }
 
-- (void) unsetEmail {
-  [__email release_stub];
-  __email = nil;
-  __email_isset = NO;
-}
-
-- (NSString *) websiteUrl {
-  return [[__websiteUrl retain_stub] autorelease_stub];
-}
-
-- (void) setWebsiteUrl: (NSString *) websiteUrl {
-  [websiteUrl retain_stub];
-  [__websiteUrl release_stub];
-  __websiteUrl = websiteUrl;
-  __websiteUrl_isset = YES;
-}
-
-- (BOOL) websiteUrlIsSet {
-  return __websiteUrl_isset;
-}
-
-- (void) unsetWebsiteUrl {
-  [__websiteUrl release_stub];
-  __websiteUrl = nil;
-  __websiteUrl_isset = NO;
-}
-
-- (NSString *) logoUrl {
-  return [[__logoUrl retain_stub] autorelease_stub];
-}
-
-- (void) setLogoUrl: (NSString *) logoUrl {
-  [logoUrl retain_stub];
-  [__logoUrl release_stub];
-  __logoUrl = logoUrl;
-  __logoUrl_isset = YES;
-}
-
-- (BOOL) logoUrlIsSet {
-  return __logoUrl_isset;
-}
-
-- (void) unsetLogoUrl {
-  [__logoUrl release_stub];
-  __logoUrl = nil;
-  __logoUrl_isset = NO;
-}
-
-- (NSString *) phone {
-  return [[__phone retain_stub] autorelease_stub];
-}
-
-- (void) setPhone: (NSString *) phone {
-  [phone retain_stub];
-  [__phone release_stub];
-  __phone = phone;
-  __phone_isset = YES;
-}
-
-- (BOOL) phoneIsSet {
-  return __phone_isset;
-}
-
-- (void) unsetPhone {
-  [__phone release_stub];
-  __phone = nil;
-  __phone_isset = NO;
-}
-
-- (Address_t *) address {
-  return [[__address retain_stub] autorelease_stub];
-}
-
-- (void) setAddress: (Address_t *) address {
-  [address retain_stub];
-  [__address release_stub];
-  __address = address;
-  __address_isset = YES;
-}
-
-- (BOOL) addressIsSet {
-  return __address_isset;
-}
-
-- (void) unsetAddress {
-  [__address release_stub];
-  __address = nil;
-  __address_isset = NO;
+- (void) unsetLocations {
+  [__locations release_stub];
+  __locations = nil;
+  __locations_isset = NO;
 }
 
 - (int64_t) created {
@@ -2153,8 +2397,8 @@
     switch (fieldID)
     {
       case 1:
-        if (fieldType == TType_I64) {
-          int64_t fieldValue = [inProtocol readI64];
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
           [self setMerchantId: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -2169,48 +2413,26 @@
         }
         break;
       case 3:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setEmail: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 4:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setWebsiteUrl: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 5:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setLogoUrl: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 6:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setPhone: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 7:
-        if (fieldType == TType_STRUCT) {
-          Address_t *fieldValue = [[Address_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setAddress: fieldValue];
+        if (fieldType == TType_LIST) {
+          int _size6;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size6];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size6];
+          int _i7;
+          for (_i7 = 0; _i7 < _size6; ++_i7)
+          {
+            MerchantLocation_t *_elem8 = [[MerchantLocation_t alloc] init];
+            [_elem8 read: inProtocol];
+            [fieldValue addObject: _elem8];
+            [_elem8 release_stub];
+          }
+          [inProtocol readListEnd];
+          [self setLocations: fieldValue];
           [fieldValue release_stub];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 20:
+      case 4:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setCreated: fieldValue];
@@ -2218,7 +2440,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 21:
+      case 5:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUpdated: fieldValue];
@@ -2238,9 +2460,11 @@
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"Merchant_t"];
   if (__merchantId_isset) {
-    [outProtocol writeFieldBeginWithName: @"merchantId" type: TType_I64 fieldID: 1];
-    [outProtocol writeI64: __merchantId];
-    [outProtocol writeFieldEnd];
+    if (__merchantId != nil) {
+      [outProtocol writeFieldBeginWithName: @"merchantId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __merchantId];
+      [outProtocol writeFieldEnd];
+    }
   }
   if (__name_isset) {
     if (__name != nil) {
@@ -2249,48 +2473,28 @@
       [outProtocol writeFieldEnd];
     }
   }
-  if (__email_isset) {
-    if (__email != nil) {
-      [outProtocol writeFieldBeginWithName: @"email" type: TType_STRING fieldID: 3];
-      [outProtocol writeString: __email];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  if (__websiteUrl_isset) {
-    if (__websiteUrl != nil) {
-      [outProtocol writeFieldBeginWithName: @"websiteUrl" type: TType_STRING fieldID: 4];
-      [outProtocol writeString: __websiteUrl];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  if (__logoUrl_isset) {
-    if (__logoUrl != nil) {
-      [outProtocol writeFieldBeginWithName: @"logoUrl" type: TType_STRING fieldID: 5];
-      [outProtocol writeString: __logoUrl];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  if (__phone_isset) {
-    if (__phone != nil) {
-      [outProtocol writeFieldBeginWithName: @"phone" type: TType_STRING fieldID: 6];
-      [outProtocol writeString: __phone];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  if (__address_isset) {
-    if (__address != nil) {
-      [outProtocol writeFieldBeginWithName: @"address" type: TType_STRUCT fieldID: 7];
-      [__address write: outProtocol];
+  if (__locations_isset) {
+    if (__locations != nil) {
+      [outProtocol writeFieldBeginWithName: @"locations" type: TType_LIST fieldID: 3];
+      {
+        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__locations count]];
+        int i10;
+        for (i10 = 0; i10 < [__locations count]; i10++)
+        {
+          [[__locations objectAtIndex: i10] write: outProtocol];
+        }
+        [outProtocol writeListEnd];
+      }
       [outProtocol writeFieldEnd];
     }
   }
   if (__created_isset) {
-    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 20];
+    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 4];
     [outProtocol writeI64: __created];
     [outProtocol writeFieldEnd];
   }
   if (__updated_isset) {
-    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 21];
+    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 5];
     [outProtocol writeI64: __updated];
     [outProtocol writeFieldEnd];
   }
@@ -2301,19 +2505,11 @@
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"Merchant_t("];
   [ms appendString: @"merchantId:"];
-  [ms appendFormat: @"%qi", __merchantId];
+  [ms appendFormat: @"\"%@\"", __merchantId];
   [ms appendString: @",name:"];
   [ms appendFormat: @"\"%@\"", __name];
-  [ms appendString: @",email:"];
-  [ms appendFormat: @"\"%@\"", __email];
-  [ms appendString: @",websiteUrl:"];
-  [ms appendFormat: @"\"%@\"", __websiteUrl];
-  [ms appendString: @",logoUrl:"];
-  [ms appendFormat: @"\"%@\"", __logoUrl];
-  [ms appendString: @",phone:"];
-  [ms appendFormat: @"\"%@\"", __phone];
-  [ms appendString: @",address:"];
-  [ms appendFormat: @"%@", __address];
+  [ms appendString: @",locations:"];
+  [ms appendFormat: @"%@", __locations];
   [ms appendString: @",created:"];
   [ms appendFormat: @"%qi", __created];
   [ms appendString: @",updated:"];
@@ -2334,10 +2530,10 @@
   return self;
 }
 
-- (id) initWithDealId: (int64_t) dealId merchant: (Merchant_t *) merchant title: (NSString *) title summary: (NSString *) summary details: (NSString *) details code: (NSString *) code imageUrl: (NSString *) imageUrl expires: (Timestamp) expires created: (Timestamp) created updated: (Timestamp) updated
+- (id) initWithDealId: (NSString *) dealId merchant: (Merchant_t *) merchant title: (NSString *) title summary: (NSString *) summary details: (NSString *) details code: (NSString *) code imageUrl: (NSString *) imageUrl expires: (Timestamp) expires created: (Timestamp) created updated: (Timestamp) updated
 {
   self = [super init];
-  __dealId = dealId;
+  __dealId = [dealId retain_stub];
   __dealId_isset = YES;
   __merchant = [merchant retain_stub];
   __merchant_isset = YES;
@@ -2365,7 +2561,7 @@
   self = [super init];
   if ([decoder containsValueForKey: @"dealId"])
   {
-    __dealId = [decoder decodeInt64ForKey: @"dealId"];
+    __dealId = [[decoder decodeObjectForKey: @"dealId"] retain_stub];
     __dealId_isset = YES;
   }
   if ([decoder containsValueForKey: @"merchant"])
@@ -2420,7 +2616,7 @@
 {
   if (__dealId_isset)
   {
-    [encoder encodeInt64: __dealId forKey: @"dealId"];
+    [encoder encodeObject: __dealId forKey: @"dealId"];
   }
   if (__merchant_isset)
   {
@@ -2462,6 +2658,7 @@
 
 - (void) dealloc
 {
+  [__dealId release_stub];
   [__merchant release_stub];
   [__title release_stub];
   [__summary release_stub];
@@ -2471,11 +2668,13 @@
   [super dealloc_stub];
 }
 
-- (int64_t) dealId {
-  return __dealId;
+- (NSString *) dealId {
+  return [[__dealId retain_stub] autorelease_stub];
 }
 
-- (void) setDealId: (int64_t) dealId {
+- (void) setDealId: (NSString *) dealId {
+  [dealId retain_stub];
+  [__dealId release_stub];
   __dealId = dealId;
   __dealId_isset = YES;
 }
@@ -2485,6 +2684,8 @@
 }
 
 - (void) unsetDealId {
+  [__dealId release_stub];
+  __dealId = nil;
   __dealId_isset = NO;
 }
 
@@ -2681,8 +2882,8 @@
     switch (fieldID)
     {
       case 1:
-        if (fieldType == TType_I64) {
-          int64_t fieldValue = [inProtocol readI64];
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
           [self setDealId: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -2746,7 +2947,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 20:
+      case 9:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setCreated: fieldValue];
@@ -2754,7 +2955,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 21:
+      case 10:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUpdated: fieldValue];
@@ -2774,9 +2975,11 @@
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"Deal_t"];
   if (__dealId_isset) {
-    [outProtocol writeFieldBeginWithName: @"dealId" type: TType_I64 fieldID: 1];
-    [outProtocol writeI64: __dealId];
-    [outProtocol writeFieldEnd];
+    if (__dealId != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __dealId];
+      [outProtocol writeFieldEnd];
+    }
   }
   if (__merchant_isset) {
     if (__merchant != nil) {
@@ -2826,12 +3029,12 @@
     [outProtocol writeFieldEnd];
   }
   if (__created_isset) {
-    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 20];
+    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 9];
     [outProtocol writeI64: __created];
     [outProtocol writeFieldEnd];
   }
   if (__updated_isset) {
-    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 21];
+    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 10];
     [outProtocol writeI64: __updated];
     [outProtocol writeFieldEnd];
   }
@@ -2842,7 +3045,7 @@
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"Deal_t("];
   [ms appendString: @"dealId:"];
-  [ms appendFormat: @"%qi", __dealId];
+  [ms appendFormat: @"\"%@\"", __dealId];
   [ms appendString: @",merchant:"];
   [ms appendFormat: @"%@", __merchant];
   [ms appendString: @",title:"];
@@ -2857,6 +3060,794 @@
   [ms appendFormat: @"\"%@\"", __imageUrl];
   [ms appendString: @",expires:"];
   [ms appendFormat: @"%qi", __expires];
+  [ms appendString: @",created:"];
+  [ms appendFormat: @"%qi", __created];
+  [ms appendString: @",updated:"];
+  [ms appendFormat: @"%qi", __updated];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@implementation SearchOptions_t
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithSortType: (int) sortType sortProperty: (NSString *) sortProperty firstResult: (int32_t) firstResult maxResults: (int32_t) maxResults page: (int32_t) page
+{
+  self = [super init];
+  __sortType = sortType;
+  __sortType_isset = YES;
+  __sortProperty = [sortProperty retain_stub];
+  __sortProperty_isset = YES;
+  __firstResult = firstResult;
+  __firstResult_isset = YES;
+  __maxResults = maxResults;
+  __maxResults_isset = YES;
+  __page = page;
+  __page_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"sortType"])
+  {
+    __sortType = [decoder decodeIntForKey: @"sortType"];
+    __sortType_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"sortProperty"])
+  {
+    __sortProperty = [[decoder decodeObjectForKey: @"sortProperty"] retain_stub];
+    __sortProperty_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"firstResult"])
+  {
+    __firstResult = [decoder decodeInt32ForKey: @"firstResult"];
+    __firstResult_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"maxResults"])
+  {
+    __maxResults = [decoder decodeInt32ForKey: @"maxResults"];
+    __maxResults_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"page"])
+  {
+    __page = [decoder decodeInt32ForKey: @"page"];
+    __page_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__sortType_isset)
+  {
+    [encoder encodeInt: __sortType forKey: @"sortType"];
+  }
+  if (__sortProperty_isset)
+  {
+    [encoder encodeObject: __sortProperty forKey: @"sortProperty"];
+  }
+  if (__firstResult_isset)
+  {
+    [encoder encodeInt32: __firstResult forKey: @"firstResult"];
+  }
+  if (__maxResults_isset)
+  {
+    [encoder encodeInt32: __maxResults forKey: @"maxResults"];
+  }
+  if (__page_isset)
+  {
+    [encoder encodeInt32: __page forKey: @"page"];
+  }
+}
+
+- (void) dealloc
+{
+  [__sortProperty release_stub];
+  [super dealloc_stub];
+}
+
+- (int) sortType {
+  return __sortType;
+}
+
+- (void) setSortType: (int) sortType {
+  __sortType = sortType;
+  __sortType_isset = YES;
+}
+
+- (BOOL) sortTypeIsSet {
+  return __sortType_isset;
+}
+
+- (void) unsetSortType {
+  __sortType_isset = NO;
+}
+
+- (NSString *) sortProperty {
+  return [[__sortProperty retain_stub] autorelease_stub];
+}
+
+- (void) setSortProperty: (NSString *) sortProperty {
+  [sortProperty retain_stub];
+  [__sortProperty release_stub];
+  __sortProperty = sortProperty;
+  __sortProperty_isset = YES;
+}
+
+- (BOOL) sortPropertyIsSet {
+  return __sortProperty_isset;
+}
+
+- (void) unsetSortProperty {
+  [__sortProperty release_stub];
+  __sortProperty = nil;
+  __sortProperty_isset = NO;
+}
+
+- (int32_t) firstResult {
+  return __firstResult;
+}
+
+- (void) setFirstResult: (int32_t) firstResult {
+  __firstResult = firstResult;
+  __firstResult_isset = YES;
+}
+
+- (BOOL) firstResultIsSet {
+  return __firstResult_isset;
+}
+
+- (void) unsetFirstResult {
+  __firstResult_isset = NO;
+}
+
+- (int32_t) maxResults {
+  return __maxResults;
+}
+
+- (void) setMaxResults: (int32_t) maxResults {
+  __maxResults = maxResults;
+  __maxResults_isset = YES;
+}
+
+- (BOOL) maxResultsIsSet {
+  return __maxResults_isset;
+}
+
+- (void) unsetMaxResults {
+  __maxResults_isset = NO;
+}
+
+- (int32_t) page {
+  return __page;
+}
+
+- (void) setPage: (int32_t) page {
+  __page = page;
+  __page_isset = YES;
+}
+
+- (BOOL) pageIsSet {
+  return __page_isset;
+}
+
+- (void) unsetPage {
+  __page_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_I32) {
+          int fieldValue = [inProtocol readI32];
+          [self setSortType: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setSortProperty: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setFirstResult: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setMaxResults: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 5:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setPage: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"SearchOptions_t"];
+  if (__sortType_isset) {
+    [outProtocol writeFieldBeginWithName: @"sortType" type: TType_I32 fieldID: 1];
+    [outProtocol writeI32: __sortType];
+    [outProtocol writeFieldEnd];
+  }
+  if (__sortProperty_isset) {
+    if (__sortProperty != nil) {
+      [outProtocol writeFieldBeginWithName: @"sortProperty" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __sortProperty];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__firstResult_isset) {
+    [outProtocol writeFieldBeginWithName: @"firstResult" type: TType_I32 fieldID: 3];
+    [outProtocol writeI32: __firstResult];
+    [outProtocol writeFieldEnd];
+  }
+  if (__maxResults_isset) {
+    [outProtocol writeFieldBeginWithName: @"maxResults" type: TType_I32 fieldID: 4];
+    [outProtocol writeI32: __maxResults];
+    [outProtocol writeFieldEnd];
+  }
+  if (__page_isset) {
+    [outProtocol writeFieldBeginWithName: @"page" type: TType_I32 fieldID: 5];
+    [outProtocol writeI32: __page];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"SearchOptions_t("];
+  [ms appendString: @"sortType:"];
+  [ms appendFormat: @"%i", __sortType];
+  [ms appendString: @",sortProperty:"];
+  [ms appendFormat: @"\"%@\"", __sortProperty];
+  [ms appendString: @",firstResult:"];
+  [ms appendFormat: @"%i", __firstResult];
+  [ms appendString: @",maxResults:"];
+  [ms appendFormat: @"%i", __maxResults];
+  [ms appendString: @",page:"];
+  [ms appendFormat: @"%i", __page];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@implementation DealAcquire_t
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (NSString *) status sharedByMerchant: (Merchant_t *) sharedByMerchant sharedByCustomer: (Customer_t *) sharedByCustomer shareCount: (int32_t) shareCount redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated
+{
+  self = [super init];
+  __dealAcquireId = [dealAcquireId retain_stub];
+  __dealAcquireId_isset = YES;
+  __deal = [deal retain_stub];
+  __deal_isset = YES;
+  __status = [status retain_stub];
+  __status_isset = YES;
+  __sharedByMerchant = [sharedByMerchant retain_stub];
+  __sharedByMerchant_isset = YES;
+  __sharedByCustomer = [sharedByCustomer retain_stub];
+  __sharedByCustomer_isset = YES;
+  __shareCount = shareCount;
+  __shareCount_isset = YES;
+  __redeemed = redeemed;
+  __redeemed_isset = YES;
+  __created = created;
+  __created_isset = YES;
+  __updated = updated;
+  __updated_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"dealAcquireId"])
+  {
+    __dealAcquireId = [[decoder decodeObjectForKey: @"dealAcquireId"] retain_stub];
+    __dealAcquireId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"deal"])
+  {
+    __deal = [[decoder decodeObjectForKey: @"deal"] retain_stub];
+    __deal_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"status"])
+  {
+    __status = [[decoder decodeObjectForKey: @"status"] retain_stub];
+    __status_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"sharedByMerchant"])
+  {
+    __sharedByMerchant = [[decoder decodeObjectForKey: @"sharedByMerchant"] retain_stub];
+    __sharedByMerchant_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"sharedByCustomer"])
+  {
+    __sharedByCustomer = [[decoder decodeObjectForKey: @"sharedByCustomer"] retain_stub];
+    __sharedByCustomer_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"shareCount"])
+  {
+    __shareCount = [decoder decodeInt32ForKey: @"shareCount"];
+    __shareCount_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"redeemed"])
+  {
+    __redeemed = [decoder decodeInt64ForKey: @"redeemed"];
+    __redeemed_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"created"])
+  {
+    __created = [decoder decodeInt64ForKey: @"created"];
+    __created_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"updated"])
+  {
+    __updated = [decoder decodeInt64ForKey: @"updated"];
+    __updated_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__dealAcquireId_isset)
+  {
+    [encoder encodeObject: __dealAcquireId forKey: @"dealAcquireId"];
+  }
+  if (__deal_isset)
+  {
+    [encoder encodeObject: __deal forKey: @"deal"];
+  }
+  if (__status_isset)
+  {
+    [encoder encodeObject: __status forKey: @"status"];
+  }
+  if (__sharedByMerchant_isset)
+  {
+    [encoder encodeObject: __sharedByMerchant forKey: @"sharedByMerchant"];
+  }
+  if (__sharedByCustomer_isset)
+  {
+    [encoder encodeObject: __sharedByCustomer forKey: @"sharedByCustomer"];
+  }
+  if (__shareCount_isset)
+  {
+    [encoder encodeInt32: __shareCount forKey: @"shareCount"];
+  }
+  if (__redeemed_isset)
+  {
+    [encoder encodeInt64: __redeemed forKey: @"redeemed"];
+  }
+  if (__created_isset)
+  {
+    [encoder encodeInt64: __created forKey: @"created"];
+  }
+  if (__updated_isset)
+  {
+    [encoder encodeInt64: __updated forKey: @"updated"];
+  }
+}
+
+- (void) dealloc
+{
+  [__dealAcquireId release_stub];
+  [__deal release_stub];
+  [__status release_stub];
+  [__sharedByMerchant release_stub];
+  [__sharedByCustomer release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) dealAcquireId {
+  return [[__dealAcquireId retain_stub] autorelease_stub];
+}
+
+- (void) setDealAcquireId: (NSString *) dealAcquireId {
+  [dealAcquireId retain_stub];
+  [__dealAcquireId release_stub];
+  __dealAcquireId = dealAcquireId;
+  __dealAcquireId_isset = YES;
+}
+
+- (BOOL) dealAcquireIdIsSet {
+  return __dealAcquireId_isset;
+}
+
+- (void) unsetDealAcquireId {
+  [__dealAcquireId release_stub];
+  __dealAcquireId = nil;
+  __dealAcquireId_isset = NO;
+}
+
+- (Deal_t *) deal {
+  return [[__deal retain_stub] autorelease_stub];
+}
+
+- (void) setDeal: (Deal_t *) deal {
+  [deal retain_stub];
+  [__deal release_stub];
+  __deal = deal;
+  __deal_isset = YES;
+}
+
+- (BOOL) dealIsSet {
+  return __deal_isset;
+}
+
+- (void) unsetDeal {
+  [__deal release_stub];
+  __deal = nil;
+  __deal_isset = NO;
+}
+
+- (NSString *) status {
+  return [[__status retain_stub] autorelease_stub];
+}
+
+- (void) setStatus: (NSString *) status {
+  [status retain_stub];
+  [__status release_stub];
+  __status = status;
+  __status_isset = YES;
+}
+
+- (BOOL) statusIsSet {
+  return __status_isset;
+}
+
+- (void) unsetStatus {
+  [__status release_stub];
+  __status = nil;
+  __status_isset = NO;
+}
+
+- (Merchant_t *) sharedByMerchant {
+  return [[__sharedByMerchant retain_stub] autorelease_stub];
+}
+
+- (void) setSharedByMerchant: (Merchant_t *) sharedByMerchant {
+  [sharedByMerchant retain_stub];
+  [__sharedByMerchant release_stub];
+  __sharedByMerchant = sharedByMerchant;
+  __sharedByMerchant_isset = YES;
+}
+
+- (BOOL) sharedByMerchantIsSet {
+  return __sharedByMerchant_isset;
+}
+
+- (void) unsetSharedByMerchant {
+  [__sharedByMerchant release_stub];
+  __sharedByMerchant = nil;
+  __sharedByMerchant_isset = NO;
+}
+
+- (Customer_t *) sharedByCustomer {
+  return [[__sharedByCustomer retain_stub] autorelease_stub];
+}
+
+- (void) setSharedByCustomer: (Customer_t *) sharedByCustomer {
+  [sharedByCustomer retain_stub];
+  [__sharedByCustomer release_stub];
+  __sharedByCustomer = sharedByCustomer;
+  __sharedByCustomer_isset = YES;
+}
+
+- (BOOL) sharedByCustomerIsSet {
+  return __sharedByCustomer_isset;
+}
+
+- (void) unsetSharedByCustomer {
+  [__sharedByCustomer release_stub];
+  __sharedByCustomer = nil;
+  __sharedByCustomer_isset = NO;
+}
+
+- (int32_t) shareCount {
+  return __shareCount;
+}
+
+- (void) setShareCount: (int32_t) shareCount {
+  __shareCount = shareCount;
+  __shareCount_isset = YES;
+}
+
+- (BOOL) shareCountIsSet {
+  return __shareCount_isset;
+}
+
+- (void) unsetShareCount {
+  __shareCount_isset = NO;
+}
+
+- (int64_t) redeemed {
+  return __redeemed;
+}
+
+- (void) setRedeemed: (int64_t) redeemed {
+  __redeemed = redeemed;
+  __redeemed_isset = YES;
+}
+
+- (BOOL) redeemedIsSet {
+  return __redeemed_isset;
+}
+
+- (void) unsetRedeemed {
+  __redeemed_isset = NO;
+}
+
+- (int64_t) created {
+  return __created;
+}
+
+- (void) setCreated: (int64_t) created {
+  __created = created;
+  __created_isset = YES;
+}
+
+- (BOOL) createdIsSet {
+  return __created_isset;
+}
+
+- (void) unsetCreated {
+  __created_isset = NO;
+}
+
+- (int64_t) updated {
+  return __updated;
+}
+
+- (void) setUpdated: (int64_t) updated {
+  __updated = updated;
+  __updated_isset = YES;
+}
+
+- (BOOL) updatedIsSet {
+  return __updated_isset;
+}
+
+- (void) unsetUpdated {
+  __updated_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setDealAcquireId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRUCT) {
+          Deal_t *fieldValue = [[Deal_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setDeal: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setStatus: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_STRUCT) {
+          Merchant_t *fieldValue = [[Merchant_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSharedByMerchant: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 5:
+        if (fieldType == TType_STRUCT) {
+          Customer_t *fieldValue = [[Customer_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSharedByCustomer: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 6:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setShareCount: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 7:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setRedeemed: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 8:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setCreated: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 9:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setUpdated: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"DealAcquire_t"];
+  if (__dealAcquireId_isset) {
+    if (__dealAcquireId != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealAcquireId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __dealAcquireId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__deal_isset) {
+    if (__deal != nil) {
+      [outProtocol writeFieldBeginWithName: @"deal" type: TType_STRUCT fieldID: 2];
+      [__deal write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__status_isset) {
+    if (__status != nil) {
+      [outProtocol writeFieldBeginWithName: @"status" type: TType_STRING fieldID: 3];
+      [outProtocol writeString: __status];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__sharedByMerchant_isset) {
+    if (__sharedByMerchant != nil) {
+      [outProtocol writeFieldBeginWithName: @"sharedByMerchant" type: TType_STRUCT fieldID: 4];
+      [__sharedByMerchant write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__sharedByCustomer_isset) {
+    if (__sharedByCustomer != nil) {
+      [outProtocol writeFieldBeginWithName: @"sharedByCustomer" type: TType_STRUCT fieldID: 5];
+      [__sharedByCustomer write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__shareCount_isset) {
+    [outProtocol writeFieldBeginWithName: @"shareCount" type: TType_I32 fieldID: 6];
+    [outProtocol writeI32: __shareCount];
+    [outProtocol writeFieldEnd];
+  }
+  if (__redeemed_isset) {
+    [outProtocol writeFieldBeginWithName: @"redeemed" type: TType_I64 fieldID: 7];
+    [outProtocol writeI64: __redeemed];
+    [outProtocol writeFieldEnd];
+  }
+  if (__created_isset) {
+    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 8];
+    [outProtocol writeI64: __created];
+    [outProtocol writeFieldEnd];
+  }
+  if (__updated_isset) {
+    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 9];
+    [outProtocol writeI64: __updated];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"DealAcquire_t("];
+  [ms appendString: @"dealAcquireId:"];
+  [ms appendFormat: @"\"%@\"", __dealAcquireId];
+  [ms appendString: @",deal:"];
+  [ms appendFormat: @"%@", __deal];
+  [ms appendString: @",status:"];
+  [ms appendFormat: @"\"%@\"", __status];
+  [ms appendString: @",sharedByMerchant:"];
+  [ms appendFormat: @"%@", __sharedByMerchant];
+  [ms appendString: @",sharedByCustomer:"];
+  [ms appendFormat: @"%@", __sharedByCustomer];
+  [ms appendString: @",shareCount:"];
+  [ms appendFormat: @"%i", __shareCount];
+  [ms appendString: @",redeemed:"];
+  [ms appendFormat: @"%qi", __redeemed];
   [ms appendString: @",created:"];
   [ms appendFormat: @"%qi", __created];
   [ms appendString: @",updated:"];

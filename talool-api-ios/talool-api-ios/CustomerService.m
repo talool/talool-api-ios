@@ -1938,32 +1938,92 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
-@interface getMerchants_args : NSObject <NSCoding> {
+@interface getMerchantAcquires_args : NSObject <NSCoding> {
+  SearchOptions_t * __searchOptions;
+
+  BOOL __searchOptions_isset;
 }
 
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=searchOptions, setter=setSearchOptions:) SearchOptions_t * searchOptions;
+#endif
+
 - (id) init;
+- (id) initWithSearchOptions: (SearchOptions_t *) searchOptions;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
+#if !__has_feature(objc_arc)
+- (SearchOptions_t *) searchOptions;
+- (void) setSearchOptions: (SearchOptions_t *) searchOptions;
+#endif
+- (BOOL) searchOptionsIsSet;
+
 @end
 
-@implementation getMerchants_args
+@implementation getMerchantAcquires_args
 
 - (id) init
 {
   self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithSearchOptions: (SearchOptions_t *) searchOptions
+{
+  self = [super init];
+  __searchOptions = [searchOptions retain_stub];
+  __searchOptions_isset = YES;
   return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
+  if ([decoder containsValueForKey: @"searchOptions"])
+  {
+    __searchOptions = [[decoder decodeObjectForKey: @"searchOptions"] retain_stub];
+    __searchOptions_isset = YES;
+  }
   return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
+  if (__searchOptions_isset)
+  {
+    [encoder encodeObject: __searchOptions forKey: @"searchOptions"];
+  }
+}
+
+- (void) dealloc
+{
+  [__searchOptions release_stub];
+  [super dealloc_stub];
+}
+
+- (SearchOptions_t *) searchOptions {
+  return [[__searchOptions retain_stub] autorelease_stub];
+}
+
+- (void) setSearchOptions: (SearchOptions_t *) searchOptions {
+  [searchOptions retain_stub];
+  [__searchOptions release_stub];
+  __searchOptions = searchOptions;
+  __searchOptions_isset = YES;
+}
+
+- (BOOL) searchOptionsIsSet {
+  return __searchOptions_isset;
+}
+
+- (void) unsetSearchOptions {
+  [__searchOptions release_stub];
+  __searchOptions = nil;
+  __searchOptions_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -1981,6 +2041,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     }
     switch (fieldID)
     {
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          SearchOptions_t *fieldValue = [[SearchOptions_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSearchOptions: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -1991,20 +2061,29 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"getMerchants_args"];
+  [outProtocol writeStructBeginWithName: @"getMerchantAcquires_args"];
+  if (__searchOptions_isset) {
+    if (__searchOptions != nil) {
+      [outProtocol writeFieldBeginWithName: @"searchOptions" type: TType_STRUCT fieldID: 1];
+      [__searchOptions write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"getMerchants_args("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"getMerchantAcquires_args("];
+  [ms appendString: @"searchOptions:"];
+  [ms appendFormat: @"%@", __searchOptions];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
 
 @end
 
-@interface GetMerchants_result : NSObject <NSCoding> {
+@interface GetMerchantAcquires_result : NSObject <NSCoding> {
   NSMutableArray * __success;
   ServiceException_t * __error;
 
@@ -2037,7 +2116,7 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
-@implementation GetMerchants_result
+@implementation GetMerchantAcquires_result
 
 - (id) init
 {
@@ -2189,7 +2268,7 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"GetMerchants_result"];
+  [outProtocol writeStructBeginWithName: @"GetMerchantAcquires_result"];
 
   if (__success_isset) {
     if (__success != nil) {
@@ -2217,7 +2296,7 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"GetMerchants_result("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetMerchantAcquires_result("];
   [ms appendString: @"success:"];
   [ms appendFormat: @"%@", __success];
   [ms appendString: @",error:"];
@@ -2228,31 +2307,40 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
-@interface getDeals_args : NSObject <NSCoding> {
-  int64_t __merchantId;
+@interface getDealAcquires_args : NSObject <NSCoding> {
+  NSString * __merchantId;
+  SearchOptions_t * __searchOptions;
 
   BOOL __merchantId_isset;
+  BOOL __searchOptions_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=merchantId, setter=setMerchantId:) int64_t merchantId;
+@property (nonatomic, retain, getter=merchantId, setter=setMerchantId:) NSString * merchantId;
+@property (nonatomic, retain, getter=searchOptions, setter=setSearchOptions:) SearchOptions_t * searchOptions;
 #endif
 
 - (id) init;
-- (id) initWithMerchantId: (int64_t) merchantId;
+- (id) initWithMerchantId: (NSString *) merchantId searchOptions: (SearchOptions_t *) searchOptions;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if !__has_feature(objc_arc)
-- (int64_t) merchantId;
-- (void) setMerchantId: (int64_t) merchantId;
+- (NSString *) merchantId;
+- (void) setMerchantId: (NSString *) merchantId;
 #endif
 - (BOOL) merchantIdIsSet;
 
+#if !__has_feature(objc_arc)
+- (SearchOptions_t *) searchOptions;
+- (void) setSearchOptions: (SearchOptions_t *) searchOptions;
+#endif
+- (BOOL) searchOptionsIsSet;
+
 @end
 
-@implementation getDeals_args
+@implementation getDealAcquires_args
 
 - (id) init
 {
@@ -2262,11 +2350,13 @@ static NSString * CTOKEN_NAME = @"ctok";
   return self;
 }
 
-- (id) initWithMerchantId: (int64_t) merchantId
+- (id) initWithMerchantId: (NSString *) merchantId searchOptions: (SearchOptions_t *) searchOptions
 {
   self = [super init];
-  __merchantId = merchantId;
+  __merchantId = [merchantId retain_stub];
   __merchantId_isset = YES;
+  __searchOptions = [searchOptions retain_stub];
+  __searchOptions_isset = YES;
   return self;
 }
 
@@ -2275,8 +2365,13 @@ static NSString * CTOKEN_NAME = @"ctok";
   self = [super init];
   if ([decoder containsValueForKey: @"merchantId"])
   {
-    __merchantId = [decoder decodeInt64ForKey: @"merchantId"];
+    __merchantId = [[decoder decodeObjectForKey: @"merchantId"] retain_stub];
     __merchantId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"searchOptions"])
+  {
+    __searchOptions = [[decoder decodeObjectForKey: @"searchOptions"] retain_stub];
+    __searchOptions_isset = YES;
   }
   return self;
 }
@@ -2285,20 +2380,28 @@ static NSString * CTOKEN_NAME = @"ctok";
 {
   if (__merchantId_isset)
   {
-    [encoder encodeInt64: __merchantId forKey: @"merchantId"];
+    [encoder encodeObject: __merchantId forKey: @"merchantId"];
+  }
+  if (__searchOptions_isset)
+  {
+    [encoder encodeObject: __searchOptions forKey: @"searchOptions"];
   }
 }
 
 - (void) dealloc
 {
+  [__merchantId release_stub];
+  [__searchOptions release_stub];
   [super dealloc_stub];
 }
 
-- (int64_t) merchantId {
-  return __merchantId;
+- (NSString *) merchantId {
+  return [[__merchantId retain_stub] autorelease_stub];
 }
 
-- (void) setMerchantId: (int64_t) merchantId {
+- (void) setMerchantId: (NSString *) merchantId {
+  [merchantId retain_stub];
+  [__merchantId release_stub];
   __merchantId = merchantId;
   __merchantId_isset = YES;
 }
@@ -2308,7 +2411,30 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (void) unsetMerchantId {
+  [__merchantId release_stub];
+  __merchantId = nil;
   __merchantId_isset = NO;
+}
+
+- (SearchOptions_t *) searchOptions {
+  return [[__searchOptions retain_stub] autorelease_stub];
+}
+
+- (void) setSearchOptions: (SearchOptions_t *) searchOptions {
+  [searchOptions retain_stub];
+  [__searchOptions release_stub];
+  __searchOptions = searchOptions;
+  __searchOptions_isset = YES;
+}
+
+- (BOOL) searchOptionsIsSet {
+  return __searchOptions_isset;
+}
+
+- (void) unsetSearchOptions {
+  [__searchOptions release_stub];
+  __searchOptions = nil;
+  __searchOptions_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -2327,9 +2453,19 @@ static NSString * CTOKEN_NAME = @"ctok";
     switch (fieldID)
     {
       case 1:
-        if (fieldType == TType_I64) {
-          int64_t fieldValue = [inProtocol readI64];
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
           [self setMerchantId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRUCT) {
+          SearchOptions_t *fieldValue = [[SearchOptions_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSearchOptions: fieldValue];
+          [fieldValue release_stub];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -2344,27 +2480,38 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"getDeals_args"];
+  [outProtocol writeStructBeginWithName: @"getDealAcquires_args"];
   if (__merchantId_isset) {
-    [outProtocol writeFieldBeginWithName: @"merchantId" type: TType_I64 fieldID: 1];
-    [outProtocol writeI64: __merchantId];
-    [outProtocol writeFieldEnd];
+    if (__merchantId != nil) {
+      [outProtocol writeFieldBeginWithName: @"merchantId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __merchantId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__searchOptions_isset) {
+    if (__searchOptions != nil) {
+      [outProtocol writeFieldBeginWithName: @"searchOptions" type: TType_STRUCT fieldID: 2];
+      [__searchOptions write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
   }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"getDeals_args("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"getDealAcquires_args("];
   [ms appendString: @"merchantId:"];
-  [ms appendFormat: @"%qi", __merchantId];
+  [ms appendFormat: @"\"%@\"", __merchantId];
+  [ms appendString: @",searchOptions:"];
+  [ms appendFormat: @"%@", __searchOptions];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
 
 @end
 
-@interface GetDeals_result : NSObject <NSCoding> {
+@interface GetDealAcquires_result : NSObject <NSCoding> {
   NSMutableArray * __success;
   ServiceException_t * __error;
 
@@ -2397,7 +2544,7 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
-@implementation GetDeals_result
+@implementation GetDealAcquires_result
 
 - (id) init
 {
@@ -2517,7 +2664,7 @@ static NSString * CTOKEN_NAME = @"ctok";
           int _i6;
           for (_i6 = 0; _i6 < _size5; ++_i6)
           {
-            Deal_t *_elem7 = [[Deal_t alloc] init];
+            DealAcquire_t *_elem7 = [[DealAcquire_t alloc] init];
             [_elem7 read: inProtocol];
             [fieldValue addObject: _elem7];
             [_elem7 release_stub];
@@ -2549,7 +2696,7 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"GetDeals_result"];
+  [outProtocol writeStructBeginWithName: @"GetDealAcquires_result"];
 
   if (__success_isset) {
     if (__success != nil) {
@@ -2577,10 +2724,403 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"GetDeals_result("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetDealAcquires_result("];
   [ms appendString: @"success:"];
   [ms appendFormat: @"%@", __success];
   [ms appendString: @",error:"];
+  [ms appendFormat: @"%@", __error];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface redeem_args : NSObject <NSCoding> {
+  NSString * __dealAcquireId;
+  double __latitude;
+  double __longitude;
+
+  BOOL __dealAcquireId_isset;
+  BOOL __latitude_isset;
+  BOOL __longitude_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=dealAcquireId, setter=setDealAcquireId:) NSString * dealAcquireId;
+@property (nonatomic, getter=latitude, setter=setLatitude:) double latitude;
+@property (nonatomic, getter=longitude, setter=setLongitude:) double longitude;
+#endif
+
+- (id) init;
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId latitude: (double) latitude longitude: (double) longitude;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) dealAcquireId;
+- (void) setDealAcquireId: (NSString *) dealAcquireId;
+#endif
+- (BOOL) dealAcquireIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (double) latitude;
+- (void) setLatitude: (double) latitude;
+#endif
+- (BOOL) latitudeIsSet;
+
+#if !__has_feature(objc_arc)
+- (double) longitude;
+- (void) setLongitude: (double) longitude;
+#endif
+- (BOOL) longitudeIsSet;
+
+@end
+
+@implementation redeem_args
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId latitude: (double) latitude longitude: (double) longitude
+{
+  self = [super init];
+  __dealAcquireId = [dealAcquireId retain_stub];
+  __dealAcquireId_isset = YES;
+  __latitude = latitude;
+  __latitude_isset = YES;
+  __longitude = longitude;
+  __longitude_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"dealAcquireId"])
+  {
+    __dealAcquireId = [[decoder decodeObjectForKey: @"dealAcquireId"] retain_stub];
+    __dealAcquireId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"latitude"])
+  {
+    __latitude = [decoder decodeDoubleForKey: @"latitude"];
+    __latitude_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"longitude"])
+  {
+    __longitude = [decoder decodeDoubleForKey: @"longitude"];
+    __longitude_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__dealAcquireId_isset)
+  {
+    [encoder encodeObject: __dealAcquireId forKey: @"dealAcquireId"];
+  }
+  if (__latitude_isset)
+  {
+    [encoder encodeDouble: __latitude forKey: @"latitude"];
+  }
+  if (__longitude_isset)
+  {
+    [encoder encodeDouble: __longitude forKey: @"longitude"];
+  }
+}
+
+- (void) dealloc
+{
+  [__dealAcquireId release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) dealAcquireId {
+  return [[__dealAcquireId retain_stub] autorelease_stub];
+}
+
+- (void) setDealAcquireId: (NSString *) dealAcquireId {
+  [dealAcquireId retain_stub];
+  [__dealAcquireId release_stub];
+  __dealAcquireId = dealAcquireId;
+  __dealAcquireId_isset = YES;
+}
+
+- (BOOL) dealAcquireIdIsSet {
+  return __dealAcquireId_isset;
+}
+
+- (void) unsetDealAcquireId {
+  [__dealAcquireId release_stub];
+  __dealAcquireId = nil;
+  __dealAcquireId_isset = NO;
+}
+
+- (double) latitude {
+  return __latitude;
+}
+
+- (void) setLatitude: (double) latitude {
+  __latitude = latitude;
+  __latitude_isset = YES;
+}
+
+- (BOOL) latitudeIsSet {
+  return __latitude_isset;
+}
+
+- (void) unsetLatitude {
+  __latitude_isset = NO;
+}
+
+- (double) longitude {
+  return __longitude;
+}
+
+- (void) setLongitude: (double) longitude {
+  __longitude = longitude;
+  __longitude_isset = YES;
+}
+
+- (BOOL) longitudeIsSet {
+  return __longitude_isset;
+}
+
+- (void) unsetLongitude {
+  __longitude_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setDealAcquireId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_DOUBLE) {
+          double fieldValue = [inProtocol readDouble];
+          [self setLatitude: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_DOUBLE) {
+          double fieldValue = [inProtocol readDouble];
+          [self setLongitude: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"redeem_args"];
+  if (__dealAcquireId_isset) {
+    if (__dealAcquireId != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealAcquireId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __dealAcquireId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__latitude_isset) {
+    [outProtocol writeFieldBeginWithName: @"latitude" type: TType_DOUBLE fieldID: 2];
+    [outProtocol writeDouble: __latitude];
+    [outProtocol writeFieldEnd];
+  }
+  if (__longitude_isset) {
+    [outProtocol writeFieldBeginWithName: @"longitude" type: TType_DOUBLE fieldID: 3];
+    [outProtocol writeDouble: __longitude];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"redeem_args("];
+  [ms appendString: @"dealAcquireId:"];
+  [ms appendFormat: @"\"%@\"", __dealAcquireId];
+  [ms appendString: @",latitude:"];
+  [ms appendFormat: @"%f", __latitude];
+  [ms appendString: @",longitude:"];
+  [ms appendFormat: @"%f", __longitude];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface Redeem_result : NSObject <NSCoding> {
+  ServiceException_t * __error;
+
+  BOOL __error_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=error, setter=setError:) ServiceException_t * error;
+#endif
+
+- (id) init;
+- (id) initWithError: (ServiceException_t *) error;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (ServiceException_t *) error;
+- (void) setError: (ServiceException_t *) error;
+#endif
+- (BOOL) errorIsSet;
+
+@end
+
+@implementation Redeem_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithError: (ServiceException_t *) error
+{
+  self = [super init];
+  __error = [error retain_stub];
+  __error_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"error"])
+  {
+    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+    __error_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__error_isset)
+  {
+    [encoder encodeObject: __error forKey: @"error"];
+  }
+}
+
+- (void) dealloc
+{
+  [__error release_stub];
+  [super dealloc_stub];
+}
+
+- (ServiceException_t *) error {
+  return [[__error retain_stub] autorelease_stub];
+}
+
+- (void) setError: (ServiceException_t *) error {
+  [error retain_stub];
+  [__error release_stub];
+  __error = error;
+  __error_isset = YES;
+}
+
+- (BOOL) errorIsSet {
+  return __error_isset;
+}
+
+- (void) unsetError {
+  [__error release_stub];
+  __error = nil;
+  __error_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setError: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"Redeem_result"];
+
+  if (__error_isset) {
+    if (__error != nil) {
+      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+      [__error write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"Redeem_result("];
+  [ms appendString: @"error:"];
   [ms appendFormat: @"%@", __error];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
@@ -2826,17 +3366,22 @@ static NSString * CTOKEN_NAME = @"ctok";
   [self recv_addSocialAccount];
 }
 
-- (void) send_getMerchants
+- (void) send_getMerchantAcquires: (SearchOptions_t *) searchOptions
 {
-  [outProtocol writeMessageBeginWithName: @"getMerchants" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"getMerchants_args"];
+  [outProtocol writeMessageBeginWithName: @"getMerchantAcquires" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getMerchantAcquires_args"];
+  if (searchOptions != nil)  {
+    [outProtocol writeFieldBeginWithName: @"searchOptions" type: TType_STRUCT fieldID: 1];
+    [searchOptions write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
   [[outProtocol transport] flush];
 }
 
-- (NSMutableArray *) recv_getMerchants
+- (NSMutableArray *) recv_getMerchantAcquires
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -2845,7 +3390,7 @@ static NSString * CTOKEN_NAME = @"ctok";
     [inProtocol readMessageEnd];
     @throw x;
   }
-  GetMerchants_result * result = [[[GetMerchants_result alloc] init] autorelease_stub];
+  GetMerchantAcquires_result * result = [[[GetMerchantAcquires_result alloc] init] autorelease_stub];
   [result read: inProtocol];
   [inProtocol readMessageEnd];
   if ([result successIsSet]) {
@@ -2855,21 +3400,77 @@ static NSString * CTOKEN_NAME = @"ctok";
     @throw [result error];
   }
   @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"getMerchants failed: unknown result"];
+                                           reason: @"getMerchantAcquires failed: unknown result"];
 }
 
-- (NSMutableArray *) getMerchants
+- (NSMutableArray *) getMerchantAcquires: (SearchOptions_t *) searchOptions
 {
-  [self send_getMerchants];
-  return [self recv_getMerchants];
+  [self send_getMerchantAcquires : searchOptions];
+  return [self recv_getMerchantAcquires];
 }
 
-- (void) send_getDeals: (int64_t) merchantId
+- (void) send_getDealAcquires: (NSString *) merchantId searchOptions: (SearchOptions_t *) searchOptions
 {
-  [outProtocol writeMessageBeginWithName: @"getDeals" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"getDeals_args"];
-  [outProtocol writeFieldBeginWithName: @"merchantId" type: TType_I64 fieldID: 1];
-  [outProtocol writeI64: merchantId];
+  [outProtocol writeMessageBeginWithName: @"getDealAcquires" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getDealAcquires_args"];
+  if (merchantId != nil)  {
+    [outProtocol writeFieldBeginWithName: @"merchantId" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: merchantId];
+    [outProtocol writeFieldEnd];
+  }
+  if (searchOptions != nil)  {
+    [outProtocol writeFieldBeginWithName: @"searchOptions" type: TType_STRUCT fieldID: 2];
+    [searchOptions write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (NSMutableArray *) recv_getDealAcquires
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  GetDealAcquires_result * result = [[[GetDealAcquires_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  if ([result errorIsSet]) {
+    @throw [result error];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"getDealAcquires failed: unknown result"];
+}
+
+- (NSMutableArray *) getDealAcquires: (NSString *) merchantId searchOptions: (SearchOptions_t *) searchOptions
+{
+  [self send_getDealAcquires : merchantId searchOptions: searchOptions];
+  return [self recv_getDealAcquires];
+}
+
+- (void) send_redeem: (NSString *) dealAcquireId latitude: (double) latitude longitude: (double) longitude
+{
+  [outProtocol writeMessageBeginWithName: @"redeem" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"redeem_args"];
+  if (dealAcquireId != nil)  {
+    [outProtocol writeFieldBeginWithName: @"dealAcquireId" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: dealAcquireId];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldBeginWithName: @"latitude" type: TType_DOUBLE fieldID: 2];
+  [outProtocol writeDouble: latitude];
+  [outProtocol writeFieldEnd];
+  [outProtocol writeFieldBeginWithName: @"longitude" type: TType_DOUBLE fieldID: 3];
+  [outProtocol writeDouble: longitude];
   [outProtocol writeFieldEnd];
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
@@ -2877,7 +3478,7 @@ static NSString * CTOKEN_NAME = @"ctok";
   [[outProtocol transport] flush];
 }
 
-- (NSMutableArray *) recv_getDeals
+- (void) recv_redeem
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -2886,23 +3487,19 @@ static NSString * CTOKEN_NAME = @"ctok";
     [inProtocol readMessageEnd];
     @throw x;
   }
-  GetDeals_result * result = [[[GetDeals_result alloc] init] autorelease_stub];
+  Redeem_result * result = [[[Redeem_result alloc] init] autorelease_stub];
   [result read: inProtocol];
   [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
   if ([result errorIsSet]) {
     @throw [result error];
   }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"getDeals failed: unknown result"];
+  return;
 }
 
-- (NSMutableArray *) getDeals: (int64_t) merchantId
+- (void) redeem: (NSString *) dealAcquireId latitude: (double) latitude longitude: (double) longitude
 {
-  [self send_getDeals : merchantId];
-  return [self recv_getDeals];
+  [self send_redeem : dealAcquireId latitude: latitude longitude: longitude];
+  [self recv_redeem];
 }
 
 @end
@@ -2958,20 +3555,28 @@ static NSString * CTOKEN_NAME = @"ctok";
     [mMethodMap setValue: invocation forKey: @"addSocialAccount"];
   }
   {
-    SEL s = @selector(process_getMerchants_withSequenceID:inProtocol:outProtocol:);
+    SEL s = @selector(process_getMerchantAcquires_withSequenceID:inProtocol:outProtocol:);
     NSMethodSignature * sig = [self methodSignatureForSelector: s];
     NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
     [invocation setSelector: s];
     [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"getMerchants"];
+    [mMethodMap setValue: invocation forKey: @"getMerchantAcquires"];
   }
   {
-    SEL s = @selector(process_getDeals_withSequenceID:inProtocol:outProtocol:);
+    SEL s = @selector(process_getDealAcquires_withSequenceID:inProtocol:outProtocol:);
     NSMethodSignature * sig = [self methodSignatureForSelector: s];
     NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
     [invocation setSelector: s];
     [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"getDeals"];
+    [mMethodMap setValue: invocation forKey: @"getDealAcquires"];
+  }
+  {
+    SEL s = @selector(process_redeem_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"redeem"];
   }
   return self;
 }
@@ -3099,14 +3704,14 @@ static NSString * CTOKEN_NAME = @"ctok";
   [args release_stub];
 }
 
-- (void) process_getMerchants_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+- (void) process_getMerchantAcquires_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  getMerchants_args * args = [[getMerchants_args alloc] init];
+  getMerchantAcquires_args * args = [[getMerchantAcquires_args alloc] init];
   [args read: inProtocol];
   [inProtocol readMessageEnd];
-  GetMerchants_result * result = [[GetMerchants_result alloc] init];
-  [result setSuccess: [mService getMerchants]];
-  [outProtocol writeMessageBeginWithName: @"getMerchants"
+  GetMerchantAcquires_result * result = [[GetMerchantAcquires_result alloc] init];
+  [result setSuccess: [mService getMerchantAcquires: [args searchOptions]]];
+  [outProtocol writeMessageBeginWithName: @"getMerchantAcquires"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];
@@ -3116,14 +3721,31 @@ static NSString * CTOKEN_NAME = @"ctok";
   [args release_stub];
 }
 
-- (void) process_getDeals_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+- (void) process_getDealAcquires_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  getDeals_args * args = [[getDeals_args alloc] init];
+  getDealAcquires_args * args = [[getDealAcquires_args alloc] init];
   [args read: inProtocol];
   [inProtocol readMessageEnd];
-  GetDeals_result * result = [[GetDeals_result alloc] init];
-  [result setSuccess: [mService getDeals: [args merchantId]]];
-  [outProtocol writeMessageBeginWithName: @"getDeals"
+  GetDealAcquires_result * result = [[GetDealAcquires_result alloc] init];
+  [result setSuccess: [mService getDealAcquires: [args merchantId] searchOptions: [args searchOptions]]];
+  [outProtocol writeMessageBeginWithName: @"getDealAcquires"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_redeem_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  redeem_args * args = [[redeem_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  Redeem_result * result = [[Redeem_result alloc] init];
+  [mService redeem: [args dealAcquireId] latitude: [args latitude] longitude: [args longitude]];
+  [outProtocol writeMessageBeginWithName: @"redeem"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];
