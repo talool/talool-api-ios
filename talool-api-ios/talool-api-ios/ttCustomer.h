@@ -23,8 +23,6 @@
 - (Customer_t *)hydrateThriftObject;
 - (NSString *)getFullName;
 - (ttToken *)getTaloolToken;
-- (void)saveFriend:(Friend *)socialFriend;
-- (NSSet *) getSocialFriends;
 - (void) refreshMerchants: (NSManagedObjectContext *)context;
 
 @end

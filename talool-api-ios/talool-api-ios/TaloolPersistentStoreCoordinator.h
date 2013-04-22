@@ -19,11 +19,13 @@
 extern NSString * const CUSTOMER_ENTITY_NAME;
 extern NSString * const ADDRESS_ENTITY_NAME;
 extern NSString * const MERCHANT_ENTITY_NAME;
+extern NSString * const MERCHANT_LOCATION_ENTITY_NAME;
 extern NSString * const SOCIAL_ACCOUNT_ENTITY_NAME;
 extern NSString * const SOCIAL_NETWORK_DETAIL_ENTITY_NAME;
 extern NSString * const TOKEN_ENTITY_NAME;
 extern NSString * const FRIEND_ENTITY_NAME;
 extern NSString * const DEAL_ENTITY_NAME;
+extern NSString * const DEAL_ACQUIRE_ENTITY_NAME;
 extern int const SOCIAL_NETWORK_FACEBOOK;
 extern int const SOCIAL_NETWORK_TWITTER;
 extern int const SOCIAL_NETWORK_PINTEREST;

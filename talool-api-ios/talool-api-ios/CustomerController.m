@@ -14,6 +14,7 @@
 #import "ttToken.h"
 #import "ttMerchant.h"
 #import "ttDeal.h"
+#import "ttDealAcquire.h"
 #import "Core.h"
 #import "CustomerService.h"
 #import "TaloolFrameworkHelper.h"
@@ -73,7 +74,7 @@
     service = nil;
 }
 
-- (ttCustomer *)registerUser:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+- (ttCustomer *)registerUser:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error
 {
     
     // validate data before sending to the server
@@ -90,7 +91,7 @@
     @try {
         // Do the Thrift Registration
         [self connect];
-        token = [service createAccount:newCustomer password:customer.password];
+        token = [service createAccount:newCustomer password:password];
     }
     @catch (ServiceException_t * se) {
         [details setValue:@"Failed to register user, service failed." forKey:NSLocalizedDescriptionKey];
@@ -277,7 +278,12 @@
     @try {
         // Do the Thrift Merchants
         [self connectWithToken:(ttToken *)customer.token];
-        merchants = [service getMerchants];
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:1];
+        [options setSortType:SortType_t_Asc];
+        [options setSortProperty:@"name"];
+        merchants = [service getMerchantAcquires:options];
     }
     @catch (ServiceException_t * se) {
         [details setValue:@"Failed to getMerchants, service failed." forKey:NSLocalizedDescriptionKey];
@@ -317,7 +323,7 @@
     }
     @catch (NSException * e) {
         [details setValue:@"Failed to create the merchant object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"post-login" code:200 userInfo:details];
+        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
         NSLog(@"failed to hydrate the merchants: %@",e.description);
         return nil;
     }
@@ -325,10 +331,10 @@
     return merchants;
 }
 
-- (NSMutableArray *) getDeals:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+- (NSMutableArray *) getAcquiredDeals:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
     // TODO Queue it!
-    NSLog(@"FIX IT: GET DEALS: Queue this server call if needed.");
+    NSLog(@"FIX IT: GET DEAL ACQUIRES: Queue this server call if needed.");
     
     NSMutableArray *deals;
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
@@ -336,28 +342,33 @@
     @try {
         // Do the Thrift Merchants
         [self connectWithToken:(ttToken *)customer.token];
-        deals = [service getDeals:[merchant.merchantId integerValue]];
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:1];
+        [options setSortType:SortType_t_Asc];
+        [options setSortProperty:@"deal.title"];
+        deals = [service getDealAcquires:merchant.merchantId searchOptions:options];
     }
     @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to getDeals, service failed." forKey:NSLocalizedDescriptionKey];
+        [details setValue:@"Failed to getAcquiredDeals, service failed." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
         NSLog(@"failed to getDeals: %@",se.description);
         return nil;
     }
     @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to getDeals; app failed." forKey:NSLocalizedDescriptionKey];
+        [details setValue:@"Failed to getAcquiredDeals; app failed." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
         NSLog(@"failed to getDeals: %@",tae.description);
         return nil;
     }
     @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to getDeals, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        [details setValue:@"Failed to getAcquiredDeals, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
         NSLog(@"failed to getDeals: %@",tpe.description);
         return nil;
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to getDeals... who knows why." forKey:NSLocalizedDescriptionKey];
+        [details setValue:@"Failed to getAcquiredDeals... who knows why." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
         NSLog(@"failed to getDeals: %@",e.description);
         return nil;
@@ -367,21 +378,26 @@
     }
     
     @try {
-        // transform the Thrift response into a ttMerchant array
+        // transform the Thrift response into a ttDealAcquire array
         for (int i=0; i<[deals count]; i++) {
-            Deal_t *td = [deals objectAtIndex:i];
-            ttDeal *d = [ttDeal initWithThrift:td context:context];
+            DealAcquire_t *td = [deals objectAtIndex:i];
+            ttDealAcquire *d = [ttDealAcquire initWithThrift:td context:context];
             [deals setObject:d atIndexedSubscript:i];
         }
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the merchant object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"post-login" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        [details setValue:@"Failed to create the ttDealAcquire object." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getAcquiredDeals" code:200 userInfo:details];
+        NSLog(@"failed to hydrate the acquired deals: %@",e.description);
         return nil;
     }
     
     return deals;
+}
+
+- (void) redeem: (NSString *) dealAcquireId latitude: (double) latitude longitude: (double) longitude
+{
+    
 }
 
 

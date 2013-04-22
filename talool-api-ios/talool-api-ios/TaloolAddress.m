@@ -2,12 +2,12 @@
 //  TaloolAddress.m
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 3/28/13.
+//  Created by Douglas McCuen on 4/22/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import "TaloolAddress.h"
-#import "TaloolMerchant.h"
+#import "TaloolMerchantLocation.h"
 
 
 @implementation TaloolAddress
@@ -21,6 +21,6 @@
 @dynamic stateProvidenceCounty;
 @dynamic updated;
 @dynamic zip;
-@dynamic merchant;
+@dynamic merchantLocation;
 
 @end

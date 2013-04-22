@@ -2,21 +2,19 @@
 //  Friend.m
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 3/21/13.
+//  Created by Douglas McCuen on 4/22/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import "Friend.h"
-#import "ttCustomer.h"
 
 
 @implementation Friend
 
-@dynamic firstName;
-@dynamic lastName;
 @dynamic email;
-@dynamic socialNetwork;
+@dynamic firstName;
 @dynamic isCustomer;
-@dynamic customer;
+@dynamic lastName;
+@dynamic socialNetwork;
 
 @end

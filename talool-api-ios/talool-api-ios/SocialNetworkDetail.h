@@ -2,7 +2,7 @@
 //  SocialNetworkDetail.h
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 3/13/13.
+//  Created by Douglas McCuen on 4/22/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
@@ -12,9 +12,9 @@
 
 @interface SocialNetworkDetail : NSManagedObject
 
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * website;
 @property (nonatomic, retain) NSString * apiUlr;
-@property (nonatomic, retain) NSString * socialNetwork;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * socialNetwork;
+@property (nonatomic, retain) NSString * website;
 
 @end

@@ -15,6 +15,5 @@
 + (ttDeal *)initWithThrift: (Deal_t *)deal context:(NSManagedObjectContext *)context;
 + (ttDeal *)initWithName:(NSString *)name  context:(NSManagedObjectContext *)context;
 - (Deal_t *)hydrateThriftObject;
-- (BOOL) hasBeenRedeemed;
 
 @end

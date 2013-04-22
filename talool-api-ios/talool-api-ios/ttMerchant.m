@@ -7,7 +7,7 @@
 //
 
 #import "ttMerchant.h"
-#import "ttAddress.h"
+#import "ttMerchantLocation.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "MerchantController.h"
@@ -15,28 +15,24 @@
 
 @implementation ttMerchant
 
-@synthesize name, email;
-
--(BOOL)isValid
-{
-    return TRUE;
-}
-
 +(ttMerchant *)initWithThrift:(Merchant_t *)merchant context:(NSManagedObjectContext *)context
 {
     ttMerchant *m = (ttMerchant *)[NSEntityDescription
                                    insertNewObjectForEntityForName:MERCHANT_ENTITY_NAME
                                    inManagedObjectContext:context];
 
-    m.merchantId = @(merchant.merchantId);
+    m.merchantId = merchant.merchantId;
     m.name = merchant.name;
-    m.email = merchant.email;
-    m.websiteUrl = merchant.websiteUrl;
-    m.logoUrl = merchant.logoUrl;
-    m.phone = merchant.phone;
-    m.address = [ttAddress initWithThrift:merchant.address context:context];
     m.created = [[NSDate alloc] initWithTimeIntervalSince1970:merchant.created];
     m.updated = [[NSDate alloc] initWithTimeIntervalSince1970:merchant.updated];
+    
+    if (merchant.locationsIsSet) {
+        for (int i=0; i<[merchant.locations count]; i++) {
+            MerchantLocation_t *mlt = [merchant.locations objectAtIndex:i];
+            ttMerchantLocation *ml = [ttMerchantLocation initWithThrift:mlt context:context];
+            [m addLocationsObject:ml];
+        }
+    }
     
     return m;
 }
@@ -45,33 +41,31 @@
 {
     Merchant_t *merchant = [[Merchant_t alloc] init];
     
-    merchant.merchantId = [self.merchantId integerValue];
+    merchant.merchantId = self.merchantId;
     merchant.name = self.name;
-    merchant.email = self.email;
-    merchant.websiteUrl = self.websiteUrl;
-    merchant.logoUrl = self.logoUrl;
-    merchant.phone = self.phone;
-    merchant.address = [(ttAddress *)self.address hydrateThriftObject];
+    
+    NSEnumerator *enumerator = [self.locations objectEnumerator];
+    ttMerchantLocation *ml;
+    MerchantLocation_t *mlt;
+    int i=0;
+    while (ml = [enumerator nextObject]) {
+        mlt = [ml hydrateThriftObject];
+        [merchant.locations setObject:mlt atIndexedSubscript:i++];
+    }
 
     return merchant;
 }
 
 - (NSSet *) getDeals:(ttCustomer *)customer context:(NSManagedObjectContext *)context
 {
-    // TODO this will be part of the Thrift Object
+
     if ([self.deals count] > 0) {
         [self removeDeals:self.deals];
     }
     
-    // Dummy Data
-    //MerchantController *mc = [[MerchantController alloc] init];
-    //NSSet *newDeals = [[NSSet alloc] initWithArray:[mc getCouponsByMerchant:self forCustomer:nil context:context]];
-    //[self addDeals:newDeals];
-    //return newDeals;
-    
     CustomerController *cc = [[CustomerController alloc] init];
     NSError *error = [NSError alloc];
-    NSMutableArray *deals = [cc getDeals:self forCustomer:customer context:context error:&error];
+    NSMutableArray *deals = [cc getAcquiredDeals:self forCustomer:customer context:context error:&error];
     NSSet *myDeals = [[NSSet alloc] initWithArray:deals];
     [self addDeals:myDeals];
     

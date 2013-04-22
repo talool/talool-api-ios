@@ -22,7 +22,6 @@
     ttSocialAccount *ttsa = (ttSocialAccount *)[NSEntityDescription
                                            insertNewObjectForEntityForName:SOCIAL_ACCOUNT_ENTITY_NAME
                                            inManagedObjectContext:context];
-    ttsa.token = sa.token;
     ttsa.loginId = sa.loginId;
     ttsa.socialNetwork = [[NSNumber alloc] initWithInt:sa.socalNetwork];
     return ttsa;
@@ -31,7 +30,6 @@
 - (SocialAccount_t *)hydrateThriftObject
 {
     SocialAccount_t *sa = [[SocialAccount_t alloc] init];
-    sa.token = self.token;
     sa.loginId = self.loginId;
     sa.socalNetwork = [self.socialNetwork intValue];
     return sa;

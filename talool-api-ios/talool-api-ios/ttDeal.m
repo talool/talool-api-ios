@@ -18,7 +18,7 @@
                                           insertNewObjectForEntityForName:DEAL_ENTITY_NAME
                                           inManagedObjectContext:context];
     newDeal.title = deal.title;
-    newDeal.dealId = @(deal.dealId);
+    newDeal.dealId = deal.dealId;
     newDeal.summary = deal.summary;
     newDeal.details = deal.details;
     newDeal.code = deal.code;
@@ -26,10 +26,6 @@
     newDeal.expires = [[NSDate alloc] initWithTimeIntervalSince1970:deal.expires];
     newDeal.created = [[NSDate alloc] initWithTimeIntervalSince1970:deal.created];
     newDeal.updated = [[NSDate alloc] initWithTimeIntervalSince1970:deal.updated];
-    
-    // TODO redeemedOn
-    // TODO redeemed
-    newDeal.redeemed = 0;
     
     return newDeal;
 }
@@ -41,7 +37,6 @@
                                    inManagedObjectContext:context];
     
     c.title = name;
-    c.redeemed = [[NSNumber alloc] initWithBool:NO];
     
     
     return c;
@@ -50,7 +45,7 @@
 - (Deal_t *)hydrateThriftObject
 {
     Deal_t *deal = [[Deal_t alloc] init];
-    deal.dealId = [self.dealId integerValue];
+    deal.dealId = self.dealId;
     deal.title = self.title;
     deal.details = self.details;
     deal.summary = self.summary;
@@ -58,15 +53,8 @@
     deal.imageUrl = self.imageUrl;
     deal.expires = [self.expires timeIntervalSince1970];
     
-    // TODO redeemedOn
-    // TODO redeemed
-    
     return deal;
 }
 
-- (BOOL) hasBeenRedeemed
-{
-    return (self.redeemed == [[NSNumber alloc] initWithBool:YES]);
-}
 
 @end

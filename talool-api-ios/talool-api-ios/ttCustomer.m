@@ -46,8 +46,7 @@
     customer.lastName = c.lastName;
     customer.email = c.email;
     customer.sex = [[NSNumber alloc] initWithInt:c.sex];
-    customer.customerId = @(c.customerId);
-    customer.token = nil;  //No Token until auth or reg
+    customer.customerId = c.customerId;
     
     if (c.socialAccountsIsSet) {
         NSMutableArray *keys = [[NSMutableArray alloc] initWithArray:[c.socialAccounts allKeys]];
@@ -72,15 +71,9 @@
     customer.firstName = self.firstName;
     customer.lastName = self.lastName;
     customer.email = self.email;
-    //if (self.sex == nil) {  // TODO WTF
-    customer.sex = 3;
-    //} else {
-    //customer.sex = (int) self.sex;
-    //}
-    if (self.customerId != nil) {
-        customer.customerId = [self.customerId longLongValue];
-    }
-    
+    customer.sex = [self.sex integerValue];
+
+    customer.customerId = self.customerId;
     
     NSEnumerator *enumerator = [self.socialAccounts objectEnumerator];
     ttSocialAccount *sa;
@@ -103,26 +96,16 @@
     return (ttToken *)self.token;
 }
 
-- (void)saveFriend:(Friend *)socialFriend
-{
-    [self addFriendsObject:socialFriend];
-}
-
-- (NSSet *) getSocialFriends
-{
-    return self.friends;
-}
-
 - (void) refreshMerchants: (NSManagedObjectContext *)context
 {
-    [self removeFavoriteMerchants:self.favoriteMerchants];
+    [self removeMerchants:self.merchants];
     
     CustomerController *cc = [[CustomerController alloc] init];
     NSError *error = [NSError alloc];
     NSMutableArray *merchants = [cc getMerchants:self context:context error:&error];
     NSSet *fMerchants = [[NSSet alloc] initWithArray:merchants];
     
-    [self addFavoriteMerchants:fMerchants];
+    [self addMerchants:fMerchants];
 
 }
 
