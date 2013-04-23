@@ -8,12 +8,14 @@
 
 #import "TaloolMerchant.h"
 
-@class Merchant_t;
-@class ttCustomer;
+@class Merchant_t, ttCustomer, ttMerchantLocation;
 
 @interface ttMerchant : TaloolMerchant
 
+@property (nonatomic, retain) ttMerchantLocation *location;
+
 + (ttMerchant *)initWithThrift: (Merchant_t *)merchant context:(NSManagedObjectContext *)context;
 - (Merchant_t *)hydrateThriftObject;
+- (NSString *)getLocationLabel;
 
 @end

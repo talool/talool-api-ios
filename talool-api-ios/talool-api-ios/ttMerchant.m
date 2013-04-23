@@ -8,12 +8,15 @@
 
 #import "ttMerchant.h"
 #import "ttMerchantLocation.h"
+#import "ttAddress.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "MerchantController.h"
 #import "CustomerController.h"
 
 @implementation ttMerchant
+
+@synthesize location;
 
 +(ttMerchant *)initWithThrift:(Merchant_t *)merchant context:(NSManagedObjectContext *)context
 {
@@ -30,6 +33,9 @@
         for (int i=0; i<[merchant.locations count]; i++) {
             MerchantLocation_t *mlt = [merchant.locations objectAtIndex:i];
             ttMerchantLocation *ml = [ttMerchantLocation initWithThrift:mlt context:context];
+            if (i==0) {
+                m.location = ml;
+            }
             [m addLocationsObject:ml];
         }
     }
@@ -54,6 +60,21 @@
     }
 
     return merchant;
+}
+
+- (NSString *)getLocationLabel
+{
+    NSString *label;
+    if ([self.locations count] > 1) {
+        label = @"multiple locations";
+    } else {
+        if (location.name == NULL) {
+            label = location.address.city;
+        } else {
+            label = location.name;
+        }
+    }
+    return label;
 }
 
 
