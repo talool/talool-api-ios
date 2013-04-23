@@ -28,9 +28,9 @@
     newDeal.shareCount = [[NSNumber alloc] initWithUnsignedInteger:deal.shareCount];
     newDeal.sharedByCustomer = [ttCustomer initWithThrift:deal.sharedByCustomer context:context];
     newDeal.sharedByMerchant = [ttMerchant initWithThrift:deal.sharedByMerchant context:context];
-    newDeal.redeemed = [[NSDate alloc] initWithTimeIntervalSince1970:deal.redeemed];
-    newDeal.created = [[NSDate alloc] initWithTimeIntervalSince1970:deal.created];
-    newDeal.updated = [[NSDate alloc] initWithTimeIntervalSince1970:deal.updated];
+    if (deal.redeemed != 0) {
+        newDeal.redeemed = [[NSDate alloc] initWithTimeIntervalSince1970:deal.redeemed];
+    }
     
     return newDeal;
 }
@@ -52,11 +52,11 @@
     return (self.redeemed != NULL);
 }
 
-- (void) redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error
+- (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error
 {
     CustomerController *cController = [[CustomerController alloc] init];
-
-    if ([cController redeem:self.dealAcquireId latitude:latitude longitude:longitude error:error])
+    
+    if ([cController redeem:self latitude:latitude longitude:longitude error:error])
     {
         [self setRedeemed:[[NSDate alloc] initWithTimeIntervalSinceNow:0]];
     }
