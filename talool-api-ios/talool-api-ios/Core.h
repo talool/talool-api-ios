@@ -246,7 +246,7 @@ typedef int64_t Timestamp;
   NSString * __name;
   NSString * __email;
   NSString * __websiteUrl;
-  NSString * __logUrl;
+  NSString * __logoUrl;
   NSString * __phone;
   Address_t * __address;
 
@@ -254,7 +254,7 @@ typedef int64_t Timestamp;
   BOOL __name_isset;
   BOOL __email_isset;
   BOOL __websiteUrl_isset;
-  BOOL __logUrl_isset;
+  BOOL __logoUrl_isset;
   BOOL __phone_isset;
   BOOL __address_isset;
 }
@@ -264,13 +264,13 @@ typedef int64_t Timestamp;
 @property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
 @property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
 @property (nonatomic, retain, getter=websiteUrl, setter=setWebsiteUrl:) NSString * websiteUrl;
-@property (nonatomic, retain, getter=logUrl, setter=setLogUrl:) NSString * logUrl;
+@property (nonatomic, retain, getter=logoUrl, setter=setLogoUrl:) NSString * logoUrl;
 @property (nonatomic, retain, getter=phone, setter=setPhone:) NSString * phone;
 @property (nonatomic, retain, getter=address, setter=setAddress:) Address_t * address;
 #endif
 
 - (id) init;
-- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logUrl: (NSString *) logUrl phone: (NSString *) phone address: (Address_t *) address;
+- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl phone: (NSString *) phone address: (Address_t *) address;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -300,10 +300,10 @@ typedef int64_t Timestamp;
 - (BOOL) websiteUrlIsSet;
 
 #if !__has_feature(objc_arc)
-- (NSString *) logUrl;
-- (void) setLogUrl: (NSString *) logUrl;
+- (NSString *) logoUrl;
+- (void) setLogoUrl: (NSString *) logoUrl;
 #endif
-- (BOOL) logUrlIsSet;
+- (BOOL) logoUrlIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSString *) phone;
@@ -616,13 +616,11 @@ typedef int64_t Timestamp;
 @interface SearchOptions_t : NSObject <NSCoding> {
   BOOL __ascending;
   NSString * __sortProperty;
-  int32_t __firstResult;
   int32_t __maxResults;
   int32_t __page;
 
   BOOL __ascending_isset;
   BOOL __sortProperty_isset;
-  BOOL __firstResult_isset;
   BOOL __maxResults_isset;
   BOOL __page_isset;
 }
@@ -630,13 +628,12 @@ typedef int64_t Timestamp;
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, getter=ascending, setter=setAscending:) BOOL ascending;
 @property (nonatomic, retain, getter=sortProperty, setter=setSortProperty:) NSString * sortProperty;
-@property (nonatomic, getter=firstResult, setter=setFirstResult:) int32_t firstResult;
 @property (nonatomic, getter=maxResults, setter=setMaxResults:) int32_t maxResults;
 @property (nonatomic, getter=page, setter=setPage:) int32_t page;
 #endif
 
 - (id) init;
-- (id) initWithAscending: (BOOL) ascending sortProperty: (NSString *) sortProperty firstResult: (int32_t) firstResult maxResults: (int32_t) maxResults page: (int32_t) page;
+- (id) initWithAscending: (BOOL) ascending sortProperty: (NSString *) sortProperty maxResults: (int32_t) maxResults page: (int32_t) page;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -652,12 +649,6 @@ typedef int64_t Timestamp;
 - (void) setSortProperty: (NSString *) sortProperty;
 #endif
 - (BOOL) sortPropertyIsSet;
-
-#if !__has_feature(objc_arc)
-- (int32_t) firstResult;
-- (void) setFirstResult: (int32_t) firstResult;
-#endif
-- (BOOL) firstResultIsSet;
 
 #if !__has_feature(objc_arc)
 - (int32_t) maxResults;

@@ -1108,7 +1108,7 @@
   return self;
 }
 
-- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logUrl: (NSString *) logUrl phone: (NSString *) phone address: (Address_t *) address
+- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl phone: (NSString *) phone address: (Address_t *) address
 {
   self = [super init];
   __locationId = locationId;
@@ -1119,8 +1119,8 @@
   __email_isset = YES;
   __websiteUrl = [websiteUrl retain_stub];
   __websiteUrl_isset = YES;
-  __logUrl = [logUrl retain_stub];
-  __logUrl_isset = YES;
+  __logoUrl = [logoUrl retain_stub];
+  __logoUrl_isset = YES;
   __phone = [phone retain_stub];
   __phone_isset = YES;
   __address = [address retain_stub];
@@ -1151,10 +1151,10 @@
     __websiteUrl = [[decoder decodeObjectForKey: @"websiteUrl"] retain_stub];
     __websiteUrl_isset = YES;
   }
-  if ([decoder containsValueForKey: @"logUrl"])
+  if ([decoder containsValueForKey: @"logoUrl"])
   {
-    __logUrl = [[decoder decodeObjectForKey: @"logUrl"] retain_stub];
-    __logUrl_isset = YES;
+    __logoUrl = [[decoder decodeObjectForKey: @"logoUrl"] retain_stub];
+    __logoUrl_isset = YES;
   }
   if ([decoder containsValueForKey: @"phone"])
   {
@@ -1187,9 +1187,9 @@
   {
     [encoder encodeObject: __websiteUrl forKey: @"websiteUrl"];
   }
-  if (__logUrl_isset)
+  if (__logoUrl_isset)
   {
-    [encoder encodeObject: __logUrl forKey: @"logUrl"];
+    [encoder encodeObject: __logoUrl forKey: @"logoUrl"];
   }
   if (__phone_isset)
   {
@@ -1206,7 +1206,7 @@
   [__name release_stub];
   [__email release_stub];
   [__websiteUrl release_stub];
-  [__logUrl release_stub];
+  [__logoUrl release_stub];
   [__phone release_stub];
   [__address release_stub];
   [super dealloc_stub];
@@ -1292,25 +1292,25 @@
   __websiteUrl_isset = NO;
 }
 
-- (NSString *) logUrl {
-  return [[__logUrl retain_stub] autorelease_stub];
+- (NSString *) logoUrl {
+  return [[__logoUrl retain_stub] autorelease_stub];
 }
 
-- (void) setLogUrl: (NSString *) logUrl {
-  [logUrl retain_stub];
-  [__logUrl release_stub];
-  __logUrl = logUrl;
-  __logUrl_isset = YES;
+- (void) setLogoUrl: (NSString *) logoUrl {
+  [logoUrl retain_stub];
+  [__logoUrl release_stub];
+  __logoUrl = logoUrl;
+  __logoUrl_isset = YES;
 }
 
-- (BOOL) logUrlIsSet {
-  return __logUrl_isset;
+- (BOOL) logoUrlIsSet {
+  return __logoUrl_isset;
 }
 
-- (void) unsetLogUrl {
-  [__logUrl release_stub];
-  __logUrl = nil;
-  __logUrl_isset = NO;
+- (void) unsetLogoUrl {
+  [__logoUrl release_stub];
+  __logoUrl = nil;
+  __logoUrl_isset = NO;
 }
 
 - (NSString *) phone {
@@ -1405,7 +1405,7 @@
       case 5:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setLogUrl: fieldValue];
+          [self setLogoUrl: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -1465,10 +1465,10 @@
       [outProtocol writeFieldEnd];
     }
   }
-  if (__logUrl_isset) {
-    if (__logUrl != nil) {
-      [outProtocol writeFieldBeginWithName: @"logUrl" type: TType_STRING fieldID: 5];
-      [outProtocol writeString: __logUrl];
+  if (__logoUrl_isset) {
+    if (__logoUrl != nil) {
+      [outProtocol writeFieldBeginWithName: @"logoUrl" type: TType_STRING fieldID: 5];
+      [outProtocol writeString: __logoUrl];
       [outProtocol writeFieldEnd];
     }
   }
@@ -1500,8 +1500,8 @@
   [ms appendFormat: @"\"%@\"", __email];
   [ms appendString: @",websiteUrl:"];
   [ms appendFormat: @"\"%@\"", __websiteUrl];
-  [ms appendString: @",logUrl:"];
-  [ms appendFormat: @"\"%@\"", __logUrl];
+  [ms appendString: @",logoUrl:"];
+  [ms appendFormat: @"\"%@\"", __logoUrl];
   [ms appendString: @",phone:"];
   [ms appendFormat: @"\"%@\"", __phone];
   [ms appendString: @",address:"];
@@ -3080,15 +3080,13 @@
   return self;
 }
 
-- (id) initWithAscending: (BOOL) ascending sortProperty: (NSString *) sortProperty firstResult: (int32_t) firstResult maxResults: (int32_t) maxResults page: (int32_t) page
+- (id) initWithAscending: (BOOL) ascending sortProperty: (NSString *) sortProperty maxResults: (int32_t) maxResults page: (int32_t) page
 {
   self = [super init];
   __ascending = ascending;
   __ascending_isset = YES;
   __sortProperty = [sortProperty retain_stub];
   __sortProperty_isset = YES;
-  __firstResult = firstResult;
-  __firstResult_isset = YES;
   __maxResults = maxResults;
   __maxResults_isset = YES;
   __page = page;
@@ -3108,11 +3106,6 @@
   {
     __sortProperty = [[decoder decodeObjectForKey: @"sortProperty"] retain_stub];
     __sortProperty_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"firstResult"])
-  {
-    __firstResult = [decoder decodeInt32ForKey: @"firstResult"];
-    __firstResult_isset = YES;
   }
   if ([decoder containsValueForKey: @"maxResults"])
   {
@@ -3136,10 +3129,6 @@
   if (__sortProperty_isset)
   {
     [encoder encodeObject: __sortProperty forKey: @"sortProperty"];
-  }
-  if (__firstResult_isset)
-  {
-    [encoder encodeInt32: __firstResult forKey: @"firstResult"];
   }
   if (__maxResults_isset)
   {
@@ -3193,23 +3182,6 @@
   [__sortProperty release_stub];
   __sortProperty = nil;
   __sortProperty_isset = NO;
-}
-
-- (int32_t) firstResult {
-  return __firstResult;
-}
-
-- (void) setFirstResult: (int32_t) firstResult {
-  __firstResult = firstResult;
-  __firstResult_isset = YES;
-}
-
-- (BOOL) firstResultIsSet {
-  return __firstResult_isset;
-}
-
-- (void) unsetFirstResult {
-  __firstResult_isset = NO;
 }
 
 - (int32_t) maxResults {
@@ -3280,20 +3252,12 @@
       case 3:
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
-          [self setFirstResult: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 4:
-        if (fieldType == TType_I32) {
-          int32_t fieldValue = [inProtocol readI32];
           [self setMaxResults: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 5:
+      case 4:
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setPage: fieldValue];
@@ -3324,18 +3288,13 @@
       [outProtocol writeFieldEnd];
     }
   }
-  if (__firstResult_isset) {
-    [outProtocol writeFieldBeginWithName: @"firstResult" type: TType_I32 fieldID: 3];
-    [outProtocol writeI32: __firstResult];
-    [outProtocol writeFieldEnd];
-  }
   if (__maxResults_isset) {
-    [outProtocol writeFieldBeginWithName: @"maxResults" type: TType_I32 fieldID: 4];
+    [outProtocol writeFieldBeginWithName: @"maxResults" type: TType_I32 fieldID: 3];
     [outProtocol writeI32: __maxResults];
     [outProtocol writeFieldEnd];
   }
   if (__page_isset) {
-    [outProtocol writeFieldBeginWithName: @"page" type: TType_I32 fieldID: 5];
+    [outProtocol writeFieldBeginWithName: @"page" type: TType_I32 fieldID: 4];
     [outProtocol writeI32: __page];
     [outProtocol writeFieldEnd];
   }
@@ -3349,8 +3308,6 @@
   [ms appendFormat: @"%i", __ascending];
   [ms appendString: @",sortProperty:"];
   [ms appendFormat: @"\"%@\"", __sortProperty];
-  [ms appendString: @",firstResult:"];
-  [ms appendFormat: @"%i", __firstResult];
   [ms appendString: @",maxResults:"];
   [ms appendFormat: @"%i", __maxResults];
   [ms appendString: @",page:"];
