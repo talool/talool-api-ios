@@ -281,7 +281,6 @@
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
         [options setMaxResults:1000];
         [options setPage:0];
-        [options setFirstResult:1];
         [options setAscending:YES];
         [options setSortProperty:@"name"];
         merchants = [service getMerchantAcquires:options];
@@ -346,7 +345,6 @@
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
         [options setMaxResults:1000];
         [options setPage:0];
-        [options setFirstResult:1];
         [options setAscending:YES];
         [options setSortProperty:@"deal.title"];
         deals = [service getDealAcquires:merchant.merchantId searchOptions:options];

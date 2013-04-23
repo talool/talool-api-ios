@@ -86,7 +86,7 @@
     <entity name="TaloolMerchantLocation" representedClassName="ttMerchantLocation" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="locationId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="logUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="logoUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="websiteUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -94,11 +94,10 @@
         <relationship name="merchant" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="locations" inverseEntity="TaloolMerchant" syncable="YES"/>
     </entity>
     <entity name="TaloolSearchOptions" representedClassName="TaloolSearchOptions" syncable="YES">
-        <attribute name="firstResult" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="maxResults" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="sortAsc" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
         <attribute name="sortProperty" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sortType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="TaloolToken" representedClassName="ttToken" syncable="YES">
         <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
@@ -115,6 +114,6 @@
         <element name="TaloolToken" positionX="-488" positionY="432" width="128" height="73"/>
         <element name="TaloolMerchantLocation" positionX="-333" positionY="-189" width="128" height="163"/>
         <element name="TaloolDealAcquire" positionX="-126" positionY="329" width="128" height="193"/>
-        <element name="TaloolSearchOptions" positionX="214" positionY="-91" width="128" height="118"/>
+        <element name="TaloolSearchOptions" positionX="214" positionY="-91" width="128" height="103"/>
     </elements>
 </model>

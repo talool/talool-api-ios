@@ -23,7 +23,7 @@
     m.name = location.name;
     m.email = location.email;
     m.websiteUrl = location.websiteUrl;
-    m.logUrl = location.logUrl;
+    m.logoUrl = location.logoUrl;
     m.phone = location.phone;
     m.address = [ttAddress initWithThrift:location.address context:context];
     
@@ -38,7 +38,7 @@
     location.name = self.name;
     location.email = self.email;
     location.websiteUrl = self.websiteUrl;
-    location.logUrl = self.logUrl;
+    location.logoUrl = self.logoUrl;
     location.phone = self.phone;
     location.address = [(ttAddress *)self.address hydrateThriftObject];
     
