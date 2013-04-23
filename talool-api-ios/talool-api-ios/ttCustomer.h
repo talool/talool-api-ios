@@ -12,7 +12,7 @@
 #import "ttToken.h"
 #import "Friend.h"
 
-@class Customer_t;
+@class Customer_t, ttMerchant;
 
 @interface ttCustomer : TaloolCustomer
 
@@ -25,6 +25,7 @@
 - (ttToken *)getTaloolToken;
 - (void) refreshMerchants: (NSManagedObjectContext *)context;
 - (NSArray *) getMyMerchants;
+- (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context;
 
 @end
 

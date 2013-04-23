@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class ttCustomer;
-@class ttMerchant;
-@class CustomerService_tClient;
+@class ttCustomer, ttMerchant, ttDealAcquire, ttDealAcquire, CustomerService_tClient;
 
 @interface CustomerController : NSObject {
     CustomerService_tClient *service;
@@ -23,6 +21,6 @@
 - (BOOL)userExists:(NSString *) email;
 - (NSMutableArray *) getMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (NSMutableArray *) getAcquiredDeals:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
-- (BOOL)redeem: (NSString *) dealAcquireId latitude: (double) latitude longitude: (double) longitude error:(NSError**)error;
+- (BOOL)redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error;
 
 @end

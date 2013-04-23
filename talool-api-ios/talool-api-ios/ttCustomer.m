@@ -116,4 +116,20 @@
     return merchants;
 }
 
+- (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context
+{
+    
+    if ([self.deals count] > 0) {
+        [self removeDeals:self.deals];
+    }
+    
+    CustomerController *cc = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    NSMutableArray *deals = [cc getAcquiredDeals:merchant forCustomer:self context:context error:&error];
+    NSSet *myDeals = [[NSSet alloc] initWithArray:deals];
+    [self addDeals:myDeals];
+    
+    return deals;
+}
+
 @end
