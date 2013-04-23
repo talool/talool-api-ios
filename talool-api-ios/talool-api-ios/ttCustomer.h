@@ -24,6 +24,7 @@
 - (NSString *)getFullName;
 - (ttToken *)getTaloolToken;
 - (void) refreshMerchants: (NSManagedObjectContext *)context;
+- (NSArray *) getMyMerchants;
 
 @end
 

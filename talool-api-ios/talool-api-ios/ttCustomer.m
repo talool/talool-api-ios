@@ -109,4 +109,11 @@
 
 }
 
+- (NSArray *) getMyMerchants
+{
+    NSArray *merchants = [self.merchants allObjects];
+    
+    return merchants;
+}
+
 @end
