@@ -12,6 +12,7 @@
 #import "ttMerchant.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import "CustomerController.h"
 
 @implementation ttDealAcquire
 
@@ -49,6 +50,18 @@
 - (BOOL) hasBeenRedeemed
 {
     return (self.redeemed != NULL);
+}
+
+- (void) redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error
+{
+    CustomerController *cController = [[CustomerController alloc] init];
+
+    if ([cController redeem:self.dealAcquireId latitude:latitude longitude:longitude error:error])
+    {
+        [self setRedeemed:[[NSDate alloc] initWithTimeIntervalSinceNow:0]];
+    }
+    
+    
 }
 
 @end

@@ -23,6 +23,6 @@
 - (BOOL)userExists:(NSString *) email;
 - (NSMutableArray *) getMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (NSMutableArray *) getAcquiredDeals:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
-- (void) redeem: (NSString *) dealAcquireId latitude: (double) latitude longitude: (double) longitude;
+- (BOOL)redeem: (NSString *) dealAcquireId latitude: (double) latitude longitude: (double) longitude error:(NSError**)error;
 
 @end
