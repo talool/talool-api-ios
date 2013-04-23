@@ -3080,11 +3080,11 @@
   return self;
 }
 
-- (id) initWithSortType: (int) sortType sortProperty: (NSString *) sortProperty firstResult: (int32_t) firstResult maxResults: (int32_t) maxResults page: (int32_t) page
+- (id) initWithAscending: (BOOL) ascending sortProperty: (NSString *) sortProperty firstResult: (int32_t) firstResult maxResults: (int32_t) maxResults page: (int32_t) page
 {
   self = [super init];
-  __sortType = sortType;
-  __sortType_isset = YES;
+  __ascending = ascending;
+  __ascending_isset = YES;
   __sortProperty = [sortProperty retain_stub];
   __sortProperty_isset = YES;
   __firstResult = firstResult;
@@ -3099,10 +3099,10 @@
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
-  if ([decoder containsValueForKey: @"sortType"])
+  if ([decoder containsValueForKey: @"ascending"])
   {
-    __sortType = [decoder decodeIntForKey: @"sortType"];
-    __sortType_isset = YES;
+    __ascending = [decoder decodeBoolForKey: @"ascending"];
+    __ascending_isset = YES;
   }
   if ([decoder containsValueForKey: @"sortProperty"])
   {
@@ -3129,9 +3129,9 @@
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__sortType_isset)
+  if (__ascending_isset)
   {
-    [encoder encodeInt: __sortType forKey: @"sortType"];
+    [encoder encodeBool: __ascending forKey: @"ascending"];
   }
   if (__sortProperty_isset)
   {
@@ -3157,21 +3157,21 @@
   [super dealloc_stub];
 }
 
-- (int) sortType {
-  return __sortType;
+- (BOOL) ascending {
+  return __ascending;
 }
 
-- (void) setSortType: (int) sortType {
-  __sortType = sortType;
-  __sortType_isset = YES;
+- (void) setAscending: (BOOL) ascending {
+  __ascending = ascending;
+  __ascending_isset = YES;
 }
 
-- (BOOL) sortTypeIsSet {
-  return __sortType_isset;
+- (BOOL) ascendingIsSet {
+  return __ascending_isset;
 }
 
-- (void) unsetSortType {
-  __sortType_isset = NO;
+- (void) unsetAscending {
+  __ascending_isset = NO;
 }
 
 - (NSString *) sortProperty {
@@ -3262,9 +3262,9 @@
     switch (fieldID)
     {
       case 1:
-        if (fieldType == TType_I32) {
-          int fieldValue = [inProtocol readI32];
-          [self setSortType: fieldValue];
+        if (fieldType == TType_BOOL) {
+          BOOL fieldValue = [inProtocol readBool];
+          [self setAscending: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -3312,9 +3312,9 @@
 
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"SearchOptions_t"];
-  if (__sortType_isset) {
-    [outProtocol writeFieldBeginWithName: @"sortType" type: TType_I32 fieldID: 1];
-    [outProtocol writeI32: __sortType];
+  if (__ascending_isset) {
+    [outProtocol writeFieldBeginWithName: @"ascending" type: TType_BOOL fieldID: 1];
+    [outProtocol writeBool: __ascending];
     [outProtocol writeFieldEnd];
   }
   if (__sortProperty_isset) {
@@ -3345,8 +3345,8 @@
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"SearchOptions_t("];
-  [ms appendString: @"sortType:"];
-  [ms appendFormat: @"%i", __sortType];
+  [ms appendString: @"ascending:"];
+  [ms appendFormat: @"%i", __ascending];
   [ms appendString: @",sortProperty:"];
   [ms appendFormat: @"\"%@\"", __sortProperty];
   [ms appendString: @",firstResult:"];

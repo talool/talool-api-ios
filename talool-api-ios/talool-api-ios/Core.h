@@ -20,11 +20,6 @@ enum Sex_t {
   Sex_t_U = 2
 };
 
-enum SortType_t {
-  SortType_t_Asc = 0,
-  SortType_t_Desc = 1
-};
-
 enum SocialNetwork_t {
   SocialNetwork_t_Facebook = 0,
   SocialNetwork_t_Twitter = 1,
@@ -619,13 +614,13 @@ typedef int64_t Timestamp;
 @end
 
 @interface SearchOptions_t : NSObject <NSCoding> {
-  int __sortType;
+  BOOL __ascending;
   NSString * __sortProperty;
   int32_t __firstResult;
   int32_t __maxResults;
   int32_t __page;
 
-  BOOL __sortType_isset;
+  BOOL __ascending_isset;
   BOOL __sortProperty_isset;
   BOOL __firstResult_isset;
   BOOL __maxResults_isset;
@@ -633,7 +628,7 @@ typedef int64_t Timestamp;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=sortType, setter=setSortType:) int sortType;
+@property (nonatomic, getter=ascending, setter=setAscending:) BOOL ascending;
 @property (nonatomic, retain, getter=sortProperty, setter=setSortProperty:) NSString * sortProperty;
 @property (nonatomic, getter=firstResult, setter=setFirstResult:) int32_t firstResult;
 @property (nonatomic, getter=maxResults, setter=setMaxResults:) int32_t maxResults;
@@ -641,16 +636,16 @@ typedef int64_t Timestamp;
 #endif
 
 - (id) init;
-- (id) initWithSortType: (int) sortType sortProperty: (NSString *) sortProperty firstResult: (int32_t) firstResult maxResults: (int32_t) maxResults page: (int32_t) page;
+- (id) initWithAscending: (BOOL) ascending sortProperty: (NSString *) sortProperty firstResult: (int32_t) firstResult maxResults: (int32_t) maxResults page: (int32_t) page;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if !__has_feature(objc_arc)
-- (int) sortType;
-- (void) setSortType: (int) sortType;
+- (BOOL) ascending;
+- (void) setAscending: (BOOL) ascending;
 #endif
-- (BOOL) sortTypeIsSet;
+- (BOOL) ascendingIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSString *) sortProperty;
