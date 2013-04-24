@@ -2,23 +2,23 @@
 //  TaloolMerchantLocation.m
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 4/23/13.
+//  Created by Douglas McCuen on 4/24/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import "TaloolMerchantLocation.h"
-#import "ttAddress.h"
-#import "ttMerchant.h"
+#import "TaloolAddress.h"
+#import "TaloolMerchant.h"
 
 
 @implementation TaloolMerchantLocation
 
-@dynamic locationId;
-@dynamic name;
 @dynamic email;
-@dynamic websiteUrl;
+@dynamic locationId;
 @dynamic logoUrl;
+@dynamic name;
 @dynamic phone;
+@dynamic websiteUrl;
 @dynamic address;
 @dynamic merchant;
 

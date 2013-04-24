@@ -9,12 +9,13 @@
 #import "ttDealAcquire.h"
 #import "ttDeal.h"
 #import "ttCustomer.h"
-#import "ttMerchant.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "CustomerController.h"
 
 @implementation ttDealAcquire
+
+@synthesize customer;
 
 + (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal context:(NSManagedObjectContext *)context;
 {
@@ -26,8 +27,6 @@
     newDeal.deal = [ttDeal initWithThrift:deal.deal context:context];
     newDeal.status = deal.status;
     newDeal.shareCount = [[NSNumber alloc] initWithUnsignedInteger:deal.shareCount];
-    newDeal.sharedByCustomer = [ttCustomer initWithThrift:deal.sharedByCustomer context:context];
-    newDeal.sharedByMerchant = [ttMerchant initWithThrift:deal.sharedByMerchant context:context];
     if (deal.redeemed != 0) {
         newDeal.redeemed = [[NSDate alloc] initWithTimeIntervalSince1970:deal.redeemed];
     }
@@ -40,7 +39,6 @@
     DealAcquire_t *acquire = [[DealAcquire_t alloc] init];
     acquire.dealAcquireId = self.dealAcquireId;
     acquire.deal = [(ttDeal *)self.deal hydrateThriftObject];
-    acquire.sharedByCustomer = [(ttCustomer *)self.sharedByCustomer hydrateThriftObject];
     acquire.shareCount = [self.shareCount integerValue];
     acquire.redeemed = [self.redeemed timeIntervalSince1970];
     

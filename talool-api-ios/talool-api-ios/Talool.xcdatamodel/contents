@@ -40,9 +40,7 @@
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sex" optional="YES" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="deals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="customer" inverseEntity="TaloolDealAcquire" syncable="YES"/>
         <relationship name="merchants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="customers" inverseEntity="TaloolMerchant" syncable="YES"/>
-        <relationship name="shares" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="sharedByCustomer" inverseEntity="TaloolDealAcquire" syncable="YES"/>
         <relationship name="socialAccounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SocialAccount" inverseName="customersocialaccount" inverseEntity="SocialAccount" syncable="YES"/>
         <relationship name="token" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolToken" inverseName="customer" inverseEntity="TaloolToken" syncable="YES"/>
         <userInfo/>
@@ -68,10 +66,7 @@
         <attribute name="shareCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="customer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="deals" inverseEntity="TaloolCustomer" syncable="YES"/>
         <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="acquires" inverseEntity="TaloolDeal" syncable="YES"/>
-        <relationship name="sharedByCustomer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="shares" inverseEntity="TaloolCustomer" syncable="YES"/>
-        <relationship name="sharedByMerchant" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="shares" inverseEntity="TaloolMerchant" syncable="YES"/>
     </entity>
     <entity name="TaloolMerchant" representedClassName="ttMerchant" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
@@ -81,9 +76,8 @@
         <relationship name="customers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="merchants" inverseEntity="TaloolCustomer" syncable="YES"/>
         <relationship name="deals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="merchant" inverseEntity="TaloolDeal" syncable="YES"/>
         <relationship name="locations" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchantLocation" inverseName="merchant" inverseEntity="TaloolMerchantLocation" syncable="YES"/>
-        <relationship name="shares" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="sharedByMerchant" inverseEntity="TaloolDealAcquire" syncable="YES"/>
     </entity>
-    <entity name="TaloolMerchantLocation" representedClassName="ttMerchantLocation" syncable="YES">
+    <entity name="TaloolMerchantLocation" representedClassName="TaloolMerchantLocation" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="locationId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="logoUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -108,12 +102,12 @@
         <element name="SocialAccount" positionX="-486" positionY="297" width="128" height="118"/>
         <element name="SocialNetworkDetail" positionX="216" positionY="-220" width="128" height="103"/>
         <element name="TaloolAddress" positionX="-146" positionY="-220" width="128" height="193"/>
-        <element name="TaloolCustomer" positionX="-326" positionY="297" width="128" height="223"/>
+        <element name="TaloolCustomer" positionX="-326" positionY="297" width="128" height="193"/>
         <element name="TaloolDeal" positionX="-47" positionY="9" width="128" height="223"/>
-        <element name="TaloolMerchant" positionX="-297" positionY="99" width="128" height="163"/>
-        <element name="TaloolToken" positionX="-488" positionY="432" width="128" height="73"/>
+        <element name="TaloolDealAcquire" positionX="-126" positionY="329" width="128" height="148"/>
+        <element name="TaloolMerchant" positionX="-297" positionY="99" width="128" height="148"/>
         <element name="TaloolMerchantLocation" positionX="-333" positionY="-189" width="128" height="163"/>
-        <element name="TaloolDealAcquire" positionX="-126" positionY="329" width="128" height="193"/>
         <element name="TaloolSearchOptions" positionX="214" positionY="-91" width="128" height="103"/>
+        <element name="TaloolToken" positionX="-488" positionY="432" width="128" height="73"/>
     </elements>
 </model>

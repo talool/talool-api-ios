@@ -8,9 +8,11 @@
 
 #import "TaloolDealAcquire.h"
 
-@class DealAcquire_t;
+@class DealAcquire_t, ttCustomer;
 
 @interface ttDealAcquire : TaloolDealAcquire
+
+@property (nonatomic, retain) ttCustomer *customer;
 
 + (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal context:(NSManagedObjectContext *)context;
 - (DealAcquire_t *)hydrateThriftObject;

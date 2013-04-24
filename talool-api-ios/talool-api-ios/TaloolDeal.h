@@ -2,7 +2,7 @@
 //  TaloolDeal.h
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 4/22/13.
+//  Created by Douglas McCuen on 4/24/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
@@ -23,7 +23,7 @@
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSDate * updated;
-@property (nonatomic, retain) TaloolMerchant *merchant;
 @property (nonatomic, retain) TaloolDealAcquire *acquires;
+@property (nonatomic, retain) TaloolMerchant *merchant;
 
 @end
