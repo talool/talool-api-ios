@@ -13,6 +13,12 @@
 
 @interface ttSocialAccount : SocialAccount
 
+
++ (ttSocialAccount *) createSocialAccount:(int *)socialNetwork
+                                  loginId:(NSString *)loginId
+                                    token:(NSString *)token
+                                  context:(NSManagedObjectContext *)context;
+
 - (BOOL)isValid;
 + (ttSocialAccount *)initWithThrift: (SocialAccount_t *)sa context:(NSManagedObjectContext *)context;
 - (SocialAccount_t *)hydrateThriftObject;

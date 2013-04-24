@@ -395,12 +395,11 @@
     return deals;
 }
 
-- (BOOL) redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error
+- (void) redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error
 {
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     
     @try {
-        // Do the Thrift Merchants
         [self connectWithToken:(ttToken *)dealAcquire.customer.token];
         [service redeem:dealAcquire.dealAcquireId latitude:latitude longitude:longitude];
     }
@@ -408,30 +407,25 @@
         [details setValue:@"Failed to redeem, service failed." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"redeem" code:200 userInfo:details];
         NSLog(@"failed to redeem: %@",se.description);
-        return NO;
     }
     @catch (TApplicationException * tae) {
         [details setValue:@"Failed to redeem; app failed." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"redeem" code:200 userInfo:details];
         NSLog(@"failed to redeem: %@",tae.description);
-        return NO;
     }
     @catch (TTransportException * tpe) {
         [details setValue:@"Failed to redeem, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
         NSLog(@"failed to redeem: %@",tpe.description);
-        return NO;
     }
     @catch (NSException * e) {
         [details setValue:@"Failed to redeem... who knows why." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"redeem" code:200 userInfo:details];
         NSLog(@"failed to redeem: %@",e.description);
-        return NO;
     }
     @finally {
         [self disconnect];
     }
-    return YES;
 }
 
 

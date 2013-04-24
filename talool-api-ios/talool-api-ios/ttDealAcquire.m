@@ -50,15 +50,29 @@
     return (self.redeemed != NULL);
 }
 
-- (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error
+- (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context
 {
-    CustomerController *cController = [[CustomerController alloc] init];
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    NSError *redeemError = nil;
     
-    if ([cController redeem:self latitude:latitude longitude:longitude error:error])
+    CustomerController *cController = [[CustomerController alloc] init];
+    [cController redeem:self latitude:latitude longitude:longitude error:&redeemError];
+    
+    if (redeemError.code < 100)
     {
         [self setRedeemed:[[NSDate alloc] initWithTimeIntervalSinceNow:0]];
+
+        NSError *saveError = nil;
+        if (![context save:&saveError]) {
+            NSLog(@"API: OH SHIT!!!! Failed to save context after redeemHere: %@ %@",saveError, [saveError userInfo]);
+            [details setValue:@"Failed to save context after redeemHere." forKey:NSLocalizedDescriptionKey];
+            *err = [NSError errorWithDomain:@"redeemHere" code:200 userInfo:details];
+        }
+        
+    } else {
+        [details setValue:@"Failed to redeem deal." forKey:NSLocalizedDescriptionKey];
+        *err = [NSError errorWithDomain:@"redeemHere" code:200 userInfo:details];
     }
-    
     
 }
 
