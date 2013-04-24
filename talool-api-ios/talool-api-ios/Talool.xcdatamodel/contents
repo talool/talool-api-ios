@@ -35,9 +35,9 @@
     <entity name="TaloolCustomer" representedClassName="ttCustomer">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="customerId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="email" attributeType="String" syncable="YES"/>
-        <attribute name="firstName" attributeType="String" syncable="YES"/>
-        <attribute name="lastName" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sex" optional="YES" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="deals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="customer" inverseEntity="TaloolDealAcquire" syncable="YES"/>
@@ -59,17 +59,17 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="acquires" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="deal" inverseEntity="TaloolDealAcquire" syncable="YES"/>
-        <relationship name="merchant" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="deals" inverseEntity="TaloolMerchant" syncable="YES"/>
+        <relationship name="merchant" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="deals" inverseEntity="TaloolMerchant" syncable="YES"/>
     </entity>
     <entity name="TaloolDealAcquire" representedClassName="ttDealAcquire" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dealAcquireId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="redeemed" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="shareCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="status" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="customer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="deals" inverseEntity="TaloolCustomer" syncable="YES"/>
-        <relationship name="deal" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="acquires" inverseEntity="TaloolDeal" syncable="YES"/>
+        <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="acquires" inverseEntity="TaloolDeal" syncable="YES"/>
         <relationship name="sharedByCustomer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="shares" inverseEntity="TaloolCustomer" syncable="YES"/>
         <relationship name="sharedByMerchant" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="shares" inverseEntity="TaloolMerchant" syncable="YES"/>
     </entity>
