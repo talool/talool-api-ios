@@ -40,9 +40,9 @@
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sex" optional="YES" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="merchants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="customers" inverseEntity="TaloolMerchant" syncable="YES"/>
+        <relationship name="merchants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="customer" inverseEntity="TaloolMerchant" syncable="YES"/>
         <relationship name="socialAccounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SocialAccount" inverseName="customersocialaccount" inverseEntity="SocialAccount" syncable="YES"/>
-        <relationship name="token" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolToken" inverseName="customer" inverseEntity="TaloolToken" syncable="YES"/>
+        <relationship name="token" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolToken" inverseName="customer" inverseEntity="TaloolToken" syncable="YES"/>
         <userInfo/>
     </entity>
     <entity name="TaloolDeal" representedClassName="ttDeal" syncable="YES">
@@ -73,7 +73,7 @@
         <attribute name="merchantId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="customers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="merchants" inverseEntity="TaloolCustomer" syncable="YES"/>
+        <relationship name="customer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="merchants" inverseEntity="TaloolCustomer" syncable="YES"/>
         <relationship name="deals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="merchant" inverseEntity="TaloolDeal" syncable="YES"/>
         <relationship name="locations" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchantLocation" inverseName="merchant" inverseEntity="TaloolMerchantLocation" syncable="YES"/>
     </entity>

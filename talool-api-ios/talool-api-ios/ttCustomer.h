@@ -16,10 +16,10 @@
 
 @interface ttCustomer : TaloolCustomer
 
-@property (nonatomic, retain) Customer_t * thrift;
++ (ttCustomer *)initWithThrift: (Customer_t *)customer context:(NSManagedObjectContext *)context;
++ (ttCustomer *)getLoggedInUser:(NSManagedObjectContext *)context;
 
 - (BOOL)isValid:(NSError **)error;
-+ (ttCustomer *)initWithThrift: (Customer_t *)customer context:(NSManagedObjectContext *)context;
 - (Customer_t *)hydrateThriftObject;
 - (NSString *)getFullName;
 - (ttToken *)getTaloolToken;

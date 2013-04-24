@@ -7,9 +7,9 @@
 //
 
 #import "TaloolCustomer.h"
-#import "SocialAccount.h"
 #import "TaloolMerchant.h"
-#import "TaloolToken.h"
+#import "ttSocialAccount.h"
+#import "ttToken.h"
 
 
 @implementation TaloolCustomer

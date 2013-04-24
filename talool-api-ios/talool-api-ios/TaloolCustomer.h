@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class SocialAccount, TaloolMerchant, TaloolToken;
+@class TaloolMerchant, ttSocialAccount, ttToken;
 
 @interface TaloolCustomer : NSManagedObject
 
@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSDate * updated;
 @property (nonatomic, retain) NSSet *merchants;
 @property (nonatomic, retain) NSSet *socialAccounts;
-@property (nonatomic, retain) TaloolToken *token;
+@property (nonatomic, retain) ttToken *token;
 @end
 
 @interface TaloolCustomer (CoreDataGeneratedAccessors)
@@ -32,8 +32,8 @@
 - (void)addMerchants:(NSSet *)values;
 - (void)removeMerchants:(NSSet *)values;
 
-- (void)addSocialAccountsObject:(SocialAccount *)value;
-- (void)removeSocialAccountsObject:(SocialAccount *)value;
+- (void)addSocialAccountsObject:(ttSocialAccount *)value;
+- (void)removeSocialAccountsObject:(ttSocialAccount *)value;
 - (void)addSocialAccounts:(NSSet *)values;
 - (void)removeSocialAccounts:(NSSet *)values;
 

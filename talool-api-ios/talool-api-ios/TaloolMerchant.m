@@ -8,8 +8,8 @@
 
 #import "TaloolMerchant.h"
 #import "TaloolCustomer.h"
-#import "TaloolDeal.h"
 #import "TaloolMerchantLocation.h"
+#import "ttDeal.h"
 
 
 @implementation TaloolMerchant
@@ -18,7 +18,7 @@
 @dynamic merchantId;
 @dynamic name;
 @dynamic updated;
-@dynamic customers;
+@dynamic customer;
 @dynamic deals;
 @dynamic locations;
 

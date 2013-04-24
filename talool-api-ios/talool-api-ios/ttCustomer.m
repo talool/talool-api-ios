@@ -16,27 +16,6 @@
 
 @implementation ttCustomer
 
-@synthesize thrift;
-
--(BOOL)isValid:(NSError *__autoreleasing *)error
-{
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    if (self.firstName == nil || self.firstName.length < 2) {
-        [details setValue:@"Your first name is invalid" forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
-        return NO;
-    } else if (self.lastName == nil || self.lastName.length < 2) {
-        [details setValue:@"Your last name is invalid" forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
-        return NO;
-    } else if (self.email == nil || self.email.length < 2) {
-        [details setValue:@"Your email is invalid" forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
-        return NO;
-    }
-    return YES;
-}
-
 +(ttCustomer *)initWithThrift:(Customer_t *)c context:(NSManagedObjectContext *)context
 {
     ttCustomer *customer = (ttCustomer *)[NSEntityDescription
@@ -59,10 +38,46 @@
         }
     }
     
-    // TODO it may be better to persist the thrift object and update individual properties
-    customer.thrift = c;
-    
     return customer;
+}
+
++ (ttCustomer *)getLoggedInUser:(NSManagedObjectContext *)context
+{
+    ttCustomer *user;
+    
+    // TODO add a predicate for only users with tokens
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CUSTOMER_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error = nil;
+    NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
+    if ([mutableFetchResults count] == 1) {
+        user = [mutableFetchResults objectAtIndex:0];
+    } else {
+        NSLog(@"FAIL: Too many users stored!!!");
+    }
+    
+    return user;
+}
+
+-(BOOL)isValid:(NSError *__autoreleasing *)error
+{
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    if (self.firstName == nil || self.firstName.length < 2) {
+        [details setValue:@"Your first name is invalid" forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
+        return NO;
+    } else if (self.lastName == nil || self.lastName.length < 2) {
+        [details setValue:@"Your last name is invalid" forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
+        return NO;
+    } else if (self.email == nil || self.email.length < 2) {
+        [details setValue:@"Your email is invalid" forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
+        return NO;
+    }
+    return YES;
 }
 
 -(Customer_t *)hydrateThriftObject
@@ -72,7 +87,7 @@
     customer.lastName = self.lastName;
     customer.email = self.email;
     customer.sex = [self.sex integerValue];
-
+    
     customer.customerId = self.customerId;
     
     NSEnumerator *enumerator = [self.socialAccounts objectEnumerator];
@@ -106,7 +121,7 @@
     NSSet *fMerchants = [[NSSet alloc] initWithArray:merchants];
     
     [self addMerchants:fMerchants];
-
+    
 }
 
 - (NSArray *) getMyMerchants
