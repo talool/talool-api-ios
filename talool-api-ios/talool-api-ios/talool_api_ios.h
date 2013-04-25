@@ -15,14 +15,10 @@
 #import <talool-api-ios/ttMerchantLocation.h>
 #import <talool-api-ios/ttDeal.h>
 #import <talool-api-ios/ttDealAcquire.h>
-#import <talool-api-ios/Friend.h>
 #import <talool-api-ios/ttSocialAccount.h>
 #import <talool-api-ios/ttSocialNetworkDetail.h>
 #import <talool-api-ios/TaloolSearchOption.h>
 
-#import <talool-api-ios/MerchantController.h>
-#import <talool-api-ios/CustomerController.h>
-#import <talool-api-ios/TaloolPersistentStoreCoordinator.h>
 
 
 @interface talool_api_ios : NSObject
