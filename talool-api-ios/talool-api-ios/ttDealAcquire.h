@@ -8,13 +8,13 @@
 
 #import "TaloolDealAcquire.h"
 
-@class DealAcquire_t, ttCustomer;
+@class DealAcquire_t, ttCustomer, ttMerchant;
 
 @interface ttDealAcquire : TaloolDealAcquire
 
 @property (nonatomic, retain) ttCustomer *customer;
 
-+ (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal context:(NSManagedObjectContext *)context;
++ (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context;
 - (DealAcquire_t *)hydrateThriftObject;
 - (BOOL) hasBeenRedeemed;
 - (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error context:(NSManagedObjectContext *)context;

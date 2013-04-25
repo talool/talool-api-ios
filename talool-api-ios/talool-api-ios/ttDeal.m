@@ -7,12 +7,13 @@
 //
 
 #import "ttDeal.h"
+#import "ttMerchant.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 
 @implementation ttDeal
 
-+ (ttDeal *)initWithThrift: (Deal_t *)deal context:(NSManagedObjectContext *)context;
++ (ttDeal *)initWithThrift: (Deal_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context;
 {
     ttDeal *newDeal = (ttDeal *)[NSEntityDescription
                                           insertNewObjectForEntityForName:DEAL_ENTITY_NAME
@@ -26,6 +27,8 @@
     newDeal.expires = [[NSDate alloc] initWithTimeIntervalSince1970:deal.expires];
     newDeal.created = [[NSDate alloc] initWithTimeIntervalSince1970:deal.created];
     newDeal.updated = [[NSDate alloc] initWithTimeIntervalSince1970:deal.updated];
+    
+    newDeal.merchant = merchant;
     
     return newDeal;
 }

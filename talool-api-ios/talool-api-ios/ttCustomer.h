@@ -40,6 +40,7 @@
 - (ttToken *)getTaloolToken;
 - (void) refresh: (NSManagedObjectContext *)context;
 - (void) refreshMerchants: (NSManagedObjectContext *)context;
+- (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err purge:(BOOL)purge;
 - (NSArray *) getMyMerchants;
 - (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err;
 

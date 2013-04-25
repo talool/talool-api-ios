@@ -381,7 +381,7 @@
         // transform the Thrift response into a ttDealAcquire array
         for (int i=0; i<[deals count]; i++) {
             DealAcquire_t *td = [deals objectAtIndex:i];
-            ttDealAcquire *d = [ttDealAcquire initWithThrift:td context:context];
+            ttDealAcquire *d = [ttDealAcquire initWithThrift:td merchant:merchant context:context];
             [deals setObject:d atIndexedSubscript:i];
         }
     }

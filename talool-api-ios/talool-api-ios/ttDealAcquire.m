@@ -9,6 +9,7 @@
 #import "ttDealAcquire.h"
 #import "ttDeal.h"
 #import "ttCustomer.h"
+#import "ttMerchant.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "CustomerController.h"
@@ -17,14 +18,14 @@
 
 @synthesize customer;
 
-+ (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal context:(NSManagedObjectContext *)context;
++ (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context;
 {
     ttDealAcquire *newDeal = (ttDealAcquire *)[NSEntityDescription
                                  insertNewObjectForEntityForName:DEAL_ACQUIRE_ENTITY_NAME
                                  inManagedObjectContext:context];
     
     newDeal.dealAcquireId = deal.dealAcquireId;
-    newDeal.deal = [ttDeal initWithThrift:deal.deal context:context];
+    newDeal.deal = [ttDeal initWithThrift:deal.deal merchant:merchant context:context];
     newDeal.status = deal.status;
     newDeal.shareCount = [[NSNumber alloc] initWithUnsignedInteger:deal.shareCount];
     if (deal.redeemed != 0) {

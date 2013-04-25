@@ -12,6 +12,7 @@
 #import "TaloolPersistentStoreCoordinator.h"
 #import "MerchantController.h"
 #import "CustomerController.h"
+#import "talool-api-ios/ttMerchant.h"
 
 
 @implementation ttCustomer
@@ -273,8 +274,42 @@
     
     [self addMerchants:fMerchants];
     
+    // save these merchants in the context
+    NSError *saveError = nil;
+    if (![context save:&saveError]) {
+        NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMerchants: %@ %@",saveError, [saveError userInfo]);
+    }
+    
 }
 
+- (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err purge:(BOOL)purge
+{
+    NSArray *deals;
+    // purge the context of deals for this merchant
+    if (purge) {
+        NSError *readError = nil;
+        deals = [self getMyDealsForMerchant:merchant context:context error:&readError];
+        for (int i=0; i<[deals count]; i++) {
+            [context deleteObject:[deals objectAtIndex:i]];
+        }
+    }
+    
+    // get the latest deals from the service
+    CustomerController *cc = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    deals = [cc getAcquiredDeals:merchant forCustomer:self context:context error:&error];
+    
+    // save these deals in the context
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    NSError *saveError = nil;
+    if (![context save:&saveError]) {
+        NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMyDealsForMerchant: %@ %@",saveError, [saveError userInfo]);
+        [details setValue:@"Failed to save context after refreshMyDealsForMerchant." forKey:NSLocalizedDescriptionKey];
+        *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
+    }
+    
+    return deals;
+}
 
 - (void) refresh: (NSManagedObjectContext *)context
 {
@@ -290,17 +325,25 @@
 
 - (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err
 {
+    // query the context for these deals
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"deal.merchant.merchantId = %@",merchant.merchantId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
     
-    CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error = [NSError alloc];
-    NSMutableArray *deals = [cc getAcquiredDeals:merchant forCustomer:self context:context error:&error];
-    
-    NSError *saveError = nil;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    if (![context save:&saveError]) {
-        NSLog(@"API: OH SHIT!!!! Failed to save context after getMyDealsForMerchant: %@ %@",saveError, [saveError userInfo]);
-        [details setValue:@"Failed to save context after getMyDealsForMerchant." forKey:NSLocalizedDescriptionKey];
-        *err = [NSError errorWithDomain:@"getMyDealsForMerchant" code:200 userInfo:details];
+    NSError *error = nil;
+    NSMutableArray *deals = [[context executeFetchRequest:request error:&error] mutableCopy];
+    if (deals == nil) {
+        NSLog(@"FAIL: Nil deal acquires for merchant: %@",merchant.merchantId);
+        NSLog(@"FAIL: Nil deal acquires... error: %@",error.localizedDescription);
+    } else if ([deals count] == 0) {
+        // the user shouldn't have a merchant w/o deals
+        // assume this is the first time viewing this merchant
+        // hit the service to load the deals
+        NSLog(@"First view of merchant: %@; Need to fetch the deals from the service.",merchant.merchantId);
+        NSError *refreshError = nil;
+        deals = (NSMutableArray *)[self refreshMyDealsForMerchant:merchant context:context error:&refreshError purge:NO];
     }
     
     return deals;
