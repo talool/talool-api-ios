@@ -18,7 +18,7 @@
 
 @synthesize customer;
 
-+ (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context;
++ (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context
 {
     ttDealAcquire *newDeal = (ttDealAcquire *)[NSEntityDescription
                                  insertNewObjectForEntityForName:DEAL_ACQUIRE_ENTITY_NAME

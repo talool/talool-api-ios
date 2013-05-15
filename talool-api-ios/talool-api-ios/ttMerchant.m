@@ -26,8 +26,6 @@
 
     m.merchantId = merchant.merchantId;
     m.name = merchant.name;
-    m.created = [[NSDate alloc] initWithTimeIntervalSince1970:merchant.created];
-    m.updated = [[NSDate alloc] initWithTimeIntervalSince1970:merchant.updated];
     
     if (merchant.locationsIsSet) {
         for (int i=0; i<[merchant.locations count]; i++) {

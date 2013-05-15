@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Friend" representedClassName="Friend" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
@@ -68,14 +68,24 @@
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="acquires" inverseEntity="TaloolDeal" syncable="YES"/>
     </entity>
+    <entity name="TaloolDealOffer" representedClassName="ttDealOffer" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dealOfferId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dealType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="expires" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="merchant" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="offers" inverseEntity="TaloolMerchant" syncable="YES"/>
+    </entity>
     <entity name="TaloolMerchant" representedClassName="ttMerchant" syncable="YES">
-        <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="merchantId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="customer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="merchants" inverseEntity="TaloolCustomer" syncable="YES"/>
         <relationship name="deals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="merchant" inverseEntity="TaloolDeal" syncable="YES"/>
         <relationship name="locations" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchantLocation" inverseName="merchant" inverseEntity="TaloolMerchantLocation" syncable="YES"/>
+        <relationship name="offers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDealOffer" inverseName="merchant" inverseEntity="TaloolDealOffer" syncable="YES"/>
     </entity>
     <entity name="TaloolMerchantLocation" representedClassName="TaloolMerchantLocation" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
@@ -105,9 +115,10 @@
         <element name="TaloolCustomer" positionX="-326" positionY="297" width="128" height="193"/>
         <element name="TaloolDeal" positionX="-47" positionY="9" width="128" height="223"/>
         <element name="TaloolDealAcquire" positionX="-126" positionY="329" width="128" height="148"/>
-        <element name="TaloolMerchant" positionX="-297" positionY="99" width="128" height="148"/>
+        <element name="TaloolMerchant" positionX="-297" positionY="99" width="128" height="133"/>
         <element name="TaloolMerchantLocation" positionX="-333" positionY="-189" width="128" height="163"/>
         <element name="TaloolSearchOptions" positionX="214" positionY="-91" width="128" height="103"/>
         <element name="TaloolToken" positionX="-488" positionY="432" width="128" height="73"/>
+        <element name="TaloolDealOffer" positionX="-486" positionY="63" width="128" height="178"/>
     </elements>
 </model>

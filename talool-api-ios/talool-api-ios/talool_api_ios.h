@@ -15,6 +15,7 @@
 #import <talool-api-ios/ttMerchantLocation.h>
 #import <talool-api-ios/ttDeal.h>
 #import <talool-api-ios/ttDealAcquire.h>
+#import <talool-api-ios/ttDealOffer.h>
 #import <talool-api-ios/ttSocialAccount.h>
 #import <talool-api-ios/ttSocialNetworkDetail.h>
 #import <talool-api-ios/TaloolSearchOption.h>

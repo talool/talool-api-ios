@@ -15,6 +15,7 @@
 #import "ttMerchant.h"
 #import "ttDeal.h"
 #import "ttDealAcquire.h"
+#import "ttDealOffer.h"
 #import "Core.h"
 #import "CustomerService.h"
 #import "TaloolFrameworkHelper.h"
@@ -401,7 +402,8 @@
     
     @try {
         [self connectWithToken:(ttToken *)dealAcquire.customer.token];
-        [service redeem:dealAcquire.dealAcquireId latitude:latitude longitude:longitude];
+        Location_t *loc = [[Location_t alloc] initWithLongitude:longitude latitude:latitude];
+        [service redeem:dealAcquire.dealAcquireId location:loc];
     }
     @catch (ServiceException_t * se) {
         [details setValue:@"Failed to redeem, service failed." forKey:NSLocalizedDescriptionKey];
@@ -426,6 +428,290 @@
     @finally {
         [self disconnect];
     }
+}
+
+- (NSMutableArray *) getDealOffers:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+{
+    // TODO Queue it!
+    NSLog(@"FIX IT: GET DEAL OFFERS: Queue this server call if needed.");
+    
+    NSMutableArray *offers;
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        offers = [service getDealOffers];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to getDealOffers, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
+        NSLog(@"failed to getDealOffers: %@",se.description);
+        return nil;
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to getDealOffers; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
+        NSLog(@"failed to getDealOffers: %@",tae.description);
+        return nil;
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to getDealOffers, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
+        NSLog(@"failed to getDealOffers: %@",tpe.description);
+        return nil;
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to getDealOffers... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
+        NSLog(@"failed to getDealOffers: %@",e.description);
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response
+        for (int i=0; i<[offers count]; i++) {
+            DealOffer_t *td = [offers objectAtIndex:i];
+            ttDealOffer *d = [ttDealOffer initWithThrift:td context:context];
+            [offers setObject:d atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to create the ttDealOffer object." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
+        NSLog(@"failed to hydrate the deal offers: %@",e.description);
+        return nil;
+    }
+    
+    return offers;
+}
+
+- (void) purchaseDealOffer:(ttCustomer *)customer dealOfferId:(NSString *)dealOfferId error:(NSError**)error
+{
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [service purchaseDealOffer:dealOfferId];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to purchaseDealOffer, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"purchaseDealOffer" code:200 userInfo:details];
+        NSLog(@"failed to purchaseDealOffer: %@",se.description);
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to purchaseDealOffer; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"purchaseDealOffer" code:200 userInfo:details];
+        NSLog(@"failed to purchaseDealOffer: %@",tae.description);
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to purchaseDealOffer, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"purchaseDealOffer" code:200 userInfo:details];
+        NSLog(@"failed to purchaseDealOffer: %@",tpe.description);
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to purchaseDealOffer... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"purchaseDealOffer" code:200 userInfo:details];
+        NSLog(@"failed to purchaseDealOffer: %@",e.description);
+    }
+    @finally {
+        [self disconnect];
+    }
+}
+
+- (NSMutableArray *) getMerchantsWithin:(ttCustomer *)customer latitude:(double) latitude longitude:(double) longitude context:(NSManagedObjectContext *)context error:(NSError**)error
+{
+    // TODO Queue it!
+    NSLog(@"FIX IT: GET MERCHANTS WITH RANGE: Queue this server call if needed.");
+    
+    NSMutableArray *merchants;
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        Location_t *loc = [[Location_t alloc] initWithLongitude:longitude latitude:latitude];
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:0];
+        [options setAscending:YES];
+        [options setSortProperty:@"merchant.locations.distanceInMeters"];
+        merchants = [service getMerchantsWithin:loc maxMiles:50 searchOptions:options];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to getMerchantsWithin, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
+        NSLog(@"failed to getMerchantsWithin: %@",se.description);
+        return nil;
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to getMerchantsWithin; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
+        NSLog(@"failed to getMerchantsWithin: %@",tae.description);
+        return nil;
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to getMerchantsWithin, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
+        NSLog(@"failed to getMerchantsWithin: %@",tpe.description);
+        return nil;
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to getMerchantsWithin... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
+        NSLog(@"failed to getMerchantsWithin: %@",e.description);
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response
+        for (int i=0; i<[merchants count]; i++) {
+            Merchant_t *td = [merchants objectAtIndex:i];
+            ttMerchant *d = [ttMerchant initWithThrift:td context:context];
+            [merchants setObject:d atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to create the ttMerchant object." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
+        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        return nil;
+    }
+    
+    return merchants;
+}
+
+- (void) addFavoriteMerchant:(ttCustomer *)customer merchantId:(NSString *)merchantId error:(NSError**)error
+{
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [service addFavoriteMerchant:merchantId];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to addFavoriteMerchant, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"addFavoriteMerchant" code:200 userInfo:details];
+        NSLog(@"failed to addFavoriteMerchant: %@",se.description);
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to addFavoriteMerchant; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"addFavoriteMerchant" code:200 userInfo:details];
+        NSLog(@"failed to addFavoriteMerchant: %@",tae.description);
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to addFavoriteMerchant, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"addFavoriteMerchant" code:200 userInfo:details];
+        NSLog(@"failed to addFavoriteMerchant: %@",tpe.description);
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to addFavoriteMerchant... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"addFavoriteMerchant" code:200 userInfo:details];
+        NSLog(@"failed to addFavoriteMerchant: %@",e.description);
+    }
+    @finally {
+        [self disconnect];
+    }
+}
+
+- (void) removeFavoriteMerchant:(ttCustomer *)customer merchantId:(NSString *)merchantId error:(NSError**)error
+{
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [service removeFavoriteMerchant:merchantId];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to removeFavoriteMerchant, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"removeFavoriteMerchant" code:200 userInfo:details];
+        NSLog(@"failed to removeFavoriteMerchant: %@",se.description);
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to removeFavoriteMerchant; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"removeFavoriteMerchant" code:200 userInfo:details];
+        NSLog(@"failed to removeFavoriteMerchant: %@",tae.description);
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to removeFavoriteMerchant, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"removeFavoriteMerchant" code:200 userInfo:details];
+        NSLog(@"failed to removeFavoriteMerchant: %@",tpe.description);
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to removeFavoriteMerchant... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"removeFavoriteMerchant" code:200 userInfo:details];
+        NSLog(@"failed to removeFavoriteMerchant: %@",e.description);
+    }
+    @finally {
+        [self disconnect];
+    }
+}
+
+- (NSMutableArray *) getFavoriteMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+{
+    // TODO Queue it!
+    NSLog(@"FIX IT: GET FAVORITE MERCHANTS: Queue this server call if needed.");
+    
+    NSMutableArray *merchants;
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:0];
+        [options setAscending:YES];
+        [options setSortProperty:@"merchant.name"];
+        merchants = [service getFavoriteMerchants:options];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to getFavoriteMerchants, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
+        NSLog(@"failed to getFavoriteMerchants: %@",se.description);
+        return nil;
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to getFavoriteMerchants; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
+        NSLog(@"failed to getFavoriteMerchants: %@",tae.description);
+        return nil;
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to getFavoriteMerchants, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
+        NSLog(@"failed to getFavoriteMerchants: %@",tpe.description);
+        return nil;
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to getFavoriteMerchants... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
+        NSLog(@"failed to getFavoriteMerchants: %@",e.description);
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response
+        for (int i=0; i<[merchants count]; i++) {
+            Merchant_t *td = [merchants objectAtIndex:i];
+            ttMerchant *d = [ttMerchant initWithThrift:td context:context];
+            [merchants setObject:d atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to create the ttMerchant object." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
+        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        return nil;
+    }
+    
+    return merchants;
 }
 
 

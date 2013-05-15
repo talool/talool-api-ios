@@ -26,6 +26,13 @@ enum SocialNetwork_t {
   SocialNetwork_t_Pinterest = 2
 };
 
+enum DealType_t {
+  DealType_t_PAID_BOOK = 0,
+  DealType_t_FREE_BOOK = 1,
+  DealType_t_PAID_DEAL = 2,
+  DealType_t_FREE_DEAL = 3
+};
+
 typedef int64_t Timestamp;
 
 @interface ServiceException_t : NSException <NSCoding> {
@@ -58,6 +65,39 @@ typedef int64_t Timestamp;
 - (void) setErrorDesc: (NSString *) errorDesc;
 #endif
 - (BOOL) errorDescIsSet;
+
+@end
+
+@interface Location_t : NSObject <NSCoding> {
+  double __longitude;
+  double __latitude;
+
+  BOOL __longitude_isset;
+  BOOL __latitude_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=longitude, setter=setLongitude:) double longitude;
+@property (nonatomic, getter=latitude, setter=setLatitude:) double latitude;
+#endif
+
+- (id) init;
+- (id) initWithLongitude: (double) longitude latitude: (double) latitude;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (double) longitude;
+- (void) setLongitude: (double) longitude;
+#endif
+- (BOOL) longitudeIsSet;
+
+#if !__has_feature(objc_arc)
+- (double) latitude;
+- (void) setLatitude: (double) latitude;
+#endif
+- (BOOL) latitudeIsSet;
 
 @end
 
@@ -452,26 +492,20 @@ typedef int64_t Timestamp;
   NSString * __merchantId;
   NSString * __name;
   NSMutableArray * __locations;
-  Timestamp __created;
-  Timestamp __updated;
 
   BOOL __merchantId_isset;
   BOOL __name_isset;
   BOOL __locations_isset;
-  BOOL __created_isset;
-  BOOL __updated_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=merchantId, setter=setMerchantId:) NSString * merchantId;
 @property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
 @property (nonatomic, retain, getter=locations, setter=setLocations:) NSMutableArray * locations;
-@property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
-@property (nonatomic, getter=updated, setter=setUpdated:) Timestamp updated;
 #endif
 
 - (id) init;
-- (id) initWithMerchantId: (NSString *) merchantId name: (NSString *) name locations: (NSMutableArray *) locations created: (Timestamp) created updated: (Timestamp) updated;
+- (id) initWithMerchantId: (NSString *) merchantId name: (NSString *) name locations: (NSMutableArray *) locations;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -493,18 +527,6 @@ typedef int64_t Timestamp;
 - (void) setLocations: (NSMutableArray *) locations;
 #endif
 - (BOOL) locationsIsSet;
-
-#if !__has_feature(objc_arc)
-- (Timestamp) created;
-- (void) setCreated: (Timestamp) created;
-#endif
-- (BOOL) createdIsSet;
-
-#if !__has_feature(objc_arc)
-- (Timestamp) updated;
-- (void) setUpdated: (Timestamp) updated;
-#endif
-- (BOOL) updatedIsSet;
 
 @end
 
@@ -610,6 +632,102 @@ typedef int64_t Timestamp;
 - (void) setUpdated: (Timestamp) updated;
 #endif
 - (BOOL) updatedIsSet;
+
+@end
+
+@interface DealOffer_t : NSObject <NSCoding> {
+  NSString * __dealOfferId;
+  Merchant_t * __merchant;
+  int __dealType;
+  NSString * __title;
+  NSString * __summary;
+  NSString * __code;
+  NSString * __imageUrl;
+  double __price;
+  Timestamp __expires;
+
+  BOOL __dealOfferId_isset;
+  BOOL __merchant_isset;
+  BOOL __dealType_isset;
+  BOOL __title_isset;
+  BOOL __summary_isset;
+  BOOL __code_isset;
+  BOOL __imageUrl_isset;
+  BOOL __price_isset;
+  BOOL __expires_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=dealOfferId, setter=setDealOfferId:) NSString * dealOfferId;
+@property (nonatomic, retain, getter=merchant, setter=setMerchant:) Merchant_t * merchant;
+@property (nonatomic, getter=dealType, setter=setDealType:) int dealType;
+@property (nonatomic, retain, getter=title, setter=setTitle:) NSString * title;
+@property (nonatomic, retain, getter=summary, setter=setSummary:) NSString * summary;
+@property (nonatomic, retain, getter=code, setter=setCode:) NSString * code;
+@property (nonatomic, retain, getter=imageUrl, setter=setImageUrl:) NSString * imageUrl;
+@property (nonatomic, getter=price, setter=setPrice:) double price;
+@property (nonatomic, getter=expires, setter=setExpires:) Timestamp expires;
+#endif
+
+- (id) init;
+- (id) initWithDealOfferId: (NSString *) dealOfferId merchant: (Merchant_t *) merchant dealType: (int) dealType title: (NSString *) title summary: (NSString *) summary code: (NSString *) code imageUrl: (NSString *) imageUrl price: (double) price expires: (Timestamp) expires;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) dealOfferId;
+- (void) setDealOfferId: (NSString *) dealOfferId;
+#endif
+- (BOOL) dealOfferIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (Merchant_t *) merchant;
+- (void) setMerchant: (Merchant_t *) merchant;
+#endif
+- (BOOL) merchantIsSet;
+
+#if !__has_feature(objc_arc)
+- (int) dealType;
+- (void) setDealType: (int) dealType;
+#endif
+- (BOOL) dealTypeIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) title;
+- (void) setTitle: (NSString *) title;
+#endif
+- (BOOL) titleIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) summary;
+- (void) setSummary: (NSString *) summary;
+#endif
+- (BOOL) summaryIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) code;
+- (void) setCode: (NSString *) code;
+#endif
+- (BOOL) codeIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) imageUrl;
+- (void) setImageUrl: (NSString *) imageUrl;
+#endif
+- (BOOL) imageUrlIsSet;
+
+#if !__has_feature(objc_arc)
+- (double) price;
+- (void) setPrice: (double) price;
+#endif
+- (BOOL) priceIsSet;
+
+#if !__has_feature(objc_arc)
+- (Timestamp) expires;
+- (void) setExpires: (Timestamp) expires;
+#endif
+- (BOOL) expiresIsSet;
 
 @end
 
