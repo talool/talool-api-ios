@@ -50,4 +50,9 @@
     return location;
 }
 
+- (NSString *)getMerchantImageUrl
+{
+    return self.imageUrl;
+}
+
 @end
