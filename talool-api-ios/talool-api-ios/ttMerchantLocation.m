@@ -50,14 +50,5 @@
     return location;
 }
 
-- (NSString *)getMerchantImageUrl
-{
-    return self.imageUrl;
-}
-
-- (ttLocation *)getLocation
-{
-    return self.location;
-}
 
 @end
