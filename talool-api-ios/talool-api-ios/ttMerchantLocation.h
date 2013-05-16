@@ -8,7 +8,7 @@
 
 #import "TaloolMerchantLocation.h"
 
-@class MerchantLocation_t;
+@class MerchantLocation_t,  ttLocation;
 
 @interface ttMerchantLocation : TaloolMerchantLocation
 

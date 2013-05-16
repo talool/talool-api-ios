@@ -30,7 +30,7 @@
 		914A1AFA16E6ECAD0043989A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914A1AE716E6ECAD0043989A /* Foundation.framework */; };
 		914A1B0316E6ECAD0043989A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 914A1B0116E6ECAD0043989A /* InfoPlist.strings */; };
 		914A1B0616E6ECAD0043989A /* talool_api_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B0516E6ECAD0043989A /* talool_api_iosTests.m */; };
-		914A1B2116E6ED390043989A /* Talool.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B0F16E6ED390043989A /* Talool.xcdatamodel */; };
+		914A1B2116E6ED390043989A /* Talool.xcdatamodel in Headers */ = {isa = PBXBuildFile; fileRef = 914A1B0F16E6ED390043989A /* Talool.xcdatamodel */; settings = {ATTRIBUTES = (); }; };
 		914A1B2516E6ED390043989A /* ttCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B1716E6ED390043989A /* ttCustomer.m */; };
 		914A1B2616E6ED390043989A /* ttAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B1916E6ED390043989A /* ttAddress.m */; };
 		914A1B2716E6ED390043989A /* ttMerchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 914A1B1B16E6ED390043989A /* ttMerchant.m */; };
@@ -609,6 +609,7 @@
 				91F546B216F16EEA00BEFF91 /* ttSocialNetworkDetail.h in Headers */,
 				917CBE44174550E500383EA1 /* ttLocation.h in Headers */,
 				9179A9F91725A68D0082DB62 /* ttMerchantLocation.h in Headers */,
+				914A1B2116E6ED390043989A /* Talool.xcdatamodel in Headers */,
 				919A3322174543420093FAC4 /* Core.h in Headers */,
 				917CBE48174553F100383EA1 /* TaloolMerchant.h in Headers */,
 				917CBE2C17454D4F00383EA1 /* TaloolAddress.h in Headers */,
@@ -777,7 +778,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				914A1B2116E6ED390043989A /* Talool.xcdatamodel in Sources */,
 				914A1B2516E6ED390043989A /* ttCustomer.m in Sources */,
 				914A1B2616E6ED390043989A /* ttAddress.m in Sources */,
 				914A1B2716E6ED390043989A /* ttMerchant.m in Sources */,
