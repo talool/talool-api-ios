@@ -8,6 +8,7 @@
 
 #import "ttMerchantLocation.h"
 #import "ttAddress.h"
+#import "ttLocation.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 
@@ -24,7 +25,9 @@
     m.email = location.email;
     m.websiteUrl = location.websiteUrl;
     m.logoUrl = location.logoUrl;
+    m.imageUrl = location.merchantImageUrl;
     m.phone = location.phone;
+    m.location = [ttLocation initWithThrift:location.location context:context];
     m.address = [ttAddress initWithThrift:location.address context:context];
     
     return m;
@@ -39,8 +42,10 @@
     location.email = self.email;
     location.websiteUrl = self.websiteUrl;
     location.logoUrl = self.logoUrl;
+    location.merchantImageUrl = self.imageUrl;
     location.phone = self.phone;
     location.address = [(ttAddress *)self.address hydrateThriftObject];
+    location.location = [(ttLocation *)self.location hydrateThriftObject];
     
     return location;
 }

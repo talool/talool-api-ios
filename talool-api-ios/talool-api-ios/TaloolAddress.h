@@ -2,7 +2,7 @@
 //  TaloolAddress.h
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 4/24/13.
+//  Created by Douglas McCuen on 5/16/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
@@ -15,7 +15,6 @@
 
 @property (nonatomic, retain) NSString * address1;
 @property (nonatomic, retain) NSString * address2;
-@property (nonatomic, retain) NSNumber * addressId;
 @property (nonatomic, retain) NSString * city;
 @property (nonatomic, retain) NSString * country;
 @property (nonatomic, retain) NSDate * created;

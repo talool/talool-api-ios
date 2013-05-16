@@ -13,6 +13,7 @@ NSString * const CUSTOMER_ENTITY_NAME = @"TaloolCustomer";
 NSString * const ADDRESS_ENTITY_NAME = @"TaloolAddress";
 NSString * const MERCHANT_ENTITY_NAME = @"TaloolMerchant";
 NSString * const MERCHANT_LOCATION_ENTITY_NAME = @"TaloolMerchantLocation";
+NSString * const LOCATION_ENTITY_NAME = @"TaloolLocation";
 NSString * const SOCIAL_ACCOUNT_ENTITY_NAME = @"SocialAccount";
 NSString * const SOCIAL_NETWORK_DETAIL_ENTITY_NAME = @"SocialNetworkDetail";
 NSString * const TOKEN_ENTITY_NAME = @"TaloolToken";

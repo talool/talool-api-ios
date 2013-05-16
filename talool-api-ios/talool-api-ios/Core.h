@@ -204,7 +204,6 @@ typedef int64_t Timestamp;
 @end
 
 @interface Address_t : NSObject <NSCoding> {
-  int64_t __addressId;
   NSString * __address1;
   NSString * __address2;
   NSString * __city;
@@ -212,7 +211,6 @@ typedef int64_t Timestamp;
   NSString * __zip;
   NSString * __country;
 
-  BOOL __addressId_isset;
   BOOL __address1_isset;
   BOOL __address2_isset;
   BOOL __city_isset;
@@ -222,7 +220,6 @@ typedef int64_t Timestamp;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=addressId, setter=setAddressId:) int64_t addressId;
 @property (nonatomic, retain, getter=address1, setter=setAddress1:) NSString * address1;
 @property (nonatomic, retain, getter=address2, setter=setAddress2:) NSString * address2;
 @property (nonatomic, retain, getter=city, setter=setCity:) NSString * city;
@@ -232,16 +229,10 @@ typedef int64_t Timestamp;
 #endif
 
 - (id) init;
-- (id) initWithAddressId: (int64_t) addressId address1: (NSString *) address1 address2: (NSString *) address2 city: (NSString *) city stateProvinceCounty: (NSString *) stateProvinceCounty zip: (NSString *) zip country: (NSString *) country;
+- (id) initWithAddress1: (NSString *) address1 address2: (NSString *) address2 city: (NSString *) city stateProvinceCounty: (NSString *) stateProvinceCounty zip: (NSString *) zip country: (NSString *) country;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
-
-#if !__has_feature(objc_arc)
-- (int64_t) addressId;
-- (void) setAddressId: (int64_t) addressId;
-#endif
-- (BOOL) addressIdIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSString *) address1;
@@ -287,7 +278,9 @@ typedef int64_t Timestamp;
   NSString * __email;
   NSString * __websiteUrl;
   NSString * __logoUrl;
+  NSString * __merchantImageUrl;
   NSString * __phone;
+  Location_t * __location;
   Address_t * __address;
 
   BOOL __locationId_isset;
@@ -295,7 +288,9 @@ typedef int64_t Timestamp;
   BOOL __email_isset;
   BOOL __websiteUrl_isset;
   BOOL __logoUrl_isset;
+  BOOL __merchantImageUrl_isset;
   BOOL __phone_isset;
+  BOOL __location_isset;
   BOOL __address_isset;
 }
 
@@ -305,12 +300,14 @@ typedef int64_t Timestamp;
 @property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
 @property (nonatomic, retain, getter=websiteUrl, setter=setWebsiteUrl:) NSString * websiteUrl;
 @property (nonatomic, retain, getter=logoUrl, setter=setLogoUrl:) NSString * logoUrl;
+@property (nonatomic, retain, getter=merchantImageUrl, setter=setMerchantImageUrl:) NSString * merchantImageUrl;
 @property (nonatomic, retain, getter=phone, setter=setPhone:) NSString * phone;
+@property (nonatomic, retain, getter=location, setter=setLocation:) Location_t * location;
 @property (nonatomic, retain, getter=address, setter=setAddress:) Address_t * address;
 #endif
 
 - (id) init;
-- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl phone: (NSString *) phone address: (Address_t *) address;
+- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl merchantImageUrl: (NSString *) merchantImageUrl phone: (NSString *) phone location: (Location_t *) location address: (Address_t *) address;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -346,10 +343,22 @@ typedef int64_t Timestamp;
 - (BOOL) logoUrlIsSet;
 
 #if !__has_feature(objc_arc)
+- (NSString *) merchantImageUrl;
+- (void) setMerchantImageUrl: (NSString *) merchantImageUrl;
+#endif
+- (BOOL) merchantImageUrlIsSet;
+
+#if !__has_feature(objc_arc)
 - (NSString *) phone;
 - (void) setPhone: (NSString *) phone;
 #endif
 - (BOOL) phoneIsSet;
+
+#if !__has_feature(objc_arc)
+- (Location_t *) location;
+- (void) setLocation: (Location_t *) location;
+#endif
+- (BOOL) locationIsSet;
 
 #if !__has_feature(objc_arc)
 - (Address_t *) address;

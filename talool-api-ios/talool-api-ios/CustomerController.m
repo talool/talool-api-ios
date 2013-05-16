@@ -701,6 +701,7 @@
         for (int i=0; i<[merchants count]; i++) {
             Merchant_t *td = [merchants objectAtIndex:i];
             ttMerchant *d = [ttMerchant initWithThrift:td context:context];
+            d.isFav = [NSNumber numberWithBool:YES];
             [merchants setObject:d atIndexedSubscript:i];
         }
     }

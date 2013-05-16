@@ -13,14 +13,9 @@
 #import "TaloolPersistentStoreCoordinator.h"
 #import "CustomerController.h"
 
-@interface ttMerchant ()
-// TODO  move this to the managed object
-@property (nonatomic) Boolean bFav;
-@end
-
 @implementation ttMerchant
 
-@synthesize location, bFav;
+@synthesize location;
 
 +(ttMerchant *)initWithThrift:(Merchant_t *)merchant context:(NSManagedObjectContext *)context
 {
@@ -44,9 +39,6 @@
             [m addLocationsObject:ml];
         }
     }
-    
-    // TODO clean up
-    m.bFav = NO;
     
     return m;
 }
@@ -90,7 +82,7 @@
     CustomerController *cController = [[CustomerController alloc] init];
     NSError *error = [NSError alloc];
     [cController addFavoriteMerchant:customer merchantId:self.merchantId error:&error];
-    bFav = TRUE;
+    self.isFav = [NSNumber numberWithBool:YES];
 }
 
 - (void) unfavorite:(ttCustomer *)customer
@@ -98,12 +90,7 @@
     CustomerController *cController = [[CustomerController alloc] init];
     NSError *error = [NSError alloc];
     [cController removeFavoriteMerchant:customer merchantId:self.merchantId error:&error];
-    bFav = NO;
-}
-
-- (Boolean) isFavorite
-{
-    return bFav;
+    self.isFav = [NSNumber numberWithBool:NO];
 }
 
 

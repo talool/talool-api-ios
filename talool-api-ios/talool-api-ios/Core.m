@@ -851,11 +851,9 @@
   return self;
 }
 
-- (id) initWithAddressId: (int64_t) addressId address1: (NSString *) address1 address2: (NSString *) address2 city: (NSString *) city stateProvinceCounty: (NSString *) stateProvinceCounty zip: (NSString *) zip country: (NSString *) country
+- (id) initWithAddress1: (NSString *) address1 address2: (NSString *) address2 city: (NSString *) city stateProvinceCounty: (NSString *) stateProvinceCounty zip: (NSString *) zip country: (NSString *) country
 {
   self = [super init];
-  __addressId = addressId;
-  __addressId_isset = YES;
   __address1 = [address1 retain_stub];
   __address1_isset = YES;
   __address2 = [address2 retain_stub];
@@ -874,11 +872,6 @@
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
-  if ([decoder containsValueForKey: @"addressId"])
-  {
-    __addressId = [decoder decodeInt64ForKey: @"addressId"];
-    __addressId_isset = YES;
-  }
   if ([decoder containsValueForKey: @"address1"])
   {
     __address1 = [[decoder decodeObjectForKey: @"address1"] retain_stub];
@@ -914,10 +907,6 @@
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__addressId_isset)
-  {
-    [encoder encodeInt64: __addressId forKey: @"addressId"];
-  }
   if (__address1_isset)
   {
     [encoder encodeObject: __address1 forKey: @"address1"];
@@ -953,23 +942,6 @@
   [__zip release_stub];
   [__country release_stub];
   [super dealloc_stub];
-}
-
-- (int64_t) addressId {
-  return __addressId;
-}
-
-- (void) setAddressId: (int64_t) addressId {
-  __addressId = addressId;
-  __addressId_isset = YES;
-}
-
-- (BOOL) addressIdIsSet {
-  return __addressId_isset;
-}
-
-- (void) unsetAddressId {
-  __addressId_isset = NO;
 }
 
 - (NSString *) address1 {
@@ -1114,14 +1086,6 @@
     switch (fieldID)
     {
       case 1:
-        if (fieldType == TType_I64) {
-          int64_t fieldValue = [inProtocol readI64];
-          [self setAddressId: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 2:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setAddress1: fieldValue];
@@ -1129,7 +1093,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 3:
+      case 2:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setAddress2: fieldValue];
@@ -1137,7 +1101,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 4:
+      case 3:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setCity: fieldValue];
@@ -1145,7 +1109,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 5:
+      case 4:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setStateProvinceCounty: fieldValue];
@@ -1180,35 +1144,30 @@
 
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"Address_t"];
-  if (__addressId_isset) {
-    [outProtocol writeFieldBeginWithName: @"addressId" type: TType_I64 fieldID: 1];
-    [outProtocol writeI64: __addressId];
-    [outProtocol writeFieldEnd];
-  }
   if (__address1_isset) {
     if (__address1 != nil) {
-      [outProtocol writeFieldBeginWithName: @"address1" type: TType_STRING fieldID: 2];
+      [outProtocol writeFieldBeginWithName: @"address1" type: TType_STRING fieldID: 1];
       [outProtocol writeString: __address1];
       [outProtocol writeFieldEnd];
     }
   }
   if (__address2_isset) {
     if (__address2 != nil) {
-      [outProtocol writeFieldBeginWithName: @"address2" type: TType_STRING fieldID: 3];
+      [outProtocol writeFieldBeginWithName: @"address2" type: TType_STRING fieldID: 2];
       [outProtocol writeString: __address2];
       [outProtocol writeFieldEnd];
     }
   }
   if (__city_isset) {
     if (__city != nil) {
-      [outProtocol writeFieldBeginWithName: @"city" type: TType_STRING fieldID: 4];
+      [outProtocol writeFieldBeginWithName: @"city" type: TType_STRING fieldID: 3];
       [outProtocol writeString: __city];
       [outProtocol writeFieldEnd];
     }
   }
   if (__stateProvinceCounty_isset) {
     if (__stateProvinceCounty != nil) {
-      [outProtocol writeFieldBeginWithName: @"stateProvinceCounty" type: TType_STRING fieldID: 5];
+      [outProtocol writeFieldBeginWithName: @"stateProvinceCounty" type: TType_STRING fieldID: 4];
       [outProtocol writeString: __stateProvinceCounty];
       [outProtocol writeFieldEnd];
     }
@@ -1233,9 +1192,7 @@
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"Address_t("];
-  [ms appendString: @"addressId:"];
-  [ms appendFormat: @"%qi", __addressId];
-  [ms appendString: @",address1:"];
+  [ms appendString: @"address1:"];
   [ms appendFormat: @"\"%@\"", __address1];
   [ms appendString: @",address2:"];
   [ms appendFormat: @"\"%@\"", __address2];
@@ -1263,7 +1220,7 @@
   return self;
 }
 
-- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl phone: (NSString *) phone address: (Address_t *) address
+- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl merchantImageUrl: (NSString *) merchantImageUrl phone: (NSString *) phone location: (Location_t *) location address: (Address_t *) address
 {
   self = [super init];
   __locationId = locationId;
@@ -1276,8 +1233,12 @@
   __websiteUrl_isset = YES;
   __logoUrl = [logoUrl retain_stub];
   __logoUrl_isset = YES;
+  __merchantImageUrl = [merchantImageUrl retain_stub];
+  __merchantImageUrl_isset = YES;
   __phone = [phone retain_stub];
   __phone_isset = YES;
+  __location = [location retain_stub];
+  __location_isset = YES;
   __address = [address retain_stub];
   __address_isset = YES;
   return self;
@@ -1311,10 +1272,20 @@
     __logoUrl = [[decoder decodeObjectForKey: @"logoUrl"] retain_stub];
     __logoUrl_isset = YES;
   }
+  if ([decoder containsValueForKey: @"merchantImageUrl"])
+  {
+    __merchantImageUrl = [[decoder decodeObjectForKey: @"merchantImageUrl"] retain_stub];
+    __merchantImageUrl_isset = YES;
+  }
   if ([decoder containsValueForKey: @"phone"])
   {
     __phone = [[decoder decodeObjectForKey: @"phone"] retain_stub];
     __phone_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"location"])
+  {
+    __location = [[decoder decodeObjectForKey: @"location"] retain_stub];
+    __location_isset = YES;
   }
   if ([decoder containsValueForKey: @"address"])
   {
@@ -1346,9 +1317,17 @@
   {
     [encoder encodeObject: __logoUrl forKey: @"logoUrl"];
   }
+  if (__merchantImageUrl_isset)
+  {
+    [encoder encodeObject: __merchantImageUrl forKey: @"merchantImageUrl"];
+  }
   if (__phone_isset)
   {
     [encoder encodeObject: __phone forKey: @"phone"];
+  }
+  if (__location_isset)
+  {
+    [encoder encodeObject: __location forKey: @"location"];
   }
   if (__address_isset)
   {
@@ -1362,7 +1341,9 @@
   [__email release_stub];
   [__websiteUrl release_stub];
   [__logoUrl release_stub];
+  [__merchantImageUrl release_stub];
   [__phone release_stub];
+  [__location release_stub];
   [__address release_stub];
   [super dealloc_stub];
 }
@@ -1468,6 +1449,27 @@
   __logoUrl_isset = NO;
 }
 
+- (NSString *) merchantImageUrl {
+  return [[__merchantImageUrl retain_stub] autorelease_stub];
+}
+
+- (void) setMerchantImageUrl: (NSString *) merchantImageUrl {
+  [merchantImageUrl retain_stub];
+  [__merchantImageUrl release_stub];
+  __merchantImageUrl = merchantImageUrl;
+  __merchantImageUrl_isset = YES;
+}
+
+- (BOOL) merchantImageUrlIsSet {
+  return __merchantImageUrl_isset;
+}
+
+- (void) unsetMerchantImageUrl {
+  [__merchantImageUrl release_stub];
+  __merchantImageUrl = nil;
+  __merchantImageUrl_isset = NO;
+}
+
 - (NSString *) phone {
   return [[__phone retain_stub] autorelease_stub];
 }
@@ -1487,6 +1489,27 @@
   [__phone release_stub];
   __phone = nil;
   __phone_isset = NO;
+}
+
+- (Location_t *) location {
+  return [[__location retain_stub] autorelease_stub];
+}
+
+- (void) setLocation: (Location_t *) location {
+  [location retain_stub];
+  [__location release_stub];
+  __location = location;
+  __location_isset = YES;
+}
+
+- (BOOL) locationIsSet {
+  return __location_isset;
+}
+
+- (void) unsetLocation {
+  [__location release_stub];
+  __location = nil;
+  __location_isset = NO;
 }
 
 - (Address_t *) address {
@@ -1568,12 +1591,30 @@
       case 6:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setPhone: fieldValue];
+          [self setMerchantImageUrl: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
       case 7:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setPhone: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 8:
+        if (fieldType == TType_STRUCT) {
+          Location_t *fieldValue = [[Location_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setLocation: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 9:
         if (fieldType == TType_STRUCT) {
           Address_t *fieldValue = [[Address_t alloc] init];
           [fieldValue read: inProtocol];
@@ -1627,16 +1668,30 @@
       [outProtocol writeFieldEnd];
     }
   }
+  if (__merchantImageUrl_isset) {
+    if (__merchantImageUrl != nil) {
+      [outProtocol writeFieldBeginWithName: @"merchantImageUrl" type: TType_STRING fieldID: 6];
+      [outProtocol writeString: __merchantImageUrl];
+      [outProtocol writeFieldEnd];
+    }
+  }
   if (__phone_isset) {
     if (__phone != nil) {
-      [outProtocol writeFieldBeginWithName: @"phone" type: TType_STRING fieldID: 6];
+      [outProtocol writeFieldBeginWithName: @"phone" type: TType_STRING fieldID: 7];
       [outProtocol writeString: __phone];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__location_isset) {
+    if (__location != nil) {
+      [outProtocol writeFieldBeginWithName: @"location" type: TType_STRUCT fieldID: 8];
+      [__location write: outProtocol];
       [outProtocol writeFieldEnd];
     }
   }
   if (__address_isset) {
     if (__address != nil) {
-      [outProtocol writeFieldBeginWithName: @"address" type: TType_STRUCT fieldID: 7];
+      [outProtocol writeFieldBeginWithName: @"address" type: TType_STRUCT fieldID: 9];
       [__address write: outProtocol];
       [outProtocol writeFieldEnd];
     }
@@ -1657,8 +1712,12 @@
   [ms appendFormat: @"\"%@\"", __websiteUrl];
   [ms appendString: @",logoUrl:"];
   [ms appendFormat: @"\"%@\"", __logoUrl];
+  [ms appendString: @",merchantImageUrl:"];
+  [ms appendFormat: @"\"%@\"", __merchantImageUrl];
   [ms appendString: @",phone:"];
   [ms appendFormat: @"\"%@\"", __phone];
+  [ms appendString: @",location:"];
+  [ms appendFormat: @"%@", __location];
   [ms appendString: @",address:"];
   [ms appendFormat: @"%@", __address];
   [ms appendString: @")"];
