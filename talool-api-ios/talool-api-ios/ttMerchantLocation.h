@@ -15,5 +15,6 @@
 + (ttMerchantLocation *)initWithThrift: (MerchantLocation_t *)location context:(NSManagedObjectContext *)context;
 - (MerchantLocation_t *)hydrateThriftObject;
 - (NSString *)getMerchantImageUrl;
+- (ttLocation *)getLocation;
 
 @end
