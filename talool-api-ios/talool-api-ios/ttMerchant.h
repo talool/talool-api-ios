@@ -19,5 +19,6 @@
 - (NSString *)getLocationLabel;
 - (void)favorite:(ttCustomer *)customer;
 - (void)unfavorite:(ttCustomer *)customer;
+- (Boolean) isFavorite;
 
 @end

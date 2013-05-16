@@ -93,5 +93,10 @@
     self.isFav = [NSNumber numberWithBool:NO];
 }
 
+- (Boolean) isFavorite
+{
+    return [self.isFav boolValue];
+}
+
 
 @end

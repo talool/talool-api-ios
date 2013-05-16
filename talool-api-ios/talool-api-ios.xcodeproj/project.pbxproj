@@ -610,6 +610,7 @@
 				917CBE44174550E500383EA1 /* ttLocation.h in Headers */,
 				9179A9F91725A68D0082DB62 /* ttMerchantLocation.h in Headers */,
 				919A3322174543420093FAC4 /* Core.h in Headers */,
+				917CBE48174553F100383EA1 /* TaloolMerchant.h in Headers */,
 				917CBE2C17454D4F00383EA1 /* TaloolAddress.h in Headers */,
 				917CBE3417454D5000383EA1 /* TaloolLocation.h in Headers */,
 				917CBE401745505F00383EA1 /* TaloolMerchantLocation.h in Headers */,
@@ -647,7 +648,6 @@
 				914A1B8316E703310043989A /* TTransport.h in Headers */,
 				914A1B8416E703310043989A /* TTransportException.h in Headers */,
 				91CC60D216F57CD900647AEC /* TaloolHTTPClient.h in Headers */,
-				917CBE48174553F100383EA1 /* TaloolMerchant.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
