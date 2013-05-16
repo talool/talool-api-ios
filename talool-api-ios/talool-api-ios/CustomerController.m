@@ -283,7 +283,7 @@
         [options setMaxResults:1000];
         [options setPage:0];
         [options setAscending:YES];
-        [options setSortProperty:@"name"];
+        [options setSortProperty:@"merchant.name"];
         merchants = [service getMerchantAcquires:options];
     }
     @catch (ServiceException_t * se) {

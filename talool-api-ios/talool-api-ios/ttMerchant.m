@@ -11,12 +11,16 @@
 #import "ttAddress.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
-#import "MerchantController.h"
 #import "CustomerController.h"
+
+@interface ttMerchant ()
+// TODO  move this to the managed object
+@property (nonatomic) Boolean bFav;
+@end
 
 @implementation ttMerchant
 
-@synthesize location;
+@synthesize location, bFav;
 
 +(ttMerchant *)initWithThrift:(Merchant_t *)merchant context:(NSManagedObjectContext *)context
 {
@@ -31,12 +35,18 @@
         for (int i=0; i<[merchant.locations count]; i++) {
             MerchantLocation_t *mlt = [merchant.locations objectAtIndex:i];
             ttMerchantLocation *ml = [ttMerchantLocation initWithThrift:mlt context:context];
+            
+            // TODO this should be the closest location
             if (i==0) {
                 m.location = ml;
             }
+            
             [m addLocationsObject:ml];
         }
     }
+    
+    // TODO clean up
+    m.bFav = NO;
     
     return m;
 }
@@ -73,6 +83,27 @@
         }
     }
     return label;
+}
+
+- (void) favorite:(ttCustomer *)customer
+{
+    CustomerController *cController = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    [cController addFavoriteMerchant:customer merchantId:self.merchantId error:&error];
+    bFav = TRUE;
+}
+
+- (void) unfavorite:(ttCustomer *)customer
+{
+    CustomerController *cController = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    [cController removeFavoriteMerchant:customer merchantId:self.merchantId error:&error];
+    bFav = NO;
+}
+
+- (Boolean) isFavorite
+{
+    return bFav;
 }
 
 

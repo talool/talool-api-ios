@@ -17,5 +17,8 @@
 + (ttMerchant *)initWithThrift: (Merchant_t *)merchant context:(NSManagedObjectContext *)context;
 - (Merchant_t *)hydrateThriftObject;
 - (NSString *)getLocationLabel;
+- (void)favorite:(ttCustomer *)customer;
+- (void)unfavorite:(ttCustomer *)customer;
+- (Boolean) isFavorite;
 
 @end
