@@ -282,6 +282,7 @@ typedef int64_t Timestamp;
   NSString * __phone;
   Location_t * __location;
   Address_t * __address;
+  double __distanceInMeters;
 
   BOOL __locationId_isset;
   BOOL __name_isset;
@@ -292,6 +293,7 @@ typedef int64_t Timestamp;
   BOOL __phone_isset;
   BOOL __location_isset;
   BOOL __address_isset;
+  BOOL __distanceInMeters_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -304,10 +306,11 @@ typedef int64_t Timestamp;
 @property (nonatomic, retain, getter=phone, setter=setPhone:) NSString * phone;
 @property (nonatomic, retain, getter=location, setter=setLocation:) Location_t * location;
 @property (nonatomic, retain, getter=address, setter=setAddress:) Address_t * address;
+@property (nonatomic, getter=distanceInMeters, setter=setDistanceInMeters:) double distanceInMeters;
 #endif
 
 - (id) init;
-- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl merchantImageUrl: (NSString *) merchantImageUrl phone: (NSString *) phone location: (Location_t *) location address: (Address_t *) address;
+- (id) initWithLocationId: (int64_t) locationId name: (NSString *) name email: (NSString *) email websiteUrl: (NSString *) websiteUrl logoUrl: (NSString *) logoUrl merchantImageUrl: (NSString *) merchantImageUrl phone: (NSString *) phone location: (Location_t *) location address: (Address_t *) address distanceInMeters: (double) distanceInMeters;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -365,6 +368,12 @@ typedef int64_t Timestamp;
 - (void) setAddress: (Address_t *) address;
 #endif
 - (BOOL) addressIsSet;
+
+#if !__has_feature(objc_arc)
+- (double) distanceInMeters;
+- (void) setDistanceInMeters: (double) distanceInMeters;
+#endif
+- (BOOL) distanceInMetersIsSet;
 
 @end
 
@@ -884,6 +893,39 @@ typedef int64_t Timestamp;
 - (void) setUpdated: (Timestamp) updated;
 #endif
 - (BOOL) updatedIsSet;
+
+@end
+
+@interface Category_t : NSObject <NSCoding> {
+  int32_t __categoryId;
+  NSString * __name;
+
+  BOOL __categoryId_isset;
+  BOOL __name_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=categoryId, setter=setCategoryId:) int32_t categoryId;
+@property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
+#endif
+
+- (id) init;
+- (id) initWithCategoryId: (int32_t) categoryId name: (NSString *) name;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (int32_t) categoryId;
+- (void) setCategoryId: (int32_t) categoryId;
+#endif
+- (BOOL) categoryIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) name;
+- (void) setName: (NSString *) name;
+#endif
+- (BOOL) nameIsSet;
 
 @end
 

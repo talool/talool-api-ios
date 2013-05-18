@@ -2,7 +2,7 @@
 //  TaloolMerchantLocation.m
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 5/16/13.
+//  Created by Douglas McCuen on 5/17/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
@@ -14,13 +14,14 @@
 
 @implementation TaloolMerchantLocation
 
+@dynamic distanceInMeters;
 @dynamic email;
+@dynamic imageUrl;
 @dynamic locationId;
 @dynamic logoUrl;
 @dynamic name;
 @dynamic phone;
 @dynamic websiteUrl;
-@dynamic imageUrl;
 @dynamic address;
 @dynamic location;
 @dynamic merchant;

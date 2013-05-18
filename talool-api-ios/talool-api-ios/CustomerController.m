@@ -16,6 +16,7 @@
 #import "ttDeal.h"
 #import "ttDealAcquire.h"
 #import "ttDealOffer.h"
+#import "ttCategory.h"
 #import "Core.h"
 #import "CustomerService.h"
 #import "TaloolFrameworkHelper.h"
@@ -713,6 +714,64 @@
     }
     
     return merchants;
+}
+
+- (NSMutableArray *) getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+{
+    // TODO Queue it!
+    NSLog(@"FIX IT: GET CATEGORIES: Queue this server call if needed.");
+    
+    NSMutableArray *categories;
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        categories = [service getCategories];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to getCategories, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
+        NSLog(@"failed to getCategories: %@",se.description);
+        return nil;
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to getCategories; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
+        NSLog(@"failed to getCategories: %@",tae.description);
+        return nil;
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to getCategories, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
+        NSLog(@"failed to getCategories: %@",tpe.description);
+        return nil;
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to getCategories... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
+        NSLog(@"failed to getCategories: %@",e.description);
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response
+        for (int i=0; i<[categories count]; i++) {
+            Category_t *td = [categories objectAtIndex:i];
+            ttCategory *d = [ttCategory initWithThrift:td context:context];
+            [categories setObject:d atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to create the ttCategory object." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
+        NSLog(@"failed to hydrate the categories: %@",e.description);
+        return nil;
+    }
+    
+    return categories;
 }
 
 

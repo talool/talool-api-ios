@@ -29,6 +29,7 @@
     m.phone = location.phone;
     m.location = [ttLocation initWithThrift:location.location context:context];
     m.address = [ttAddress initWithThrift:location.address context:context];
+    m.distanceInMeters = [[NSNumber alloc] initWithDouble:location.distanceInMeters];
     
     return m;
 }
@@ -46,6 +47,7 @@
     location.phone = self.phone;
     location.address = [(ttAddress *)self.address hydrateThriftObject];
     location.location = [(ttLocation *)self.location hydrateThriftObject];
+    location.distanceInMeters = [self.distanceInMeters doubleValue];
     
     return location;
 }
