@@ -7,11 +7,13 @@
 //
 
 #import "TaloolCategory.h"
+#import "TaloolMerchant.h"
 
 
 @implementation TaloolCategory
 
-@dynamic name;
 @dynamic categoryId;
+@dynamic name;
+@dynamic merchants;
 
 @end

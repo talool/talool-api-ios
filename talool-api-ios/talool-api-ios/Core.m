@@ -176,6 +176,168 @@
 
 @end
 
+@implementation Category_t
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithCategoryId: (int32_t) categoryId name: (NSString *) name
+{
+  self = [super init];
+  __categoryId = categoryId;
+  __categoryId_isset = YES;
+  __name = [name retain_stub];
+  __name_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"categoryId"])
+  {
+    __categoryId = [decoder decodeInt32ForKey: @"categoryId"];
+    __categoryId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"name"])
+  {
+    __name = [[decoder decodeObjectForKey: @"name"] retain_stub];
+    __name_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__categoryId_isset)
+  {
+    [encoder encodeInt32: __categoryId forKey: @"categoryId"];
+  }
+  if (__name_isset)
+  {
+    [encoder encodeObject: __name forKey: @"name"];
+  }
+}
+
+- (void) dealloc
+{
+  [__name release_stub];
+  [super dealloc_stub];
+}
+
+- (int32_t) categoryId {
+  return __categoryId;
+}
+
+- (void) setCategoryId: (int32_t) categoryId {
+  __categoryId = categoryId;
+  __categoryId_isset = YES;
+}
+
+- (BOOL) categoryIdIsSet {
+  return __categoryId_isset;
+}
+
+- (void) unsetCategoryId {
+  __categoryId_isset = NO;
+}
+
+- (NSString *) name {
+  return [[__name retain_stub] autorelease_stub];
+}
+
+- (void) setName: (NSString *) name {
+  [name retain_stub];
+  [__name release_stub];
+  __name = name;
+  __name_isset = YES;
+}
+
+- (BOOL) nameIsSet {
+  return __name_isset;
+}
+
+- (void) unsetName {
+  [__name release_stub];
+  __name = nil;
+  __name_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setCategoryId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setName: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"Category_t"];
+  if (__categoryId_isset) {
+    [outProtocol writeFieldBeginWithName: @"categoryId" type: TType_I32 fieldID: 1];
+    [outProtocol writeI32: __categoryId];
+    [outProtocol writeFieldEnd];
+  }
+  if (__name_isset) {
+    if (__name != nil) {
+      [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __name];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"Category_t("];
+  [ms appendString: @"categoryId:"];
+  [ms appendFormat: @"%i", __categoryId];
+  [ms appendString: @",name:"];
+  [ms appendFormat: @"\"%@\"", __name];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 @implementation Location_t
 
 - (id) init
@@ -2462,13 +2624,15 @@
   return self;
 }
 
-- (id) initWithMerchantId: (NSString *) merchantId name: (NSString *) name locations: (NSMutableArray *) locations
+- (id) initWithMerchantId: (NSString *) merchantId name: (NSString *) name category: (Category_t *) category locations: (NSMutableArray *) locations
 {
   self = [super init];
   __merchantId = [merchantId retain_stub];
   __merchantId_isset = YES;
   __name = [name retain_stub];
   __name_isset = YES;
+  __category = [category retain_stub];
+  __category_isset = YES;
   __locations = [locations retain_stub];
   __locations_isset = YES;
   return self;
@@ -2486,6 +2650,11 @@
   {
     __name = [[decoder decodeObjectForKey: @"name"] retain_stub];
     __name_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"category"])
+  {
+    __category = [[decoder decodeObjectForKey: @"category"] retain_stub];
+    __category_isset = YES;
   }
   if ([decoder containsValueForKey: @"locations"])
   {
@@ -2505,6 +2674,10 @@
   {
     [encoder encodeObject: __name forKey: @"name"];
   }
+  if (__category_isset)
+  {
+    [encoder encodeObject: __category forKey: @"category"];
+  }
   if (__locations_isset)
   {
     [encoder encodeObject: __locations forKey: @"locations"];
@@ -2515,6 +2688,7 @@
 {
   [__merchantId release_stub];
   [__name release_stub];
+  [__category release_stub];
   [__locations release_stub];
   [super dealloc_stub];
 }
@@ -2559,6 +2733,27 @@
   [__name release_stub];
   __name = nil;
   __name_isset = NO;
+}
+
+- (Category_t *) category {
+  return [[__category retain_stub] autorelease_stub];
+}
+
+- (void) setCategory: (Category_t *) category {
+  [category retain_stub];
+  [__category release_stub];
+  __category = category;
+  __category_isset = YES;
+}
+
+- (BOOL) categoryIsSet {
+  return __category_isset;
+}
+
+- (void) unsetCategory {
+  [__category release_stub];
+  __category = nil;
+  __category_isset = NO;
 }
 
 - (NSMutableArray *) locations {
@@ -2614,6 +2809,16 @@
         }
         break;
       case 3:
+        if (fieldType == TType_STRUCT) {
+          Category_t *fieldValue = [[Category_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setCategory: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
         if (fieldType == TType_LIST) {
           int _size6;
           [inProtocol readListBeginReturningElementType: NULL size: &_size6];
@@ -2658,9 +2863,16 @@
       [outProtocol writeFieldEnd];
     }
   }
+  if (__category_isset) {
+    if (__category != nil) {
+      [outProtocol writeFieldBeginWithName: @"category" type: TType_STRUCT fieldID: 3];
+      [__category write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
   if (__locations_isset) {
     if (__locations != nil) {
-      [outProtocol writeFieldBeginWithName: @"locations" type: TType_LIST fieldID: 3];
+      [outProtocol writeFieldBeginWithName: @"locations" type: TType_LIST fieldID: 4];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__locations count]];
         int i10;
@@ -2683,6 +2895,8 @@
   [ms appendFormat: @"\"%@\"", __merchantId];
   [ms appendString: @",name:"];
   [ms appendFormat: @"\"%@\"", __name];
+  [ms appendString: @",category:"];
+  [ms appendFormat: @"%@", __category];
   [ms appendString: @",locations:"];
   [ms appendFormat: @"%@", __locations];
   [ms appendString: @")"];
@@ -4480,168 +4694,6 @@
   [ms appendFormat: @"%qi", __created];
   [ms appendString: @",updated:"];
   [ms appendFormat: @"%qi", __updated];
-  [ms appendString: @")"];
-  return [NSString stringWithString: ms];
-}
-
-@end
-
-@implementation Category_t
-
-- (id) init
-{
-  self = [super init];
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-#endif
-  return self;
-}
-
-- (id) initWithCategoryId: (int32_t) categoryId name: (NSString *) name
-{
-  self = [super init];
-  __categoryId = categoryId;
-  __categoryId_isset = YES;
-  __name = [name retain_stub];
-  __name_isset = YES;
-  return self;
-}
-
-- (id) initWithCoder: (NSCoder *) decoder
-{
-  self = [super init];
-  if ([decoder containsValueForKey: @"categoryId"])
-  {
-    __categoryId = [decoder decodeInt32ForKey: @"categoryId"];
-    __categoryId_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"name"])
-  {
-    __name = [[decoder decodeObjectForKey: @"name"] retain_stub];
-    __name_isset = YES;
-  }
-  return self;
-}
-
-- (void) encodeWithCoder: (NSCoder *) encoder
-{
-  if (__categoryId_isset)
-  {
-    [encoder encodeInt32: __categoryId forKey: @"categoryId"];
-  }
-  if (__name_isset)
-  {
-    [encoder encodeObject: __name forKey: @"name"];
-  }
-}
-
-- (void) dealloc
-{
-  [__name release_stub];
-  [super dealloc_stub];
-}
-
-- (int32_t) categoryId {
-  return __categoryId;
-}
-
-- (void) setCategoryId: (int32_t) categoryId {
-  __categoryId = categoryId;
-  __categoryId_isset = YES;
-}
-
-- (BOOL) categoryIdIsSet {
-  return __categoryId_isset;
-}
-
-- (void) unsetCategoryId {
-  __categoryId_isset = NO;
-}
-
-- (NSString *) name {
-  return [[__name retain_stub] autorelease_stub];
-}
-
-- (void) setName: (NSString *) name {
-  [name retain_stub];
-  [__name release_stub];
-  __name = name;
-  __name_isset = YES;
-}
-
-- (BOOL) nameIsSet {
-  return __name_isset;
-}
-
-- (void) unsetName {
-  [__name release_stub];
-  __name = nil;
-  __name_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_I32) {
-          int32_t fieldValue = [inProtocol readI32];
-          [self setCategoryId: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 2:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
-          [self setName: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"Category_t"];
-  if (__categoryId_isset) {
-    [outProtocol writeFieldBeginWithName: @"categoryId" type: TType_I32 fieldID: 1];
-    [outProtocol writeI32: __categoryId];
-    [outProtocol writeFieldEnd];
-  }
-  if (__name_isset) {
-    if (__name != nil) {
-      [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 2];
-      [outProtocol writeString: __name];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"Category_t("];
-  [ms appendString: @"categoryId:"];
-  [ms appendFormat: @"%i", __categoryId];
-  [ms appendString: @",name:"];
-  [ms appendFormat: @"\"%@\"", __name];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }

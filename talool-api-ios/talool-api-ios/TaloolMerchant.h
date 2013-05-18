@@ -2,24 +2,25 @@
 //  TaloolMerchant.h
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 5/16/13.
+//  Created by Douglas McCuen on 5/17/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class ttCustomer, ttDeal, ttDealOffer, ttMerchantLocation;
+@class TaloolCategory, ttCustomer, ttDeal, ttDealOffer, ttMerchantLocation;
 
 @interface TaloolMerchant : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * isFav;
 @property (nonatomic, retain) NSString * merchantId;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * isFav;
 @property (nonatomic, retain) ttCustomer *customer;
 @property (nonatomic, retain) NSSet *deals;
 @property (nonatomic, retain) NSSet *locations;
 @property (nonatomic, retain) NSSet *offers;
+@property (nonatomic, retain) TaloolCategory *category;
 @end
 
 @interface TaloolMerchant (CoreDataGeneratedAccessors)

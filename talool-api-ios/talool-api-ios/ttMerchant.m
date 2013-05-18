@@ -9,6 +9,7 @@
 #import "ttMerchant.h"
 #import "ttMerchantLocation.h"
 #import "ttAddress.h"
+#import "ttCategory.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "CustomerController.h"
@@ -25,6 +26,7 @@
 
     m.merchantId = merchant.merchantId;
     m.name = merchant.name;
+    m.category = [ttCategory initWithThrift:merchant.category context:context];
     
     if (merchant.locationsIsSet) {
         for (int i=0; i<[merchant.locations count]; i++) {
@@ -49,6 +51,7 @@
     
     merchant.merchantId = self.merchantId;
     merchant.name = self.name;
+    merchant.category = [(ttCategory *)self.category hydrateThriftObject];
     
     NSEnumerator *enumerator = [self.locations objectEnumerator];
     ttMerchantLocation *ml;
