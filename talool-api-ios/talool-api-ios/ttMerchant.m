@@ -98,5 +98,23 @@
     return [self.isFav boolValue];
 }
 
+- (ttMerchantLocation *) getClosestLocation:(ttLocation *)location
+{
+    NSArray *locs = [[NSArray alloc] initWithArray:[self.locations allObjects]];
+    if ([locs count]==0)
+    {
+        return nil;
+    }
+    else if ([locs count]==1)
+    {
+        return [locs objectAtIndex:0];
+    }
+    else
+    {
+        // TODO search by location
+        return [locs objectAtIndex:0];
+    }
+}
+
 
 @end

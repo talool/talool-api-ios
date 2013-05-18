@@ -8,7 +8,7 @@
 
 #import "TaloolMerchant.h"
 
-@class Merchant_t, ttCustomer, ttMerchantLocation;
+@class Merchant_t, ttCustomer, ttMerchantLocation, ttLocation;
 
 @interface ttMerchant : TaloolMerchant
 
@@ -20,5 +20,7 @@
 - (void)favorite:(ttCustomer *)customer;
 - (void)unfavorite:(ttCustomer *)customer;
 - (Boolean) isFavorite;
+
+- (ttMerchantLocation *) getClosestLocation:(ttLocation *)location;
 
 @end
