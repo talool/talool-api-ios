@@ -774,5 +774,70 @@
     return categories;
 }
 
+- (NSMutableArray *) getMerchantAcquiresByCategory:(ttCategory *)category customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+{
+    // TODO Queue it!
+    NSLog(@"FIX IT: GET MERCHANTS BY CATEGORY: Queue this server call if needed.");
+    
+    NSMutableArray *merchants;
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:0];
+        [options setAscending:YES];
+        [options setSortProperty:@"merchant.name"];
+        int32_t catId = [category.categoryId intValue];
+        merchants = [service getMerchantAcquiresByCategory:catId searchOptions:options];
+    }
+    @catch (ServiceException_t * se) {
+        [details setValue:@"Failed to getMerchantAcquiresByCategory, service failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
+        NSLog(@"failed to getMerchantAcquiresByCategory: %@",se.description);
+        return nil;
+    }
+    @catch (TApplicationException * tae) {
+        [details setValue:@"Failed to getMerchantAcquiresByCategory; app failed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
+        NSLog(@"failed to getMerchantAcquiresByCategory: %@",tae.description);
+        return nil;
+    }
+    @catch (TTransportException * tpe) {
+        [details setValue:@"Failed to getMerchantAcquiresByCategory, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
+        NSLog(@"failed to getMerchantAcquiresByCategory: %@",tpe.description);
+        return nil;
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to getMerchantAcquiresByCategory... who knows why." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
+        NSLog(@"failed to getMerchantAcquiresByCategory: %@",e.description);
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response
+        for (int i=0; i<[merchants count]; i++) {
+            Merchant_t *td = [merchants objectAtIndex:i];
+            ttMerchant *d = [ttMerchant initWithThrift:td context:context];
+            d.isFav = [NSNumber numberWithBool:YES];
+            [merchants setObject:d atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [details setValue:@"Failed to create the ttMerchant object." forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
+        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        return nil;
+    }
+    
+    return merchants;
+}
+
 
 @end

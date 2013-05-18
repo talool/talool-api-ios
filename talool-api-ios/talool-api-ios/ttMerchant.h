@@ -21,6 +21,6 @@
 - (void)unfavorite:(ttCustomer *)customer;
 - (Boolean) isFavorite;
 
-- (ttMerchantLocation *) getClosestLocation:(ttLocation *)location;
+- (ttMerchantLocation *) getClosestLocation:(double)latitude longitude:(double)longitude;
 
 @end

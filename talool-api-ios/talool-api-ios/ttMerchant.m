@@ -98,7 +98,7 @@
     return [self.isFav boolValue];
 }
 
-- (ttMerchantLocation *) getClosestLocation:(ttLocation *)location
+- (ttMerchantLocation *) getClosestLocation:(double)latitude longitude:(double)longitude
 {
     NSArray *locs = [[NSArray alloc] initWithArray:[self.locations allObjects]];
     if ([locs count]==0)
@@ -112,6 +112,9 @@
     else
     {
         // TODO search by location
+        //CustomerController *cController = [[CustomerController alloc] init];
+        //NSError *error = [NSError alloc];
+        
         return [locs objectAtIndex:0];
     }
 }
