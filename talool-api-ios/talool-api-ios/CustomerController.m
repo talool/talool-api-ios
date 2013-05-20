@@ -22,6 +22,8 @@
 #import "TaloolFrameworkHelper.h"
 #import "TaloolPersistentStoreCoordinator.h"
 
+#define INFINITE_PROXIMITY 9999
+
 @implementation CustomerController
 
 
@@ -525,7 +527,7 @@
 - (NSMutableArray *) getMerchantsWithin:(ttCustomer *)customer latitude:(double) latitude longitude:(double) longitude context:(NSManagedObjectContext *)context error:(NSError**)error
 {
     // TODO Queue it!
-    NSLog(@"FIX IT: GET MERCHANTS WITH RANGE: Queue this server call if needed.");
+    NSLog(@"FIX IT: GET MERCHANTS WITH RANGE (%d miles): Queue this server call if needed.", INFINITE_PROXIMITY);
     
     NSMutableArray *merchants;
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
@@ -538,7 +540,7 @@
         [options setPage:0];
         [options setAscending:YES];
         [options setSortProperty:@"merchant.locations.distanceInMeters"];
-        merchants = [service getMerchantsWithin:loc maxMiles:50 searchOptions:options];
+        merchants = [service getMerchantsWithin:loc maxMiles:INFINITE_PROXIMITY searchOptions:options];
     }
     @catch (ServiceException_t * se) {
         [details setValue:@"Failed to getMerchantsWithin, service failed." forKey:NSLocalizedDescriptionKey];
