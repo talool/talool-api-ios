@@ -20,21 +20,30 @@
 
 +(ttMerchant *)initWithThrift:(Merchant_t *)merchant context:(NSManagedObjectContext *)context
 {
-    ttMerchant *m = (ttMerchant *)[NSEntityDescription
-                                   insertNewObjectForEntityForName:MERCHANT_ENTITY_NAME
-                                   inManagedObjectContext:context];
-
+    
+    ttMerchant *m = [ttMerchant fetchMerchantById:merchant.merchantId context:context];
+    
     m.merchantId = merchant.merchantId;
     m.name = merchant.name;
     m.category = [ttCategory initWithThrift:merchant.category context:context];
     
     if (merchant.locationsIsSet) {
+        
+        
+        if ([m.locations count]>0)
+        {
+            [m removeLocations:m.locations];
+        }
+        
+        int closestDistance = 100000000;
         for (int i=0; i<[merchant.locations count]; i++) {
             MerchantLocation_t *mlt = [merchant.locations objectAtIndex:i];
             ttMerchantLocation *ml = [ttMerchantLocation initWithThrift:mlt context:context];
             
-            // TODO this should be the closest location
-            if (i==0) {
+            // store the closest location for easy access
+            if (mlt.distanceInMetersIsSet && mlt.distanceInMeters<closestDistance)
+            {
+                closestDistance = mlt.distanceInMeters;
                 m.location = ml;
             }
             
@@ -101,25 +110,38 @@
     return [self.isFav boolValue];
 }
 
+/*
+ *  TODO We can remove this since it's handled during the init
+ */
 - (ttMerchantLocation *) getClosestLocation:(double)latitude longitude:(double)longitude
 {
-    NSArray *locs = [[NSArray alloc] initWithArray:[self.locations allObjects]];
-    if ([locs count]==0)
+    return location;
+}
+                                    
++ (ttMerchant *) fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context
+{
+    ttMerchant *merchant = nil;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.merchantId = %@",merchantId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error = nil;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj == nil || [fetchedObj count] == 0)
     {
-        return nil;
-    }
-    else if ([locs count]==1)
-    {
-        return [locs objectAtIndex:0];
+        merchant = (ttMerchant *)[NSEntityDescription
+                       insertNewObjectForEntityForName:MERCHANT_ENTITY_NAME
+                       inManagedObjectContext:context];
     }
     else
     {
-        // TODO search by location
-        //CustomerController *cController = [[CustomerController alloc] init];
-        //NSError *error = [NSError alloc];
-        
-        return [locs objectAtIndex:0];
+        merchant = [fetchedObj objectAtIndex:0];
     }
+    return merchant;
 }
 
 

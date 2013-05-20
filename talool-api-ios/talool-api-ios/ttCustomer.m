@@ -17,6 +17,8 @@
 
 @implementation ttCustomer
 
+@synthesize favoriteMerchants;
+
 +(ttCustomer *)initWithThrift:(Customer_t *)c context:(NSManagedObjectContext *)context
 {
     ttCustomer *customer = (ttCustomer *)[NSEntityDescription
@@ -263,25 +265,11 @@
     return (ttToken *)self.token;
 }
 
-- (void) refreshMerchants: (NSManagedObjectContext *)context
-{
-    [self removeMerchants:self.merchants];
-    
-    CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error = [NSError alloc];
-    NSMutableArray *merchants = [cc getMerchants:self context:context error:&error];
-    NSSet *fMerchants = [[NSSet alloc] initWithArray:merchants];
-    
-    [self addMerchants:fMerchants];
-    
-    // save these merchants in the context
-    NSError *saveError = nil;
-    if (![context save:&saveError]) {
-        NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMerchants: %@ %@",saveError, [saveError userInfo]);
-    }
-    
-}
-
+/**
+ *  Clears the deals for this merchant from the context before
+ *  calling the service to repopulate the context and return
+ *  the deals.
+ **/
 - (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err purge:(BOOL)purge
 {
     NSArray *deals;
@@ -311,11 +299,20 @@
     return deals;
 }
 
+/**
+ *  Convenience method.
+ *  Wraps other "refesh" calls to the service.
+ *  Potentially a very heavy call, so consider deprecating this.
+ **/
 - (void) refresh: (NSManagedObjectContext *)context
 {
     [self refreshMerchants:context];
 }
 
+/**
+ *  Convenience method.
+ *  Converts the set of merchants to an array
+ **/
 - (NSArray *) getMyMerchants
 {
     NSArray *merchants = [self.merchants allObjects];
@@ -323,6 +320,10 @@
     return merchants;
 }
 
+/**
+ *  Gets the deals for a merchant from the context.
+ *  Fails gracefully to a server call if no deals are found in the context.
+ **/
 - (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     // query the context for these deals
@@ -347,6 +348,74 @@
     }
     
     return deals;
+}
+
+/**
+ *  Removes the merchants from this user, then calls the service
+ *  to reattach the latest set of merchants.
+ *  Saves the context and returns nothing.
+ **/
+- (void) refreshMerchants: (NSManagedObjectContext *)context
+{
+    [self removeMerchants:self.merchants];
+    
+    CustomerController *cc = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    NSMutableArray *merchants = [cc getMerchants:self context:context error:&error];
+    NSSet *fMerchants = [[NSSet alloc] initWithArray:merchants];
+    
+    [self addMerchants:fMerchants];
+    
+    // save these merchants in the context
+    NSError *saveError = nil;
+    if (![context save:&saveError]) {
+        NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMerchants: %@ %@",saveError, [saveError userInfo]);
+    }
+    
+}
+
+/**
+ *  Call the service for merchant around the user.
+ *  Store the merchants in the context and return them.
+ *  These merchants are NOT tied to the customer.
+**/
+- (NSArray *) getMerchantsByProximity:(int)distanceInMeters
+                            longitude:(double)longitude
+                             latitude:(double)latitude
+                              context:(NSManagedObjectContext *)context
+                                error:(NSError **)err
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    NSMutableArray *merchants = [cc getMerchantsWithin:self latitude:latitude longitude:longitude context:context error:&error];
+    
+    // save these merchants in the context
+    NSError *saveError = nil;
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    if (![context save:&saveError]) {
+        NSLog(@"API: OH SHIT!!!! Failed to save context after getMerchantsByProximity: %@ %@",saveError, [saveError userInfo]);
+        [details setValue:@"Failed to save context after refreshMyDealsForMerchant." forKey:NSLocalizedDescriptionKey];
+        *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
+    }
+    
+    return merchants;
+}
+
+/**
+ *  Call the service for the user's favorite merchants.
+ *  Store the merchants in the context and on the user.
+ **/
+- (void) refreshFavoriteMerchants:(NSManagedObjectContext *)context
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    favoriteMerchants = [cc getFavoriteMerchants:self context:context error:&error];
+    
+    // save these merchants in the context
+    NSError *saveError = nil;
+    if (![context save:&saveError]) {
+        NSLog(@"API: OH SHIT!!!! Failed to save context after getFavoriteMerchants: %@ %@",saveError, [saveError userInfo]);
+    }
 }
 
 @end

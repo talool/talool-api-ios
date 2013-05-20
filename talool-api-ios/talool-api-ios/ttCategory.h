@@ -8,9 +8,12 @@
 
 #import "TaloolCategory.h"
 
-@class Category_t;
+@class Category_t, ttCustomer;
 
 @interface ttCategory : TaloolCategory
+
++ (NSArray *)getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context;
 + (ttCategory *)initWithThrift: (Category_t *)category context:(NSManagedObjectContext *)context;
 - (Category_t *)hydrateThriftObject;
+
 @end

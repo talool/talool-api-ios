@@ -9,6 +9,7 @@
 #import "ttCategory.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import "CustomerController.h"
 
 @implementation ttCategory
 
@@ -31,6 +32,15 @@
     cat.categoryId = [self.categoryId intValue];
     
     return cat;
+}
+
++ (NSArray *)getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context
+{
+    CustomerController *cController = [[CustomerController alloc] init];
+    NSError *error = [NSError alloc];
+    NSArray *cats = [cController getCategories:customer context:context error:&error];
+    
+    return cats;
 }
 
 @end

@@ -10,11 +10,12 @@
 #import <CoreData/CoreData.h>
 #import "TaloolCustomer.h"
 #import "ttToken.h"
-#import "Friend.h"
 
 @class Customer_t, ttMerchant;
 
 @interface ttCustomer : TaloolCustomer
+
+@property (nonatomic, retain) NSArray *favoriteMerchants;
 
 + (ttCustomer *)initWithThrift: (Customer_t *)customer context:(NSManagedObjectContext *)context;
 + (void)clearUsers:(NSManagedObjectContext *)context;
@@ -38,11 +39,20 @@
 - (Customer_t *)hydrateThriftObject;
 - (NSString *)getFullName;
 - (ttToken *)getTaloolToken;
+
 - (void) refresh: (NSManagedObjectContext *)context;
 - (void) refreshMerchants: (NSManagedObjectContext *)context;
+- (void) refreshFavoriteMerchants: (NSManagedObjectContext *)context;
+
 - (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err purge:(BOOL)purge;
 - (NSArray *) getMyMerchants;
 - (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err;
+
+- (NSArray *) getMerchantsByProximity:(int)distanceInMeters
+                            longitude:(double)longitude
+                             latitude:(double)latitude
+                              context:(NSManagedObjectContext *)context
+                                error:(NSError **)err;
 
 
 

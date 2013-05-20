@@ -20,15 +20,15 @@
 
 + (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context
 {
-    ttDealAcquire *newDeal = (ttDealAcquire *)[NSEntityDescription
-                                 insertNewObjectForEntityForName:DEAL_ACQUIRE_ENTITY_NAME
-                                 inManagedObjectContext:context];
+    ttDealAcquire *newDeal = [ttDealAcquire fetchDealAcquireById:deal.dealAcquireId context:context];
     
     newDeal.dealAcquireId = deal.dealAcquireId;
     newDeal.deal = [ttDeal initWithThrift:deal.deal merchant:merchant context:context];
     newDeal.status = deal.status;
     newDeal.shareCount = [[NSNumber alloc] initWithUnsignedInteger:deal.shareCount];
-    if (deal.redeemed != 0) {
+    
+    // don't override with the server value of the server returns null or if the client thinks it has been redeemed.
+    if (deal.redeemedIsSet==NO || newDeal.redeemed != nil) {
         newDeal.redeemed = [[NSDate alloc] initWithTimeIntervalSince1970:deal.redeemed];
     }
     
@@ -75,6 +75,32 @@
         *err = [NSError errorWithDomain:@"redeemHere" code:200 userInfo:details];
     }
     
+}
+
++ (ttDealAcquire *) fetchDealAcquireById:(NSString *) dealAcquireId context:(NSManagedObjectContext *)context
+{
+    ttDealAcquire *acquire = nil;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.dealAcquireId = %@",dealAcquireId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error = nil;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj == nil || [fetchedObj count] == 0)
+    {
+        acquire = (ttDealAcquire *)[NSEntityDescription
+                                  insertNewObjectForEntityForName:DEAL_ACQUIRE_ENTITY_NAME
+                                  inManagedObjectContext:context];
+    }
+    else
+    {
+        acquire = [fetchedObj objectAtIndex:0];
+    }
+    return acquire;
 }
 
 @end

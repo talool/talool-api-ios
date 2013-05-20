@@ -16,9 +16,7 @@
 
 +(ttMerchantLocation *)initWithThrift:(MerchantLocation_t *)location context:(NSManagedObjectContext *)context
 {
-    ttMerchantLocation *m = (ttMerchantLocation *)[NSEntityDescription
-                                   insertNewObjectForEntityForName:MERCHANT_LOCATION_ENTITY_NAME
-                                   inManagedObjectContext:context];
+    ttMerchantLocation *m = [ttMerchantLocation fetchMerchantLocationById:[NSNumber numberWithInt:location.locationId] context:context];
     
     m.locationId = @(location.locationId);
     m.name = location.name;
@@ -29,7 +27,10 @@
     m.phone = location.phone;
     m.location = [ttLocation initWithThrift:location.location context:context];
     m.address = [ttAddress initWithThrift:location.address context:context];
-    m.distanceInMeters = [[NSNumber alloc] initWithDouble:location.distanceInMeters];
+    if (location.distanceInMetersIsSet)
+    {
+        m.distanceInMeters = [[NSNumber alloc] initWithDouble:location.distanceInMeters];
+    }
     
     return m;
 }
@@ -50,6 +51,32 @@
     location.distanceInMeters = [self.distanceInMeters doubleValue];
     
     return location;
+}
+
++ (ttMerchantLocation *) fetchMerchantLocationById:(NSNumber *) merchantLocationId context:(NSManagedObjectContext *)context
+{
+    ttMerchantLocation *merchantLocation = nil;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"locationId = %@",merchantLocationId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_LOCATION_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error = nil;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj == nil || [fetchedObj count] == 0)
+    {
+        merchantLocation = (ttMerchantLocation *)[NSEntityDescription
+                                  insertNewObjectForEntityForName:MERCHANT_LOCATION_ENTITY_NAME
+                                  inManagedObjectContext:context];
+    }
+    else
+    {
+        merchantLocation = [fetchedObj objectAtIndex:0];
+    }
+    return merchantLocation;
 }
 
 
