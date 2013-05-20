@@ -15,4 +15,6 @@
 + (ttMerchantLocation *)initWithThrift: (MerchantLocation_t *)location context:(NSManagedObjectContext *)context;
 - (MerchantLocation_t *)hydrateThriftObject;
 
+- (NSNumber *)getDistanceInMiles;
+
 @end

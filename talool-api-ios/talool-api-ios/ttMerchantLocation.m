@@ -12,6 +12,8 @@
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 
+#define METERS_PER_MILE 1609.344
+
 @implementation ttMerchantLocation
 
 +(ttMerchantLocation *)initWithThrift:(MerchantLocation_t *)location context:(NSManagedObjectContext *)context
@@ -79,5 +81,14 @@
     return merchantLocation;
 }
 
+- (NSNumber *)getDistanceInMiles
+{
+    double miles = 0;
+    if (self.distanceInMeters != nil)
+    {
+        miles = [self.distanceInMeters doubleValue]/METERS_PER_MILE;
+    }
+    return [NSNumber numberWithDouble:miles];
+}
 
 @end
