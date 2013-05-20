@@ -28,10 +28,10 @@
     newDeal.shareCount = [[NSNumber alloc] initWithUnsignedInteger:deal.shareCount];
     
     // don't override with the server value of the server returns null or if the client thinks it has been redeemed.
-    if (deal.redeemedIsSet==NO || newDeal.redeemed != nil) {
+    if (deal.redeemedIsSet==YES && newDeal.redeemed == nil)
+    {
         newDeal.redeemed = [[NSDate alloc] initWithTimeIntervalSince1970:deal.redeemed];
     }
-    
     return newDeal;
 }
 
