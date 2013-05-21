@@ -22,7 +22,6 @@
 #import "TaloolFrameworkHelper.h"
 #import "TaloolPersistentStoreCoordinator.h"
 
-#define INFINITE_PROXIMITY 9999
 
 @implementation CustomerController
 

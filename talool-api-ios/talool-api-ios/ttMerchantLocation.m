@@ -11,8 +11,9 @@
 #import "ttLocation.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import "TaloolFrameworkHelper.h"
 
-#define METERS_PER_MILE 1609.344
+
 
 @implementation ttMerchantLocation
 
