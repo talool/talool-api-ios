@@ -37,7 +37,7 @@
 + (NSArray *)getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context
 {
     CustomerController *cController = [[CustomerController alloc] init];
-    NSError *error = [NSError alloc];
+    NSError *error;
     NSArray *cats = [cController getCategories:customer context:context error:&error];
     
     return cats;

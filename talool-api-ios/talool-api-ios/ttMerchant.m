@@ -128,7 +128,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_ENTITY_NAME inManagedObjectContext:context];
     [request setEntity:entity];
     
-    NSError *error = nil;
+    NSError *error;
     NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
     
     if (fetchedObj == nil || [fetchedObj count] == 0)

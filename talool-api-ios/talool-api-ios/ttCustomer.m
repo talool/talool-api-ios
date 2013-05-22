@@ -50,14 +50,15 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:CUSTOMER_ENTITY_NAME inManagedObjectContext:context];
     [request setEntity:entity];
     
-    NSError *error = nil;
+    NSError *error;
     NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
     for (int i=0; i < [mutableFetchResults count]; i++) {
         [context deleteObject:[mutableFetchResults objectAtIndex:i]];
     }
-    error = nil;
-    if (![context save:&error]) {
-        NSLog(@"API: OH SHIT!!!! Failed to save context after clearing users: %@ %@",error, [error userInfo]);
+    
+    NSError *error2;
+    if (![context save:&error2]) {
+        NSLog(@"API: OH SHIT!!!! Failed to save context after clearing users: %@ %@",error2, [error2 userInfo]);
     }
 }
 
@@ -72,7 +73,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:CUSTOMER_ENTITY_NAME inManagedObjectContext:context];
     [request setEntity:entity];
     
-    NSError *error = nil;
+    NSError *error;
     NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
     if ([mutableFetchResults count] == 1) {
         user = [mutableFetchResults objectAtIndex:0];
@@ -91,7 +92,7 @@
     
     CustomerController *cController = [[CustomerController alloc] init];
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    NSError *authError = nil;
+    NSError *authError;
     
     ttCustomer *user = [cController authenticate:email password:password context:context error:&authError];
     
@@ -99,7 +100,7 @@
         
         [user refresh:context];
         
-        NSError *saveError = nil;
+        NSError *saveError;
         if (![context save:&saveError]) {
             NSLog(@"API: OH SHIT!!!! Failed to save context after authenticating: %@ %@",saveError, [saveError userInfo]);
             [details setValue:@"Failed to save context after authentication." forKey:NSLocalizedDescriptionKey];
@@ -118,7 +119,7 @@
     ttCustomer *user = [ttCustomer getLoggedInUser:context];
     if (user != nil) {
         [context deleteObject:user];
-        NSError *error = nil;
+        NSError *error;
         if (![context save:&error]) {
             NSLog(@"API: OH SHIT!!!! Failed to save context after logging out: %@ %@",error, [error userInfo]);
         }
@@ -128,13 +129,13 @@
 + (void) registerCustomer:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err{
     
     CustomerController *cController = [[CustomerController alloc] init];
-    NSError *regError = nil;
+    NSError *regError;
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     
     customer = [cController registerUser:customer password:password context:context error:&regError];
     
     if (regError.code < 100) {
-        NSError *saveError = nil;
+        NSError *saveError;
         if (![context save:&saveError]) {
             NSLog(@"API: OH SHIT!!!! Failed to save context after registration: %@ %@",saveError, [saveError userInfo]);
             [details setValue:@"Failed to save context after authentication." forKey:NSLocalizedDescriptionKey];
@@ -149,12 +150,12 @@
 + (void) saveCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     CustomerController *cController = [[CustomerController alloc] init];
-    NSError *saveError = nil;
+    NSError *saveError;
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
 
     [cController save:customer error:&saveError];
     if (saveError.code < 100) {
-        NSError *saveError2 = nil;
+        NSError *saveError2;
         if (![context save:&saveError2]) {
             NSLog(@"API: OH SHIT!!!! Failed to save context after save: %@ %@",saveError2, [saveError2 userInfo]);
             [details setValue:@"Failed to save context after save." forKey:NSLocalizedDescriptionKey];
@@ -275,7 +276,7 @@
     NSArray *deals;
     // purge the context of deals for this merchant
     if (purge) {
-        NSError *readError = nil;
+        NSError *readError;
         deals = [self getMyDealsForMerchant:merchant context:context error:&readError];
         for (int i=0; i<[deals count]; i++) {
             [context deleteObject:[deals objectAtIndex:i]];
@@ -284,12 +285,12 @@
     
     // get the latest deals from the service
     CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error = [NSError alloc];
+    NSError *error;
     deals = [cc getAcquiredDeals:merchant forCustomer:self context:context error:&error];
     
     // save these deals in the context
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    NSError *saveError = nil;
+    NSError *saveError;
     if (![context save:&saveError]) {
         NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMyDealsForMerchant: %@ %@",saveError, [saveError userInfo]);
         [details setValue:@"Failed to save context after refreshMyDealsForMerchant." forKey:NSLocalizedDescriptionKey];
@@ -333,7 +334,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
     [request setEntity:entity];
     
-    NSError *error = nil;
+    NSError *error;
     NSMutableArray *deals = [[context executeFetchRequest:request error:&error] mutableCopy];
     if (deals == nil) {
         NSLog(@"FAIL: Nil deal acquires for merchant: %@",merchant.merchantId);
@@ -360,14 +361,14 @@
     [self removeMerchants:self.merchants];
     
     CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error = [NSError alloc];
+    NSError *error;
     NSMutableArray *merchants = [cc getMerchants:self context:context error:&error];
     NSSet *fMerchants = [[NSSet alloc] initWithArray:merchants];
     
     [self addMerchants:fMerchants];
     
     // save these merchants in the context
-    NSError *saveError = nil;
+    NSError *saveError;
     if (![context save:&saveError]) {
         NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMerchants: %@ %@",saveError, [saveError userInfo]);
     }
@@ -386,11 +387,11 @@
                                 error:(NSError **)err
 {
     CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error = [NSError alloc];
+    NSError *error;
     NSMutableArray *merchants = [cc getMerchantsWithin:self latitude:latitude longitude:longitude context:context error:&error];
     
     // save these merchants in the context
-    NSError *saveError = nil;
+    NSError *saveError;
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     if (![context save:&saveError]) {
         NSLog(@"API: OH SHIT!!!! Failed to save context after getMerchantsByProximity: %@ %@",saveError, [saveError userInfo]);
@@ -408,11 +409,11 @@
 - (void) refreshFavoriteMerchants:(NSManagedObjectContext *)context
 {
     CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error = [NSError alloc];
+    NSError *error;
     favoriteMerchants = [cc getFavoriteMerchants:self context:context error:&error];
     
     // save these merchants in the context
-    NSError *saveError = nil;
+    NSError *saveError;
     if (![context save:&saveError]) {
         NSLog(@"API: OH SHIT!!!! Failed to save context after getFavoriteMerchants: %@ %@",saveError, [saveError userInfo]);
     }

@@ -21,6 +21,7 @@
 #import "CustomerService.h"
 #import "TaloolFrameworkHelper.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import "APIErrorManager.h"
 
 
 @implementation CustomerController
@@ -29,8 +30,7 @@
 - (id)init
 {
 	if ((self = [super init])) {
-        //[self connect];
-        // TODO DO MORE COOL STUFF HERE
+        errorManager = [[APIErrorManager alloc] init];
 	}
 	return self;
 }
@@ -89,35 +89,13 @@
     Customer_t *newCustomer = [customer hydrateThriftObject];
     CTokenAccess_t *token;
     
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
     @try {
         // Do the Thrift Registration
         [self connect];
         token = [service createAccount:newCustomer password:password];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to register user, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"registration" code:200 userInfo:details];
-        NSLog(@"failed to complete registration cycle: %@",se.description);
-        return nil;
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to register user; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"registration" code:200 userInfo:details];
-        NSLog(@"failed to complete registration cycle: %@",tae.description);
-        return nil;
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to register user, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"registration" code:200 userInfo:details];
-        NSLog(@"failed to complete registration cycle: %@",tpe.description);
-        return nil;
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to register user... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"registration" code:200 userInfo:details];
-        NSLog(@"failed to complete registration cycle: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"registerUser" error:error];
         return nil;
     }
     @finally {
@@ -127,8 +105,8 @@
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:CUSTOMER_ENTITY_NAME inManagedObjectContext:context];
         [request setEntity:entity];
-        NSError *error = nil;
-        NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
+        NSError *cd_error = nil;
+        NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&cd_error] mutableCopy];
         if ([mutableFetchResults count] > 0) {
             for (NSManagedObject *extra_user in mutableFetchResults) {
                 [context deleteObject:extra_user];
@@ -145,9 +123,7 @@
         [context save:&err];
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the customer object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"post-reg" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the user: %@",e.description);
+        [errorManager handleCoreDataException:e forMethod:@"registerUser" entity:@"ttCustomer" error:error];
         return nil;
     }
     
@@ -159,35 +135,14 @@
 {
     ttCustomer *customer;
     CTokenAccess_t *token;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
+
     @try {
         // Do the Thrift Authentication
         [self connect];
         token = [service authenticate:email password:password];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to authenticate user, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"login" code:200 userInfo:details];
-        NSLog(@"failed to complete login cycle: %@",se.description);
-        return nil;
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to authenticate user; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"login" code:200 userInfo:details];
-        NSLog(@"failed to complete login cycle: %@",tae.description);
-        return nil;
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to authenticate user, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"login" code:200 userInfo:details];
-        NSLog(@"failed to complete login cycle: %@",tpe.description);
-        return nil;
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to authenticate user... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"login" code:200 userInfo:details];
-        NSLog(@"failed to complete login cycle: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"authenticate" error:error];
         return nil;
     }
     @finally {
@@ -201,9 +156,7 @@
         customer.token = ttt;
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the customer object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"post-login" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the user: %@",e.description);
+        [errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:error];
         return nil;
     }
     
@@ -218,31 +171,13 @@
     // Convert the core data obj to a thrift object
     Customer_t *newCustomer = [customer hydrateThriftObject];
     
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
     @try {
         // Do the Thrift Save
         [self connectWithToken:(ttToken *)customer.token];
         [service save:newCustomer];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to save user, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customer save" code:se.errorCode userInfo:details];
-        NSLog(@"failed to complete customer save cycle: %@",se.description);
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to save user; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customer save" code:500 userInfo:details];
-        NSLog(@"failed to complete customer save cycle: %@",tae.description);
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to save user, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customer save" code:500 userInfo:details];
-        NSLog(@"failed to complete customer save cycle: %@",tpe.description);
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to save user... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customer save" code:500 userInfo:details];
-        NSLog(@"failed to complete customer save cycle: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"save" error:error];
     }
     @finally {
         [self disconnect];
@@ -276,8 +211,7 @@
     NSLog(@"FIX IT: GET MERCHANTS: Queue this server call if needed.");
     
     NSMutableArray *merchants;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
+
     @try {
         // Do the Thrift Merchants
         [self connectWithToken:(ttToken *)customer.token];
@@ -288,28 +222,8 @@
         [options setSortProperty:@"merchant.name"];
         merchants = [service getMerchantAcquires:options];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to getMerchants, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
-        NSLog(@"failed to getMerchants: %@",se.description);
-        return nil;
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to getMerchants; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
-        NSLog(@"failed to getMerchants: %@",tae.description);
-        return nil;
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to getMerchants, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
-        NSLog(@"failed to getMerchants: %@",tpe.description);
-        return nil;
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to getMerchants... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
-        NSLog(@"failed to getMerchants: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"getMerchants" error:error];
         return nil;
     }
     @finally {
@@ -325,9 +239,7 @@
         }
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the merchant object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchants" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        [errorManager handleCoreDataException:e forMethod:@"getMerchants" entity:@"ttMerchant" error:error];
         return nil;
     }
     
@@ -340,8 +252,7 @@
     NSLog(@"FIX IT: GET DEAL ACQUIRES: Queue this server call if needed.");
     
     NSMutableArray *deals;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
+   
     @try {
         // Do the Thrift Merchants
         [self connectWithToken:(ttToken *)customer.token];
@@ -352,28 +263,8 @@
         [options setSortProperty:@"deal.title"];
         deals = [service getDealAcquires:merchant.merchantId searchOptions:options];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to getAcquiredDeals, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
-        NSLog(@"failed to getDeals: %@",se.description);
-        return nil;
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to getAcquiredDeals; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
-        NSLog(@"failed to getDeals: %@",tae.description);
-        return nil;
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to getAcquiredDeals, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
-        NSLog(@"failed to getDeals: %@",tpe.description);
-        return nil;
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to getAcquiredDeals... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
-        NSLog(@"failed to getDeals: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"getAcquiredDeals" error:error];
         return nil;
     }
     @finally {
@@ -389,9 +280,7 @@
         }
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the ttDealAcquire object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getAcquiredDeals" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the acquired deals: %@",e.description);
+        [errorManager handleCoreDataException:e forMethod:@"getAcquiredDeals" entity:@"ttDealAcquire" error:error];
         return nil;
     }
     
@@ -400,32 +289,13 @@
 
 - (void) redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error
 {
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
     @try {
         [self connectWithToken:(ttToken *)dealAcquire.customer.token];
         Location_t *loc = [[Location_t alloc] initWithLongitude:longitude latitude:latitude];
         [service redeem:dealAcquire.dealAcquireId location:loc];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to redeem, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"redeem" code:200 userInfo:details];
-        NSLog(@"failed to redeem: %@",se.description);
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to redeem; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"redeem" code:200 userInfo:details];
-        NSLog(@"failed to redeem: %@",tae.description);
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to redeem, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDeals" code:200 userInfo:details];
-        NSLog(@"failed to redeem: %@",tpe.description);
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to redeem... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"redeem" code:200 userInfo:details];
-        NSLog(@"failed to redeem: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"redeem" error:error];
     }
     @finally {
         [self disconnect];
@@ -438,34 +308,13 @@
     NSLog(@"FIX IT: GET DEAL OFFERS: Queue this server call if needed.");
     
     NSMutableArray *offers;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
+
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         offers = [service getDealOffers];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to getDealOffers, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
-        NSLog(@"failed to getDealOffers: %@",se.description);
-        return nil;
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to getDealOffers; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
-        NSLog(@"failed to getDealOffers: %@",tae.description);
-        return nil;
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to getDealOffers, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
-        NSLog(@"failed to getDealOffers: %@",tpe.description);
-        return nil;
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to getDealOffers... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
-        NSLog(@"failed to getDealOffers: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"getDealOffers" error:error];
         return nil;
     }
     @finally {
@@ -481,9 +330,7 @@
         }
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the ttDealOffer object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getDealOffers" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the deal offers: %@",e.description);
+        [errorManager handleCoreDataException:e forMethod:@"getDealOffers" entity:@"ttDealOffer" error:error];
         return nil;
     }
     
@@ -492,31 +339,12 @@
 
 - (void) purchaseDealOffer:(ttCustomer *)customer dealOfferId:(NSString *)dealOfferId error:(NSError**)error
 {
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service purchaseDealOffer:dealOfferId];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to purchaseDealOffer, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"purchaseDealOffer" code:200 userInfo:details];
-        NSLog(@"failed to purchaseDealOffer: %@",se.description);
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to purchaseDealOffer; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"purchaseDealOffer" code:200 userInfo:details];
-        NSLog(@"failed to purchaseDealOffer: %@",tae.description);
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to purchaseDealOffer, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"purchaseDealOffer" code:200 userInfo:details];
-        NSLog(@"failed to purchaseDealOffer: %@",tpe.description);
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to purchaseDealOffer... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"purchaseDealOffer" code:200 userInfo:details];
-        NSLog(@"failed to purchaseDealOffer: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"purchaseDealOffer" error:error];
     }
     @finally {
         [self disconnect];
@@ -529,8 +357,7 @@
     NSLog(@"FIX IT: GET MERCHANTS WITH RANGE (%d miles): Queue this server call if needed.", INFINITE_PROXIMITY);
     
     NSMutableArray *merchants;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
+
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         Location_t *loc = [[Location_t alloc] initWithLongitude:longitude latitude:latitude];
@@ -541,28 +368,8 @@
         [options setSortProperty:@"merchant.locations.distanceInMeters"];
         merchants = [service getMerchantsWithin:loc maxMiles:INFINITE_PROXIMITY searchOptions:options];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to getMerchantsWithin, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
-        NSLog(@"failed to getMerchantsWithin: %@",se.description);
-        return nil;
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to getMerchantsWithin; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
-        NSLog(@"failed to getMerchantsWithin: %@",tae.description);
-        return nil;
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to getMerchantsWithin, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
-        NSLog(@"failed to getMerchantsWithin: %@",tpe.description);
-        return nil;
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to getMerchantsWithin... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
-        NSLog(@"failed to getMerchantsWithin: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"getMerchantsWithin" error:error];
         return nil;
     }
     @finally {
@@ -578,9 +385,7 @@
         }
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the ttMerchant object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantsWithin" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        [errorManager handleCoreDataException:e forMethod:@"getMerchantsWithin" entity:@"ttMerchant" error:error];
         return nil;
     }
     
@@ -589,31 +394,12 @@
 
 - (void) addFavoriteMerchant:(ttCustomer *)customer merchantId:(NSString *)merchantId error:(NSError**)error
 {
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service addFavoriteMerchant:merchantId];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to addFavoriteMerchant, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"addFavoriteMerchant" code:200 userInfo:details];
-        NSLog(@"failed to addFavoriteMerchant: %@",se.description);
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to addFavoriteMerchant; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"addFavoriteMerchant" code:200 userInfo:details];
-        NSLog(@"failed to addFavoriteMerchant: %@",tae.description);
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to addFavoriteMerchant, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"addFavoriteMerchant" code:200 userInfo:details];
-        NSLog(@"failed to addFavoriteMerchant: %@",tpe.description);
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to addFavoriteMerchant... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"addFavoriteMerchant" code:200 userInfo:details];
-        NSLog(@"failed to addFavoriteMerchant: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"addFavoriteMerchant" error:error];
     }
     @finally {
         [self disconnect];
@@ -622,31 +408,12 @@
 
 - (void) removeFavoriteMerchant:(ttCustomer *)customer merchantId:(NSString *)merchantId error:(NSError**)error
 {
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service removeFavoriteMerchant:merchantId];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to removeFavoriteMerchant, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"removeFavoriteMerchant" code:200 userInfo:details];
-        NSLog(@"failed to removeFavoriteMerchant: %@",se.description);
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to removeFavoriteMerchant; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"removeFavoriteMerchant" code:200 userInfo:details];
-        NSLog(@"failed to removeFavoriteMerchant: %@",tae.description);
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to removeFavoriteMerchant, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"removeFavoriteMerchant" code:200 userInfo:details];
-        NSLog(@"failed to removeFavoriteMerchant: %@",tpe.description);
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to removeFavoriteMerchant... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"removeFavoriteMerchant" code:200 userInfo:details];
-        NSLog(@"failed to removeFavoriteMerchant: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"removeFavoriteMerchant" error:error];
     }
     @finally {
         [self disconnect];
@@ -659,8 +426,7 @@
     NSLog(@"FIX IT: GET FAVORITE MERCHANTS: Queue this server call if needed.");
     
     NSMutableArray *merchants;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
+
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
@@ -670,28 +436,8 @@
         [options setSortProperty:@"merchant.name"];
         merchants = [service getFavoriteMerchants:options];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to getFavoriteMerchants, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
-        NSLog(@"failed to getFavoriteMerchants: %@",se.description);
-        return nil;
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to getFavoriteMerchants; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
-        NSLog(@"failed to getFavoriteMerchants: %@",tae.description);
-        return nil;
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to getFavoriteMerchants, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
-        NSLog(@"failed to getFavoriteMerchants: %@",tpe.description);
-        return nil;
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to getFavoriteMerchants... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
-        NSLog(@"failed to getFavoriteMerchants: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"getFavoriteMerchants" error:error];
         return nil;
     }
     @finally {
@@ -708,9 +454,7 @@
         }
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the ttMerchant object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getFavoriteMerchants" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        [errorManager handleCoreDataException:e forMethod:@"getFavoriteMerchants" entity:@"ttMerchant" error:error];
         return nil;
     }
     
@@ -723,34 +467,13 @@
     NSLog(@"FIX IT: GET CATEGORIES: Queue this server call if needed.");
     
     NSMutableArray *categories;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
     
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         categories = [service getCategories];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to getCategories, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
-        NSLog(@"failed to getCategories: %@",se.description);
-        return nil;
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to getCategories; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
-        NSLog(@"failed to getCategories: %@",tae.description);
-        return nil;
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to getCategories, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
-        NSLog(@"failed to getCategories: %@",tpe.description);
-        return nil;
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to getCategories... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
-        NSLog(@"failed to getCategories: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"getCategories" error:error];
         return nil;
     }
     @finally {
@@ -766,9 +489,7 @@
         }
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the ttCategory object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getCategories" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the categories: %@",e.description);
+        [errorManager handleCoreDataException:e forMethod:@"getCategories" entity:@"ttCategory" error:error];
         return nil;
     }
     
@@ -781,8 +502,7 @@
     NSLog(@"FIX IT: GET MERCHANTS BY CATEGORY: Queue this server call if needed.");
     
     NSMutableArray *merchants;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
+
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
@@ -793,28 +513,8 @@
         int32_t catId = [category.categoryId intValue];
         merchants = [service getMerchantAcquiresByCategory:catId searchOptions:options];
     }
-    @catch (ServiceException_t * se) {
-        [details setValue:@"Failed to getMerchantAcquiresByCategory, service failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
-        NSLog(@"failed to getMerchantAcquiresByCategory: %@",se.description);
-        return nil;
-    }
-    @catch (TApplicationException * tae) {
-        [details setValue:@"Failed to getMerchantAcquiresByCategory; app failed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
-        NSLog(@"failed to getMerchantAcquiresByCategory: %@",tae.description);
-        return nil;
-    }
-    @catch (TTransportException * tpe) {
-        [details setValue:@"Failed to getMerchantAcquiresByCategory, cuz the server barfed." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
-        NSLog(@"failed to getMerchantAcquiresByCategory: %@",tpe.description);
-        return nil;
-    }
     @catch (NSException * e) {
-        [details setValue:@"Failed to getMerchantAcquiresByCategory... who knows why." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
-        NSLog(@"failed to getMerchantAcquiresByCategory: %@",e.description);
+        [errorManager handleServiceException:e forMethod:@"getMerchantAcquiresByCategory" error:error];
         return nil;
     }
     @finally {
@@ -831,9 +531,7 @@
         }
     }
     @catch (NSException * e) {
-        [details setValue:@"Failed to create the ttMerchant object." forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"getMerchantAcquiresByCategory" code:200 userInfo:details];
-        NSLog(@"failed to hydrate the merchants: %@",e.description);
+        [errorManager handleCoreDataException:e forMethod:@"getMerchantAcquiresByCategory" entity:@"ttCategory" error:error];
         return nil;
     }
     

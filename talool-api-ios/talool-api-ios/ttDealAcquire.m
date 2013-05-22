@@ -54,7 +54,7 @@
 - (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context
 {
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    NSError *redeemError = nil;
+    NSError *redeemError;
     
     CustomerController *cController = [[CustomerController alloc] init];
     [cController redeem:self latitude:latitude longitude:longitude error:&redeemError];
@@ -63,7 +63,7 @@
     {
         [self setRedeemed:[[NSDate alloc] initWithTimeIntervalSinceNow:0]];
 
-        NSError *saveError = nil;
+        NSError *saveError;
         if (![context save:&saveError]) {
             NSLog(@"API: OH SHIT!!!! Failed to save context after redeemHere: %@ %@",saveError, [saveError userInfo]);
             [details setValue:@"Failed to save context after redeemHere." forKey:NSLocalizedDescriptionKey];
@@ -87,7 +87,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
     [request setEntity:entity];
     
-    NSError *error = nil;
+    NSError *error;
     NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
     
     if (fetchedObj == nil || [fetchedObj count] == 0)
