@@ -28,7 +28,7 @@
                                               inManagedObjectContext:context];
     
     sa.loginId = loginId;
-    sa.socialNetwork = [[NSNumber alloc] initWithInt:1]; // TODO use the values defined in thrift, or the persistence helper
+    sa.socialNetwork = [[NSNumber alloc] initWithInt:SocialNetwork_t_Facebook];
     return sa;
 }
 
