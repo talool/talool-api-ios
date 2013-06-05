@@ -227,16 +227,19 @@
     customer.lastName = self.lastName;
     customer.email = self.email;
     customer.sex = [self.sex integerValue];
+    customer.birthDate = [self.birthDate timeIntervalSince1970];
     
     customer.customerId = self.customerId;
     
     NSEnumerator *enumerator = [self.socialAccounts objectEnumerator];
+    NSMutableDictionary *socialAccounts = [[NSMutableDictionary alloc] init];
     ttSocialAccount *sa;
     SocialAccount_t *sat;
     while (sa = [enumerator nextObject]) {
         sat = [sa hydrateThriftObject];
-        [customer.socialAccounts setObject:sat forKey:[[NSNumber alloc] initWithInt:SocialNetwork_t_Facebook]];
+        [socialAccounts setObject:sat forKey:[[NSNumber alloc] initWithInt:SocialNetwork_t_Facebook]];
     }
+    [customer setSocialAccounts:socialAccounts];
     
     return customer;
 }
