@@ -11,7 +11,7 @@
 #import "TaloolCustomer.h"
 #import "ttToken.h"
 
-@class Customer_t, ttMerchant;
+@class Customer_t, ttMerchant, ttSocialAccount;
 
 @interface ttCustomer : TaloolCustomer
 
@@ -23,7 +23,6 @@
 + (void)logoutUser:(NSManagedObjectContext *)context;
 + (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err;
 + (void) registerCustomer:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err;
-+ (void) saveCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err;
 + (BOOL) doesCustomerExist:(NSString *) email;
 + (NSString *)nonrandomPassword:(NSString *)seed;
 + (NSString *) randomPassword:(int)length;
@@ -54,6 +53,20 @@
                               context:(NSManagedObjectContext *)context
                                 error:(NSError **)err;
 
+- (NSArray *) getGifts:(NSManagedObjectContext *)context
+                 error:(NSError **)err;
+- (BOOL)giftToFacebook:(NSString *)dealAcquireId
+            facebookId:(NSString *)facebookId
+        receipientName:(NSString *)receipientName
+                 error:(NSError**)error;
+- (BOOL)giftToEmail:(NSString *)dealAcquireId
+              email:(NSString *)email
+     receipientName:(NSString *)receipientName
+              error:(NSError**)error;
+- (BOOL)acceptGift:(NSString *)giftId
+             error:(NSError**)error;
+- (BOOL)rejectGift:(NSString *)giftId
+             error:(NSError**)error;
 
 
 @end

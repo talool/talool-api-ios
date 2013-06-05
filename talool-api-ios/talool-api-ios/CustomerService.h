@@ -52,8 +52,8 @@
 - (CTokenAccess_t *) createAccount: (Customer_t *) customer password: (NSString *) password;  // throws ServiceException_t *, TException
 - (CTokenAccess_t *) authenticate: (NSString *) email password: (NSString *) password;  // throws ServiceException_t *, TException
 - (BOOL) customerEmailExists: (NSString *) email;  // throws ServiceException_t *, TException
-- (void) save: (Customer_t *) customer;  // throws ServiceException_t *, TException
 - (void) addSocialAccount: (SocialAccount_t *) socialAccount;  // throws ServiceException_t *, TException
+- (void) removeSocialAccount: (int) socialNetwork;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getMerchantAcquires: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getMerchantAcquiresByCategory: (int32_t) categoryId searchOptions: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getDealAcquires: (NSString *) merchantId searchOptions: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
@@ -65,6 +65,11 @@
 - (void) removeFavoriteMerchant: (NSString *) merchantId;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getFavoriteMerchants: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getCategories;  // throws ServiceException_t *, TException
+- (void) giftToFacebook: (NSString *) dealAcquireId facebookId: (NSString *) facebookId receipientName: (NSString *) receipientName;  // throws ServiceException_t *, TException
+- (void) giftToEmail: (NSString *) dealAcquireId email: (NSString *) email receipientName: (NSString *) receipientName;  // throws ServiceException_t *, TException
+- (NSMutableArray *) getGifts;  // throws ServiceException_t *, TException
+- (void) acceptGift: (NSString *) giftId;  // throws ServiceException_t *, TException
+- (void) rejectGift: (NSString *) giftId;  // throws ServiceException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {

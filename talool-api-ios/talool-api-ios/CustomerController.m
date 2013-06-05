@@ -17,6 +17,7 @@
 #import "ttDealAcquire.h"
 #import "ttDealOffer.h"
 #import "ttCategory.h"
+#import "ttGift.h"
 #import "Core.h"
 #import "CustomerService.h"
 #import "TaloolFrameworkHelper.h"
@@ -161,28 +162,6 @@
     }
     
     return customer;
-}
-
-- (void)save:(ttCustomer *)customer error:(NSError**)error
-{
-    // TODO Queue it!
-    NSLog(@"FIX IT: SAVE: Queue this server call if needed.");
-    
-    // Convert the core data obj to a thrift object
-    Customer_t *newCustomer = [customer hydrateThriftObject];
-    
-    @try {
-        // Do the Thrift Save
-        [self connectWithToken:(ttToken *)customer.token];
-        [service save:newCustomer];
-    }
-    @catch (NSException * e) {
-        [errorManager handleServiceException:e forMethod:@"save" error:error];
-    }
-    @finally {
-        [self disconnect];
-    }
-    return;
 }
 
 - (BOOL)userExists:(NSString *) email
@@ -536,6 +515,131 @@
     }
     
     return merchants;
+}
+
+- (BOOL) giftToFacebook:(ttCustomer *)customer
+          dealAcquireId:(NSString *)dealAcquireId
+             facebookId:(NSString *)facebookId
+         receipientName:(NSString *)receipientName
+                  error:(NSError**)error
+{
+    BOOL success;
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [service giftToFacebook:dealAcquireId facebookId:facebookId receipientName:receipientName];
+        success = YES;
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"giftToFacebook" error:error];
+        success = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    return success;
+}
+
+- (BOOL) giftToEmail:(ttCustomer *)customer
+       dealAcquireId:(NSString *)dealAcquireId
+               email:(NSString *)email
+      receipientName:(NSString *)receipientName
+               error:(NSError**)error
+{
+    BOOL success;
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [service giftToEmail:dealAcquireId email:email receipientName:receipientName];
+        success = YES;
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"giftToEmail" error:error];
+        success = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    return success;
+}
+
+- (NSMutableArray *) getGifts:(ttCustomer *)customer
+                      context:(NSManagedObjectContext *)context
+                        error:(NSError**)error
+{
+    // TODO Queue it!
+    NSLog(@"FIX IT: GET GIFTS: Queue this server call if needed.");
+    
+    NSMutableArray *gifts;
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        gifts = [service getGifts];
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"getGifts" error:error];
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response
+        for (int i=0; i<[gifts count]; i++) {
+            Gift_t *td = [gifts objectAtIndex:i];
+            ttGift *d = [ttGift initWithThrift:td context:context];
+            [gifts setObject:d atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [errorManager handleCoreDataException:e forMethod:@"getGifts" entity:@"ttGift" error:error];
+        return nil;
+    }
+    
+    return gifts;
+}
+
+- (BOOL) acceptGift:(ttCustomer *)customer
+             giftId:(NSString *)giftId
+              error:(NSError**)error
+{
+    BOOL success;
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [service acceptGift:giftId];
+        success = YES;
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"acceptGift" error:error];
+        success = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    return success;
+}
+
+- (BOOL) rejectGift:(ttCustomer *)customer
+             giftId:(NSString *)giftId
+              error:(NSError**)error
+{
+    BOOL success;
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [service rejectGift:giftId];
+        success = YES;
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"rejectGift" error:error];
+        success = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    return success;
 }
 
 

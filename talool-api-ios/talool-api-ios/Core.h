@@ -186,35 +186,32 @@ typedef int64_t Timestamp;
 @end
 
 @interface SocialAccount_t : NSObject <NSCoding> {
-  int __socalNetwork;
+  int __socialNetwork;
   NSString * __loginId;
   Timestamp __created;
-  Timestamp __updated;
 
-  BOOL __socalNetwork_isset;
+  BOOL __socialNetwork_isset;
   BOOL __loginId_isset;
   BOOL __created_isset;
-  BOOL __updated_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=socalNetwork, setter=setSocalNetwork:) int socalNetwork;
+@property (nonatomic, getter=socialNetwork, setter=setSocialNetwork:) int socialNetwork;
 @property (nonatomic, retain, getter=loginId, setter=setLoginId:) NSString * loginId;
 @property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
-@property (nonatomic, getter=updated, setter=setUpdated:) Timestamp updated;
 #endif
 
 - (id) init;
-- (id) initWithSocalNetwork: (int) socalNetwork loginId: (NSString *) loginId created: (Timestamp) created updated: (Timestamp) updated;
+- (id) initWithSocialNetwork: (int) socialNetwork loginId: (NSString *) loginId created: (Timestamp) created;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if !__has_feature(objc_arc)
-- (int) socalNetwork;
-- (void) setSocalNetwork: (int) socalNetwork;
+- (int) socialNetwork;
+- (void) setSocialNetwork: (int) socialNetwork;
 #endif
-- (BOOL) socalNetworkIsSet;
+- (BOOL) socialNetworkIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSString *) loginId;
@@ -227,12 +224,6 @@ typedef int64_t Timestamp;
 - (void) setCreated: (Timestamp) created;
 #endif
 - (BOOL) createdIsSet;
-
-#if !__has_feature(objc_arc)
-- (Timestamp) updated;
-- (void) setUpdated: (Timestamp) updated;
-#endif
-- (BOOL) updatedIsSet;
 
 @end
 
@@ -416,6 +407,7 @@ typedef int64_t Timestamp;
   NSString * __lastName;
   NSString * __email;
   int __sex;
+  Timestamp __birthDate;
   NSMutableDictionary * __socialAccounts;
   Timestamp __created;
   Timestamp __updated;
@@ -425,6 +417,7 @@ typedef int64_t Timestamp;
   BOOL __lastName_isset;
   BOOL __email_isset;
   BOOL __sex_isset;
+  BOOL __birthDate_isset;
   BOOL __socialAccounts_isset;
   BOOL __created_isset;
   BOOL __updated_isset;
@@ -436,13 +429,14 @@ typedef int64_t Timestamp;
 @property (nonatomic, retain, getter=lastName, setter=setLastName:) NSString * lastName;
 @property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
 @property (nonatomic, getter=sex, setter=setSex:) int sex;
+@property (nonatomic, getter=birthDate, setter=setBirthDate:) Timestamp birthDate;
 @property (nonatomic, retain, getter=socialAccounts, setter=setSocialAccounts:) NSMutableDictionary * socialAccounts;
 @property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
 @property (nonatomic, getter=updated, setter=setUpdated:) Timestamp updated;
 #endif
 
 - (id) init;
-- (id) initWithCustomerId: (NSString *) customerId firstName: (NSString *) firstName lastName: (NSString *) lastName email: (NSString *) email sex: (int) sex socialAccounts: (NSMutableDictionary *) socialAccounts created: (Timestamp) created updated: (Timestamp) updated;
+- (id) initWithCustomerId: (NSString *) customerId firstName: (NSString *) firstName lastName: (NSString *) lastName email: (NSString *) email sex: (int) sex birthDate: (Timestamp) birthDate socialAccounts: (NSMutableDictionary *) socialAccounts created: (Timestamp) created updated: (Timestamp) updated;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -478,6 +472,12 @@ typedef int64_t Timestamp;
 - (BOOL) sexIsSet;
 
 #if !__has_feature(objc_arc)
+- (Timestamp) birthDate;
+- (void) setBirthDate: (Timestamp) birthDate;
+#endif
+- (BOOL) birthDateIsSet;
+
+#if !__has_feature(objc_arc)
 - (NSMutableDictionary *) socialAccounts;
 - (void) setSocialAccounts: (NSMutableDictionary *) socialAccounts;
 #endif
@@ -500,7 +500,7 @@ typedef int64_t Timestamp;
 @interface Token_t : NSObject <NSCoding> {
   NSString * __accountId;
   NSString * __email;
-  int64_t __expires;
+  Timestamp __expires;
 
   BOOL __accountId_isset;
   BOOL __email_isset;
@@ -510,11 +510,11 @@ typedef int64_t Timestamp;
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=accountId, setter=setAccountId:) NSString * accountId;
 @property (nonatomic, retain, getter=email, setter=setEmail:) NSString * email;
-@property (nonatomic, getter=expires, setter=setExpires:) int64_t expires;
+@property (nonatomic, getter=expires, setter=setExpires:) Timestamp expires;
 #endif
 
 - (id) init;
-- (id) initWithAccountId: (NSString *) accountId email: (NSString *) email expires: (int64_t) expires;
+- (id) initWithAccountId: (NSString *) accountId email: (NSString *) email expires: (Timestamp) expires;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -532,8 +532,8 @@ typedef int64_t Timestamp;
 - (BOOL) emailIsSet;
 
 #if !__has_feature(objc_arc)
-- (int64_t) expires;
-- (void) setExpires: (int64_t) expires;
+- (Timestamp) expires;
+- (void) setExpires: (Timestamp) expires;
 #endif
 - (BOOL) expiresIsSet;
 
@@ -846,7 +846,6 @@ typedef int64_t Timestamp;
   NSString * __dealAcquireId;
   Deal_t * __deal;
   NSString * __status;
-  Merchant_t * __sharedByMerchant;
   Customer_t * __sharedByCustomer;
   int32_t __shareCount;
   Timestamp __redeemed;
@@ -856,7 +855,6 @@ typedef int64_t Timestamp;
   BOOL __dealAcquireId_isset;
   BOOL __deal_isset;
   BOOL __status_isset;
-  BOOL __sharedByMerchant_isset;
   BOOL __sharedByCustomer_isset;
   BOOL __shareCount_isset;
   BOOL __redeemed_isset;
@@ -868,7 +866,6 @@ typedef int64_t Timestamp;
 @property (nonatomic, retain, getter=dealAcquireId, setter=setDealAcquireId:) NSString * dealAcquireId;
 @property (nonatomic, retain, getter=deal, setter=setDeal:) Deal_t * deal;
 @property (nonatomic, retain, getter=status, setter=setStatus:) NSString * status;
-@property (nonatomic, retain, getter=sharedByMerchant, setter=setSharedByMerchant:) Merchant_t * sharedByMerchant;
 @property (nonatomic, retain, getter=sharedByCustomer, setter=setSharedByCustomer:) Customer_t * sharedByCustomer;
 @property (nonatomic, getter=shareCount, setter=setShareCount:) int32_t shareCount;
 @property (nonatomic, getter=redeemed, setter=setRedeemed:) Timestamp redeemed;
@@ -877,7 +874,7 @@ typedef int64_t Timestamp;
 #endif
 
 - (id) init;
-- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (NSString *) status sharedByMerchant: (Merchant_t *) sharedByMerchant sharedByCustomer: (Customer_t *) sharedByCustomer shareCount: (int32_t) shareCount redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated;
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (NSString *) status sharedByCustomer: (Customer_t *) sharedByCustomer shareCount: (int32_t) shareCount redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -899,12 +896,6 @@ typedef int64_t Timestamp;
 - (void) setStatus: (NSString *) status;
 #endif
 - (BOOL) statusIsSet;
-
-#if !__has_feature(objc_arc)
-- (Merchant_t *) sharedByMerchant;
-- (void) setSharedByMerchant: (Merchant_t *) sharedByMerchant;
-#endif
-- (BOOL) sharedByMerchantIsSet;
 
 #if !__has_feature(objc_arc)
 - (Customer_t *) sharedByCustomer;
@@ -935,6 +926,57 @@ typedef int64_t Timestamp;
 - (void) setUpdated: (Timestamp) updated;
 #endif
 - (BOOL) updatedIsSet;
+
+@end
+
+@interface Gift_t : NSObject <NSCoding> {
+  NSString * __giftId;
+  Deal_t * __deal;
+  Customer_t * __fromCustomer;
+  Timestamp __created;
+
+  BOOL __giftId_isset;
+  BOOL __deal_isset;
+  BOOL __fromCustomer_isset;
+  BOOL __created_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=giftId, setter=setGiftId:) NSString * giftId;
+@property (nonatomic, retain, getter=deal, setter=setDeal:) Deal_t * deal;
+@property (nonatomic, retain, getter=fromCustomer, setter=setFromCustomer:) Customer_t * fromCustomer;
+@property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
+#endif
+
+- (id) init;
+- (id) initWithGiftId: (NSString *) giftId deal: (Deal_t *) deal fromCustomer: (Customer_t *) fromCustomer created: (Timestamp) created;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) giftId;
+- (void) setGiftId: (NSString *) giftId;
+#endif
+- (BOOL) giftIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (Deal_t *) deal;
+- (void) setDeal: (Deal_t *) deal;
+#endif
+- (BOOL) dealIsSet;
+
+#if !__has_feature(objc_arc)
+- (Customer_t *) fromCustomer;
+- (void) setFromCustomer: (Customer_t *) fromCustomer;
+#endif
+- (BOOL) fromCustomerIsSet;
+
+#if !__has_feature(objc_arc)
+- (Timestamp) created;
+- (void) setCreated: (Timestamp) created;
+#endif
+- (BOOL) createdIsSet;
 
 @end
 

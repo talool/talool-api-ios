@@ -38,7 +38,7 @@
                                            insertNewObjectForEntityForName:SOCIAL_ACCOUNT_ENTITY_NAME
                                            inManagedObjectContext:context];
     ttsa.loginId = sa.loginId;
-    ttsa.socialNetwork = [[NSNumber alloc] initWithInt:sa.socalNetwork];
+    ttsa.socialNetwork = [[NSNumber alloc] initWithInt:sa.socialNetwork];
     return ttsa;
 }
 
@@ -46,7 +46,7 @@
 {
     SocialAccount_t *sa = [[SocialAccount_t alloc] init];
     sa.loginId = self.loginId;
-    sa.socalNetwork = [self.socialNetwork intValue];
+    sa.socialNetwork = [self.socialNetwork intValue];
     return sa;
 }
 

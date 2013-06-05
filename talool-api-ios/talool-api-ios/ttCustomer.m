@@ -12,7 +12,7 @@
 #import "TaloolPersistentStoreCoordinator.h"
 #import "MerchantController.h"
 #import "CustomerController.h"
-#import "talool-api-ios/ttMerchant.h"
+#import "ttMerchant.h"
 
 
 @implementation ttCustomer
@@ -144,27 +144,6 @@
     } else {
         [details setValue:@"Failed to register user." forKey:NSLocalizedDescriptionKey];
         *err = [NSError errorWithDomain:@"reg" code:200 userInfo:details];
-    }
-}
-
-+ (void) saveCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
-{
-    CustomerController *cController = [[CustomerController alloc] init];
-    NSError *saveError;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-
-    [cController save:customer error:&saveError];
-    if (saveError.code < 100) {
-        NSError *saveError2;
-        if (![context save:&saveError2]) {
-            NSLog(@"API: OH SHIT!!!! Failed to save context after save: %@ %@",saveError2, [saveError2 userInfo]);
-            [details setValue:@"Failed to save context after save." forKey:NSLocalizedDescriptionKey];
-            *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
-        }
-    } else {
-        // TODO queue up this action to be saved later
-        [details setValue:@"Failed to save user." forKey:NSLocalizedDescriptionKey];
-        *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
     }
 }
 
@@ -417,6 +396,45 @@
     if (![context save:&saveError]) {
         NSLog(@"API: OH SHIT!!!! Failed to save context after getFavoriteMerchants: %@ %@",saveError, [saveError userInfo]);
     }
+}
+
+- (NSArray *) getGifts:(NSManagedObjectContext *)context
+                 error:(NSError **)err
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc getGifts:self context:context error:err];
+}
+
+- (BOOL)giftToFacebook:(NSString *)dealAcquireId
+            facebookId:(NSString *)facebookId
+        receipientName:(NSString *)receipientName
+                 error:(NSError**)error;
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc giftToFacebook:self dealAcquireId:dealAcquireId facebookId:facebookId receipientName:receipientName error:error];
+}
+
+- (BOOL)giftToEmail:(NSString *)dealAcquireId
+              email:(NSString *)email
+     receipientName:(NSString *)receipientName
+              error:(NSError**)error
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc giftToEmail:self dealAcquireId:dealAcquireId email:email receipientName:receipientName error:error];
+}
+
+- (BOOL)acceptGift:(NSString *)giftId
+             error:(NSError**)error;
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc acceptGift:self giftId:giftId error:error];
+}
+
+- (BOOL)rejectGift:(NSString *)giftId
+             error:(NSError**)error
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc rejectGift:self giftId:giftId error:error];
 }
 
 @end

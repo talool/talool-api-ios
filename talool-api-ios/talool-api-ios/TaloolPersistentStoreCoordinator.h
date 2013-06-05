@@ -26,6 +26,7 @@ extern NSString * const SOCIAL_NETWORK_DETAIL_ENTITY_NAME;
 extern NSString * const TOKEN_ENTITY_NAME;
 extern NSString * const FRIEND_ENTITY_NAME;
 extern NSString * const DEAL_ENTITY_NAME;
+extern NSString * const GIFT_ENTITY_NAME;
 extern NSString * const DEAL_ACQUIRE_ENTITY_NAME;
 extern NSString * const DEAL_OFFER_ENTITY_NAME;
 extern NSString * const CATEGORY_ENTITY_NAME;

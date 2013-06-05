@@ -11,6 +11,8 @@
 #import "Core.h"
 #import "CustomerService.h"
 
+static NSString *errorFormat = @"Failed %@.  Reason: %@";
+
 @implementation TaloolErrorHandler
 
 - (void) handleServiceException:(NSException *)exception domain:(NSString *)domain method:(NSString *)method error:(NSError **)error
@@ -64,12 +66,12 @@
 
 - (NSString *) getServiceDetails:(NSString *)what why:(NSString *) why
 {
-    return [NSString stringWithFormat:NSLocalizedString(@"Failed for %@.  Reason: %@", nil), what, why];
+    return [NSString stringWithFormat:errorFormat, what, why];
 }
 
 - (NSString *) getCoreDataDetails:(NSString *)what where:(NSString *)where
 {
-    return [NSString stringWithFormat:NSLocalizedString(@"Failed for %@.  Entity: %@", nil), what, where];
+    return [NSString stringWithFormat:errorFormat, what, where];
 }
 
 @end

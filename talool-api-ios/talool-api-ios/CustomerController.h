@@ -19,7 +19,6 @@
 // CUSTOMERS
 - (ttCustomer *)registerUser:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
-- (void)save:(ttCustomer *)customer error:(NSError**)error;
 - (BOOL)userExists:(NSString *) email;
 
 // MERCHANTS
@@ -37,6 +36,27 @@
 - (void)redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error;
 - (NSMutableArray *) getDealOffers:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (void) purchaseDealOffer:(ttCustomer *)customer dealOfferId:(NSString *)dealOfferId error:(NSError**)error;
+
+// GIFTS
+- (BOOL) giftToFacebook:(ttCustomer *)customer
+          dealAcquireId:(NSString *)dealAcquireId
+             facebookId:(NSString *)facebookId
+         receipientName:(NSString *)receipientName
+                  error:(NSError**)error;
+- (BOOL) giftToEmail:(ttCustomer *)customer
+       dealAcquireId:(NSString *)dealAcquireId
+               email:(NSString *)email
+      receipientName:(NSString *)receipientName
+               error:(NSError**)error;
+- (NSMutableArray *) getGifts:(ttCustomer *)customer
+                      context:(NSManagedObjectContext *)context
+                        error:(NSError**)error;
+- (BOOL) acceptGift:(ttCustomer *)customer
+             giftId:(NSString *)giftId
+              error:(NSError**)error;
+- (BOOL) rejectGift:(ttCustomer *)customer
+             giftId:(NSString *)giftId
+              error:(NSError**)error;
 
 
 @end
