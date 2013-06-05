@@ -8,6 +8,7 @@
 
 #import "ttCustomer.h"
 #import "ttSocialAccount.h"
+#import "TaloolCustomerUX.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "MerchantController.h"
@@ -29,6 +30,11 @@
     customer.email = c.email;
     customer.sex = [[NSNumber alloc] initWithInt:c.sex];
     customer.customerId = c.customerId;
+    
+    customer.ux = [NSEntityDescription
+                                          insertNewObjectForEntityForName:CUSTOMER_UX_ENTITY_NAME
+                                          inManagedObjectContext:context];
+    
     
     if (c.socialAccountsIsSet) {
         NSMutableArray *keys = [[NSMutableArray alloc] initWithArray:[c.socialAccounts allKeys]];

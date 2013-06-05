@@ -10,6 +10,7 @@
 #import "TaloolFrameworkHelper.h"
 
 NSString * const CUSTOMER_ENTITY_NAME = @"TaloolCustomer";
+NSString * const CUSTOMER_UX_ENTITY_NAME = @"TaloolCustomerUX";
 NSString * const ADDRESS_ENTITY_NAME = @"TaloolAddress";
 NSString * const MERCHANT_ENTITY_NAME = @"TaloolMerchant";
 NSString * const MERCHANT_LOCATION_ENTITY_NAME = @"TaloolMerchantLocation";

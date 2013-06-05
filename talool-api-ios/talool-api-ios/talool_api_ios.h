@@ -22,6 +22,7 @@
 #import <talool-api-ios/ttSocialAccount.h>
 #import <talool-api-ios/ttSocialNetworkDetail.h>
 #import <talool-api-ios/TaloolSearchOption.h>
+#import <talool-api-ios/TaloolCustomerUX.h>
 
 @interface talool_api_ios : NSObject
 

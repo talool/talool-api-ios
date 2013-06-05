@@ -17,6 +17,7 @@
 @end
 
 extern NSString * const CUSTOMER_ENTITY_NAME;
+extern NSString * const CUSTOMER_UX_ENTITY_NAME;
 extern NSString * const ADDRESS_ENTITY_NAME;
 extern NSString * const MERCHANT_ENTITY_NAME;
 extern NSString * const MERCHANT_LOCATION_ENTITY_NAME;
