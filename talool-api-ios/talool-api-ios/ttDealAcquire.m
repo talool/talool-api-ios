@@ -25,10 +25,6 @@
     
     newDeal.dealAcquireId = deal.dealAcquireId;
     newDeal.deal = [ttDeal initWithThrift:deal.deal merchant:merchant context:context];
-    if (newDeal.deal.expires < [NSDate date])
-    {
-        newDeal.invalidated = newDeal.deal.expires;
-    }
     newDeal.status = [[NSNumber alloc] initWithUnsignedInteger:deal.status];
     newDeal.shareCount = [[NSNumber alloc] initWithUnsignedInteger:deal.shareCount];
     
@@ -37,6 +33,11 @@
     {
         newDeal.redeemed = [[NSDate alloc] initWithTimeIntervalSince1970:(deal.redeemed/1000)];
         newDeal.invalidated = newDeal.redeemed;
+    }
+    
+    if ([newDeal hasExpired])
+    {
+        newDeal.invalidated = newDeal.deal.expires;
     }
     
     return newDeal;
@@ -66,12 +67,13 @@
 
 - (BOOL) hasExpired
 {
+    NSDate *now = [NSDate date];
     if (self.deal.expires == nil) {
         return NO;
     }
-    else if (self.deal.expires < [NSDate date])
+    //else if (self.deal.expires < [NSDate date])
+    else if ([now compare:self.deal.expires] == NSOrderedDescending)
     {
-        self.invalidated = self.deal.expires;
         return YES;
     }
     return NO;

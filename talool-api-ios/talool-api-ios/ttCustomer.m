@@ -78,6 +78,7 @@
     NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
     for (int i=0; i < [mutableFetchResults count]; i++) {
         [context deleteObject:[mutableFetchResults objectAtIndex:i]];
+        NSLog(@"deleted %@",enitityName);
     }
 }
 
@@ -100,6 +101,8 @@
         NSLog(@"FAIL: Too many users stored!!!");
         [ttCustomer clearUsers:context];
     }
+    
+    //NSLog(@"customer token: %@",user.token.token);
     
     return user;
 }
@@ -471,6 +474,18 @@
 - (void) showedDealRedemptionInstructions
 {
     self.ux.redeemPreviewCount = [NSNumber numberWithInt:[self.ux.redeemPreviewCount intValue] + 1];
+}
+
+- (BOOL)isFacebookUser
+{
+    NSEnumerator *e = [self.socialAccounts objectEnumerator];
+    ttSocialAccount *sa;
+    while (sa = [e nextObject]) {
+        if ([sa.socialNetwork intValue] == SocialNetwork_t_Facebook) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end
