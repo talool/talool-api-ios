@@ -2,13 +2,13 @@
 //  TaloolDealAcquire.m
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 6/5/13.
+//  Created by Douglas McCuen on 6/6/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import "TaloolDealAcquire.h"
-#import "TaloolDeal.h"
-#import "ttCustomer.h"
+#import "TaloolCustomer.h"
+#import "ttDeal.h"
 
 
 @implementation TaloolDealAcquire
@@ -19,6 +19,8 @@
 @dynamic shareCount;
 @dynamic status;
 @dynamic updated;
+@dynamic shared;
+@dynamic invalidated;
 @dynamic deal;
 @dynamic sharedBy;
 

@@ -7,7 +7,7 @@
 //
 
 #import "ttGift.h"
-#import "ttCustomer.h"
+#import "ttFriend.h"
 #import "ttDeal.h"
 #import "ttMerchant.h"
 #import "ttDealAcquire.h"
@@ -26,7 +26,7 @@
     newGift.created = [[NSDate alloc] initWithTimeIntervalSince1970:(gift.created/1000)];
     ttMerchant *merch = [ttMerchant initWithThrift:gift.deal.merchant context:context];
     newGift.deal = [ttDeal initWithThrift:gift.deal merchant:merch context:context];
-    newGift.fromCustomer = [ttCustomer initWithThrift:gift.fromCustomer context:context];
+    newGift.fromCustomer = [ttFriend initWithThrift:gift.fromCustomer context:context];
     
     return newGift;
 }
@@ -37,7 +37,6 @@
     
     gift.giftId = self.giftId;
     gift.deal = [(ttDeal *)self.deal hydrateThriftObject];
-    gift.fromCustomer = [(ttCustomer *)self.fromCustomer hydrateThriftObject];
     
     return gift;
 }

@@ -25,6 +25,10 @@
     
     newDeal.dealAcquireId = deal.dealAcquireId;
     newDeal.deal = [ttDeal initWithThrift:deal.deal merchant:merchant context:context];
+    if (newDeal.deal.expires < [NSDate date])
+    {
+        newDeal.invalidated = newDeal.deal.expires;
+    }
     newDeal.status = [[NSNumber alloc] initWithUnsignedInteger:deal.status];
     newDeal.shareCount = [[NSNumber alloc] initWithUnsignedInteger:deal.shareCount];
     
@@ -32,7 +36,9 @@
     if (deal.redeemedIsSet==YES && newDeal.redeemed == nil)
     {
         newDeal.redeemed = [[NSDate alloc] initWithTimeIntervalSince1970:(deal.redeemed/1000)];
+        newDeal.invalidated = newDeal.redeemed;
     }
+    
     return newDeal;
 }
 
@@ -65,6 +71,7 @@
     }
     else if (self.deal.expires < [NSDate date])
     {
+        self.invalidated = self.deal.expires;
         return YES;
     }
     return NO;
@@ -73,6 +80,8 @@
 - (void) setShared
 {
     self.status = [[NSNumber alloc] initWithUnsignedInteger:AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE];
+    self.shared = [NSDate date];
+    self.invalidated = [NSDate date];
 }
 
 - (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context
@@ -85,7 +94,8 @@
     
     if (redeemError.code < 100)
     {
-        [self setRedeemed:[[NSDate alloc] initWithTimeIntervalSinceNow:0]];
+        [self setRedeemed:[NSDate date]];
+        self.invalidated = [NSDate date];
 
         NSError *saveError;
         if (![context save:&saveError]) {
