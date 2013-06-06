@@ -14,6 +14,7 @@
 #import "MerchantController.h"
 #import "CustomerController.h"
 #import "ttMerchant.h"
+#import "ttDealAcquire.h"
 
 
 @implementation ttCustomer
@@ -52,19 +53,31 @@
 
 + (void)clearUsers:(NSManagedObjectContext *)context
 {
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:CUSTOMER_ENTITY_NAME inManagedObjectContext:context];
-    [request setEntity:entity];
+    // Clear all the user's data
+    [ttCustomer clearEntity:context entityName:CUSTOMER_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:CUSTOMER_UX_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:MERCHANT_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:DEAL_ACQUIRE_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:DEAL_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:DEAL_OFFER_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:SOCIAL_ACCOUNT_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:TOKEN_ENTITY_NAME];
     
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"API: OH SHIT!!!! Failed to save context after clearing users: %@ %@",error, [error userInfo]);
+    }
+}
+
++ (void)clearEntity:(NSManagedObjectContext *)context entityName:(NSString *)enitityName
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:enitityName inManagedObjectContext:context];
+    [request setEntity:entity];
     NSError *error;
     NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
     for (int i=0; i < [mutableFetchResults count]; i++) {
         [context deleteObject:[mutableFetchResults objectAtIndex:i]];
-    }
-    
-    NSError *error2;
-    if (![context save:&error2]) {
-        NSLog(@"API: OH SHIT!!!! Failed to save context after clearing users: %@ %@",error2, [error2 userInfo]);
     }
 }
 
@@ -124,11 +137,8 @@
 {
     ttCustomer *user = [ttCustomer getLoggedInUser:context];
     if (user != nil) {
-        [context deleteObject:user];
-        NSError *error;
-        if (![context save:&error]) {
-            NSLog(@"API: OH SHIT!!!! Failed to save context after logging out: %@ %@",error, [error userInfo]);
-        }
+        // clear out any existsing users
+        [ttCustomer clearUsers:context];
     }
 }
 
@@ -419,6 +429,7 @@
         receipientName:(NSString *)receipientName
                  error:(NSError**)error;
 {
+    self.ux.hasShared = [[NSNumber alloc] initWithBool:YES];
     CustomerController *cc = [[CustomerController alloc] init];
     return [cc giftToFacebook:self dealAcquireId:dealAcquireId facebookId:facebookId receipientName:receipientName error:error];
 }
@@ -428,6 +439,7 @@
      receipientName:(NSString *)receipientName
               error:(NSError**)error
 {
+    self.ux.hasShared = [[NSNumber alloc] initWithBool:YES];
     CustomerController *cc = [[CustomerController alloc] init];
     return [cc giftToEmail:self dealAcquireId:dealAcquireId email:email receipientName:receipientName error:error];
 }
@@ -444,6 +456,21 @@
 {
     CustomerController *cc = [[CustomerController alloc] init];
     return [cc rejectGift:self giftId:giftId error:error];
+}
+
+- (BOOL) showDealRedemptionInstructions:(ttDealAcquire *)dealAcquire
+{
+    return (([self.ux.redeemPreviewCount intValue] < 1) &&
+            !self.ux.hasRedeemed &&
+            ![dealAcquire hasBeenShared] &&
+            ![dealAcquire hasBeenShared] &&
+            ![dealAcquire hasExpired]
+            );
+}
+
+- (void) showedDealRedemptionInstructions
+{
+    self.ux.redeemPreviewCount = [NSNumber numberWithInt:[self.ux.redeemPreviewCount intValue] + 1];
 }
 
 @end

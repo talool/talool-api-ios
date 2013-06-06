@@ -24,9 +24,20 @@
     newDeal.details = deal.details;
     newDeal.code = deal.code;
     newDeal.imageUrl = deal.imageUrl;
-    newDeal.expires = [[NSDate alloc] initWithTimeIntervalSince1970:deal.expires];
-    newDeal.created = [[NSDate alloc] initWithTimeIntervalSince1970:deal.created];
-    newDeal.updated = [[NSDate alloc] initWithTimeIntervalSince1970:deal.updated];
+    
+    NSLog(@"deal expires (timestamp): %lld",deal.expires);
+    if (deal.expires==0)
+    {
+        newDeal.expires = nil;
+    }
+    else
+    {
+        newDeal.expires = [[NSDate alloc] initWithTimeIntervalSince1970:(deal.expires/1000)];
+        NSLog(@"deal expires (date): %@",newDeal.expires);
+    }
+    
+    newDeal.created = [[NSDate alloc] initWithTimeIntervalSince1970:(deal.created/1000)];
+    newDeal.updated = [[NSDate alloc] initWithTimeIntervalSince1970:(deal.updated/1000)];
     newDeal.dealOfferId = deal.dealOfferId;
     
     newDeal.merchant = merchant;
@@ -55,7 +66,6 @@
     deal.summary = self.summary;
     deal.code = self.code;
     deal.imageUrl = self.imageUrl;
-    deal.expires = [self.expires timeIntervalSince1970];
     deal.dealOfferId = self.dealOfferId;
     
     return deal;

@@ -25,7 +25,17 @@
     newOffer.summary = offer.summary;
     newOffer.dealType = [[NSNumber alloc] initWithUnsignedInteger:offer.dealType];
     newOffer.imageUrl = offer.imageUrl;
-    newOffer.expires = [[NSDate alloc] initWithTimeIntervalSince1970:offer.expires];
+    
+    NSLog(@"offer expires (timestamp): %lld",offer.expires);
+    if (offer.expires==0)
+    {
+        newOffer.expires = nil;
+    }
+    else
+    {
+        newOffer.expires = [[NSDate alloc] initWithTimeIntervalSince1970:(offer.expires/1000)];
+        NSLog(@"offer expires (date): %@",newOffer.expires);
+    }
     newOffer.price = [[NSNumber alloc] initWithDouble:offer.price];
     newOffer.merchant = [ttMerchant initWithThrift:offer.merchant context:context];
     
@@ -42,7 +52,6 @@
     offer.summary = self.summary;
     offer.dealType = [self.dealType intValue];
     offer.imageUrl = self.imageUrl;
-    offer.expires = [self.expires timeIntervalSince1970];
     offer.price = [self.price doubleValue];
     offer.merchant = [(ttMerchant *)self.merchant hydrateThriftObject];
     

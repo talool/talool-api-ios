@@ -9,6 +9,7 @@
 #import "ttDealAcquire.h"
 #import "ttDeal.h"
 #import "ttCustomer.h"
+#import "TaloolCustomerUX.h"
 #import "ttMerchant.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
@@ -30,7 +31,7 @@
     // don't override with the server value of the server returns null or if the client thinks it has been redeemed.
     if (deal.redeemedIsSet==YES && newDeal.redeemed == nil)
     {
-        newDeal.redeemed = [[NSDate alloc] initWithTimeIntervalSince1970:deal.redeemed];
+        newDeal.redeemed = [[NSDate alloc] initWithTimeIntervalSince1970:(deal.redeemed/1000)];
     }
     return newDeal;
 }
@@ -41,7 +42,7 @@
     acquire.dealAcquireId = self.dealAcquireId;
     acquire.deal = [(ttDeal *)self.deal hydrateThriftObject];
     acquire.shareCount = [self.shareCount integerValue];
-    acquire.redeemed = [self.redeemed timeIntervalSince1970];
+    acquire.redeemed = [self.redeemed timeIntervalSince1970]*1000;
     acquire.status = [self.status intValue];
     
     return acquire;
@@ -55,6 +56,23 @@
 - (BOOL) hasBeenShared
 {
     return ([self.status intValue] == AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE);
+}
+
+- (BOOL) hasExpired
+{
+    if (self.deal.expires == nil) {
+        return NO;
+    }
+    else if (self.deal.expires < [NSDate date])
+    {
+        return YES;
+    }
+    return NO;
+}
+
+- (void) setShared
+{
+    self.status = [[NSNumber alloc] initWithUnsignedInteger:AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE];
 }
 
 - (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context
@@ -80,6 +98,8 @@
         [details setValue:@"Failed to redeem deal." forKey:NSLocalizedDescriptionKey];
         *err = [NSError errorWithDomain:@"redeemHere" code:200 userInfo:details];
     }
+    
+    customer.ux.hasRedeemed = [[NSNumber alloc] initWithBool:YES];
     
 }
 

@@ -10,6 +10,7 @@
 #import "ttCustomer.h"
 #import "ttDeal.h"
 #import "ttMerchant.h"
+#import "ttDealAcquire.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 
@@ -22,7 +23,7 @@
                                  inManagedObjectContext:context];
 
     newGift.giftId = gift.giftId;
-    newGift.created = [[NSDate alloc] initWithTimeIntervalSince1970:gift.created];
+    newGift.created = [[NSDate alloc] initWithTimeIntervalSince1970:(gift.created/1000)];
     ttMerchant *merch = [ttMerchant initWithThrift:gift.deal.merchant context:context];
     newGift.deal = [ttDeal initWithThrift:gift.deal merchant:merch context:context];
     newGift.fromCustomer = [ttCustomer initWithThrift:gift.fromCustomer context:context];
