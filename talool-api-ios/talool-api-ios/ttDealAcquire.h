@@ -17,6 +17,7 @@
 + (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context;
 - (DealAcquire_t *)hydrateThriftObject;
 - (BOOL) hasBeenRedeemed;
+- (BOOL) hasBeenShared;
 - (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error context:(NSManagedObjectContext *)context;
 
 @end

@@ -51,6 +51,11 @@
     return (self.redeemed != NULL);
 }
 
+- (BOOL) hasBeenShared
+{
+    return ([self.status isEqualToString:@"PENDING_ACCEPT_CUSTOMER_SHARE"]);
+}
+
 - (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context
 {
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
