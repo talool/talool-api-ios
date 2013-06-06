@@ -27,6 +27,7 @@
     newDeal.expires = [[NSDate alloc] initWithTimeIntervalSince1970:deal.expires];
     newDeal.created = [[NSDate alloc] initWithTimeIntervalSince1970:deal.created];
     newDeal.updated = [[NSDate alloc] initWithTimeIntervalSince1970:deal.updated];
+    newDeal.dealOfferId = deal.dealOfferId;
     
     newDeal.merchant = merchant;
     
@@ -55,6 +56,7 @@
     deal.code = self.code;
     deal.imageUrl = self.imageUrl;
     deal.expires = [self.expires timeIntervalSince1970];
+    deal.dealOfferId = self.dealOfferId;
     
     return deal;
 }

@@ -63,6 +63,7 @@
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dealId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dealOfferId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expires" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -79,7 +80,7 @@
         <attribute name="dealAcquireId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="redeemed" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="shareCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="acquires" inverseEntity="TaloolDeal" syncable="YES"/>
         <relationship name="sharedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="sharedDealAcquires" inverseEntity="TaloolCustomer" syncable="YES"/>
@@ -146,8 +147,9 @@
         <element name="TaloolAddress" positionX="-146" positionY="-220" width="128" height="180"/>
         <element name="TaloolCategory" positionX="-128" positionY="0" width="128" height="88"/>
         <element name="TaloolCustomer" positionX="-326" positionY="297" width="128" height="255"/>
-        <element name="TaloolDeal" positionX="-126" positionY="225" width="128" height="238"/>
-        <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="163"/>
+        <element name="TaloolCustomerUX" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="TaloolDeal" positionX="-126" positionY="225" width="128" height="255"/>
+        <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="165"/>
         <element name="TaloolDealOffer" positionX="-486" positionY="63" width="128" height="178"/>
         <element name="TaloolGift" positionX="63" positionY="432" width="128" height="103"/>
         <element name="TaloolLocation" positionX="-486" positionY="-189" width="128" height="90"/>
@@ -155,6 +157,5 @@
         <element name="TaloolMerchantLocation" positionX="-333" positionY="-189" width="128" height="210"/>
         <element name="TaloolSearchOptions" positionX="214" positionY="-91" width="128" height="103"/>
         <element name="TaloolToken" positionX="-488" positionY="432" width="128" height="73"/>
-        <element name="TaloolCustomerUX" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>

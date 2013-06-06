@@ -26,6 +26,17 @@ enum SocialNetwork_t {
   SocialNetwork_t_Pinterest = 2
 };
 
+enum AcquireStatus_t {
+  AcquireStatus_t_PURCHASED = 0,
+  AcquireStatus_t_REDEEMED = 1,
+  AcquireStatus_t_REJECTED_CUSTOMER_SHARE = 2,
+  AcquireStatus_t_REJECTED_MERCHANT_SHARE = 3,
+  AcquireStatus_t_ACCEPTED_MERCHANT_SHARE = 4,
+  AcquireStatus_t_ACCEPTED_CUSTOMER_SHARE = 5,
+  AcquireStatus_t_PENDING_ACCEPT_MERCHANT_SHARE = 6,
+  AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE = 7
+};
+
 enum DealType_t {
   DealType_t_PAID_BOOK = 0,
   DealType_t_FREE_BOOK = 1,
@@ -593,6 +604,7 @@ typedef int64_t Timestamp;
 @interface Deal_t : NSObject <NSCoding> {
   NSString * __dealId;
   Merchant_t * __merchant;
+  NSString * __dealOfferId;
   NSString * __title;
   NSString * __summary;
   NSString * __details;
@@ -604,6 +616,7 @@ typedef int64_t Timestamp;
 
   BOOL __dealId_isset;
   BOOL __merchant_isset;
+  BOOL __dealOfferId_isset;
   BOOL __title_isset;
   BOOL __summary_isset;
   BOOL __details_isset;
@@ -617,6 +630,7 @@ typedef int64_t Timestamp;
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=dealId, setter=setDealId:) NSString * dealId;
 @property (nonatomic, retain, getter=merchant, setter=setMerchant:) Merchant_t * merchant;
+@property (nonatomic, retain, getter=dealOfferId, setter=setDealOfferId:) NSString * dealOfferId;
 @property (nonatomic, retain, getter=title, setter=setTitle:) NSString * title;
 @property (nonatomic, retain, getter=summary, setter=setSummary:) NSString * summary;
 @property (nonatomic, retain, getter=details, setter=setDetails:) NSString * details;
@@ -628,7 +642,7 @@ typedef int64_t Timestamp;
 #endif
 
 - (id) init;
-- (id) initWithDealId: (NSString *) dealId merchant: (Merchant_t *) merchant title: (NSString *) title summary: (NSString *) summary details: (NSString *) details code: (NSString *) code imageUrl: (NSString *) imageUrl expires: (Timestamp) expires created: (Timestamp) created updated: (Timestamp) updated;
+- (id) initWithDealId: (NSString *) dealId merchant: (Merchant_t *) merchant dealOfferId: (NSString *) dealOfferId title: (NSString *) title summary: (NSString *) summary details: (NSString *) details code: (NSString *) code imageUrl: (NSString *) imageUrl expires: (Timestamp) expires created: (Timestamp) created updated: (Timestamp) updated;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -644,6 +658,12 @@ typedef int64_t Timestamp;
 - (void) setMerchant: (Merchant_t *) merchant;
 #endif
 - (BOOL) merchantIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) dealOfferId;
+- (void) setDealOfferId: (NSString *) dealOfferId;
+#endif
+- (BOOL) dealOfferIdIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSString *) title;
@@ -845,7 +865,7 @@ typedef int64_t Timestamp;
 @interface DealAcquire_t : NSObject <NSCoding> {
   NSString * __dealAcquireId;
   Deal_t * __deal;
-  NSString * __status;
+  int __status;
   Customer_t * __sharedByCustomer;
   int32_t __shareCount;
   Timestamp __redeemed;
@@ -865,7 +885,7 @@ typedef int64_t Timestamp;
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=dealAcquireId, setter=setDealAcquireId:) NSString * dealAcquireId;
 @property (nonatomic, retain, getter=deal, setter=setDeal:) Deal_t * deal;
-@property (nonatomic, retain, getter=status, setter=setStatus:) NSString * status;
+@property (nonatomic, getter=status, setter=setStatus:) int status;
 @property (nonatomic, retain, getter=sharedByCustomer, setter=setSharedByCustomer:) Customer_t * sharedByCustomer;
 @property (nonatomic, getter=shareCount, setter=setShareCount:) int32_t shareCount;
 @property (nonatomic, getter=redeemed, setter=setRedeemed:) Timestamp redeemed;
@@ -874,7 +894,7 @@ typedef int64_t Timestamp;
 #endif
 
 - (id) init;
-- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (NSString *) status sharedByCustomer: (Customer_t *) sharedByCustomer shareCount: (int32_t) shareCount redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated;
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status sharedByCustomer: (Customer_t *) sharedByCustomer shareCount: (int32_t) shareCount redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -892,8 +912,8 @@ typedef int64_t Timestamp;
 - (BOOL) dealIsSet;
 
 #if !__has_feature(objc_arc)
-- (NSString *) status;
-- (void) setStatus: (NSString *) status;
+- (int) status;
+- (void) setStatus: (int) status;
 #endif
 - (BOOL) statusIsSet;
 

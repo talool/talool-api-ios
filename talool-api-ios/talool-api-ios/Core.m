@@ -2915,13 +2915,15 @@
   return self;
 }
 
-- (id) initWithDealId: (NSString *) dealId merchant: (Merchant_t *) merchant title: (NSString *) title summary: (NSString *) summary details: (NSString *) details code: (NSString *) code imageUrl: (NSString *) imageUrl expires: (Timestamp) expires created: (Timestamp) created updated: (Timestamp) updated
+- (id) initWithDealId: (NSString *) dealId merchant: (Merchant_t *) merchant dealOfferId: (NSString *) dealOfferId title: (NSString *) title summary: (NSString *) summary details: (NSString *) details code: (NSString *) code imageUrl: (NSString *) imageUrl expires: (Timestamp) expires created: (Timestamp) created updated: (Timestamp) updated
 {
   self = [super init];
   __dealId = [dealId retain_stub];
   __dealId_isset = YES;
   __merchant = [merchant retain_stub];
   __merchant_isset = YES;
+  __dealOfferId = [dealOfferId retain_stub];
+  __dealOfferId_isset = YES;
   __title = [title retain_stub];
   __title_isset = YES;
   __summary = [summary retain_stub];
@@ -2953,6 +2955,11 @@
   {
     __merchant = [[decoder decodeObjectForKey: @"merchant"] retain_stub];
     __merchant_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"dealOfferId"])
+  {
+    __dealOfferId = [[decoder decodeObjectForKey: @"dealOfferId"] retain_stub];
+    __dealOfferId_isset = YES;
   }
   if ([decoder containsValueForKey: @"title"])
   {
@@ -3007,6 +3014,10 @@
   {
     [encoder encodeObject: __merchant forKey: @"merchant"];
   }
+  if (__dealOfferId_isset)
+  {
+    [encoder encodeObject: __dealOfferId forKey: @"dealOfferId"];
+  }
   if (__title_isset)
   {
     [encoder encodeObject: __title forKey: @"title"];
@@ -3045,6 +3056,7 @@
 {
   [__dealId release_stub];
   [__merchant release_stub];
+  [__dealOfferId release_stub];
   [__title release_stub];
   [__summary release_stub];
   [__details release_stub];
@@ -3093,6 +3105,27 @@
   [__merchant release_stub];
   __merchant = nil;
   __merchant_isset = NO;
+}
+
+- (NSString *) dealOfferId {
+  return [[__dealOfferId retain_stub] autorelease_stub];
+}
+
+- (void) setDealOfferId: (NSString *) dealOfferId {
+  [dealOfferId retain_stub];
+  [__dealOfferId release_stub];
+  __dealOfferId = dealOfferId;
+  __dealOfferId_isset = YES;
+}
+
+- (BOOL) dealOfferIdIsSet {
+  return __dealOfferId_isset;
+}
+
+- (void) unsetDealOfferId {
+  [__dealOfferId release_stub];
+  __dealOfferId = nil;
+  __dealOfferId_isset = NO;
 }
 
 - (NSString *) title {
@@ -3287,7 +3320,7 @@
       case 3:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setTitle: fieldValue];
+          [self setDealOfferId: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -3295,7 +3328,7 @@
       case 4:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setSummary: fieldValue];
+          [self setTitle: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -3303,7 +3336,7 @@
       case 5:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setDetails: fieldValue];
+          [self setSummary: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -3311,7 +3344,7 @@
       case 6:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setCode: fieldValue];
+          [self setDetails: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -3319,15 +3352,15 @@
       case 7:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setImageUrl: fieldValue];
+          [self setCode: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
       case 8:
-        if (fieldType == TType_I64) {
-          int64_t fieldValue = [inProtocol readI64];
-          [self setExpires: fieldValue];
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setImageUrl: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -3335,12 +3368,20 @@
       case 9:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
-          [self setCreated: fieldValue];
+          [self setExpires: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
       case 10:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setCreated: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 11:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUpdated: fieldValue];
@@ -3373,53 +3414,60 @@
       [outProtocol writeFieldEnd];
     }
   }
+  if (__dealOfferId_isset) {
+    if (__dealOfferId != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealOfferId" type: TType_STRING fieldID: 3];
+      [outProtocol writeString: __dealOfferId];
+      [outProtocol writeFieldEnd];
+    }
+  }
   if (__title_isset) {
     if (__title != nil) {
-      [outProtocol writeFieldBeginWithName: @"title" type: TType_STRING fieldID: 3];
+      [outProtocol writeFieldBeginWithName: @"title" type: TType_STRING fieldID: 4];
       [outProtocol writeString: __title];
       [outProtocol writeFieldEnd];
     }
   }
   if (__summary_isset) {
     if (__summary != nil) {
-      [outProtocol writeFieldBeginWithName: @"summary" type: TType_STRING fieldID: 4];
+      [outProtocol writeFieldBeginWithName: @"summary" type: TType_STRING fieldID: 5];
       [outProtocol writeString: __summary];
       [outProtocol writeFieldEnd];
     }
   }
   if (__details_isset) {
     if (__details != nil) {
-      [outProtocol writeFieldBeginWithName: @"details" type: TType_STRING fieldID: 5];
+      [outProtocol writeFieldBeginWithName: @"details" type: TType_STRING fieldID: 6];
       [outProtocol writeString: __details];
       [outProtocol writeFieldEnd];
     }
   }
   if (__code_isset) {
     if (__code != nil) {
-      [outProtocol writeFieldBeginWithName: @"code" type: TType_STRING fieldID: 6];
+      [outProtocol writeFieldBeginWithName: @"code" type: TType_STRING fieldID: 7];
       [outProtocol writeString: __code];
       [outProtocol writeFieldEnd];
     }
   }
   if (__imageUrl_isset) {
     if (__imageUrl != nil) {
-      [outProtocol writeFieldBeginWithName: @"imageUrl" type: TType_STRING fieldID: 7];
+      [outProtocol writeFieldBeginWithName: @"imageUrl" type: TType_STRING fieldID: 8];
       [outProtocol writeString: __imageUrl];
       [outProtocol writeFieldEnd];
     }
   }
   if (__expires_isset) {
-    [outProtocol writeFieldBeginWithName: @"expires" type: TType_I64 fieldID: 8];
+    [outProtocol writeFieldBeginWithName: @"expires" type: TType_I64 fieldID: 9];
     [outProtocol writeI64: __expires];
     [outProtocol writeFieldEnd];
   }
   if (__created_isset) {
-    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 9];
+    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 10];
     [outProtocol writeI64: __created];
     [outProtocol writeFieldEnd];
   }
   if (__updated_isset) {
-    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 10];
+    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 11];
     [outProtocol writeI64: __updated];
     [outProtocol writeFieldEnd];
   }
@@ -3433,6 +3481,8 @@
   [ms appendFormat: @"\"%@\"", __dealId];
   [ms appendString: @",merchant:"];
   [ms appendFormat: @"%@", __merchant];
+  [ms appendString: @",dealOfferId:"];
+  [ms appendFormat: @"\"%@\"", __dealOfferId];
   [ms appendString: @",title:"];
   [ms appendFormat: @"\"%@\"", __title];
   [ms appendString: @",summary:"];
@@ -4213,14 +4263,14 @@
   return self;
 }
 
-- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (NSString *) status sharedByCustomer: (Customer_t *) sharedByCustomer shareCount: (int32_t) shareCount redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status sharedByCustomer: (Customer_t *) sharedByCustomer shareCount: (int32_t) shareCount redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated
 {
   self = [super init];
   __dealAcquireId = [dealAcquireId retain_stub];
   __dealAcquireId_isset = YES;
   __deal = [deal retain_stub];
   __deal_isset = YES;
-  __status = [status retain_stub];
+  __status = status;
   __status_isset = YES;
   __sharedByCustomer = [sharedByCustomer retain_stub];
   __sharedByCustomer_isset = YES;
@@ -4250,7 +4300,7 @@
   }
   if ([decoder containsValueForKey: @"status"])
   {
-    __status = [[decoder decodeObjectForKey: @"status"] retain_stub];
+    __status = [decoder decodeIntForKey: @"status"];
     __status_isset = YES;
   }
   if ([decoder containsValueForKey: @"sharedByCustomer"])
@@ -4293,7 +4343,7 @@
   }
   if (__status_isset)
   {
-    [encoder encodeObject: __status forKey: @"status"];
+    [encoder encodeInt: __status forKey: @"status"];
   }
   if (__sharedByCustomer_isset)
   {
@@ -4321,7 +4371,6 @@
 {
   [__dealAcquireId release_stub];
   [__deal release_stub];
-  [__status release_stub];
   [__sharedByCustomer release_stub];
   [super dealloc_stub];
 }
@@ -4368,13 +4417,11 @@
   __deal_isset = NO;
 }
 
-- (NSString *) status {
-  return [[__status retain_stub] autorelease_stub];
+- (int) status {
+  return __status;
 }
 
-- (void) setStatus: (NSString *) status {
-  [status retain_stub];
-  [__status release_stub];
+- (void) setStatus: (int) status {
   __status = status;
   __status_isset = YES;
 }
@@ -4384,8 +4431,6 @@
 }
 
 - (void) unsetStatus {
-  [__status release_stub];
-  __status = nil;
   __status_isset = NO;
 }
 
@@ -4512,8 +4557,8 @@
         }
         break;
       case 3:
-        if (fieldType == TType_STRING) {
-          NSString * fieldValue = [inProtocol readString];
+        if (fieldType == TType_I32) {
+          int fieldValue = [inProtocol readI32];
           [self setStatus: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -4587,11 +4632,9 @@
     }
   }
   if (__status_isset) {
-    if (__status != nil) {
-      [outProtocol writeFieldBeginWithName: @"status" type: TType_STRING fieldID: 3];
-      [outProtocol writeString: __status];
-      [outProtocol writeFieldEnd];
-    }
+    [outProtocol writeFieldBeginWithName: @"status" type: TType_I32 fieldID: 3];
+    [outProtocol writeI32: __status];
+    [outProtocol writeFieldEnd];
   }
   if (__sharedByCustomer_isset) {
     if (__sharedByCustomer != nil) {
@@ -4631,7 +4674,7 @@
   [ms appendString: @",deal:"];
   [ms appendFormat: @"%@", __deal];
   [ms appendString: @",status:"];
-  [ms appendFormat: @"\"%@\"", __status];
+  [ms appendFormat: @"%i", __status];
   [ms appendString: @",sharedByCustomer:"];
   [ms appendFormat: @"%@", __sharedByCustomer];
   [ms appendString: @",shareCount:"];

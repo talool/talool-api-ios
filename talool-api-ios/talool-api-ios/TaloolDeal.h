@@ -2,14 +2,14 @@
 //  TaloolDeal.h
 //  talool-api-ios
 //
-//  Created by Douglas McCuen on 6/4/13.
+//  Created by Douglas McCuen on 6/5/13.
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class TaloolDealAcquire, TaloolGift, ttMerchant;
+@class TaloolDealAcquire, ttGift, ttMerchant;
 
 @interface TaloolDeal : NSManagedObject
 
@@ -23,8 +23,9 @@
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSDate * updated;
+@property (nonatomic, retain) NSString * dealOfferId;
 @property (nonatomic, retain) TaloolDealAcquire *acquires;
+@property (nonatomic, retain) ttGift *gift;
 @property (nonatomic, retain) ttMerchant *merchant;
-@property (nonatomic, retain) TaloolGift *gift;
 
 @end

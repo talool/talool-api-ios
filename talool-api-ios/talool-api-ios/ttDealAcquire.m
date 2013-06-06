@@ -24,7 +24,7 @@
     
     newDeal.dealAcquireId = deal.dealAcquireId;
     newDeal.deal = [ttDeal initWithThrift:deal.deal merchant:merchant context:context];
-    newDeal.status = deal.status;
+    newDeal.status = [[NSNumber alloc] initWithUnsignedInteger:deal.status];
     newDeal.shareCount = [[NSNumber alloc] initWithUnsignedInteger:deal.shareCount];
     
     // don't override with the server value of the server returns null or if the client thinks it has been redeemed.
@@ -42,6 +42,7 @@
     acquire.deal = [(ttDeal *)self.deal hydrateThriftObject];
     acquire.shareCount = [self.shareCount integerValue];
     acquire.redeemed = [self.redeemed timeIntervalSince1970];
+    acquire.status = [self.status intValue];
     
     return acquire;
 }
@@ -53,7 +54,7 @@
 
 - (BOOL) hasBeenShared
 {
-    return ([self.status isEqualToString:@"PENDING_ACCEPT_CUSTOMER_SHARE"]);
+    return ([self.status intValue] == AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE);
 }
 
 - (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context
