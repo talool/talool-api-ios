@@ -40,6 +40,14 @@
         newDeal.invalidated = newDeal.deal.expires;
     }
     
+    if ([newDeal hasBeenShared] && newDeal.invalidated==nil)
+    {
+        NSString *str =@"3/15/2013";
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"MM/dd/yyyy"];
+        newDeal.invalidated = [formatter dateFromString:str];
+    }
+    
     return newDeal;
 }
 
