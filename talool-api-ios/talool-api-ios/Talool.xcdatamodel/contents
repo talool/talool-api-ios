@@ -79,6 +79,7 @@
         <attribute name="dealAcquireId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="invalidated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="redeemed" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="redemptionCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shareCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="shared" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -150,7 +151,7 @@
         <element name="TaloolCustomer" positionX="-326" positionY="297" width="128" height="238"/>
         <element name="TaloolCustomerUX" positionX="-324" positionY="573" width="128" height="120"/>
         <element name="TaloolDeal" positionX="-126" positionY="225" width="128" height="255"/>
-        <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="193"/>
+        <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="210"/>
         <element name="TaloolDealOffer" positionX="-486" positionY="63" width="128" height="178"/>
         <element name="TaloolGift" positionX="-128" positionY="522" width="128" height="103"/>
         <element name="TaloolLocation" positionX="-486" positionY="-189" width="128" height="90"/>

@@ -15,6 +15,7 @@
 
 @dynamic created;
 @dynamic dealAcquireId;
+@dynamic redemptionCode;
 @dynamic redeemed;
 @dynamic shareCount;
 @dynamic status;

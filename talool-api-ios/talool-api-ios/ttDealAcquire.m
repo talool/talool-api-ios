@@ -107,6 +107,7 @@
     {
         [self setRedeemed:[NSDate date]];
         self.invalidated = [NSDate date];
+        self.redemptionCode = redemptionCode;
 
         NSError *saveError;
         if (![context save:&saveError]) {
