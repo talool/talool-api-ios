@@ -19,7 +19,7 @@
 - (BOOL) hasBeenRedeemed;
 - (BOOL) hasBeenShared;
 - (BOOL) hasExpired;
-- (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error context:(NSManagedObjectContext *)context;
+- (NSString *)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error context:(NSManagedObjectContext *)context;
 - (void) setShared;
 
 @end

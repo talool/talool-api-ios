@@ -84,13 +84,14 @@
     self.invalidated = [NSDate date];
 }
 
-- (void)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context
+- (NSString *)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context
 {
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     NSError *redeemError;
+    NSString *redemptionCode;
     
     CustomerController *cController = [[CustomerController alloc] init];
-    [cController redeem:self latitude:latitude longitude:longitude error:&redeemError];
+    redemptionCode = [cController redeem:self latitude:latitude longitude:longitude error:&redeemError];
     
     if (redeemError.code < 100)
     {
@@ -110,6 +111,8 @@
     }
     
     customer.ux.hasRedeemed = [[NSNumber alloc] initWithBool:YES];
+    
+    return redemptionCode;
     
 }
 

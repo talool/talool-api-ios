@@ -266,12 +266,13 @@
     return deals;
 }
 
-- (void) redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error
+- (NSString *) redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error
 {
+    NSString * redemptionCode = nil;
     @try {
         [self connectWithToken:(ttToken *)dealAcquire.customer.token];
         Location_t *loc = [[Location_t alloc] initWithLongitude:longitude latitude:latitude];
-        [service redeem:dealAcquire.dealAcquireId location:loc];
+        redemptionCode = [service redeem:dealAcquire.dealAcquireId location:loc];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"redeem" error:error];
@@ -279,6 +280,7 @@
     @finally {
         [self disconnect];
     }
+    return redemptionCode;
 }
 
 - (NSMutableArray *) getDealOffers:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
