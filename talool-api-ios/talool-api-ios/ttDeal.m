@@ -25,7 +25,6 @@
     newDeal.code = deal.code;
     newDeal.imageUrl = deal.imageUrl;
     
-    NSLog(@"deal expires (timestamp): %lld",deal.expires);
     if (deal.expires==0)
     {
         newDeal.expires = nil;
@@ -33,7 +32,6 @@
     else
     {
         newDeal.expires = [[NSDate alloc] initWithTimeIntervalSince1970:(deal.expires/1000)];
-        NSLog(@"deal expires (date): %@",newDeal.expires);
     }
     
     newDeal.created = [[NSDate alloc] initWithTimeIntervalSince1970:(deal.created/1000)];
