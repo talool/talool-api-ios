@@ -8,7 +8,7 @@
 
 #import "TaloolDealAcquire.h"
 
-@class DealAcquire_t, ttCustomer, ttMerchant;
+@class DealAcquire_t, ttCustomer, ttMerchant, ttFriend;
 
 @interface ttDealAcquire : TaloolDealAcquire
 
@@ -20,6 +20,6 @@
 - (BOOL) hasBeenShared;
 - (BOOL) hasExpired;
 - (NSString *)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error context:(NSManagedObjectContext *)context;
-- (void) setShared;
+- (void) setShared:(ttFriend *)taloolFriend;
 
 @end

@@ -9,6 +9,7 @@
 #import "TaloolDealAcquire.h"
 #import "TaloolCustomer.h"
 #import "ttDeal.h"
+#import "ttFriend.h"
 
 
 @implementation TaloolDealAcquire
@@ -24,5 +25,6 @@
 @dynamic invalidated;
 @dynamic deal;
 @dynamic sharedBy;
+@dynamic sharedTo;
 
 @end

@@ -9,6 +9,7 @@
 #import "ttDealAcquire.h"
 #import "ttDeal.h"
 #import "ttCustomer.h"
+#import "ttFriend.h"
 #import "TaloolCustomerUX.h"
 #import "ttMerchant.h"
 #import "Core.h"
@@ -87,11 +88,12 @@
     return NO;
 }
 
-- (void) setShared
+- (void) setShared:(ttFriend *)taloolFriend
 {
     self.status = [[NSNumber alloc] initWithUnsignedInteger:AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE];
     self.shared = [NSDate date];
     self.invalidated = [NSDate date];
+    self.sharedTo = taloolFriend;
 }
 
 - (NSString *)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context

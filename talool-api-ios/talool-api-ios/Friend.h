@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class TaloolGift;
+@class TaloolGift,TaloolDealAcquire;
 
 @interface Friend : NSManagedObject
 
@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * customerId;
-@property (nonatomic, retain) TaloolGift *gifts;
+@property (nonatomic, retain) TaloolGift *giftsGiven;
+@property (nonatomic, retain) TaloolDealAcquire *giftsReceived;
 
 @end

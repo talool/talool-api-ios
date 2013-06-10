@@ -5,7 +5,8 @@
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="gifts" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolGift" inverseName="fromCustomer" inverseEntity="TaloolGift" syncable="YES"/>
+        <relationship name="giftsGiven" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolGift" inverseName="fromCustomer" inverseEntity="TaloolGift" syncable="YES"/>
+        <relationship name="giftsReceived" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="sharedTo" inverseEntity="TaloolDealAcquire" syncable="YES"/>
     </entity>
     <entity name="SocialAccount" representedClassName="ttSocialAccount" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
@@ -86,6 +87,7 @@
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="acquires" inverseEntity="TaloolDeal" syncable="YES"/>
         <relationship name="sharedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="sharedDealAcquires" inverseEntity="TaloolCustomer" syncable="YES"/>
+        <relationship name="sharedTo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="giftsReceived" inverseEntity="Friend" syncable="YES"/>
     </entity>
     <entity name="TaloolDealOffer" representedClassName="ttDealOffer" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
@@ -102,7 +104,7 @@
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="giftId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="gift" inverseEntity="TaloolDeal" syncable="YES"/>
-        <relationship name="fromCustomer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="gifts" inverseEntity="Friend" syncable="YES"/>
+        <relationship name="fromCustomer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="giftsGiven" inverseEntity="Friend" syncable="YES"/>
     </entity>
     <entity name="TaloolLocation" representedClassName="ttLocation" syncable="YES">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -143,7 +145,7 @@
         <relationship name="customer" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="token" inverseEntity="TaloolCustomer" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Friend" positionX="70" positionY="513" width="128" height="118"/>
+        <element name="Friend" positionX="205" positionY="288" width="128" height="135"/>
         <element name="SocialAccount" positionX="-486" positionY="297" width="128" height="103"/>
         <element name="SocialNetworkDetail" positionX="216" positionY="-220" width="128" height="103"/>
         <element name="TaloolAddress" positionX="-146" positionY="-220" width="128" height="180"/>
@@ -151,7 +153,7 @@
         <element name="TaloolCustomer" positionX="-326" positionY="297" width="128" height="238"/>
         <element name="TaloolCustomerUX" positionX="-324" positionY="573" width="128" height="120"/>
         <element name="TaloolDeal" positionX="-126" positionY="225" width="128" height="255"/>
-        <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="210"/>
+        <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="225"/>
         <element name="TaloolDealOffer" positionX="-486" positionY="63" width="128" height="178"/>
         <element name="TaloolGift" positionX="-128" positionY="522" width="128" height="103"/>
         <element name="TaloolLocation" positionX="-486" positionY="-189" width="128" height="90"/>

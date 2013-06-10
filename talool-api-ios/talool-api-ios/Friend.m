@@ -8,6 +8,7 @@
 
 #import "Friend.h"
 #import "TaloolGift.h"
+#import "TaloolDealAcquire.h"
 
 
 @implementation Friend
@@ -16,6 +17,7 @@
 @dynamic firstName;
 @dynamic lastName;
 @dynamic customerId;
-@dynamic gifts;
+@dynamic giftsGiven;
+@dynamic giftsReceived;
 
 @end

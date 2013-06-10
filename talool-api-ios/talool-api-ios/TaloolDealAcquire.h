@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class TaloolCustomer, ttDeal;
+@class TaloolCustomer, ttDeal, ttFriend;
 
 @interface TaloolDealAcquire : NSManagedObject
 
@@ -24,5 +24,6 @@
 @property (nonatomic, retain) NSDate * invalidated;
 @property (nonatomic, retain) ttDeal *deal;
 @property (nonatomic, retain) TaloolCustomer *sharedBy;
+@property (nonatomic, retain) ttFriend *sharedTo;
 
 @end
