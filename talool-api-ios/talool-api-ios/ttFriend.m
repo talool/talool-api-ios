@@ -30,4 +30,17 @@
     return f;
 }
 
++ (ttFriend *)initWithName:(NSString *)name email:(NSString *)email context:(NSManagedObjectContext *)context
+{
+    ttFriend *f = (ttFriend *)[NSEntityDescription
+                               insertNewObjectForEntityForName:FRIEND_ENTITY_NAME
+                               inManagedObjectContext:context];
+    
+    f.firstName = name;
+    f.fullName = name;
+    f.email = email;
+    
+    return f;
+}
+
 @end

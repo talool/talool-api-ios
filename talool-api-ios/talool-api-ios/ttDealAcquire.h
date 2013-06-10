@@ -20,6 +20,6 @@
 - (BOOL) hasBeenShared;
 - (BOOL) hasExpired;
 - (NSString *)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)error context:(NSManagedObjectContext *)context;
-- (void) setShared:(ttFriend *)taloolFriend;
+- (void) setSharedWith:(ttFriend *)taloolFriend;
 
 @end

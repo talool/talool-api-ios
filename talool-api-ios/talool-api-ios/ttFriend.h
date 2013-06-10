@@ -13,6 +13,7 @@
 @interface ttFriend : Friend
 
 + (ttFriend *)initWithThrift: (Customer_t *)customer context:(NSManagedObjectContext *)context;
++ (ttFriend *)initWithName:(NSString *)name email:(NSString *)email context:(NSManagedObjectContext *)context;
 
 @property (retain, nonatomic) NSString *fullName;
 

@@ -43,7 +43,7 @@
     
     if ([newDeal hasBeenShared] && newDeal.invalidated==nil)
     {
-        NSString *str =@"3/15/2013";
+        NSString *str =@"3/15/2013"; // old date to keep these deals sorts at the bottom
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"MM/dd/yyyy"];
         newDeal.invalidated = [formatter dateFromString:str];
@@ -88,7 +88,7 @@
     return NO;
 }
 
-- (void) setShared:(ttFriend *)taloolFriend
+- (void) setSharedWith:(ttFriend *)taloolFriend
 {
     self.status = [[NSNumber alloc] initWithUnsignedInteger:AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE];
     self.shared = [NSDate date];
