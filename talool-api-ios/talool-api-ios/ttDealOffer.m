@@ -9,6 +9,7 @@
 #import "ttDealOffer.h"
 #import "ttMerchant.h"
 #import "Core.h"
+#import "CustomerController.h"
 #import "TaloolPersistentStoreCoordinator.h"
 
 @implementation ttDealOffer
@@ -40,6 +41,15 @@
     newOffer.merchant = [ttMerchant initWithThrift:offer.merchant context:context];
     
     return newOffer;
+}
+
++ (ttDealOffer *)getDealOffer:(NSString *)doId
+                     customer:(ttCustomer *)customer
+                      context:(NSManagedObjectContext *)context
+                        error:(NSError **)err
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc getDealOffer:doId customer:customer context:context error:err];
 }
 
 

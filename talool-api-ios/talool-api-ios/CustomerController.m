@@ -519,50 +519,46 @@
     return merchants;
 }
 
-- (BOOL) giftToFacebook:(ttCustomer *)customer
+- (NSString *) giftToFacebook:(ttCustomer *)customer
           dealAcquireId:(NSString *)dealAcquireId
              facebookId:(NSString *)facebookId
          receipientName:(NSString *)receipientName
                   error:(NSError**)error
 {
-    BOOL success;
+    NSString *giftId;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-        [service giftToFacebook:dealAcquireId facebookId:facebookId receipientName:receipientName];
-        success = YES;
+        giftId = [service giftToFacebook:dealAcquireId facebookId:facebookId receipientName:receipientName];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"giftToFacebook" error:error];
-        success = NO;
     }
     @finally {
         [self disconnect];
     }
     
-    return success;
+    return giftId;
 }
 
-- (BOOL) giftToEmail:(ttCustomer *)customer
+- (NSString *) giftToEmail:(ttCustomer *)customer
        dealAcquireId:(NSString *)dealAcquireId
                email:(NSString *)email
       receipientName:(NSString *)receipientName
                error:(NSError**)error
 {
-    BOOL success;
+     NSString *giftId;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-        [service giftToEmail:dealAcquireId email:email receipientName:receipientName];
-        success = YES;
+        giftId = [service giftToEmail:dealAcquireId email:email receipientName:receipientName];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"giftToEmail" error:error];
-        success = NO;
     }
     @finally {
         [self disconnect];
     }
     
-    return success;
+    return giftId;
 }
 
 - (NSMutableArray *) getGifts:(ttCustomer *)customer
@@ -644,5 +640,36 @@
     return success;
 }
 
+
+- (ttDealOffer *) getDealOffer:(NSString *)doId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+{
+    DealOffer_t *dealOffer_t;
+    ttDealOffer *dealOffer;
+    @try {
+        // Do the Thrift Registration
+        [self connectWithToken:(ttToken *)customer.token];
+        dealOffer_t = [service getDealOffer:doId];
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"getDealOffer" error:error];
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response into a ttDealOffer
+        dealOffer = [ttDealOffer initWithThrift:dealOffer_t context:context];
+        NSError *err = nil;
+        [context save:&err];
+    }
+    @catch (NSException * e) {
+        [errorManager handleCoreDataException:e forMethod:@"getDealOffer" entity:@"ttDealOffer" error:error];
+        return nil;
+    }
+    
+    return dealOffer;
+}
 
 @end

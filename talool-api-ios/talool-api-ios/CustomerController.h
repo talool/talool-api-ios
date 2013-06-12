@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class ttCustomer, ttMerchant, ttDealAcquire, ttDealAcquire, CustomerService_tClient, ttCategory,APIErrorManager;
+@class ttCustomer, ttMerchant, ttDealAcquire, ttDealAcquire, CustomerService_tClient, ttCategory,APIErrorManager, ttDealOffer;
 
 @interface CustomerController : NSObject {
     CustomerService_tClient *service;
@@ -36,14 +36,15 @@
 - (NSString *)redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error;
 - (NSMutableArray *) getDealOffers:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (void) purchaseDealOffer:(ttCustomer *)customer dealOfferId:(NSString *)dealOfferId error:(NSError**)error;
+- (ttDealOffer *) getDealOffer:(NSString *)doId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 
 // GIFTS
-- (BOOL) giftToFacebook:(ttCustomer *)customer
+- (NSString *) giftToFacebook:(ttCustomer *)customer
           dealAcquireId:(NSString *)dealAcquireId
              facebookId:(NSString *)facebookId
          receipientName:(NSString *)receipientName
                   error:(NSError**)error;
-- (BOOL) giftToEmail:(ttCustomer *)customer
+- (NSString *) giftToEmail:(ttCustomer *)customer
        dealAcquireId:(NSString *)dealAcquireId
                email:(NSString *)email
       receipientName:(NSString *)receipientName

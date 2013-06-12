@@ -8,11 +8,15 @@
 
 #import "TaloolDealOffer.h"
 
-@class DealOffer_t;
+@class DealOffer_t, ttCustomer;
 
 @interface ttDealOffer : TaloolDealOffer
 
 + (ttDealOffer *)initWithThrift: (DealOffer_t *)offer context:(NSManagedObjectContext *)context;
++ (ttDealOffer *)getDealOffer:(NSString *)doId
+                     customer:(ttCustomer *)customer
+                      context:(NSManagedObjectContext *)context
+                        error:(NSError **)err;
 - (DealOffer_t *)hydrateThriftObject;
 
 @end

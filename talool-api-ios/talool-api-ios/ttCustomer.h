@@ -56,11 +56,11 @@
 
 - (NSArray *) getGifts:(NSManagedObjectContext *)context
                  error:(NSError **)err;
-- (BOOL)giftToFacebook:(NSString *)dealAcquireId
+- (NSString *)giftToFacebook:(NSString *)dealAcquireId
             facebookId:(NSString *)facebookId
         receipientName:(NSString *)receipientName
                  error:(NSError**)error;
-- (BOOL)giftToEmail:(NSString *)dealAcquireId
+- (NSString *)giftToEmail:(NSString *)dealAcquireId
               email:(NSString *)email
      receipientName:(NSString *)receipientName
               error:(NSError**)error;

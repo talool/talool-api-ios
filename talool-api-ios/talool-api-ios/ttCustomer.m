@@ -422,7 +422,7 @@
     return [cc getGifts:self context:context error:err];
 }
 
-- (BOOL)giftToFacebook:(NSString *)dealAcquireId
+- (NSString *)giftToFacebook:(NSString *)dealAcquireId
             facebookId:(NSString *)facebookId
         receipientName:(NSString *)receipientName
                  error:(NSError**)error;
@@ -432,7 +432,7 @@
     return [cc giftToFacebook:self dealAcquireId:dealAcquireId facebookId:facebookId receipientName:receipientName error:error];
 }
 
-- (BOOL)giftToEmail:(NSString *)dealAcquireId
+- (NSString *)giftToEmail:(NSString *)dealAcquireId
               email:(NSString *)email
      receipientName:(NSString *)receipientName
               error:(NSError**)error

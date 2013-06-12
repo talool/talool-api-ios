@@ -31,10 +31,10 @@
 		81510D68175EF3DC002A869A /* SocialAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 81510D66175EF3DC002A869A /* SocialAccount.m */; };
 		81510D7B175EF44D002A869A /* ttGift.h in Headers */ = {isa = PBXBuildFile; fileRef = 81510D79175EF44D002A869A /* ttGift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81510D7C175EF44D002A869A /* ttGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 81510D7A175EF44D002A869A /* ttGift.m */; };
-		818D16A417641EA800DFB14A /* CustomerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 818D16A217641EA800DFB14A /* CustomerService.h */; };
-		818D16A517641EA800DFB14A /* CustomerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 818D16A317641EA800DFB14A /* CustomerService.m */; };
-		818D16B21764245B00DFB14A /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 818D16B01764245B00DFB14A /* Core.h */; };
-		818D16B31764245B00DFB14A /* Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 818D16B11764245B00DFB14A /* Core.m */; };
+		818D16BE17691FB200DFB14A /* CustomerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 818D16BA17691FB200DFB14A /* CustomerService.h */; };
+		818D16BF17691FB200DFB14A /* CustomerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 818D16BB17691FB200DFB14A /* CustomerService.m */; };
+		818D16C217691FE600DFB14A /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 818D16C017691FE600DFB14A /* Core.h */; };
+		818D16C317691FE600DFB14A /* Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 818D16C117691FE600DFB14A /* Core.m */; };
 		81FF00DF17611CF40040E1F6 /* TaloolCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 81FF00DD17611CF40040E1F6 /* TaloolCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81FF00E017611CF40040E1F6 /* TaloolCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FF00DE17611CF40040E1F6 /* TaloolCustomer.m */; };
 		81FF00E317611CF50040E1F6 /* TaloolDealAcquire.h in Headers */ = {isa = PBXBuildFile; fileRef = 81FF00E117611CF50040E1F6 /* TaloolDealAcquire.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -201,10 +201,10 @@
 		81510D66175EF3DC002A869A /* SocialAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialAccount.m; sourceTree = "<group>"; };
 		81510D79175EF44D002A869A /* ttGift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttGift.h; sourceTree = "<group>"; };
 		81510D7A175EF44D002A869A /* ttGift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttGift.m; sourceTree = "<group>"; };
-		818D16A217641EA800DFB14A /* CustomerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerService.h; sourceTree = "<group>"; };
-		818D16A317641EA800DFB14A /* CustomerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerService.m; sourceTree = "<group>"; };
-		818D16B01764245B00DFB14A /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
-		818D16B11764245B00DFB14A /* Core.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Core.m; sourceTree = "<group>"; };
+		818D16BA17691FB200DFB14A /* CustomerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerService.h; sourceTree = "<group>"; };
+		818D16BB17691FB200DFB14A /* CustomerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerService.m; sourceTree = "<group>"; };
+		818D16C017691FE600DFB14A /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
+		818D16C117691FE600DFB14A /* Core.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Core.m; sourceTree = "<group>"; };
 		81FF00DD17611CF40040E1F6 /* TaloolCustomer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolCustomer.h; sourceTree = "<group>"; };
 		81FF00DE17611CF40040E1F6 /* TaloolCustomer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolCustomer.m; sourceTree = "<group>"; };
 		81FF00E117611CF50040E1F6 /* TaloolDealAcquire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolDealAcquire.h; sourceTree = "<group>"; };
@@ -439,10 +439,10 @@
 		914A1B5A16E6EDB60043989A /* gen-cocoa */ = {
 			isa = PBXGroup;
 			children = (
-				818D16B01764245B00DFB14A /* Core.h */,
-				818D16B11764245B00DFB14A /* Core.m */,
-				818D16A217641EA800DFB14A /* CustomerService.h */,
-				818D16A317641EA800DFB14A /* CustomerService.m */,
+				818D16C017691FE600DFB14A /* Core.h */,
+				818D16C117691FE600DFB14A /* Core.m */,
+				818D16BA17691FB200DFB14A /* CustomerService.h */,
+				818D16BB17691FB200DFB14A /* CustomerService.m */,
 			);
 			name = "gen-cocoa";
 			sourceTree = "<group>";
@@ -711,8 +711,8 @@
 				91CC60D216F57CD900647AEC /* TaloolHTTPClient.h in Headers */,
 				91866B58174BEF0200083260 /* APIErrorManager.h in Headers */,
 				91866B5D174C156900083260 /* TaloolErrorHandler.h in Headers */,
-				818D16A417641EA800DFB14A /* CustomerService.h in Headers */,
-				818D16B21764245B00DFB14A /* Core.h in Headers */,
+				818D16BE17691FB200DFB14A /* CustomerService.h in Headers */,
+				818D16C217691FE600DFB14A /* Core.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,8 +892,8 @@
 				81FF00EC17611CF50040E1F6 /* TaloolGift.m in Sources */,
 				81FF00F017611CF50040E1F6 /* TaloolToken.m in Sources */,
 				81FF00F417611D860040E1F6 /* ttFriend.m in Sources */,
-				818D16A517641EA800DFB14A /* CustomerService.m in Sources */,
-				818D16B31764245B00DFB14A /* Core.m in Sources */,
+				818D16BF17691FB200DFB14A /* CustomerService.m in Sources */,
+				818D16C317691FE600DFB14A /* Core.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
