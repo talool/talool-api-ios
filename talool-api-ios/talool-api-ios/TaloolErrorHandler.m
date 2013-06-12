@@ -23,8 +23,17 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     
     if ([exception isKindOfClass:[ServiceException_t class]])
     {
-        errorDetails = [self getServiceDetails:method why:@"The Service Failed"];
-        code = ERROR_CODE_SERVICE_DOWN;
+        ServiceException_t *e = (ServiceException_t *)exception;
+        if (e.errorCode == ERROR_CODE_INVALID_PASSWORD)
+        {
+            errorDetails = e.errorDesc;
+            code = ERROR_CODE_INVALID_PASSWORD;
+        }
+        else
+        {
+            errorDetails = [self getServiceDetails:method why:@"The Service Failed"];
+            code = ERROR_CODE_SERVICE_DOWN;
+        }
     }
     else if ([exception isKindOfClass:[TApplicationException class]])
     {

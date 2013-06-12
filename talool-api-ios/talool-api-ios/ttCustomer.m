@@ -114,11 +114,9 @@
     
     CustomerController *cController = [[CustomerController alloc] init];
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    NSError *authError;
     
-    ttCustomer *user = [cController authenticate:email password:password context:context error:&authError];
-    
-    if (authError.code < 100) {
+    ttCustomer *user = [cController authenticate:email password:password context:context error:err];
+    if ([*err code] < 100) {
         
         [user refresh:context];
         
@@ -128,9 +126,6 @@
             [details setValue:@"Failed to save context after authentication." forKey:NSLocalizedDescriptionKey];
             *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
         }
-    } else {
-        [details setValue:@"Failed to authenticate user." forKey:NSLocalizedDescriptionKey];
-        *err = [NSError errorWithDomain:@"auth" code:200 userInfo:details];
     }
     
     return user;
