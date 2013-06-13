@@ -48,8 +48,27 @@
                       context:(NSManagedObjectContext *)context
                         error:(NSError **)err
 {
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc getDealOffer:doId customer:customer context:context error:err];
+    ttDealOffer *offer;
+    
+    // check the context before going to the service
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.dealOfferId = %@",doId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_OFFER_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
+    if ([mutableFetchResults count] == 1)
+    {
+        offer = [mutableFetchResults objectAtIndex:0];
+    }
+    else
+    {
+        CustomerController *cc = [[CustomerController alloc] init];
+        offer = [cc getDealOffer:doId customer:customer context:context error:err];
+    }
+    return offer;
 }
 
 
