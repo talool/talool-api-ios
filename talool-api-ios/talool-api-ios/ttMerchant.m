@@ -49,6 +49,19 @@
             
             [m addLocationsObject:ml];
         }
+        
+        // make sure that location is set
+        if (m.location == nil && [m.locations count] > 0)
+        {
+            if ([m.locations count] > 0)
+            {
+                m.location = (ttMerchantLocation *)m.locations.objectEnumerator.nextObject;
+            }
+            else
+            {
+                NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
+            }
+        }
     }
     
     return m;
@@ -77,14 +90,30 @@
 - (NSString *)getLocationLabel
 {
     NSString *label;
-    if ([self.locations count] > 1) {
+    if ([self.locations count] > 1)
+    {
         label = @"multiple locations";
-    } else {
-        if (location.name == NULL) {
+    }
+    else if ([self.locations count] == 1)
+    {
+        if (location == NULL)
+        {
+            label = @"";
+            NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
+        }
+        else if (location.name == NULL)
+        {
             label = location.address.city;
-        } else {
+        }
+        else
+        {
             label = location.name;
         }
+    }
+    else
+    {
+        label = @"";
+        NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
     }
     return label;
 }
