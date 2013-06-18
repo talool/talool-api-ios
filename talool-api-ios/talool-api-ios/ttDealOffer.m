@@ -71,6 +71,19 @@
     return offer;
 }
 
++ (NSArray *)getDealOffers:(ttCustomer *)customer
+                   context:(NSManagedObjectContext *)context
+                     error:(NSError **)err
+{
+    NSArray *offers;
+    
+    // TODO pull from context first
+    CustomerController *cc = [[CustomerController alloc] init];
+    offers = [cc getDealOffers:customer context:context error:err];
+    
+    return offers;
+}
+
 
 - (DealOffer_t *)hydrateThriftObject
 {

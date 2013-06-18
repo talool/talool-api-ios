@@ -318,18 +318,22 @@
     return offers;
 }
 
-- (void) purchaseDealOffer:(ttCustomer *)customer dealOfferId:(NSString *)dealOfferId error:(NSError**)error
+- (BOOL) purchaseDealOffer:(ttCustomer *)customer dealOfferId:(NSString *)dealOfferId error:(NSError**)error
 {
+    BOOL success;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service purchaseDealOffer:dealOfferId];
+        success = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"purchaseDealOffer" error:error];
+        success = NO;
     }
     @finally {
         [self disconnect];
     }
+    return success;
 }
 
 - (NSMutableArray *) getMerchantsWithin:(ttCustomer *)customer latitude:(double) latitude longitude:(double) longitude context:(NSManagedObjectContext *)context error:(NSError**)error

@@ -11,7 +11,7 @@
 #import "TaloolCustomer.h"
 #import "ttToken.h"
 
-@class Customer_t, ttMerchant, ttSocialAccount, ttDealAcquire;
+@class Customer_t, ttMerchant, ttSocialAccount, ttDealAcquire, ttDealOffer;
 
 @interface ttCustomer : TaloolCustomer
 
@@ -71,6 +71,8 @@
 
 - (BOOL) showDealRedemptionInstructions:(ttDealAcquire *)dealAcquire;
 - (void) showedDealRedemptionInstructions;
+
+- (BOOL) purchaseDealOffer:(ttDealOffer *)offer error:(NSError **)err;
 
 
 @end

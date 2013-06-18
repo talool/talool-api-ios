@@ -17,6 +17,9 @@
                      customer:(ttCustomer *)customer
                       context:(NSManagedObjectContext *)context
                         error:(NSError **)err;
++ (NSArray *)getDealOffers:(ttCustomer *)customer
+                   context:(NSManagedObjectContext *)context
+                     error:(NSError **)err;
 - (DealOffer_t *)hydrateThriftObject;
 
 @end

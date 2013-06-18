@@ -15,6 +15,7 @@
 #import "CustomerController.h"
 #import "ttMerchant.h"
 #import "ttDealAcquire.h"
+#import "ttDealOffer.h"
 
 
 @implementation ttCustomer
@@ -481,6 +482,12 @@
         }
     }
     return NO;
+}
+
+- (BOOL) purchaseDealOffer:(ttDealOffer *)offer error:(NSError **)err
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc purchaseDealOffer:self dealOfferId:offer.dealOfferId error:err];
 }
 
 @end
