@@ -27,7 +27,6 @@
     newOffer.dealType = [[NSNumber alloc] initWithUnsignedInteger:offer.dealType];
     newOffer.imageUrl = offer.imageUrl;
     
-    NSLog(@"offer expires (timestamp): %lld",offer.expires);
     if (offer.expires==0)
     {
         newOffer.expires = nil;
@@ -35,7 +34,6 @@
     else
     {
         newOffer.expires = [[NSDate alloc] initWithTimeIntervalSince1970:(offer.expires/1000)];
-        NSLog(@"offer expires (date): %@",newOffer.expires);
     }
     newOffer.price = [[NSNumber alloc] initWithDouble:offer.price];
     newOffer.merchant = [ttMerchant initWithThrift:offer.merchant context:context];

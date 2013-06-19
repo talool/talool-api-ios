@@ -79,7 +79,7 @@
     NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
     for (int i=0; i < [mutableFetchResults count]; i++) {
         [context deleteObject:[mutableFetchResults objectAtIndex:i]];
-        NSLog(@"deleted %@",enitityName);
+        //NSLog(@"deleted %@",enitityName);
     }
 }
 
@@ -119,7 +119,7 @@
     ttCustomer *user = [cController authenticate:email password:password context:context error:err];
     if ([*err code] < 100) {
         
-        [user refresh:context];
+        //[user refresh:context];
         
         NSError *saveError;
         if (![context save:&saveError]) {
