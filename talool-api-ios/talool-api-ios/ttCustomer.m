@@ -305,6 +305,8 @@
 - (void) refresh: (NSManagedObjectContext *)context
 {
     [self refreshMerchants:context];
+    [self refreshFavoriteMerchants:context];
+    
 }
 
 /**
