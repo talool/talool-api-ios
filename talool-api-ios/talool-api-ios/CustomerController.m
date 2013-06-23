@@ -208,7 +208,7 @@
     @finally {
         [self disconnect];
     }
-    
+    //NSLog(@"DEBUG::: got %lu merchants", (unsigned long)[merchants count]);
     @try {
         // transform the Thrift response into a ttMerchant array
         for (int i=0; i<[merchants count]; i++) {
@@ -360,11 +360,12 @@
     @finally {
         [self disconnect];
     }
-    
+    //NSLog(@"DEBUG::: got %lu merchants with a range", (unsigned long)[merchants count]);
     @try {
         // transform the Thrift response
         for (int i=0; i<[merchants count]; i++) {
             Merchant_t *td = [merchants objectAtIndex:i];
+            //NSLog(@"DEBUG::: merchant name: %@", td.name);
             ttMerchant *d = [ttMerchant initWithThrift:td context:context];
             [merchants setObject:d atIndexedSubscript:i];
         }

@@ -33,6 +33,7 @@
     if (location.distanceInMetersIsSet)
     {
         m.distanceInMeters = [[NSNumber alloc] initWithDouble:location.distanceInMeters];
+        //NSLog(@"DEBUG::: got distance");
     }
     
     return m;

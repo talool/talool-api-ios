@@ -27,6 +27,11 @@
     m.name = merchant.name;
     m.category = [ttCategory initWithThrift:merchant.category context:context];
     
+    
+    //NSString *locIsSet = (merchant.locationsIsSet)?@"true":@"false";
+    //NSLog(@"DEBUG::: location set: %@ for %@",locIsSet,merchant.name);
+    
+    
     if (merchant.locationsIsSet) {
         
         

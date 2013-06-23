@@ -378,6 +378,8 @@
  *  Call the service for merchant around the user.
  *  Store the merchants in the context and return them.
  *  These merchants are NOT tied to the customer.
+ *
+ *  TODO: the distanceInMeters param isn't used, so it should be removed
 **/
 - (NSArray *) getMerchantsByProximity:(int)distanceInMeters
                             longitude:(double)longitude

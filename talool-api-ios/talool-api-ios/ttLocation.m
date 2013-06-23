@@ -20,7 +20,7 @@
     
     m.latitude = [[NSNumber alloc] initWithDouble:location.latitude];
     m.longitude = [[NSNumber alloc] initWithDouble:location.longitude];
-    //NSLog(@"lat: %f long: %f",location.latitude, location.longitude);
+    //NSLog(@"DEBUG::: lat: %f long: %f",location.latitude, location.longitude);
     
     return m;
 }
