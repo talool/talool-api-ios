@@ -38,7 +38,14 @@
     newDeal.updated = [[NSDate alloc] initWithTimeIntervalSince1970:(deal.updated/1000)];
     newDeal.dealOfferId = deal.dealOfferId;
     
-    newDeal.merchant = merchant;
+    if (merchant == nil)
+    {
+        newDeal.merchant = [ttMerchant initWithThrift:deal.merchant context:context];
+    }
+    else
+    {
+        newDeal.merchant = merchant;
+    }
     
     return newDeal;
 }

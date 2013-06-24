@@ -677,4 +677,42 @@
     return dealOffer;
 }
 
+- (NSMutableArray *) getDealsByDealOfferId:(NSString *)doId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
+{
+    NSMutableArray *deals;
+    
+    @try {
+        // Do the Thrift Merchants
+        [self connectWithToken:(ttToken *)customer.token];
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:0];
+        [options setAscending:YES];
+        [options setSortProperty:@"deal.title"];
+        deals = [service getDealsByDealOfferId:doId searchOptions:options];
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"getDealByDealOfferId" error:error];
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response into a ttDealAcquire array
+        for (int i=0; i<[deals count]; i++) {
+            Deal_t *td = [deals objectAtIndex:i];
+            ttDeal *d = [ttDeal initWithThrift:td merchant:nil context:context];
+            [deals setObject:d atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [errorManager handleCoreDataException:e forMethod:@"getDealByDealOfferId" entity:@"ttDeal" error:error];
+        return nil;
+    }
+    
+    return deals;
+}
+
 @end

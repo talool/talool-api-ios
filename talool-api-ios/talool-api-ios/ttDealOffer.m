@@ -26,6 +26,7 @@
     newOffer.summary = offer.summary;
     newOffer.dealType = [[NSNumber alloc] initWithUnsignedInteger:offer.dealType];
     newOffer.imageUrl = offer.imageUrl;
+    newOffer.locationName = offer.locationName;
     
     if (offer.expires==0)
     {
@@ -82,6 +83,19 @@
     return offers;
 }
 
+- (NSArray *)getDeals:(ttCustomer *)customer
+              context:(NSManagedObjectContext *)context
+                error:(NSError **)err
+{
+    NSArray *deals;
+    
+    // TODO pull from context first
+    CustomerController *cc = [[CustomerController alloc] init];
+    deals = [cc getDealsByDealOfferId:self.dealOfferId customer:customer context:context error:err];
+    
+    return deals;
+}
+
 
 - (DealOffer_t *)hydrateThriftObject
 {
@@ -92,6 +106,7 @@
     offer.summary = self.summary;
     offer.dealType = [self.dealType intValue];
     offer.imageUrl = self.imageUrl;
+    offer.locationName = self.locationName;
     offer.price = [self.price doubleValue];
     offer.merchant = [(ttMerchant *)self.merchant hydrateThriftObject];
     

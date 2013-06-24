@@ -21,5 +21,6 @@
 @dynamic price;
 @dynamic expires;
 @dynamic merchant;
+@dynamic locationName;
 
 @end
