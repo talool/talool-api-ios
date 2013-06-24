@@ -95,6 +95,7 @@
         <attribute name="dealType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="expires" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -154,7 +155,7 @@
         <element name="TaloolCustomerUX" positionX="-324" positionY="573" width="128" height="120"/>
         <element name="TaloolDeal" positionX="-126" positionY="225" width="128" height="255"/>
         <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="225"/>
-        <element name="TaloolDealOffer" positionX="-486" positionY="63" width="128" height="178"/>
+        <element name="TaloolDealOffer" positionX="-486" positionY="63" width="128" height="195"/>
         <element name="TaloolGift" positionX="-128" positionY="522" width="128" height="103"/>
         <element name="TaloolLocation" positionX="-486" positionY="-189" width="128" height="90"/>
         <element name="TaloolMerchant" positionX="-297" positionY="99" width="128" height="165"/>
