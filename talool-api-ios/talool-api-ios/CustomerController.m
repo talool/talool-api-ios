@@ -571,7 +571,7 @@
                         error:(NSError**)error
 {
     // TODO Queue it!
-    NSLog(@"FIX IT: GET GIFTS: Queue this server call if needed.");
+    //NSLog(@"FIX IT: GET GIFTS: Queue this server call if needed.");
     
     NSMutableArray *gifts;
     
@@ -688,7 +688,7 @@
         [options setMaxResults:1000];
         [options setPage:0];
         [options setAscending:YES];
-        [options setSortProperty:@"deal.title"];
+        [options setSortProperty:@"title"];
         deals = [service getDealsByDealOfferId:doId searchOptions:options];
     }
     @catch (NSException * e) {
