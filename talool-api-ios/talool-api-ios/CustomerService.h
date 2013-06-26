@@ -14,6 +14,7 @@
 #import "TObjective-C.h"
 
 #import "Core.h"
+#import "Activity.h"
 
 @interface CTokenAccess_t : NSObject <NSCoding> {
   Customer_t * __customer;
@@ -72,6 +73,7 @@
 - (NSMutableArray *) getGifts;  // throws ServiceException_t *, TException
 - (void) acceptGift: (NSString *) giftId;  // throws ServiceException_t *, TException
 - (void) rejectGift: (NSString *) giftId;  // throws ServiceException_t *, TException
+- (NSMutableArray *) getActivities: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {
