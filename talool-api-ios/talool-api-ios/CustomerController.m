@@ -19,6 +19,8 @@
 #import "ttCategory.h"
 #import "ttGift.h"
 #import "Core.h"
+#import "Activity.h"
+#import "ttActivity.h"
 #import "CustomerService.h"
 #import "TaloolFrameworkHelper.h"
 #import "TaloolPersistentStoreCoordinator.h"
@@ -713,6 +715,46 @@
     }
     
     return deals;
+}
+
+- (NSMutableArray *) getActivities:(ttCustomer *)customer
+                           context:(NSManagedObjectContext *)context
+                             error:(NSError**)error
+{
+    NSMutableArray *activities;
+    
+    @try {
+        // Do the Thrift Merchants
+        [self connectWithToken:(ttToken *)customer.token];
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:0];
+        [options setAscending:YES];
+        [options setSortProperty:@"activityDate"];
+        activities = [service getActivities:options];
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"getActivities" error:error];
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response into a ttDealAcquire array
+        for (int i=0; i<[activities count]; i++) {
+            Activity_t *at = [activities objectAtIndex:i];
+            ttActivity *tta = [ttActivity initWithThrift:at context:context];
+            [activities setObject:tta atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [errorManager handleCoreDataException:e forMethod:@"getActivities" entity:@"ttActivity" error:error];
+        return nil;
+    }
+    
+    return activities;
 }
 
 @end

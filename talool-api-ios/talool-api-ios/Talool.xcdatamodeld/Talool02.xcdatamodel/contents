@@ -20,19 +20,6 @@
         <attribute name="socialNetwork" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="TaloolActivity" representedClassName="TaloolActivity" syncable="YES">
-        <attribute name="activityDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="event" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="link" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolActivityLink" inverseName="activity" inverseEntity="TaloolActivityLink" syncable="YES"/>
-    </entity>
-    <entity name="TaloolActivityLink" representedClassName="TaloolActivityLink" syncable="YES">
-        <attribute name="elementId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="linkType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="activity" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolActivity" inverseName="link" inverseEntity="TaloolActivity" syncable="YES"/>
-    </entity>
     <entity name="TaloolAddress" representedClassName="ttAddress" syncable="YES">
         <attribute name="address1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="address2" optional="YES" attributeType="String" syncable="YES"/>
@@ -175,7 +162,5 @@
         <element name="TaloolMerchantLocation" positionX="-333" positionY="-189" width="128" height="210"/>
         <element name="TaloolSearchOptions" positionX="214" positionY="-91" width="128" height="103"/>
         <element name="TaloolToken" positionX="-488" positionY="432" width="128" height="73"/>
-        <element name="TaloolActivity" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="TaloolActivityLink" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

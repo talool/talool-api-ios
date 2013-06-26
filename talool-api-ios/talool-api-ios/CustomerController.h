@@ -21,6 +21,8 @@
 - (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (BOOL)userExists:(NSString *) email;
 
+- (NSMutableArray *) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
+
 // MERCHANTS
 - (NSMutableArray *) getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (NSMutableArray *) getMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
