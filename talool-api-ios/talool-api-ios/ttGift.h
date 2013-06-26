@@ -13,6 +13,7 @@
 @interface ttGift : TaloolGift
 
 + (ttGift *)initWithThrift: (Gift_t *)gift context:(NSManagedObjectContext *)context;
++ (ttGift *)getGiftById:(NSString* )giftId context:(NSManagedObjectContext *)context;
 - (Gift_t *)hydrateThriftObject;
 
 @end

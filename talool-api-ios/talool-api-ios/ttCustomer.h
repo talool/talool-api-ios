@@ -74,6 +74,8 @@
 
 - (BOOL) purchaseDealOffer:(ttDealOffer *)offer error:(NSError **)err;
 
+- (NSArray *) getActivities:(NSManagedObjectContext *)context
+                      error:(NSError **)err;
 
 @end
 

@@ -494,4 +494,11 @@
     return [cc purchaseDealOffer:self dealOfferId:offer.dealOfferId error:err];
 }
 
+- (NSArray *) getActivities:(NSManagedObjectContext *)context
+                      error:(NSError **)err
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc getActivities:self context:context error:err];
+}
+
 @end

@@ -31,6 +31,25 @@
     return newGift;
 }
 
++ (ttGift *)getGiftById:(NSString* )giftId context:(NSManagedObjectContext *)context
+{
+    // query the context for these deals
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.giftId = %@",giftId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:GIFT_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSMutableArray *gifts = [[context executeFetchRequest:request error:&error] mutableCopy];
+    if (gifts == nil || [gifts count] == 0) {
+        NSLog(@"FAIL: Nil gift for giftId: %@: %@",giftId, error.localizedDescription);
+        return nil;
+    }
+    ttGift *gift = [gifts objectAtIndex:0];
+    return gift;
+}
+
 - (Gift_t *)hydrateThriftObject
 {
     Gift_t *gift = [[Gift_t alloc] init];
