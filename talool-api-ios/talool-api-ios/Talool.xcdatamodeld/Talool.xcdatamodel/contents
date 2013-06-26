@@ -20,7 +20,7 @@
         <attribute name="socialNetwork" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="TaloolActivity" representedClassName="TaloolActivity" syncable="YES">
+    <entity name="TaloolActivity" representedClassName="ttActivity" syncable="YES">
         <attribute name="activityDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="event" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
@@ -28,7 +28,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="link" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolActivityLink" inverseName="activity" inverseEntity="TaloolActivityLink" syncable="YES"/>
     </entity>
-    <entity name="TaloolActivityLink" representedClassName="TaloolActivityLink" syncable="YES">
+    <entity name="TaloolActivityLink" representedClassName="ttActivityLink" syncable="YES">
         <attribute name="elementId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="linkType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="activity" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolActivity" inverseName="link" inverseEntity="TaloolActivity" syncable="YES"/>
