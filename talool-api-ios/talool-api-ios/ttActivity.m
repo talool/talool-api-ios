@@ -19,6 +19,8 @@
                                insertNewObjectForEntityForName:ACTIVITY_ENTITY_NAME
                                inManagedObjectContext:context];
     
+    //NSLog(@"DEBUG::: Activity subtitle: %@",activity.subtitle);
+    
     a.title = activity.title;
     a.subtitle = activity.subtitle;
     a.icon = activity.icon;
@@ -102,6 +104,47 @@
 - (BOOL) isAd
 {
     return ([self.event intValue] == ActivityEvent_t_AD);
+}
+
++ (NSPredicate *) getGiftPredicate
+{
+    NSSet *events = [NSSet setWithObjects:
+                    [NSNumber numberWithInt:ActivityEvent_t_REJECT_GIFT],
+                    [NSNumber numberWithInt:ActivityEvent_t_EMAIL_SEND_GIFT],
+                    [NSNumber numberWithInt:ActivityEvent_t_EMAIL_RECV_GIFT],
+                    [NSNumber numberWithInt:ActivityEvent_t_FACEBOOK_SEND_GIFT],
+                    [NSNumber numberWithInt:ActivityEvent_t_FACEBOOK_RECV_GIFT],
+                    nil];
+    return [NSPredicate predicateWithFormat:@"SELF.event IN %@", events];
+}
+
++ (NSPredicate *) getMoneyPredicate
+{
+    NSSet *events = [NSSet setWithObjects:
+                     [NSNumber numberWithInt:ActivityEvent_t_PURCHASE],
+                     [NSNumber numberWithInt:ActivityEvent_t_REDEEM],
+                     nil];
+    return [NSPredicate predicateWithFormat:@"SELF.event IN %@", events];
+}
+
++ (NSPredicate *) getSharePredicate
+{
+    NSSet *events = [NSSet setWithObjects:
+                     [NSNumber numberWithInt:ActivityEvent_t_FRIEND_GIFT_ACCEPT],
+                     [NSNumber numberWithInt:ActivityEvent_t_FRIEND_GIFT_REJECT],
+                     [NSNumber numberWithInt:ActivityEvent_t_FRIEND_GIFT_REDEEM],
+                     [NSNumber numberWithInt:ActivityEvent_t_FRIEND_PURCHASE_DEAL_OFFER],
+                     nil];
+    return [NSPredicate predicateWithFormat:@"SELF.event IN %@", events];
+}
+
++ (NSPredicate *) getReachPredicate
+{
+    NSSet *events = [NSSet setWithObjects:
+                     [NSNumber numberWithInt:ActivityEvent_t_MERCHANT_REACH],
+                     [NSNumber numberWithInt:ActivityEvent_t_TALOOL_REACH],
+                     nil];
+    return [NSPredicate predicateWithFormat:@"SELF.event IN %@", events];
 }
 
 @end

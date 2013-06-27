@@ -29,4 +29,9 @@
 - (BOOL) isUnknownEvent;
 - (BOOL) isAd;
 
++ (NSPredicate *) getGiftPredicate;
++ (NSPredicate *) getMoneyPredicate;
++ (NSPredicate *) getSharePredicate;
++ (NSPredicate *) getReachPredicate;
+
 @end
