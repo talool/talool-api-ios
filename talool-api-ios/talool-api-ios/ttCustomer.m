@@ -299,18 +299,6 @@
 
 /**
  *  Convenience method.
- *  Wraps other "refesh" calls to the service.
- *  Potentially a very heavy call, so consider deprecating this.
- **/
-- (void) refresh: (NSManagedObjectContext *)context
-{
-    [self refreshMerchants:context];
-    [self refreshFavoriteMerchants:context];
-    
-}
-
-/**
- *  Convenience method.
  *  Converts the set of merchants to an array
  **/
 - (NSArray *) getMyMerchants
@@ -357,13 +345,13 @@
  **/
 - (void) refreshMerchants: (NSManagedObjectContext *)context
 {
-    [self removeMerchants:self.merchants];
     
     CustomerController *cc = [[CustomerController alloc] init];
     NSError *error;
     NSMutableArray *merchants = [cc getMerchants:self context:context error:&error];
     NSSet *fMerchants = [[NSSet alloc] initWithArray:merchants];
     
+    [self removeMerchants:self.merchants];
     [self addMerchants:fMerchants];
     
     // save these merchants in the context

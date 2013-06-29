@@ -40,7 +40,7 @@
 - (NSString *)getFullName;
 - (ttToken *)getTaloolToken;
 
-- (void) refresh: (NSManagedObjectContext *)context;
+//- (void) refresh: (NSManagedObjectContext *)context;
 - (void) refreshMerchants: (NSManagedObjectContext *)context;
 - (void) refreshFavoriteMerchants: (NSManagedObjectContext *)context;
 

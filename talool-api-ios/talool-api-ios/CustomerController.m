@@ -729,7 +729,7 @@
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
         [options setMaxResults:1000];
         [options setPage:0];
-        [options setAscending:YES];
+        [options setAscending:NO];
         [options setSortProperty:@"activityDate"];
         activities = [service getActivities:options];
     }
@@ -740,6 +740,8 @@
     @finally {
         [self disconnect];
     }
+    
+    //NSLog(@"DEBUG::: ACTIVITY COUNT: %d",[activities count]);
     
     @try {
         // transform the Thrift response into a ttDealAcquire array

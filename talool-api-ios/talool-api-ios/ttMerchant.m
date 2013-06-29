@@ -12,6 +12,7 @@
 #import "ttCategory.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import "TaloolFrameworkHelper.h"
 #import "CustomerController.h"
 
 @implementation ttMerchant
@@ -176,6 +177,25 @@
         merchant = [fetchedObj objectAtIndex:0];
     }
     return merchant;
+}
+
++ (NSArray *) getMerchantsInContext:(NSManagedObjectContext *)context
+{
+    NSArray *merchants;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"locations.@count != 0"];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY locations.distanceInMeters < %d",DEFAULT_PROXIMITY*METERS_PER_MILE];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    merchants = [context executeFetchRequest:request error:&error];
+    
+    NSLog(@"DEBUG::: Found %d merchants closer than %d",[merchants count],DEFAULT_PROXIMITY);
+    
+    return merchants;
 }
 
 

@@ -159,9 +159,11 @@
         <relationship name="customer" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="token" inverseEntity="TaloolCustomer" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Friend" positionX="205" positionY="288" width="128" height="135"/>
+        <element name="Friend" positionX="171" positionY="414" width="128" height="135"/>
         <element name="SocialAccount" positionX="-486" positionY="297" width="128" height="103"/>
         <element name="SocialNetworkDetail" positionX="216" positionY="-220" width="128" height="103"/>
+        <element name="TaloolActivity" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="TaloolActivityLink" positionX="160" positionY="192" width="128" height="90"/>
         <element name="TaloolAddress" positionX="-146" positionY="-220" width="128" height="180"/>
         <element name="TaloolCategory" positionX="-128" positionY="0" width="128" height="88"/>
         <element name="TaloolCustomer" positionX="-326" positionY="297" width="128" height="238"/>
@@ -175,7 +177,5 @@
         <element name="TaloolMerchantLocation" positionX="-333" positionY="-189" width="128" height="210"/>
         <element name="TaloolSearchOptions" positionX="214" positionY="-91" width="128" height="103"/>
         <element name="TaloolToken" positionX="-488" positionY="432" width="128" height="73"/>
-        <element name="TaloolActivity" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="TaloolActivityLink" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

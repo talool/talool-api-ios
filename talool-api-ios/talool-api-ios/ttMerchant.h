@@ -23,4 +23,7 @@
 
 - (ttMerchantLocation *) getClosestLocation:(double)latitude longitude:(double)longitude;
 
++ (ttMerchant *) fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context;
++ (NSArray *) getMerchantsInContext:(NSManagedObjectContext *)context;
+
 @end
