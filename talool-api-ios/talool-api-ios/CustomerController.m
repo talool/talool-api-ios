@@ -605,25 +605,34 @@
     return gifts;
 }
 
-- (BOOL) acceptGift:(ttCustomer *)customer
+- (ttDealAcquire *) acceptGift:(ttCustomer *)customer
              giftId:(NSString *)giftId
+            context:(NSManagedObjectContext *)context
               error:(NSError**)error
 {
-    BOOL success;
+    ttDealAcquire *deal;
+    DealAcquire_t *dt;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-        [service acceptGift:giftId];
-        success = YES;
+        dt = [service acceptGift:giftId];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"acceptGift" error:error];
-        success = NO;
     }
     @finally {
         [self disconnect];
     }
     
-    return success;
+    @try {
+        // transform the Thrift response
+        deal = [ttDealAcquire initWithThrift:dt context:context];
+    }
+    @catch (NSException * e) {
+        [errorManager handleCoreDataException:e forMethod:@"getGifts" entity:@"ttGift" error:error];
+        return nil;
+    }
+    
+    return deal;
 }
 
 - (BOOL) rejectGift:(ttCustomer *)customer

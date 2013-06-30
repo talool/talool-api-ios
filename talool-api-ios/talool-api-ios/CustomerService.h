@@ -71,7 +71,7 @@
 - (NSString *) giftToFacebook: (NSString *) dealAcquireId facebookId: (NSString *) facebookId receipientName: (NSString *) receipientName;  // throws ServiceException_t *, TException
 - (NSString *) giftToEmail: (NSString *) dealAcquireId email: (NSString *) email receipientName: (NSString *) receipientName;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getGifts;  // throws ServiceException_t *, TException
-- (void) acceptGift: (NSString *) giftId;  // throws ServiceException_t *, TException
+- (DealAcquire_t *) acceptGift: (NSString *) giftId;  // throws ServiceException_t *, TException
 - (void) rejectGift: (NSString *) giftId;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getActivities: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 @end

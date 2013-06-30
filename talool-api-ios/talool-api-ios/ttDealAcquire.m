@@ -27,7 +27,6 @@
     newDeal.dealAcquireId = deal.dealAcquireId;
     newDeal.deal = [ttDeal initWithThrift:deal.deal merchant:merchant context:context];
     newDeal.status = [[NSNumber alloc] initWithUnsignedInteger:deal.status];
-    newDeal.shareCount = [[NSNumber alloc] initWithUnsignedInteger:deal.shareCount];
     
     // don't override with the server value of the server returns null or if the client thinks it has been redeemed.
     if (deal.redeemedIsSet==YES && newDeal.redeemed == nil)
@@ -52,12 +51,16 @@
     return newDeal;
 }
 
++ (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal context:(NSManagedObjectContext *)context
+{
+    return [ttDealAcquire initWithThrift:deal merchant:nil context:context];
+}
+
 - (DealAcquire_t *)hydrateThriftObject
 {
     DealAcquire_t *acquire = [[DealAcquire_t alloc] init];
     acquire.dealAcquireId = self.dealAcquireId;
     acquire.deal = [(ttDeal *)self.deal hydrateThriftObject];
-    acquire.shareCount = [self.shareCount integerValue];
     acquire.redeemed = [self.redeemed timeIntervalSince1970]*1000;
     acquire.status = [self.status intValue];
     

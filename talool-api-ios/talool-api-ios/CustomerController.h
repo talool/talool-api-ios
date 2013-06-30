@@ -55,8 +55,9 @@
 - (NSMutableArray *) getGifts:(ttCustomer *)customer
                       context:(NSManagedObjectContext *)context
                         error:(NSError**)error;
-- (BOOL) acceptGift:(ttCustomer *)customer
+- (ttDealAcquire *) acceptGift:(ttCustomer *)customer
              giftId:(NSString *)giftId
+            context:(NSManagedObjectContext *)context
               error:(NSError**)error;
 - (BOOL) rejectGift:(ttCustomer *)customer
              giftId:(NSString *)giftId

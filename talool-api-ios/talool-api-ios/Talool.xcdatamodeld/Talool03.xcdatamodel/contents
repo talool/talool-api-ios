@@ -94,6 +94,7 @@
         <attribute name="invalidated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="redeemed" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="redemptionCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shareCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="shared" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
@@ -161,14 +162,12 @@
         <element name="Friend" positionX="205" positionY="288" width="128" height="135"/>
         <element name="SocialAccount" positionX="-486" positionY="297" width="128" height="103"/>
         <element name="SocialNetworkDetail" positionX="216" positionY="-220" width="128" height="103"/>
-        <element name="TaloolActivity" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="TaloolActivityLink" positionX="160" positionY="192" width="128" height="90"/>
         <element name="TaloolAddress" positionX="-146" positionY="-220" width="128" height="180"/>
         <element name="TaloolCategory" positionX="-128" positionY="0" width="128" height="88"/>
         <element name="TaloolCustomer" positionX="-326" positionY="297" width="128" height="238"/>
         <element name="TaloolCustomerUX" positionX="-324" positionY="573" width="128" height="120"/>
         <element name="TaloolDeal" positionX="-126" positionY="225" width="128" height="255"/>
-        <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="210"/>
+        <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="225"/>
         <element name="TaloolDealOffer" positionX="-486" positionY="63" width="128" height="195"/>
         <element name="TaloolGift" positionX="-128" positionY="522" width="128" height="103"/>
         <element name="TaloolLocation" positionX="-486" positionY="-189" width="128" height="90"/>
@@ -176,5 +175,7 @@
         <element name="TaloolMerchantLocation" positionX="-333" positionY="-189" width="128" height="210"/>
         <element name="TaloolSearchOptions" positionX="214" positionY="-91" width="128" height="103"/>
         <element name="TaloolToken" positionX="-488" positionY="432" width="128" height="73"/>
+        <element name="TaloolActivity" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="TaloolActivityLink" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

@@ -4313,7 +4313,7 @@
   return self;
 }
 
-- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status sharedByCustomer: (Customer_t *) sharedByCustomer shareCount: (int32_t) shareCount redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status sharedByCustomer: (Customer_t *) sharedByCustomer redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated
 {
   self = [super init];
   __dealAcquireId = [dealAcquireId retain_stub];
@@ -4324,8 +4324,6 @@
   __status_isset = YES;
   __sharedByCustomer = [sharedByCustomer retain_stub];
   __sharedByCustomer_isset = YES;
-  __shareCount = shareCount;
-  __shareCount_isset = YES;
   __redeemed = redeemed;
   __redeemed_isset = YES;
   __created = created;
@@ -4357,11 +4355,6 @@
   {
     __sharedByCustomer = [[decoder decodeObjectForKey: @"sharedByCustomer"] retain_stub];
     __sharedByCustomer_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"shareCount"])
-  {
-    __shareCount = [decoder decodeInt32ForKey: @"shareCount"];
-    __shareCount_isset = YES;
   }
   if ([decoder containsValueForKey: @"redeemed"])
   {
@@ -4398,10 +4391,6 @@
   if (__sharedByCustomer_isset)
   {
     [encoder encodeObject: __sharedByCustomer forKey: @"sharedByCustomer"];
-  }
-  if (__shareCount_isset)
-  {
-    [encoder encodeInt32: __shareCount forKey: @"shareCount"];
   }
   if (__redeemed_isset)
   {
@@ -4503,23 +4492,6 @@
   [__sharedByCustomer release_stub];
   __sharedByCustomer = nil;
   __sharedByCustomer_isset = NO;
-}
-
-- (int32_t) shareCount {
-  return __shareCount;
-}
-
-- (void) setShareCount: (int32_t) shareCount {
-  __shareCount = shareCount;
-  __shareCount_isset = YES;
-}
-
-- (BOOL) shareCountIsSet {
-  return __shareCount_isset;
-}
-
-- (void) unsetShareCount {
-  __shareCount_isset = NO;
 }
 
 - (int64_t) redeemed {
@@ -4625,14 +4597,6 @@
         }
         break;
       case 5:
-        if (fieldType == TType_I32) {
-          int32_t fieldValue = [inProtocol readI32];
-          [self setShareCount: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 6:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setRedeemed: fieldValue];
@@ -4640,7 +4604,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 7:
+      case 6:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setCreated: fieldValue];
@@ -4648,7 +4612,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 8:
+      case 7:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUpdated: fieldValue];
@@ -4693,23 +4657,18 @@
       [outProtocol writeFieldEnd];
     }
   }
-  if (__shareCount_isset) {
-    [outProtocol writeFieldBeginWithName: @"shareCount" type: TType_I32 fieldID: 5];
-    [outProtocol writeI32: __shareCount];
-    [outProtocol writeFieldEnd];
-  }
   if (__redeemed_isset) {
-    [outProtocol writeFieldBeginWithName: @"redeemed" type: TType_I64 fieldID: 6];
+    [outProtocol writeFieldBeginWithName: @"redeemed" type: TType_I64 fieldID: 5];
     [outProtocol writeI64: __redeemed];
     [outProtocol writeFieldEnd];
   }
   if (__created_isset) {
-    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 7];
+    [outProtocol writeFieldBeginWithName: @"created" type: TType_I64 fieldID: 6];
     [outProtocol writeI64: __created];
     [outProtocol writeFieldEnd];
   }
   if (__updated_isset) {
-    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 8];
+    [outProtocol writeFieldBeginWithName: @"updated" type: TType_I64 fieldID: 7];
     [outProtocol writeI64: __updated];
     [outProtocol writeFieldEnd];
   }
@@ -4727,8 +4686,6 @@
   [ms appendFormat: @"%i", __status];
   [ms appendString: @",sharedByCustomer:"];
   [ms appendFormat: @"%@", __sharedByCustomer];
-  [ms appendString: @",shareCount:"];
-  [ms appendFormat: @"%i", __shareCount];
   [ms appendString: @",redeemed:"];
   [ms appendFormat: @"%qi", __redeemed];
   [ms appendString: @",created:"];

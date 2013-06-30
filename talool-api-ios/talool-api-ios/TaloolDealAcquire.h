@@ -17,7 +17,6 @@
 @property (nonatomic, retain) NSString * dealAcquireId;
 @property (nonatomic, retain) NSString * redemptionCode;
 @property (nonatomic, retain) NSDate * redeemed;
-@property (nonatomic, retain) NSNumber * shareCount;
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSDate * updated;
 @property (nonatomic, retain) NSDate * shared;

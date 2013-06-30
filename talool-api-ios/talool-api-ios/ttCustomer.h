@@ -64,8 +64,9 @@
               email:(NSString *)email
      receipientName:(NSString *)receipientName
               error:(NSError**)error;
-- (BOOL)acceptGift:(NSString *)giftId
-             error:(NSError**)error;
+- (ttDealAcquire *)acceptGift:(NSString *)giftId
+                      context:(NSManagedObjectContext *)context
+                        error:(NSError**)error;
 - (BOOL)rejectGift:(NSString *)giftId
              error:(NSError**)error;
 
