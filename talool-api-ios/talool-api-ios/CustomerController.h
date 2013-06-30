@@ -52,9 +52,10 @@
                email:(NSString *)email
       receipientName:(NSString *)receipientName
                error:(NSError**)error;
-- (ttGift *) getGiftById:(ttCustomer *)customer
-                      context:(NSManagedObjectContext *)context
-                        error:(NSError**)error;
+- (ttGift *) getGiftById:(NSString *)giftId
+                customer:(ttCustomer *)customer
+                 context:(NSManagedObjectContext *)context
+                   error:(NSError**)error;
 - (ttDealAcquire *) acceptGift:(ttCustomer *)customer
              giftId:(NSString *)giftId
             context:(NSManagedObjectContext *)context

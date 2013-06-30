@@ -568,7 +568,8 @@
     return giftId;
 }
 
-- (ttGift *) getGiftById:(ttCustomer *)customer
+- (ttGift *) getGiftById:(NSString *)giftId
+                customer:(ttCustomer *)customer
                  context:(NSManagedObjectContext *)context
                    error:(NSError**)error
 {
@@ -576,11 +577,11 @@
     //NSLog(@"FIX IT: GET GIFTS: Queue this server call if needed.");
     
     ttGift *gift;
-    
+    Gift_t *gift_t;
     
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-        Gift_t *gift_t = [service getGifts];
+        gift_t = [service getGift:giftId];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"getGifts" error:error];

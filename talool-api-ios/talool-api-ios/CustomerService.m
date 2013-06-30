@@ -7561,32 +7561,92 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
-@interface getGifts_args : NSObject <NSCoding> {
+@interface getGift_args : NSObject <NSCoding> {
+  NSString * __giftId;
+
+  BOOL __giftId_isset;
 }
 
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=giftId, setter=setGiftId:) NSString * giftId;
+#endif
+
 - (id) init;
+- (id) initWithGiftId: (NSString *) giftId;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
+#if !__has_feature(objc_arc)
+- (NSString *) giftId;
+- (void) setGiftId: (NSString *) giftId;
+#endif
+- (BOOL) giftIdIsSet;
+
 @end
 
-@implementation getGifts_args
+@implementation getGift_args
 
 - (id) init
 {
   self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithGiftId: (NSString *) giftId
+{
+  self = [super init];
+  __giftId = [giftId retain_stub];
+  __giftId_isset = YES;
   return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
+  if ([decoder containsValueForKey: @"giftId"])
+  {
+    __giftId = [[decoder decodeObjectForKey: @"giftId"] retain_stub];
+    __giftId_isset = YES;
+  }
   return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
+  if (__giftId_isset)
+  {
+    [encoder encodeObject: __giftId forKey: @"giftId"];
+  }
+}
+
+- (void) dealloc
+{
+  [__giftId release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) giftId {
+  return [[__giftId retain_stub] autorelease_stub];
+}
+
+- (void) setGiftId: (NSString *) giftId {
+  [giftId retain_stub];
+  [__giftId release_stub];
+  __giftId = giftId;
+  __giftId_isset = YES;
+}
+
+- (BOOL) giftIdIsSet {
+  return __giftId_isset;
+}
+
+- (void) unsetGiftId {
+  [__giftId release_stub];
+  __giftId = nil;
+  __giftId_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -7604,6 +7664,14 @@ static NSString * CTOKEN_NAME = @"ctok";
     }
     switch (fieldID)
     {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setGiftId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -7614,21 +7682,30 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"getGifts_args"];
+  [outProtocol writeStructBeginWithName: @"getGift_args"];
+  if (__giftId_isset) {
+    if (__giftId != nil) {
+      [outProtocol writeFieldBeginWithName: @"giftId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __giftId];
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"getGifts_args("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"getGift_args("];
+  [ms appendString: @"giftId:"];
+  [ms appendFormat: @"\"%@\"", __giftId];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
 
 @end
 
-@interface GetGifts_result : NSObject <NSCoding> {
-  NSMutableArray * __success;
+@interface GetGift_result : NSObject <NSCoding> {
+  Gift_t * __success;
   ServiceException_t * __error;
 
   BOOL __success_isset;
@@ -7636,19 +7713,19 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=success, setter=setSuccess:) NSMutableArray * success;
+@property (nonatomic, retain, getter=success, setter=setSuccess:) Gift_t * success;
 @property (nonatomic, retain, getter=error, setter=setError:) ServiceException_t * error;
 #endif
 
 - (id) init;
-- (id) initWithSuccess: (NSMutableArray *) success error: (ServiceException_t *) error;
+- (id) initWithSuccess: (Gift_t *) success error: (ServiceException_t *) error;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if !__has_feature(objc_arc)
-- (NSMutableArray *) success;
-- (void) setSuccess: (NSMutableArray *) success;
+- (Gift_t *) success;
+- (void) setSuccess: (Gift_t *) success;
 #endif
 - (BOOL) successIsSet;
 
@@ -7660,7 +7737,7 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
-@implementation GetGifts_result
+@implementation GetGift_result
 
 - (id) init
 {
@@ -7670,7 +7747,7 @@ static NSString * CTOKEN_NAME = @"ctok";
   return self;
 }
 
-- (id) initWithSuccess: (NSMutableArray *) success error: (ServiceException_t *) error
+- (id) initWithSuccess: (Gift_t *) success error: (ServiceException_t *) error
 {
   self = [super init];
   __success = [success retain_stub];
@@ -7715,11 +7792,11 @@ static NSString * CTOKEN_NAME = @"ctok";
   [super dealloc_stub];
 }
 
-- (NSMutableArray *) success {
+- (Gift_t *) success {
   return [[__success retain_stub] autorelease_stub];
 }
 
-- (void) setSuccess: (NSMutableArray *) success {
+- (void) setSuccess: (Gift_t *) success {
   [success retain_stub];
   [__success release_stub];
   __success = success;
@@ -7773,19 +7850,9 @@ static NSString * CTOKEN_NAME = @"ctok";
     switch (fieldID)
     {
       case 0:
-        if (fieldType == TType_LIST) {
-          int _size40;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size40];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size40];
-          int _i41;
-          for (_i41 = 0; _i41 < _size40; ++_i41)
-          {
-            Gift_t *_elem42 = [[Gift_t alloc] init];
-            [_elem42 read: inProtocol];
-            [fieldValue addObject: _elem42];
-            [_elem42 release_stub];
-          }
-          [inProtocol readListEnd];
+        if (fieldType == TType_STRUCT) {
+          Gift_t *fieldValue = [[Gift_t alloc] init];
+          [fieldValue read: inProtocol];
           [self setSuccess: fieldValue];
           [fieldValue release_stub];
         } else { 
@@ -7812,20 +7879,12 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"GetGifts_result"];
+  [outProtocol writeStructBeginWithName: @"GetGift_result"];
 
   if (__success_isset) {
     if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
-      {
-        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i44;
-        for (i44 = 0; i44 < [__success count]; i44++)
-        {
-          [[__success objectAtIndex: i44] write: outProtocol];
-        }
-        [outProtocol writeListEnd];
-      }
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
       [outProtocol writeFieldEnd];
     }
   } else if (__error_isset) {
@@ -7840,7 +7899,7 @@ static NSString * CTOKEN_NAME = @"ctok";
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"GetGifts_result("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetGift_result("];
   [ms appendString: @"success:"];
   [ms appendFormat: @"%@", __success];
   [ms appendString: @",error:"];
@@ -8781,16 +8840,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size45;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size45];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size45];
-          int _i46;
-          for (_i46 = 0; _i46 < _size45; ++_i46)
+          int _size40;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size40];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size40];
+          int _i41;
+          for (_i41 = 0; _i41 < _size40; ++_i41)
           {
-            Activity_t *_elem47 = [[Activity_t alloc] init];
-            [_elem47 read: inProtocol];
-            [fieldValue addObject: _elem47];
-            [_elem47 release_stub];
+            Activity_t *_elem42 = [[Activity_t alloc] init];
+            [_elem42 read: inProtocol];
+            [fieldValue addObject: _elem42];
+            [_elem42 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -8826,10 +8885,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i49;
-        for (i49 = 0; i49 < [__success count]; i49++)
+        int i44;
+        for (i44 = 0; i44 < [__success count]; i44++)
         {
-          [[__success objectAtIndex: i49] write: outProtocol];
+          [[__success objectAtIndex: i44] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -9763,17 +9822,22 @@ static NSString * CTOKEN_NAME = @"ctok";
   return [self recv_giftToEmail];
 }
 
-- (void) send_getGifts
+- (void) send_getGift: (NSString *) giftId
 {
-  [outProtocol writeMessageBeginWithName: @"getGifts" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"getGifts_args"];
+  [outProtocol writeMessageBeginWithName: @"getGift" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getGift_args"];
+  if (giftId != nil)  {
+    [outProtocol writeFieldBeginWithName: @"giftId" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: giftId];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
   [[outProtocol transport] flush];
 }
 
-- (NSMutableArray *) recv_getGifts
+- (Gift_t *) recv_getGift
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -9782,7 +9846,7 @@ static NSString * CTOKEN_NAME = @"ctok";
     [inProtocol readMessageEnd];
     @throw x;
   }
-  GetGifts_result * result = [[[GetGifts_result alloc] init] autorelease_stub];
+  GetGift_result * result = [[[GetGift_result alloc] init] autorelease_stub];
   [result read: inProtocol];
   [inProtocol readMessageEnd];
   if ([result successIsSet]) {
@@ -9792,13 +9856,13 @@ static NSString * CTOKEN_NAME = @"ctok";
     @throw [result error];
   }
   @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"getGifts failed: unknown result"];
+                                           reason: @"getGift failed: unknown result"];
 }
 
-- (NSMutableArray *) getGifts
+- (Gift_t *) getGift: (NSString *) giftId
 {
-  [self send_getGifts];
-  return [self recv_getGifts];
+  [self send_getGift : giftId];
+  return [self recv_getGift];
 }
 
 - (void) send_acceptGift: (NSString *) giftId
@@ -10099,12 +10163,12 @@ static NSString * CTOKEN_NAME = @"ctok";
     [mMethodMap setValue: invocation forKey: @"giftToEmail"];
   }
   {
-    SEL s = @selector(process_getGifts_withSequenceID:inProtocol:outProtocol:);
+    SEL s = @selector(process_getGift_withSequenceID:inProtocol:outProtocol:);
     NSMethodSignature * sig = [self methodSignatureForSelector: s];
     NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
     [invocation setSelector: s];
     [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"getGifts"];
+    [mMethodMap setValue: invocation forKey: @"getGift"];
   }
   {
     SEL s = @selector(process_acceptGift_withSequenceID:inProtocol:outProtocol:);
@@ -10511,14 +10575,14 @@ static NSString * CTOKEN_NAME = @"ctok";
   [args release_stub];
 }
 
-- (void) process_getGifts_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+- (void) process_getGift_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  getGifts_args * args = [[getGifts_args alloc] init];
+  getGift_args * args = [[getGift_args alloc] init];
   [args read: inProtocol];
   [inProtocol readMessageEnd];
-  GetGifts_result * result = [[GetGifts_result alloc] init];
-  [result setSuccess: [mService getGifts]];
-  [outProtocol writeMessageBeginWithName: @"getGifts"
+  GetGift_result * result = [[GetGift_result alloc] init];
+  [result setSuccess: [mService getGift: [args giftId]]];
+  [outProtocol writeMessageBeginWithName: @"getGift"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];

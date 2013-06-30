@@ -51,7 +51,7 @@
      */
     
     CustomerController *cc = [[CustomerController alloc] init];
-    ttGift *gift = [cc getGiftById:customer context:context error:err];
+    ttGift *gift = [cc getGiftById:giftId customer:customer context:context error:err];
     return gift;
 }
 
