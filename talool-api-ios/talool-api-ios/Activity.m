@@ -189,7 +189,7 @@
   return self;
 }
 
-- (id) initWithActivityDate: (Timestamp) activityDate title: (NSString *) title subtitle: (NSString *) subtitle icon: (NSString *) icon activityLink: (ActivityLink_t *) activityLink activityEvent: (int) activityEvent
+- (id) initWithActivityDate: (Timestamp) activityDate title: (NSString *) title subtitle: (NSString *) subtitle icon: (NSString *) icon activityLink: (ActivityLink_t *) activityLink activityEvent: (int) activityEvent closedState: (BOOL) closedState
 {
   self = [super init];
   __activityDate = activityDate;
@@ -204,6 +204,8 @@
   __activityLink_isset = YES;
   __activityEvent = activityEvent;
   __activityEvent_isset = YES;
+  __closedState = closedState;
+  __closedState_isset = YES;
   return self;
 }
 
@@ -240,6 +242,11 @@
     __activityEvent = [decoder decodeIntForKey: @"activityEvent"];
     __activityEvent_isset = YES;
   }
+  if ([decoder containsValueForKey: @"closedState"])
+  {
+    __closedState = [decoder decodeBoolForKey: @"closedState"];
+    __closedState_isset = YES;
+  }
   return self;
 }
 
@@ -268,6 +275,10 @@
   if (__activityEvent_isset)
   {
     [encoder encodeInt: __activityEvent forKey: @"activityEvent"];
+  }
+  if (__closedState_isset)
+  {
+    [encoder encodeBool: __closedState forKey: @"closedState"];
   }
 }
 
@@ -398,6 +409,23 @@
   __activityEvent_isset = NO;
 }
 
+- (BOOL) closedState {
+  return __closedState;
+}
+
+- (void) setClosedState: (BOOL) closedState {
+  __closedState = closedState;
+  __closedState_isset = YES;
+}
+
+- (BOOL) closedStateIsSet {
+  return __closedState_isset;
+}
+
+- (void) unsetClosedState {
+  __closedState_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -463,6 +491,14 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 7:
+        if (fieldType == TType_BOOL) {
+          BOOL fieldValue = [inProtocol readBool];
+          [self setClosedState: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -512,6 +548,11 @@
     [outProtocol writeI32: __activityEvent];
     [outProtocol writeFieldEnd];
   }
+  if (__closedState_isset) {
+    [outProtocol writeFieldBeginWithName: @"closedState" type: TType_BOOL fieldID: 7];
+    [outProtocol writeBool: __closedState];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -530,6 +571,8 @@
   [ms appendFormat: @"%@", __activityLink];
   [ms appendString: @",activityEvent:"];
   [ms appendFormat: @"%i", __activityEvent];
+  [ms appendString: @",closedState:"];
+  [ms appendFormat: @"%i", __closedState];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }

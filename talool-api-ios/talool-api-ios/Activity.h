@@ -85,6 +85,7 @@ enum LinkType {
   NSString * __icon;
   ActivityLink_t * __activityLink;
   int __activityEvent;
+  BOOL __closedState;
 
   BOOL __activityDate_isset;
   BOOL __title_isset;
@@ -92,6 +93,7 @@ enum LinkType {
   BOOL __icon_isset;
   BOOL __activityLink_isset;
   BOOL __activityEvent_isset;
+  BOOL __closedState_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -101,10 +103,11 @@ enum LinkType {
 @property (nonatomic, retain, getter=icon, setter=setIcon:) NSString * icon;
 @property (nonatomic, retain, getter=activityLink, setter=setActivityLink:) ActivityLink_t * activityLink;
 @property (nonatomic, getter=activityEvent, setter=setActivityEvent:) int activityEvent;
+@property (nonatomic, getter=closedState, setter=setClosedState:) BOOL closedState;
 #endif
 
 - (id) init;
-- (id) initWithActivityDate: (Timestamp) activityDate title: (NSString *) title subtitle: (NSString *) subtitle icon: (NSString *) icon activityLink: (ActivityLink_t *) activityLink activityEvent: (int) activityEvent;
+- (id) initWithActivityDate: (Timestamp) activityDate title: (NSString *) title subtitle: (NSString *) subtitle icon: (NSString *) icon activityLink: (ActivityLink_t *) activityLink activityEvent: (int) activityEvent closedState: (BOOL) closedState;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -144,6 +147,12 @@ enum LinkType {
 - (void) setActivityEvent: (int) activityEvent;
 #endif
 - (BOOL) activityEventIsSet;
+
+#if !__has_feature(objc_arc)
+- (BOOL) closedState;
+- (void) setClosedState: (BOOL) closedState;
+#endif
+- (BOOL) closedStateIsSet;
 
 @end
 

@@ -17,6 +17,7 @@
 @dynamic subtitle;
 @dynamic icon;
 @dynamic event;
+@dynamic closedState;
 @dynamic link;
 
 @end

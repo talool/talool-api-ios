@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * subtitle;
 @property (nonatomic, retain) NSString * icon;
 @property (nonatomic, retain) NSNumber * event;
+@property (nonatomic, retain) NSNumber * closedState;
 @property (nonatomic, retain) TaloolActivityLink *link;
 
 @end

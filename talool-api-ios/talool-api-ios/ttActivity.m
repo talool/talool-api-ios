@@ -24,11 +24,17 @@
     a.title = activity.title;
     a.subtitle = activity.subtitle;
     a.icon = activity.icon;
+    a.closedState = [NSNumber numberWithBool:activity.closedState];
     a.link = [ttActivityLink initWithThrift:activity.activityLink context:context];
     a.event = [NSNumber numberWithInt:activity.activityEvent];
     a.activityDate = [NSDate dateWithTimeIntervalSince1970:activity.activityDate/1000];
     
     return a;
+}
+
+- (BOOL) isClosed
+{
+    return (BOOL)self.closedState;
 }
 
 - (BOOL) isPurchaseEvent

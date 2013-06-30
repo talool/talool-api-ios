@@ -30,6 +30,8 @@
 - (BOOL) isUnknownEvent;
 - (BOOL) isAd;
 
+- (BOOL) isClosed;
+
 + (NSPredicate *) getGiftPredicate;
 + (NSPredicate *) getMoneyPredicate;
 + (NSPredicate *) getSharePredicate;
