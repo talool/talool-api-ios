@@ -568,18 +568,19 @@
     return giftId;
 }
 
-- (NSMutableArray *) getGifts:(ttCustomer *)customer
-                      context:(NSManagedObjectContext *)context
-                        error:(NSError**)error
+- (ttGift *) getGiftById:(ttCustomer *)customer
+                 context:(NSManagedObjectContext *)context
+                   error:(NSError**)error
 {
     // TODO Queue it!
     //NSLog(@"FIX IT: GET GIFTS: Queue this server call if needed.");
     
-    NSMutableArray *gifts;
+    ttGift *gift;
+    
     
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-        gifts = [service getGifts];
+        Gift_t *gift_t = [service getGifts];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"getGifts" error:error];
@@ -591,18 +592,14 @@
     
     @try {
         // transform the Thrift response
-        for (int i=0; i<[gifts count]; i++) {
-            Gift_t *td = [gifts objectAtIndex:i];
-            ttGift *d = [ttGift initWithThrift:td context:context];
-            [gifts setObject:d atIndexedSubscript:i];
-        }
+        gift = [ttGift initWithThrift:gift_t context:context];
     }
     @catch (NSException * e) {
-        [errorManager handleCoreDataException:e forMethod:@"getGifts" entity:@"ttGift" error:error];
+        [errorManager handleCoreDataException:e forMethod:@"getGiftById" entity:@"ttGift" error:error];
         return nil;
     }
     
-    return gifts;
+    return gift;
 }
 
 - (ttDealAcquire *) acceptGift:(ttCustomer *)customer

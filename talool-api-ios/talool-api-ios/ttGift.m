@@ -12,6 +12,7 @@
 #import "ttMerchant.h"
 #import "ttDealAcquire.h"
 #import "Core.h"
+#import "CustomerController.h"
 #import "TaloolPersistentStoreCoordinator.h"
 
 @implementation ttGift
@@ -31,9 +32,9 @@
     return newGift;
 }
 
-+ (ttGift *)getGiftById:(NSString* )giftId context:(NSManagedObjectContext *)context
++ (ttGift *)getGiftById:(NSString* )giftId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
-    // query the context for these deals
+    /* query the context for these deals
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.giftId = %@",giftId];
     [request setPredicate:pred];
@@ -47,6 +48,10 @@
         return nil;
     }
     ttGift *gift = [gifts objectAtIndex:0];
+     */
+    
+    CustomerController *cc = [[CustomerController alloc] init];
+    ttGift *gift = [cc getGiftById:customer context:context error:err];
     return gift;
 }
 

@@ -8,12 +8,12 @@
 
 #import "TaloolGift.h"
 
-@class Gift_t;
+@class Gift_t, ttCustomer;
 
 @interface ttGift : TaloolGift
 
 + (ttGift *)initWithThrift: (Gift_t *)gift context:(NSManagedObjectContext *)context;
-+ (ttGift *)getGiftById:(NSString* )giftId context:(NSManagedObjectContext *)context;
++ (ttGift *)getGiftById:(NSString* )giftId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err;
 - (Gift_t *)hydrateThriftObject;
 
 @end

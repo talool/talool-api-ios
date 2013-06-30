@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class ttCustomer, ttMerchant, ttDealAcquire, ttDealAcquire, CustomerService_tClient, ttCategory,APIErrorManager, ttDealOffer;
+@class ttCustomer, ttMerchant, ttDealAcquire, ttDealAcquire, CustomerService_tClient, ttCategory,APIErrorManager, ttDealOffer, ttGift;
 
 @interface CustomerController : NSObject {
     CustomerService_tClient *service;
@@ -52,7 +52,7 @@
                email:(NSString *)email
       receipientName:(NSString *)receipientName
                error:(NSError**)error;
-- (NSMutableArray *) getGifts:(ttCustomer *)customer
+- (ttGift *) getGiftById:(ttCustomer *)customer
                       context:(NSManagedObjectContext *)context
                         error:(NSError**)error;
 - (ttDealAcquire *) acceptGift:(ttCustomer *)customer

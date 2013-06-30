@@ -54,8 +54,6 @@
                               context:(NSManagedObjectContext *)context
                                 error:(NSError **)err;
 
-- (NSArray *) getGifts:(NSManagedObjectContext *)context
-                 error:(NSError **)err;
 - (NSString *)giftToFacebook:(NSString *)dealAcquireId
             facebookId:(NSString *)facebookId
         receipientName:(NSString *)receipientName

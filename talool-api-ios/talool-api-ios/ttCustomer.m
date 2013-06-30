@@ -408,13 +408,6 @@
     }
 }
 
-- (NSArray *) getGifts:(NSManagedObjectContext *)context
-                 error:(NSError **)err
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc getGifts:self context:context error:err];
-}
-
 - (NSString *)giftToFacebook:(NSString *)dealAcquireId
             facebookId:(NSString *)facebookId
         receipientName:(NSString *)receipientName
