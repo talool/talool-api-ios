@@ -435,11 +435,12 @@
     return [cc giftToEmail:self dealAcquireId:dealAcquireId email:email receipientName:receipientName error:error];
 }
 
-- (BOOL)acceptGift:(NSString *)giftId
-             error:(NSError**)error;
+- (ttDealAcquire *)acceptGift:(NSString *)giftId
+                      context:(NSManagedObjectContext *)context
+                        error:(NSError**)error;
 {
     CustomerController *cc = [[CustomerController alloc] init];
-    return [cc acceptGift:self giftId:giftId error:error];
+    return [cc acceptGift:self giftId:giftId context:context error:error];
 }
 
 - (BOOL)rejectGift:(NSString *)giftId

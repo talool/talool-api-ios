@@ -876,7 +876,6 @@ typedef int64_t Timestamp;
   Deal_t * __deal;
   int __status;
   Customer_t * __sharedByCustomer;
-  int32_t __shareCount;
   Timestamp __redeemed;
   Timestamp __created;
   Timestamp __updated;
@@ -885,7 +884,6 @@ typedef int64_t Timestamp;
   BOOL __deal_isset;
   BOOL __status_isset;
   BOOL __sharedByCustomer_isset;
-  BOOL __shareCount_isset;
   BOOL __redeemed_isset;
   BOOL __created_isset;
   BOOL __updated_isset;
@@ -896,14 +894,13 @@ typedef int64_t Timestamp;
 @property (nonatomic, retain, getter=deal, setter=setDeal:) Deal_t * deal;
 @property (nonatomic, getter=status, setter=setStatus:) int status;
 @property (nonatomic, retain, getter=sharedByCustomer, setter=setSharedByCustomer:) Customer_t * sharedByCustomer;
-@property (nonatomic, getter=shareCount, setter=setShareCount:) int32_t shareCount;
 @property (nonatomic, getter=redeemed, setter=setRedeemed:) Timestamp redeemed;
 @property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
 @property (nonatomic, getter=updated, setter=setUpdated:) Timestamp updated;
 #endif
 
 - (id) init;
-- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status sharedByCustomer: (Customer_t *) sharedByCustomer shareCount: (int32_t) shareCount redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated;
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status sharedByCustomer: (Customer_t *) sharedByCustomer redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -931,12 +928,6 @@ typedef int64_t Timestamp;
 - (void) setSharedByCustomer: (Customer_t *) sharedByCustomer;
 #endif
 - (BOOL) sharedByCustomerIsSet;
-
-#if !__has_feature(objc_arc)
-- (int32_t) shareCount;
-- (void) setShareCount: (int32_t) shareCount;
-#endif
-- (BOOL) shareCountIsSet;
 
 #if !__has_feature(objc_arc)
 - (Timestamp) redeemed;

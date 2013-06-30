@@ -17,20 +17,21 @@
 
 enum ActivityEvent_t {
   ActivityEvent_t_UNKNOWN = 0,
-  ActivityEvent_t_PURCHASE = 1,
-  ActivityEvent_t_REDEEM = 2,
-  ActivityEvent_t_REJECT_GIFT = 3,
-  ActivityEvent_t_FACEBOOK_RECV_GIFT = 4,
-  ActivityEvent_t_FACEBOOK_SEND_GIFT = 5,
-  ActivityEvent_t_EMAIL_RECV_GIFT = 6,
-  ActivityEvent_t_EMAIL_SEND_GIFT = 7,
-  ActivityEvent_t_FRIEND_GIFT_ACCEPT = 8,
-  ActivityEvent_t_FRIEND_GIFT_REJECT = 9,
-  ActivityEvent_t_FRIEND_GIFT_REDEEM = 10,
-  ActivityEvent_t_FRIEND_PURCHASE_DEAL_OFFER = 11,
-  ActivityEvent_t_MERCHANT_REACH = 12,
-  ActivityEvent_t_TALOOL_REACH = 13,
-  ActivityEvent_t_AD = 14
+  ActivityEvent_t_WELCOME = 1,
+  ActivityEvent_t_PURCHASE = 2,
+  ActivityEvent_t_REDEEM = 3,
+  ActivityEvent_t_REJECT_GIFT = 4,
+  ActivityEvent_t_FACEBOOK_RECV_GIFT = 5,
+  ActivityEvent_t_FACEBOOK_SEND_GIFT = 6,
+  ActivityEvent_t_EMAIL_RECV_GIFT = 7,
+  ActivityEvent_t_EMAIL_SEND_GIFT = 8,
+  ActivityEvent_t_FRIEND_GIFT_ACCEPT = 9,
+  ActivityEvent_t_FRIEND_GIFT_REJECT = 10,
+  ActivityEvent_t_FRIEND_GIFT_REDEEM = 11,
+  ActivityEvent_t_FRIEND_PURCHASE_DEAL_OFFER = 12,
+  ActivityEvent_t_MERCHANT_REACH = 13,
+  ActivityEvent_t_TALOOL_REACH = 14,
+  ActivityEvent_t_AD = 15
 };
 
 enum LinkType {

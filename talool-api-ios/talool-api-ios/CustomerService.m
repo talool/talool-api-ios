@@ -7995,20 +7995,29 @@ static NSString * CTOKEN_NAME = @"ctok";
 @end
 
 @interface AcceptGift_result : NSObject <NSCoding> {
+  DealAcquire_t * __success;
   ServiceException_t * __error;
 
+  BOOL __success_isset;
   BOOL __error_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=success, setter=setSuccess:) DealAcquire_t * success;
 @property (nonatomic, retain, getter=error, setter=setError:) ServiceException_t * error;
 #endif
 
 - (id) init;
-- (id) initWithError: (ServiceException_t *) error;
+- (id) initWithSuccess: (DealAcquire_t *) success error: (ServiceException_t *) error;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (DealAcquire_t *) success;
+- (void) setSuccess: (DealAcquire_t *) success;
+#endif
+- (BOOL) successIsSet;
 
 #if !__has_feature(objc_arc)
 - (ServiceException_t *) error;
@@ -8028,9 +8037,11 @@ static NSString * CTOKEN_NAME = @"ctok";
   return self;
 }
 
-- (id) initWithError: (ServiceException_t *) error
+- (id) initWithSuccess: (DealAcquire_t *) success error: (ServiceException_t *) error
 {
   self = [super init];
+  __success = [success retain_stub];
+  __success_isset = YES;
   __error = [error retain_stub];
   __error_isset = YES;
   return self;
@@ -8039,6 +8050,11 @@ static NSString * CTOKEN_NAME = @"ctok";
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
+  if ([decoder containsValueForKey: @"success"])
+  {
+    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+    __success_isset = YES;
+  }
   if ([decoder containsValueForKey: @"error"])
   {
     __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
@@ -8049,6 +8065,10 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
+  if (__success_isset)
+  {
+    [encoder encodeObject: __success forKey: @"success"];
+  }
   if (__error_isset)
   {
     [encoder encodeObject: __error forKey: @"error"];
@@ -8057,8 +8077,30 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (void) dealloc
 {
+  [__success release_stub];
   [__error release_stub];
   [super dealloc_stub];
+}
+
+- (DealAcquire_t *) success {
+  return [[__success retain_stub] autorelease_stub];
+}
+
+- (void) setSuccess: (DealAcquire_t *) success {
+  [success retain_stub];
+  [__success release_stub];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release_stub];
+  __success = nil;
+  __success_isset = NO;
 }
 
 - (ServiceException_t *) error {
@@ -8097,6 +8139,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     }
     switch (fieldID)
     {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          DealAcquire_t *fieldValue = [[DealAcquire_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       case 1:
         if (fieldType == TType_STRUCT) {
           ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
@@ -8119,7 +8171,13 @@ static NSString * CTOKEN_NAME = @"ctok";
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"AcceptGift_result"];
 
-  if (__error_isset) {
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__error_isset) {
     if (__error != nil) {
       [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
       [__error write: outProtocol];
@@ -8132,7 +8190,9 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"AcceptGift_result("];
-  [ms appendString: @"error:"];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @",error:"];
   [ms appendFormat: @"%@", __error];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
@@ -9756,7 +9816,7 @@ static NSString * CTOKEN_NAME = @"ctok";
   [[outProtocol transport] flush];
 }
 
-- (void) recv_acceptGift
+- (DealAcquire_t *) recv_acceptGift
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -9768,16 +9828,20 @@ static NSString * CTOKEN_NAME = @"ctok";
   AcceptGift_result * result = [[[AcceptGift_result alloc] init] autorelease_stub];
   [result read: inProtocol];
   [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
   if ([result errorIsSet]) {
     @throw [result error];
   }
-  return;
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"acceptGift failed: unknown result"];
 }
 
-- (void) acceptGift: (NSString *) giftId
+- (DealAcquire_t *) acceptGift: (NSString *) giftId
 {
   [self send_acceptGift : giftId];
-  [self recv_acceptGift];
+  return [self recv_acceptGift];
 }
 
 - (void) send_rejectGift: (NSString *) giftId
@@ -10470,7 +10534,7 @@ static NSString * CTOKEN_NAME = @"ctok";
   [args read: inProtocol];
   [inProtocol readMessageEnd];
   AcceptGift_result * result = [[AcceptGift_result alloc] init];
-  [mService acceptGift: [args giftId]];
+  [result setSuccess: [mService acceptGift: [args giftId]]];
   [outProtocol writeMessageBeginWithName: @"acceptGift"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];

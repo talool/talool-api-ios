@@ -96,6 +96,11 @@
     return ([self.event intValue] == ActivityEvent_t_TALOOL_REACH);
 }
 
+- (BOOL) isWelcomeEvent
+{
+    return ([self.event intValue] == ActivityEvent_t_WELCOME);
+}
+
 - (BOOL) isUnknownEvent
 {
     return ([self.event intValue] == ActivityEvent_t_UNKNOWN);

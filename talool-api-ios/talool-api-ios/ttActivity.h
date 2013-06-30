@@ -26,6 +26,7 @@
 - (BOOL) isFriendPurchaseEvent;
 - (BOOL) isMerchantReachEvent;
 - (BOOL) isTaloolReachEvent;
+- (BOOL) isWelcomeEvent;
 - (BOOL) isUnknownEvent;
 - (BOOL) isAd;
 
