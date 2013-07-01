@@ -483,4 +483,19 @@
     return [cc getActivities:self context:context error:err];
 }
 
+- (BOOL)hasDeals:(NSManagedObjectContext *)context
+{
+    // query the context for valid deals
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.invalidated = nil"];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSMutableArray *deals = [[context executeFetchRequest:request error:&error] mutableCopy];
+    
+    return ([deals count]>0);
+}
+
 @end
