@@ -45,7 +45,7 @@
 
 - (BOOL) isClosed
 {
-    return (BOOL)self.actionTaken;
+    return ([self.actionTaken intValue]==1);
 }
 
 - (BOOL) isPurchaseEvent
@@ -165,6 +165,7 @@
     NSSet *events = [NSSet setWithObjects:
                      [NSNumber numberWithInt:ActivityEvent_t_MERCHANT_REACH],
                      [NSNumber numberWithInt:ActivityEvent_t_TALOOL_REACH],
+                     [NSNumber numberWithInt:ActivityEvent_t_WELCOME],
                      nil];
     return [NSPredicate predicateWithFormat:@"SELF.event IN %@", events];
 }

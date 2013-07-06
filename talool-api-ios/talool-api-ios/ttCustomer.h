@@ -36,6 +36,7 @@
 
 - (BOOL)isValid:(NSError **)error;
 - (BOOL)isFacebookUser;
+- (BOOL)hasDeals:(NSManagedObjectContext *)context;
 - (Customer_t *)hydrateThriftObject;
 - (NSString *)getFullName;
 - (ttToken *)getTaloolToken;
