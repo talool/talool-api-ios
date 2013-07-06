@@ -485,6 +485,12 @@
 
 - (BOOL)hasDeals:(NSManagedObjectContext *)context
 {
+    // TODO move this to a service call
+    //      there are too many false positives
+    
+    return YES;
+    
+    /*
     // query the context for valid deals
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.invalidated = nil"];
@@ -496,6 +502,7 @@
     NSMutableArray *deals = [[context executeFetchRequest:request error:&error] mutableCopy];
     
     return ([deals count]>0);
+    */
 }
 
 @end
