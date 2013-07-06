@@ -79,38 +79,47 @@ enum LinkType {
 @end
 
 @interface Activity_t : NSObject <NSCoding> {
+  NSString * __activityId;
   Timestamp __activityDate;
   NSString * __title;
   NSString * __subtitle;
   NSString * __icon;
   ActivityLink_t * __activityLink;
   int __activityEvent;
-  BOOL __closedState;
+  BOOL __actionTaken;
 
+  BOOL __activityId_isset;
   BOOL __activityDate_isset;
   BOOL __title_isset;
   BOOL __subtitle_isset;
   BOOL __icon_isset;
   BOOL __activityLink_isset;
   BOOL __activityEvent_isset;
-  BOOL __closedState_isset;
+  BOOL __actionTaken_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=activityId, setter=setActivityId:) NSString * activityId;
 @property (nonatomic, getter=activityDate, setter=setActivityDate:) Timestamp activityDate;
 @property (nonatomic, retain, getter=title, setter=setTitle:) NSString * title;
 @property (nonatomic, retain, getter=subtitle, setter=setSubtitle:) NSString * subtitle;
 @property (nonatomic, retain, getter=icon, setter=setIcon:) NSString * icon;
 @property (nonatomic, retain, getter=activityLink, setter=setActivityLink:) ActivityLink_t * activityLink;
 @property (nonatomic, getter=activityEvent, setter=setActivityEvent:) int activityEvent;
-@property (nonatomic, getter=closedState, setter=setClosedState:) BOOL closedState;
+@property (nonatomic, getter=actionTaken, setter=setActionTaken:) BOOL actionTaken;
 #endif
 
 - (id) init;
-- (id) initWithActivityDate: (Timestamp) activityDate title: (NSString *) title subtitle: (NSString *) subtitle icon: (NSString *) icon activityLink: (ActivityLink_t *) activityLink activityEvent: (int) activityEvent closedState: (BOOL) closedState;
+- (id) initWithActivityId: (NSString *) activityId activityDate: (Timestamp) activityDate title: (NSString *) title subtitle: (NSString *) subtitle icon: (NSString *) icon activityLink: (ActivityLink_t *) activityLink activityEvent: (int) activityEvent actionTaken: (BOOL) actionTaken;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) activityId;
+- (void) setActivityId: (NSString *) activityId;
+#endif
+- (BOOL) activityIdIsSet;
 
 #if !__has_feature(objc_arc)
 - (Timestamp) activityDate;
@@ -149,10 +158,10 @@ enum LinkType {
 - (BOOL) activityEventIsSet;
 
 #if !__has_feature(objc_arc)
-- (BOOL) closedState;
-- (void) setClosedState: (BOOL) closedState;
+- (BOOL) actionTaken;
+- (void) setActionTaken: (BOOL) actionTaken;
 #endif
-- (BOOL) closedStateIsSet;
+- (BOOL) actionTakenIsSet;
 
 @end
 

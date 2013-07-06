@@ -12,12 +12,13 @@
 
 @implementation TaloolActivity
 
+@dynamic activityId;
 @dynamic activityDate;
 @dynamic title;
 @dynamic subtitle;
 @dynamic icon;
 @dynamic event;
-@dynamic closedState;
+@dynamic actionTaken;
 @dynamic link;
 
 @end

@@ -74,6 +74,7 @@
 - (DealAcquire_t *) acceptGift: (NSString *) giftId;  // throws ServiceException_t *, TException
 - (void) rejectGift: (NSString *) giftId;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getActivities: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
+- (void) activityAction: (NSString *) activityId;  // throws ServiceException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {

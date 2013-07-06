@@ -64,5 +64,6 @@
              giftId:(NSString *)giftId
               error:(NSError**)error;
 
+- (BOOL) actionTaken:(ttCustomer *)customer actionId:(NSString *)actionId error:(NSError**)error;
 
 @end

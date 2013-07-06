@@ -8,7 +8,7 @@
 
 #import "TaloolActivity.h"
 
-@class Activity_t;
+@class Activity_t, ttCustomer;
 
 @interface ttActivity : TaloolActivity
 
@@ -31,6 +31,7 @@
 - (BOOL) isAd;
 
 - (BOOL) isClosed;
+- (void) actionTaken:(ttCustomer *)customer;
 
 + (NSPredicate *) getGiftPredicate;
 + (NSPredicate *) getMoneyPredicate;

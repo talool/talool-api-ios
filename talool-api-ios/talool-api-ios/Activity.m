@@ -185,13 +185,17 @@
 {
   self = [super init];
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+  self.actionTaken = NO;
+
 #endif
   return self;
 }
 
-- (id) initWithActivityDate: (Timestamp) activityDate title: (NSString *) title subtitle: (NSString *) subtitle icon: (NSString *) icon activityLink: (ActivityLink_t *) activityLink activityEvent: (int) activityEvent closedState: (BOOL) closedState
+- (id) initWithActivityId: (NSString *) activityId activityDate: (Timestamp) activityDate title: (NSString *) title subtitle: (NSString *) subtitle icon: (NSString *) icon activityLink: (ActivityLink_t *) activityLink activityEvent: (int) activityEvent actionTaken: (BOOL) actionTaken
 {
   self = [super init];
+  __activityId = [activityId retain_stub];
+  __activityId_isset = YES;
   __activityDate = activityDate;
   __activityDate_isset = YES;
   __title = [title retain_stub];
@@ -204,14 +208,19 @@
   __activityLink_isset = YES;
   __activityEvent = activityEvent;
   __activityEvent_isset = YES;
-  __closedState = closedState;
-  __closedState_isset = YES;
+  __actionTaken = actionTaken;
+  __actionTaken_isset = YES;
   return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
+  if ([decoder containsValueForKey: @"activityId"])
+  {
+    __activityId = [[decoder decodeObjectForKey: @"activityId"] retain_stub];
+    __activityId_isset = YES;
+  }
   if ([decoder containsValueForKey: @"activityDate"])
   {
     __activityDate = [decoder decodeInt64ForKey: @"activityDate"];
@@ -242,16 +251,20 @@
     __activityEvent = [decoder decodeIntForKey: @"activityEvent"];
     __activityEvent_isset = YES;
   }
-  if ([decoder containsValueForKey: @"closedState"])
+  if ([decoder containsValueForKey: @"actionTaken"])
   {
-    __closedState = [decoder decodeBoolForKey: @"closedState"];
-    __closedState_isset = YES;
+    __actionTaken = [decoder decodeBoolForKey: @"actionTaken"];
+    __actionTaken_isset = YES;
   }
   return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
+  if (__activityId_isset)
+  {
+    [encoder encodeObject: __activityId forKey: @"activityId"];
+  }
   if (__activityDate_isset)
   {
     [encoder encodeInt64: __activityDate forKey: @"activityDate"];
@@ -276,19 +289,41 @@
   {
     [encoder encodeInt: __activityEvent forKey: @"activityEvent"];
   }
-  if (__closedState_isset)
+  if (__actionTaken_isset)
   {
-    [encoder encodeBool: __closedState forKey: @"closedState"];
+    [encoder encodeBool: __actionTaken forKey: @"actionTaken"];
   }
 }
 
 - (void) dealloc
 {
+  [__activityId release_stub];
   [__title release_stub];
   [__subtitle release_stub];
   [__icon release_stub];
   [__activityLink release_stub];
   [super dealloc_stub];
+}
+
+- (NSString *) activityId {
+  return [[__activityId retain_stub] autorelease_stub];
+}
+
+- (void) setActivityId: (NSString *) activityId {
+  [activityId retain_stub];
+  [__activityId release_stub];
+  __activityId = activityId;
+  __activityId_isset = YES;
+}
+
+- (BOOL) activityIdIsSet {
+  return __activityId_isset;
+}
+
+- (void) unsetActivityId {
+  [__activityId release_stub];
+  __activityId = nil;
+  __activityId_isset = NO;
 }
 
 - (int64_t) activityDate {
@@ -409,21 +444,21 @@
   __activityEvent_isset = NO;
 }
 
-- (BOOL) closedState {
-  return __closedState;
+- (BOOL) actionTaken {
+  return __actionTaken;
 }
 
-- (void) setClosedState: (BOOL) closedState {
-  __closedState = closedState;
-  __closedState_isset = YES;
+- (void) setActionTaken: (BOOL) actionTaken {
+  __actionTaken = actionTaken;
+  __actionTaken_isset = YES;
 }
 
-- (BOOL) closedStateIsSet {
-  return __closedState_isset;
+- (BOOL) actionTakenIsSet {
+  return __actionTaken_isset;
 }
 
-- (void) unsetClosedState {
-  __closedState_isset = NO;
+- (void) unsetActionTaken {
+  __actionTaken_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -442,6 +477,14 @@
     switch (fieldID)
     {
       case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setActivityId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setActivityDate: fieldValue];
@@ -449,7 +492,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 2:
+      case 3:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setTitle: fieldValue];
@@ -457,7 +500,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 3:
+      case 4:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setSubtitle: fieldValue];
@@ -465,7 +508,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 4:
+      case 5:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setIcon: fieldValue];
@@ -473,7 +516,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 5:
+      case 6:
         if (fieldType == TType_STRUCT) {
           ActivityLink_t *fieldValue = [[ActivityLink_t alloc] init];
           [fieldValue read: inProtocol];
@@ -483,7 +526,7 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 6:
+      case 7:
         if (fieldType == TType_I32) {
           int fieldValue = [inProtocol readI32];
           [self setActivityEvent: fieldValue];
@@ -491,10 +534,10 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 7:
+      case 8:
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
-          [self setClosedState: fieldValue];
+          [self setActionTaken: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -510,47 +553,54 @@
 
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"Activity_t"];
+  if (__activityId_isset) {
+    if (__activityId != nil) {
+      [outProtocol writeFieldBeginWithName: @"activityId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __activityId];
+      [outProtocol writeFieldEnd];
+    }
+  }
   if (__activityDate_isset) {
-    [outProtocol writeFieldBeginWithName: @"activityDate" type: TType_I64 fieldID: 1];
+    [outProtocol writeFieldBeginWithName: @"activityDate" type: TType_I64 fieldID: 2];
     [outProtocol writeI64: __activityDate];
     [outProtocol writeFieldEnd];
   }
   if (__title_isset) {
     if (__title != nil) {
-      [outProtocol writeFieldBeginWithName: @"title" type: TType_STRING fieldID: 2];
+      [outProtocol writeFieldBeginWithName: @"title" type: TType_STRING fieldID: 3];
       [outProtocol writeString: __title];
       [outProtocol writeFieldEnd];
     }
   }
   if (__subtitle_isset) {
     if (__subtitle != nil) {
-      [outProtocol writeFieldBeginWithName: @"subtitle" type: TType_STRING fieldID: 3];
+      [outProtocol writeFieldBeginWithName: @"subtitle" type: TType_STRING fieldID: 4];
       [outProtocol writeString: __subtitle];
       [outProtocol writeFieldEnd];
     }
   }
   if (__icon_isset) {
     if (__icon != nil) {
-      [outProtocol writeFieldBeginWithName: @"icon" type: TType_STRING fieldID: 4];
+      [outProtocol writeFieldBeginWithName: @"icon" type: TType_STRING fieldID: 5];
       [outProtocol writeString: __icon];
       [outProtocol writeFieldEnd];
     }
   }
   if (__activityLink_isset) {
     if (__activityLink != nil) {
-      [outProtocol writeFieldBeginWithName: @"activityLink" type: TType_STRUCT fieldID: 5];
+      [outProtocol writeFieldBeginWithName: @"activityLink" type: TType_STRUCT fieldID: 6];
       [__activityLink write: outProtocol];
       [outProtocol writeFieldEnd];
     }
   }
   if (__activityEvent_isset) {
-    [outProtocol writeFieldBeginWithName: @"activityEvent" type: TType_I32 fieldID: 6];
+    [outProtocol writeFieldBeginWithName: @"activityEvent" type: TType_I32 fieldID: 7];
     [outProtocol writeI32: __activityEvent];
     [outProtocol writeFieldEnd];
   }
-  if (__closedState_isset) {
-    [outProtocol writeFieldBeginWithName: @"closedState" type: TType_BOOL fieldID: 7];
-    [outProtocol writeBool: __closedState];
+  if (__actionTaken_isset) {
+    [outProtocol writeFieldBeginWithName: @"actionTaken" type: TType_BOOL fieldID: 8];
+    [outProtocol writeBool: __actionTaken];
     [outProtocol writeFieldEnd];
   }
   [outProtocol writeFieldStop];
@@ -559,7 +609,9 @@
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"Activity_t("];
-  [ms appendString: @"activityDate:"];
+  [ms appendString: @"activityId:"];
+  [ms appendFormat: @"\"%@\"", __activityId];
+  [ms appendString: @",activityDate:"];
   [ms appendFormat: @"%qi", __activityDate];
   [ms appendString: @",title:"];
   [ms appendFormat: @"\"%@\"", __title];
@@ -571,8 +623,8 @@
   [ms appendFormat: @"%@", __activityLink];
   [ms appendString: @",activityEvent:"];
   [ms appendFormat: @"%i", __activityEvent];
-  [ms appendString: @",closedState:"];
-  [ms appendFormat: @"%i", __closedState];
+  [ms appendString: @",actionTaken:"];
+  [ms appendFormat: @"%i", __actionTaken];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }

@@ -766,4 +766,22 @@
     return activities;
 }
 
+-(BOOL) actionTaken:(ttCustomer *)customer actionId:(NSString *)actionId error:(NSError**)error
+{
+    BOOL result;
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [service activityAction:actionId];
+        result = YES;
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"actionTaken" error:error];
+        result = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    return result;
+}
+
 @end

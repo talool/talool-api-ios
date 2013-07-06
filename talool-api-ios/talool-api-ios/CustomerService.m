@@ -8917,6 +8917,295 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
+@interface activityAction_args : NSObject <NSCoding> {
+  NSString * __activityId;
+
+  BOOL __activityId_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=activityId, setter=setActivityId:) NSString * activityId;
+#endif
+
+- (id) init;
+- (id) initWithActivityId: (NSString *) activityId;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) activityId;
+- (void) setActivityId: (NSString *) activityId;
+#endif
+- (BOOL) activityIdIsSet;
+
+@end
+
+@implementation activityAction_args
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithActivityId: (NSString *) activityId
+{
+  self = [super init];
+  __activityId = [activityId retain_stub];
+  __activityId_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"activityId"])
+  {
+    __activityId = [[decoder decodeObjectForKey: @"activityId"] retain_stub];
+    __activityId_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__activityId_isset)
+  {
+    [encoder encodeObject: __activityId forKey: @"activityId"];
+  }
+}
+
+- (void) dealloc
+{
+  [__activityId release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) activityId {
+  return [[__activityId retain_stub] autorelease_stub];
+}
+
+- (void) setActivityId: (NSString *) activityId {
+  [activityId retain_stub];
+  [__activityId release_stub];
+  __activityId = activityId;
+  __activityId_isset = YES;
+}
+
+- (BOOL) activityIdIsSet {
+  return __activityId_isset;
+}
+
+- (void) unsetActivityId {
+  [__activityId release_stub];
+  __activityId = nil;
+  __activityId_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setActivityId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"activityAction_args"];
+  if (__activityId_isset) {
+    if (__activityId != nil) {
+      [outProtocol writeFieldBeginWithName: @"activityId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __activityId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"activityAction_args("];
+  [ms appendString: @"activityId:"];
+  [ms appendFormat: @"\"%@\"", __activityId];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface ActivityAction_result : NSObject <NSCoding> {
+  ServiceException_t * __error;
+
+  BOOL __error_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=error, setter=setError:) ServiceException_t * error;
+#endif
+
+- (id) init;
+- (id) initWithError: (ServiceException_t *) error;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (ServiceException_t *) error;
+- (void) setError: (ServiceException_t *) error;
+#endif
+- (BOOL) errorIsSet;
+
+@end
+
+@implementation ActivityAction_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithError: (ServiceException_t *) error
+{
+  self = [super init];
+  __error = [error retain_stub];
+  __error_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"error"])
+  {
+    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+    __error_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__error_isset)
+  {
+    [encoder encodeObject: __error forKey: @"error"];
+  }
+}
+
+- (void) dealloc
+{
+  [__error release_stub];
+  [super dealloc_stub];
+}
+
+- (ServiceException_t *) error {
+  return [[__error retain_stub] autorelease_stub];
+}
+
+- (void) setError: (ServiceException_t *) error {
+  [error retain_stub];
+  [__error release_stub];
+  __error = error;
+  __error_isset = YES;
+}
+
+- (BOOL) errorIsSet {
+  return __error_isset;
+}
+
+- (void) unsetError {
+  [__error release_stub];
+  __error = nil;
+  __error_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setError: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"ActivityAction_result"];
+
+  if (__error_isset) {
+    if (__error != nil) {
+      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+      [__error write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"ActivityAction_result("];
+  [ms appendString: @"error:"];
+  [ms appendFormat: @"%@", __error];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 @implementation CustomerService_tClient
 - (id) initWithProtocol: (id <TProtocol>) protocol
 {
@@ -9990,6 +10279,45 @@ static NSString * CTOKEN_NAME = @"ctok";
   return [self recv_getActivities];
 }
 
+- (void) send_activityAction: (NSString *) activityId
+{
+  [outProtocol writeMessageBeginWithName: @"activityAction" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"activityAction_args"];
+  if (activityId != nil)  {
+    [outProtocol writeFieldBeginWithName: @"activityId" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: activityId];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (void) recv_activityAction
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  ActivityAction_result * result = [[[ActivityAction_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result errorIsSet]) {
+    @throw [result error];
+  }
+  return;
+}
+
+- (void) activityAction: (NSString *) activityId
+{
+  [self send_activityAction : activityId];
+  [self recv_activityAction];
+}
+
 @end
 
 @implementation CustomerService_tProcessor
@@ -10193,6 +10521,14 @@ static NSString * CTOKEN_NAME = @"ctok";
     [invocation setSelector: s];
     [invocation retainArguments];
     [mMethodMap setValue: invocation forKey: @"getActivities"];
+  }
+  {
+    SEL s = @selector(process_activityAction_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"activityAction"];
   }
   return self;
 }
@@ -10634,6 +10970,23 @@ static NSString * CTOKEN_NAME = @"ctok";
   GetActivities_result * result = [[GetActivities_result alloc] init];
   [result setSuccess: [mService getActivities: [args searchOptions]]];
   [outProtocol writeMessageBeginWithName: @"getActivities"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_activityAction_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  activityAction_args * args = [[activityAction_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  ActivityAction_result * result = [[ActivityAction_result alloc] init];
+  [mService activityAction: [args activityId]];
+  [outProtocol writeMessageBeginWithName: @"activityAction"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];

@@ -10,6 +10,7 @@
 #import "ttActivityLink.h"
 #import "Activity.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import "CustomerController.h"
 
 @implementation ttActivity
 
@@ -20,11 +21,11 @@
                                inManagedObjectContext:context];
     
     //NSLog(@"DEBUG::: Activity subtitle: %@",activity.subtitle);
-    
+    a.activityId = activity.activityId;
     a.title = activity.title;
     a.subtitle = activity.subtitle;
     a.icon = activity.icon;
-    a.closedState = [NSNumber numberWithBool:activity.closedState];
+    a.actionTaken = [NSNumber numberWithBool:activity.actionTaken];
     a.link = [ttActivityLink initWithThrift:activity.activityLink context:context];
     a.event = [NSNumber numberWithInt:activity.activityEvent];
     a.activityDate = [NSDate dateWithTimeIntervalSince1970:activity.activityDate/1000];
@@ -32,9 +33,19 @@
     return a;
 }
 
+- (void) actionTaken:(ttCustomer *)customer
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    NSError *err;
+    if ([cc actionTaken:customer actionId:self.activityId error:&err])
+    {
+        self.actionTaken = [NSNumber numberWithBool:YES];
+    }
+}
+
 - (BOOL) isClosed
 {
-    return (BOOL)self.closedState;
+    return (BOOL)self.actionTaken;
 }
 
 - (BOOL) isPurchaseEvent
