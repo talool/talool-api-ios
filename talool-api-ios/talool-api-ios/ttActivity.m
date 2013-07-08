@@ -20,7 +20,15 @@
                                insertNewObjectForEntityForName:ACTIVITY_ENTITY_NAME
                                inManagedObjectContext:context];
     
-    //NSLog(@"DEBUG::: Activity subtitle: %@",activity.subtitle);
+    /*
+    NSLog(@"DEBUG::: ");
+    NSLog(@"DEBUG::: Activity title: %@",activity.title);
+    NSLog(@"DEBUG::: Activity subtitle: %@",activity.subtitle);
+    NSLog(@"DEBUG::: Activity event: %d",activity.activityEvent);
+    NSLog(@"DEBUG::: Activity link: %@",activity.activityLink.linkElement);
+    NSLog(@"DEBUG::: ");
+    */
+    
     a.activityId = activity.activityId;
     a.title = activity.title;
     a.subtitle = activity.subtitle;
