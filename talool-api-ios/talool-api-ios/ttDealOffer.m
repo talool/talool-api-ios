@@ -96,6 +96,12 @@
     return deals;
 }
 
+- (BOOL)activiateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc activateCode:customer offerId:self.dealOfferId code:code error:err];
+}
+
 
 - (DealOffer_t *)hydrateThriftObject
 {

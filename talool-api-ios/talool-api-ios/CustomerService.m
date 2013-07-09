@@ -3846,6 +3846,354 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
+@interface activateCode_args : NSObject <NSCoding> {
+  NSString * __dealOfferid;
+  NSString * __code;
+
+  BOOL __dealOfferid_isset;
+  BOOL __code_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=dealOfferid, setter=setDealOfferid:) NSString * dealOfferid;
+@property (nonatomic, retain, getter=code, setter=setCode:) NSString * code;
+#endif
+
+- (id) init;
+- (id) initWithDealOfferid: (NSString *) dealOfferid code: (NSString *) code;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) dealOfferid;
+- (void) setDealOfferid: (NSString *) dealOfferid;
+#endif
+- (BOOL) dealOfferidIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) code;
+- (void) setCode: (NSString *) code;
+#endif
+- (BOOL) codeIsSet;
+
+@end
+
+@implementation activateCode_args
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithDealOfferid: (NSString *) dealOfferid code: (NSString *) code
+{
+  self = [super init];
+  __dealOfferid = [dealOfferid retain_stub];
+  __dealOfferid_isset = YES;
+  __code = [code retain_stub];
+  __code_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"dealOfferid"])
+  {
+    __dealOfferid = [[decoder decodeObjectForKey: @"dealOfferid"] retain_stub];
+    __dealOfferid_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"code"])
+  {
+    __code = [[decoder decodeObjectForKey: @"code"] retain_stub];
+    __code_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__dealOfferid_isset)
+  {
+    [encoder encodeObject: __dealOfferid forKey: @"dealOfferid"];
+  }
+  if (__code_isset)
+  {
+    [encoder encodeObject: __code forKey: @"code"];
+  }
+}
+
+- (void) dealloc
+{
+  [__dealOfferid release_stub];
+  [__code release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) dealOfferid {
+  return [[__dealOfferid retain_stub] autorelease_stub];
+}
+
+- (void) setDealOfferid: (NSString *) dealOfferid {
+  [dealOfferid retain_stub];
+  [__dealOfferid release_stub];
+  __dealOfferid = dealOfferid;
+  __dealOfferid_isset = YES;
+}
+
+- (BOOL) dealOfferidIsSet {
+  return __dealOfferid_isset;
+}
+
+- (void) unsetDealOfferid {
+  [__dealOfferid release_stub];
+  __dealOfferid = nil;
+  __dealOfferid_isset = NO;
+}
+
+- (NSString *) code {
+  return [[__code retain_stub] autorelease_stub];
+}
+
+- (void) setCode: (NSString *) code {
+  [code retain_stub];
+  [__code release_stub];
+  __code = code;
+  __code_isset = YES;
+}
+
+- (BOOL) codeIsSet {
+  return __code_isset;
+}
+
+- (void) unsetCode {
+  [__code release_stub];
+  __code = nil;
+  __code_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setDealOfferid: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setCode: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"activateCode_args"];
+  if (__dealOfferid_isset) {
+    if (__dealOfferid != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealOfferid" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __dealOfferid];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__code_isset) {
+    if (__code != nil) {
+      [outProtocol writeFieldBeginWithName: @"code" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __code];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"activateCode_args("];
+  [ms appendString: @"dealOfferid:"];
+  [ms appendFormat: @"\"%@\"", __dealOfferid];
+  [ms appendString: @",code:"];
+  [ms appendFormat: @"\"%@\"", __code];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface ActivateCode_result : NSObject <NSCoding> {
+  ServiceException_t * __error;
+
+  BOOL __error_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=error, setter=setError:) ServiceException_t * error;
+#endif
+
+- (id) init;
+- (id) initWithError: (ServiceException_t *) error;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (ServiceException_t *) error;
+- (void) setError: (ServiceException_t *) error;
+#endif
+- (BOOL) errorIsSet;
+
+@end
+
+@implementation ActivateCode_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithError: (ServiceException_t *) error
+{
+  self = [super init];
+  __error = [error retain_stub];
+  __error_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"error"])
+  {
+    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+    __error_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__error_isset)
+  {
+    [encoder encodeObject: __error forKey: @"error"];
+  }
+}
+
+- (void) dealloc
+{
+  [__error release_stub];
+  [super dealloc_stub];
+}
+
+- (ServiceException_t *) error {
+  return [[__error retain_stub] autorelease_stub];
+}
+
+- (void) setError: (ServiceException_t *) error {
+  [error retain_stub];
+  [__error release_stub];
+  __error = error;
+  __error_isset = YES;
+}
+
+- (BOOL) errorIsSet {
+  return __error_isset;
+}
+
+- (void) unsetError {
+  [__error release_stub];
+  __error = nil;
+  __error_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setError: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"ActivateCode_result"];
+
+  if (__error_isset) {
+    if (__error != nil) {
+      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+      [__error write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"ActivateCode_result("];
+  [ms appendString: @"error:"];
+  [ms appendFormat: @"%@", __error];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 @interface getDealOffer_args : NSObject <NSCoding> {
   NSString * __dealOfferId;
 
@@ -9665,6 +10013,50 @@ static NSString * CTOKEN_NAME = @"ctok";
   return [self recv_getDealOffers];
 }
 
+- (void) send_activateCode: (NSString *) dealOfferid code: (NSString *) code
+{
+  [outProtocol writeMessageBeginWithName: @"activateCode" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"activateCode_args"];
+  if (dealOfferid != nil)  {
+    [outProtocol writeFieldBeginWithName: @"dealOfferid" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: dealOfferid];
+    [outProtocol writeFieldEnd];
+  }
+  if (code != nil)  {
+    [outProtocol writeFieldBeginWithName: @"code" type: TType_STRING fieldID: 2];
+    [outProtocol writeString: code];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (void) recv_activateCode
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  ActivateCode_result * result = [[[ActivateCode_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result errorIsSet]) {
+    @throw [result error];
+  }
+  return;
+}
+
+- (void) activateCode: (NSString *) dealOfferid code: (NSString *) code
+{
+  [self send_activateCode : dealOfferid code: code];
+  [self recv_activateCode];
+}
+
 - (void) send_getDealOffer: (NSString *) dealOfferId
 {
   [outProtocol writeMessageBeginWithName: @"getDealOffer" type: TMessageType_CALL sequenceID: 0];
@@ -10411,6 +10803,14 @@ static NSString * CTOKEN_NAME = @"ctok";
     [mMethodMap setValue: invocation forKey: @"getDealOffers"];
   }
   {
+    SEL s = @selector(process_activateCode_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"activateCode"];
+  }
+  {
     SEL s = @selector(process_getDealOffer_withSequenceID:inProtocol:outProtocol:);
     NSMethodSignature * sig = [self methodSignatureForSelector: s];
     NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
@@ -10732,6 +11132,23 @@ static NSString * CTOKEN_NAME = @"ctok";
   GetDealOffers_result * result = [[GetDealOffers_result alloc] init];
   [result setSuccess: [mService getDealOffers]];
   [outProtocol writeMessageBeginWithName: @"getDealOffers"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_activateCode_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  activateCode_args * args = [[activateCode_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  ActivateCode_result * result = [[ActivateCode_result alloc] init];
+  [mService activateCode: [args dealOfferid] code: [args code]];
+  [outProtocol writeMessageBeginWithName: @"activateCode"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];

@@ -60,6 +60,7 @@
 - (NSMutableArray *) getDealAcquires: (NSString *) merchantId searchOptions: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 - (NSString *) redeem: (NSString *) dealAcquireId location: (Location_t *) location;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getDealOffers;  // throws ServiceException_t *, TException
+- (void) activateCode: (NSString *) dealOfferid code: (NSString *) code;  // throws ServiceException_t *, TException
 - (DealOffer_t *) getDealOffer: (NSString *) dealOfferId;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getDealsByDealOfferId: (NSString *) dealOfferId searchOptions: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 - (void) purchaseDealOffer: (NSString *) dealOfferId;  // throws ServiceException_t *, TException

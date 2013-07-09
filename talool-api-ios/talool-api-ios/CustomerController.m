@@ -784,4 +784,22 @@
     return result;
 }
 
+- (BOOL) activateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error
+{
+    BOOL result;
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [service activateCode:offerId code:code];
+        result = YES;
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"activateCode" error:error];
+        result = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    return result;
+}
+
 @end

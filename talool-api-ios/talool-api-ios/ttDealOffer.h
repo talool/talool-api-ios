@@ -24,5 +24,6 @@
 - (NSArray *)getDeals:(ttCustomer *)customer
               context:(NSManagedObjectContext *)context
                 error:(NSError **)err;
+- (BOOL)activiateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err;
 
 @end
