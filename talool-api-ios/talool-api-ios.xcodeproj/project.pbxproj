@@ -33,6 +33,15 @@
 		81510D68175EF3DC002A869A /* SocialAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 81510D66175EF3DC002A869A /* SocialAccount.m */; };
 		81510D7B175EF44D002A869A /* ttGift.h in Headers */ = {isa = PBXBuildFile; fileRef = 81510D79175EF44D002A869A /* ttGift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81510D7C175EF44D002A869A /* ttGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 81510D7A175EF44D002A869A /* ttGift.m */; };
+		8151CB9117944EEC007894B2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CC610C16FB5A9400647AEC /* CoreData.framework */; };
+		8151CB9417944F0B007894B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CB9217944EF4007894B2 /* SystemConfiguration.framework */; };
+		8151CB9D17944F33007894B2 /* GAI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9617944F33007894B2 /* GAI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8151CB9E17944F33007894B2 /* GAITrackedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9717944F33007894B2 /* GAITrackedViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8151CB9F17944F33007894B2 /* GAITracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9817944F33007894B2 /* GAITracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8151CBA017944F33007894B2 /* GAITransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9917944F33007894B2 /* GAITransaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8151CBA117944F33007894B2 /* GAITransactionItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9A17944F33007894B2 /* GAITransactionItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8151CBA217944F33007894B2 /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CB9B17944F33007894B2 /* libGoogleAnalytics_debug.a */; };
+		8151CBA317944F33007894B2 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CB9C17944F33007894B2 /* libGoogleAnalytics.a */; };
 		819FA93C177B7954006A819B /* TaloolActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 819FA93A177B7954006A819B /* TaloolActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		819FA93D177B7954006A819B /* TaloolActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 819FA93B177B7954006A819B /* TaloolActivity.m */; };
 		819FA940177B7954006A819B /* TaloolActivityLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 819FA93E177B7954006A819B /* TaloolActivityLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -214,6 +223,14 @@
 		81510D66175EF3DC002A869A /* SocialAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialAccount.m; sourceTree = "<group>"; };
 		81510D79175EF44D002A869A /* ttGift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttGift.h; sourceTree = "<group>"; };
 		81510D7A175EF44D002A869A /* ttGift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttGift.m; sourceTree = "<group>"; };
+		8151CB9217944EF4007894B2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8151CB9617944F33007894B2 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		8151CB9717944F33007894B2 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		8151CB9817944F33007894B2 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		8151CB9917944F33007894B2 /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransaction.h; sourceTree = "<group>"; };
+		8151CB9A17944F33007894B2 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
+		8151CB9B17944F33007894B2 /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
+		8151CB9C17944F33007894B2 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		819FA939177B717E006A819B /* Talool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool.xcdatamodel; sourceTree = "<group>"; };
 		819FA93A177B7954006A819B /* TaloolActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolActivity.h; sourceTree = "<group>"; };
 		819FA93B177B7954006A819B /* TaloolActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolActivity.m; sourceTree = "<group>"; };
@@ -356,7 +373,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8151CB9417944F0B007894B2 /* SystemConfiguration.framework in Frameworks */,
+				8151CB9117944EEC007894B2 /* CoreData.framework in Frameworks */,
 				914A1AE816E6ECAD0043989A /* Foundation.framework in Frameworks */,
+				8151CBA217944F33007894B2 /* libGoogleAnalytics_debug.a in Frameworks */,
+				8151CBA317944F33007894B2 /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +404,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8151CB9517944F1D007894B2 /* Google Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				8151CB9617944F33007894B2 /* GAI.h */,
+				8151CB9717944F33007894B2 /* GAITrackedViewController.h */,
+				8151CB9817944F33007894B2 /* GAITracker.h */,
+				8151CB9917944F33007894B2 /* GAITransaction.h */,
+				8151CB9A17944F33007894B2 /* GAITransactionItem.h */,
+				8151CB9B17944F33007894B2 /* libGoogleAnalytics_debug.a */,
+				8151CB9C17944F33007894B2 /* libGoogleAnalytics.a */,
+			);
+			name = "Google Analytics";
+			sourceTree = "<group>";
+		};
 		914A1ADB16E6ECAC0043989A = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +443,8 @@
 		914A1AE616E6ECAC0043989A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8151CB9517944F1D007894B2 /* Google Analytics */,
+				8151CB9217944EF4007894B2 /* SystemConfiguration.framework */,
 				91CC610C16FB5A9400647AEC /* CoreData.framework */,
 				914A1AE716E6ECAD0043989A /* Foundation.framework */,
 				914A1AF616E6ECAD0043989A /* SenTestingKit.framework */,
@@ -725,8 +762,15 @@
 				81510D7B175EF44D002A869A /* ttGift.h in Headers */,
 				819FA93C177B7954006A819B /* TaloolActivity.h in Headers */,
 				819FA940177B7954006A819B /* TaloolActivityLink.h in Headers */,
+				819FA944177B7980006A819B /* ttActivity.h in Headers */,
+				819FA948177B79B8006A819B /* ttActivityLink.h in Headers */,
 				914A1B7216E703310043989A /* TApplicationException.h in Headers */,
 				914A1B7316E703310043989A /* TException.h in Headers */,
+				8151CB9D17944F33007894B2 /* GAI.h in Headers */,
+				8151CB9E17944F33007894B2 /* GAITrackedViewController.h in Headers */,
+				8151CB9F17944F33007894B2 /* GAITracker.h in Headers */,
+				8151CBA017944F33007894B2 /* GAITransaction.h in Headers */,
+				8151CBA117944F33007894B2 /* GAITransactionItem.h in Headers */,
 				914A1B7416E703310043989A /* TObjective-C.h in Headers */,
 				914A1B7516E703310043989A /* TProcessor.h in Headers */,
 				914A1B7616E703310043989A /* TProcessorFactory.h in Headers */,
@@ -747,8 +791,6 @@
 				91CC60D216F57CD900647AEC /* TaloolHTTPClient.h in Headers */,
 				91866B58174BEF0200083260 /* APIErrorManager.h in Headers */,
 				91866B5D174C156900083260 /* TaloolErrorHandler.h in Headers */,
-				819FA944177B7980006A819B /* ttActivity.h in Headers */,
-				819FA948177B79B8006A819B /* ttActivityLink.h in Headers */,
 				81BD1282178863B900AF7475 /* Activity.h in Headers */,
 				81BD1284178863B900AF7475 /* Core.h in Headers */,
 				81BD129C178C853100AF7475 /* CustomerService.h in Headers */,
@@ -1079,6 +1121,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "talool-api-ios/talool-api-ios-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
@@ -1097,6 +1143,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "talool-api-ios/talool-api-ios-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
