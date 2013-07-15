@@ -10,6 +10,7 @@
 #import "TTransportException.h"
 #import "Core.h"
 #import "CustomerService.h"
+#import "GAI.h"
 
 static NSString *errorFormat = @"Failed %@.  Reason: %@";
 
@@ -57,6 +58,9 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     
     NSLog(@"%@: %@",errorDetails, exception.description);
     
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker sendException:NO withNSException:exception];
+    [tracker sendException:NO withDescription:@"%@: %@",errorDetails, exception.description];
 }
 
 - (void) handleCoreDataException:(NSException *)exception domain:(NSString *)domain method:(NSString *)method entity:(NSString *)entity error:(NSError **)error
@@ -70,6 +74,10 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     *error = [NSError errorWithDomain:domain code:code userInfo:details];
     
     NSLog(@"%@: %@",errorDetails, exception.description);
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker sendException:NO withNSException:exception];
+    [tracker sendException:NO withDescription:@"%@: %@",errorDetails, exception.description];
     
 }
 

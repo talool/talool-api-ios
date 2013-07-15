@@ -35,13 +35,12 @@
 		81510D7C175EF44D002A869A /* ttGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 81510D7A175EF44D002A869A /* ttGift.m */; };
 		8151CB9117944EEC007894B2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CC610C16FB5A9400647AEC /* CoreData.framework */; };
 		8151CB9417944F0B007894B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CB9217944EF4007894B2 /* SystemConfiguration.framework */; };
-		8151CB9D17944F33007894B2 /* GAI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9617944F33007894B2 /* GAI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8151CB9E17944F33007894B2 /* GAITrackedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9717944F33007894B2 /* GAITrackedViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8151CB9F17944F33007894B2 /* GAITracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9817944F33007894B2 /* GAITracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8151CBA017944F33007894B2 /* GAITransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9917944F33007894B2 /* GAITransaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8151CBA117944F33007894B2 /* GAITransactionItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9A17944F33007894B2 /* GAITransactionItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8151CBA217944F33007894B2 /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CB9B17944F33007894B2 /* libGoogleAnalytics_debug.a */; };
 		8151CBA317944F33007894B2 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CB9C17944F33007894B2 /* libGoogleAnalytics.a */; };
+		8151CBA717945B16007894B2 /* GAI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9617944F33007894B2 /* GAI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8151CBA817945B16007894B2 /* GAITrackedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9717944F33007894B2 /* GAITrackedViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8151CBA917945B16007894B2 /* GAITracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9817944F33007894B2 /* GAITracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8151CBAA17945B16007894B2 /* GAITransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9917944F33007894B2 /* GAITransaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8151CBAB17945B16007894B2 /* GAITransactionItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9A17944F33007894B2 /* GAITransactionItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		819FA93C177B7954006A819B /* TaloolActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 819FA93A177B7954006A819B /* TaloolActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		819FA93D177B7954006A819B /* TaloolActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 819FA93B177B7954006A819B /* TaloolActivity.m */; };
 		819FA940177B7954006A819B /* TaloolActivityLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 819FA93E177B7954006A819B /* TaloolActivityLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -229,7 +228,6 @@
 		8151CB9817944F33007894B2 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		8151CB9917944F33007894B2 /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransaction.h; sourceTree = "<group>"; };
 		8151CB9A17944F33007894B2 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
-		8151CB9B17944F33007894B2 /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
 		8151CB9C17944F33007894B2 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		819FA939177B717E006A819B /* Talool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool.xcdatamodel; sourceTree = "<group>"; };
 		819FA93A177B7954006A819B /* TaloolActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolActivity.h; sourceTree = "<group>"; };
@@ -376,7 +374,6 @@
 				8151CB9417944F0B007894B2 /* SystemConfiguration.framework in Frameworks */,
 				8151CB9117944EEC007894B2 /* CoreData.framework in Frameworks */,
 				914A1AE816E6ECAD0043989A /* Foundation.framework in Frameworks */,
-				8151CBA217944F33007894B2 /* libGoogleAnalytics_debug.a in Frameworks */,
 				8151CBA317944F33007894B2 /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,7 +409,6 @@
 				8151CB9817944F33007894B2 /* GAITracker.h */,
 				8151CB9917944F33007894B2 /* GAITransaction.h */,
 				8151CB9A17944F33007894B2 /* GAITransactionItem.h */,
-				8151CB9B17944F33007894B2 /* libGoogleAnalytics_debug.a */,
 				8151CB9C17944F33007894B2 /* libGoogleAnalytics.a */,
 			);
 			name = "Google Analytics";
@@ -764,13 +760,13 @@
 				819FA940177B7954006A819B /* TaloolActivityLink.h in Headers */,
 				819FA944177B7980006A819B /* ttActivity.h in Headers */,
 				819FA948177B79B8006A819B /* ttActivityLink.h in Headers */,
+				8151CBA717945B16007894B2 /* GAI.h in Headers */,
+				8151CBA817945B16007894B2 /* GAITrackedViewController.h in Headers */,
+				8151CBA917945B16007894B2 /* GAITracker.h in Headers */,
+				8151CBAA17945B16007894B2 /* GAITransaction.h in Headers */,
+				8151CBAB17945B16007894B2 /* GAITransactionItem.h in Headers */,
 				914A1B7216E703310043989A /* TApplicationException.h in Headers */,
 				914A1B7316E703310043989A /* TException.h in Headers */,
-				8151CB9D17944F33007894B2 /* GAI.h in Headers */,
-				8151CB9E17944F33007894B2 /* GAITrackedViewController.h in Headers */,
-				8151CB9F17944F33007894B2 /* GAITracker.h in Headers */,
-				8151CBA017944F33007894B2 /* GAITransaction.h in Headers */,
-				8151CBA117944F33007894B2 /* GAITransactionItem.h in Headers */,
 				914A1B7416E703310043989A /* TObjective-C.h in Headers */,
 				914A1B7516E703310043989A /* TProcessor.h in Headers */,
 				914A1B7616E703310043989A /* TProcessorFactory.h in Headers */,

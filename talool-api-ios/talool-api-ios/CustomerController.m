@@ -25,6 +25,7 @@
 #import "TaloolFrameworkHelper.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "APIErrorManager.h"
+#import "GAI.h"
 
 
 @implementation CustomerController
@@ -83,8 +84,15 @@
 - (ttCustomer *)registerUser:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error
 {
     
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     // validate data before sending to the server
-    if (![customer isValid:error]){
+    if (![customer isValid:error])
+    {
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"registerUser"
+                             withLabel:@"fail:invalid_user"
+                             withValue:nil];
         return nil;
     }
     
@@ -99,6 +107,10 @@
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"registerUser" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"registerUser"
+                             withLabel:@"fail:service_exception"
+                             withValue:nil];
         return nil;
     }
     @finally {
@@ -127,8 +139,18 @@
     }
     @catch (NSException * e) {
         [errorManager handleCoreDataException:e forMethod:@"registerUser" entity:@"ttCustomer" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"registerUser"
+                             withLabel:@"fail:coredata_exception"
+                             withValue:nil];
         return nil;
     }
+    
+    
+    [tracker sendEventWithCategory:@"API"
+                        withAction:@"registerUser"
+                         withLabel:@"success"
+                         withValue:nil];
     
     return customer;
     
@@ -136,6 +158,8 @@
 
 - (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     ttCustomer *customer;
     CTokenAccess_t *token;
 
@@ -146,6 +170,10 @@
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"authenticate" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"authenticate"
+                             withLabel:@"fail:service_exception"
+                             withValue:nil];
         return nil;
     }
     @finally {
@@ -160,8 +188,17 @@
     }
     @catch (NSException * e) {
         [errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"authenticate"
+                             withLabel:@"fail:coredata_exception"
+                             withValue:nil];
         return nil;
     }
+    
+    [tracker sendEventWithCategory:@"API"
+                        withAction:@"authenticate"
+                         withLabel:@"success"
+                         withValue:nil];
     
     return customer;
 }
@@ -270,6 +307,8 @@
 
 - (NSString *) redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     NSString * redemptionCode = nil;
     @try {
         [self connectWithToken:(ttToken *)dealAcquire.customer.token];
@@ -278,10 +317,20 @@
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"redeem" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"redeem"
+                             withLabel:@"fail"
+                             withValue:nil];
     }
     @finally {
         [self disconnect];
     }
+    
+    [tracker sendEventWithCategory:@"API"
+                        withAction:@"redeem"
+                         withLabel:@"success"
+                         withValue:nil];
+    
     return redemptionCode;
 }
 
@@ -322,19 +371,30 @@
 
 - (BOOL) purchaseDealOffer:(ttCustomer *)customer dealOfferId:(NSString *)dealOfferId error:(NSError**)error
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     BOOL success;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service purchaseDealOffer:dealOfferId];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"purchase"
+                             withLabel:@"success"
+                             withValue:nil];
         success = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"purchaseDealOffer" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"purchase"
+                             withLabel:@"fail"
+                             withValue:nil];
         success = NO;
     }
     @finally {
         [self disconnect];
     }
+    
     return success;
 }
 
@@ -382,6 +442,8 @@
 
 - (void) addFavoriteMerchant:(ttCustomer *)customer merchantId:(NSString *)merchantId error:(NSError**)error
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service addFavoriteMerchant:merchantId];
@@ -392,6 +454,11 @@
     @finally {
         [self disconnect];
     }
+    
+    [tracker sendEventWithCategory:@"API"
+                        withAction:@"favorite"
+                         withLabel:@"success"
+                         withValue:nil];
 }
 
 - (void) removeFavoriteMerchant:(ttCustomer *)customer merchantId:(NSString *)merchantId error:(NSError**)error
@@ -532,13 +599,23 @@
          receipientName:(NSString *)receipientName
                   error:(NSError**)error
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     NSString *giftId;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         giftId = [service giftToFacebook:dealAcquireId facebookId:facebookId receipientName:receipientName];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"giftToFacebook"
+                             withLabel:@"success"
+                             withValue:nil];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"giftToFacebook" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"giftToFacebook"
+                             withLabel:@"fail"
+                             withValue:nil];
     }
     @finally {
         [self disconnect];
@@ -553,13 +630,23 @@
       receipientName:(NSString *)receipientName
                error:(NSError**)error
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
      NSString *giftId;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         giftId = [service giftToEmail:dealAcquireId email:email receipientName:receipientName];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"giftToEmail"
+                             withLabel:@"success"
+                             withValue:nil];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"giftToEmail" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"giftToEmail"
+                             withLabel:@"fail"
+                             withValue:nil];
     }
     @finally {
         [self disconnect];
@@ -608,14 +695,24 @@
             context:(NSManagedObjectContext *)context
               error:(NSError**)error
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     ttDealAcquire *deal;
     DealAcquire_t *dt;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         dt = [service acceptGift:giftId];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"acceptGift"
+                             withLabel:@"success"
+                             withValue:nil];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"acceptGift" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"acceptGift"
+                             withLabel:@"fail:service_exception"
+                             withValue:nil];
     }
     @finally {
         [self disconnect];
@@ -626,7 +723,11 @@
         deal = [ttDealAcquire initWithThrift:dt context:context];
     }
     @catch (NSException * e) {
-        [errorManager handleCoreDataException:e forMethod:@"getGifts" entity:@"ttGift" error:error];
+        [errorManager handleCoreDataException:e forMethod:@"acceptGift" entity:@"ttGift" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"acceptGift"
+                             withLabel:@"fail:coredata_exception"
+                             withValue:nil];
         return nil;
     }
     
@@ -637,14 +738,24 @@
              giftId:(NSString *)giftId
               error:(NSError**)error
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     BOOL success;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service rejectGift:giftId];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"rejectGift"
+                             withLabel:@"success"
+                             withValue:nil];
         success = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"rejectGift" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"rejectGift"
+                             withLabel:@"fail"
+                             withValue:nil];
         success = NO;
     }
     @finally {
@@ -768,14 +879,24 @@
 
 -(BOOL) actionTaken:(ttCustomer *)customer actionId:(NSString *)actionId error:(NSError**)error
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     BOOL result;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service activityAction:actionId];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"actionTaken"
+                             withLabel:@"success"
+                             withValue:nil];
         result = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"actionTaken" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"actionTaken"
+                             withLabel:@"fail"
+                             withValue:nil];
         result = NO;
     }
     @finally {
@@ -786,14 +907,24 @@
 
 - (BOOL) activateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
     BOOL result;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service activateCode:offerId code:code];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"activateCode"
+                             withLabel:@"success"
+                             withValue:nil];
         result = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"activateCode" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"activateCode"
+                             withLabel:@"fail"
+                             withValue:nil];
         result = NO;
     }
     @finally {
