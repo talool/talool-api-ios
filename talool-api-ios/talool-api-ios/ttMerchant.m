@@ -15,6 +15,10 @@
 #import "TaloolFrameworkHelper.h"
 #import "CustomerController.h"
 
+@interface ttMerchant()
+@property (nonatomic, retain) ttMerchantLocation *location;
+@end
+
 @implementation ttMerchant
 
 @synthesize location;
@@ -141,14 +145,18 @@
     return [self.isFav boolValue];
 }
 
-/*
- *  TODO We can remove this since it's handled during the init
- */
-- (ttMerchantLocation *) getClosestLocation:(double)latitude longitude:(double)longitude
+- (ttMerchantLocation *) getClosestLocation
 {
-    return location;
+    if (location)
+    {
+        return location;
+    }
+    else
+    {
+        return [[self.locations allObjects] objectAtIndex:0];
+    }
 }
-                                    
+
 + (ttMerchant *) fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context
 {
     ttMerchant *merchant = nil;

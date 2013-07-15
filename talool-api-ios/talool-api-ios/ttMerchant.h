@@ -12,7 +12,7 @@
 
 @interface ttMerchant : TaloolMerchant
 
-@property (nonatomic, retain) ttMerchantLocation *location;
+
 
 + (ttMerchant *)initWithThrift: (Merchant_t *)merchant context:(NSManagedObjectContext *)context;
 - (Merchant_t *)hydrateThriftObject;
@@ -21,7 +21,7 @@
 - (void)unfavorite:(ttCustomer *)customer;
 - (Boolean) isFavorite;
 
-- (ttMerchantLocation *) getClosestLocation:(double)latitude longitude:(double)longitude;
+- (ttMerchantLocation *) getClosestLocation;
 
 + (ttMerchant *) fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context;
 + (NSArray *) getMerchantsInContext:(NSManagedObjectContext *)context;
