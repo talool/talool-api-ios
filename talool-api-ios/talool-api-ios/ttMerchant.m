@@ -63,10 +63,6 @@
             {
                 m.location = (ttMerchantLocation *)m.locations.objectEnumerator.nextObject;
             }
-            else
-            {
-                NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
-            }
         }
     }
     
@@ -105,7 +101,7 @@
         if (location == NULL)
         {
             label = @"";
-            NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
+            //NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
         }
         else if (location.name == NULL)
         {
@@ -119,7 +115,7 @@
     else
     {
         label = @"";
-        NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
+        //NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
     }
     return label;
 }
