@@ -49,12 +49,6 @@
 - (NSArray *) getMyMerchants;
 - (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err;
 
-- (NSArray *) getMerchantsByProximity:(int)distanceInMeters
-                            longitude:(double)longitude
-                             latitude:(double)latitude
-                              context:(NSManagedObjectContext *)context
-                                error:(NSError **)err;
-
 - (NSString *)giftToFacebook:(NSString *)dealAcquireId
             facebookId:(NSString *)facebookId
         receipientName:(NSString *)receipientName
