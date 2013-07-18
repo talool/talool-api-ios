@@ -19,9 +19,7 @@
 
 + (ttGift *)initWithThrift: (Gift_t *)gift context:(NSManagedObjectContext *)context
 {
-    ttGift *newGift = (ttGift *)[NSEntityDescription
-                                 insertNewObjectForEntityForName:GIFT_ENTITY_NAME
-                                 inManagedObjectContext:context];
+    ttGift *newGift = [ttGift fetchById:gift.giftId context:context];
 
     newGift.giftId = gift.giftId;
     newGift.created = [[NSDate alloc] initWithTimeIntervalSince1970:(gift.created/1000)];
@@ -34,7 +32,16 @@
 
 + (ttGift *)getGiftById:(NSString* )giftId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
-    /* query the context for these deals
+    
+    CustomerController *cc = [[CustomerController alloc] init];
+    ttGift *gift = [cc getGiftById:giftId customer:customer context:context error:err];
+    return gift;
+}
+
++ (ttGift *) fetchById:(NSString *) giftId context:(NSManagedObjectContext *)context
+{
+    ttGift *gift = nil;
+    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.giftId = %@",giftId];
     [request setPredicate:pred];
@@ -42,16 +49,18 @@
     [request setEntity:entity];
     
     NSError *error;
-    NSMutableArray *gifts = [[context executeFetchRequest:request error:&error] mutableCopy];
-    if (gifts == nil || [gifts count] == 0) {
-        NSLog(@"FAIL: Nil gift for giftId: %@: %@",giftId, error.localizedDescription);
-        return nil;
-    }
-    ttGift *gift = [gifts objectAtIndex:0];
-     */
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
     
-    CustomerController *cc = [[CustomerController alloc] init];
-    ttGift *gift = [cc getGiftById:giftId customer:customer context:context error:err];
+    if (fetchedObj == nil || [fetchedObj count] == 0)
+    {
+        gift = (ttGift *)[NSEntityDescription
+                          insertNewObjectForEntityForName:GIFT_ENTITY_NAME
+                          inManagedObjectContext:context];
+    }
+    else
+    {
+        gift = [fetchedObj objectAtIndex:0];
+    }
     return gift;
 }
 

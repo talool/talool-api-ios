@@ -108,7 +108,7 @@
     CustomerController *cController = [[CustomerController alloc] init];
     redemptionCode = [cController redeem:self latitude:latitude longitude:longitude error:&redeemError];
     
-    if (redeemError.code < 100)
+    if (redeemError.code < 100 && redeemError.code > 0)
     {
         [self setRedeemed:[NSDate date]];
         self.invalidated = [NSDate date];

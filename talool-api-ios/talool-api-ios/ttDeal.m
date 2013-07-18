@@ -15,9 +15,8 @@
 
 + (ttDeal *)initWithThrift: (Deal_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context;
 {
-    ttDeal *newDeal = (ttDeal *)[NSEntityDescription
-                                          insertNewObjectForEntityForName:DEAL_ENTITY_NAME
-                                          inManagedObjectContext:context];
+    ttDeal *newDeal = [ttDeal fetchDealById:deal.dealId context:context];
+    
     newDeal.title = deal.title;
     newDeal.dealId = deal.dealId;
     newDeal.summary = deal.summary;
@@ -50,18 +49,6 @@
     return newDeal;
 }
 
-+ (ttDeal *)initWithName:(NSString *)name context:(NSManagedObjectContext *)context
-{
-    ttDeal *c = (ttDeal *)[NSEntityDescription
-                                   insertNewObjectForEntityForName:DEAL_ENTITY_NAME
-                                   inManagedObjectContext:context];
-    
-    c.title = name;
-    
-    
-    return c;
-}
-
 - (Deal_t *)hydrateThriftObject
 {
     Deal_t *deal = [[Deal_t alloc] init];
@@ -73,6 +60,32 @@
     deal.imageUrl = self.imageUrl;
     deal.dealOfferId = self.dealOfferId;
     
+    return deal;
+}
+
++ (ttDeal *) fetchDealById:(NSString *) dealId context:(NSManagedObjectContext *)context
+{
+    ttDeal *deal = nil;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.dealId = %@",dealId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj == nil || [fetchedObj count] == 0)
+    {
+        deal = (ttDeal *)[NSEntityDescription
+                                  insertNewObjectForEntityForName:DEAL_ENTITY_NAME
+                                  inManagedObjectContext:context];
+    }
+    else
+    {
+        deal = [fetchedObj objectAtIndex:0];
+    }
     return deal;
 }
 

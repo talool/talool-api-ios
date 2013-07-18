@@ -21,7 +21,7 @@
 {
     ttMerchantLocation *m = [ttMerchantLocation fetchMerchantLocationById:[NSNumber numberWithInt:location.locationId] context:context];
     
-    m.locationId = @(location.locationId);
+    m.locationId = [NSNumber numberWithInt:location.locationId];
     m.name = location.name;
     m.email = location.email;
     m.websiteUrl = location.websiteUrl;
@@ -62,7 +62,7 @@
     ttMerchantLocation *merchantLocation = nil;
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"locationId = %@",merchantLocationId];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.locationId = %@",merchantLocationId];
     [request setPredicate:pred];
     NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_LOCATION_ENTITY_NAME inManagedObjectContext:context];
     [request setEntity:entity];

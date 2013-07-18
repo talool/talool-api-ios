@@ -16,9 +16,7 @@
 
 + (ttDealOffer *)initWithThrift: (DealOffer_t *)offer context:(NSManagedObjectContext *)context
 {
-    ttDealOffer *newOffer = (ttDealOffer *)[NSEntityDescription
-                                               insertNewObjectForEntityForName:DEAL_OFFER_ENTITY_NAME
-                                               inManagedObjectContext:context];
+    ttDealOffer *newOffer = [ttDealOffer fetchById:offer.dealOfferId context:context];
     
     newOffer.code = offer.code;
     newOffer.dealOfferId = offer.dealOfferId;
@@ -40,6 +38,32 @@
     newOffer.merchant = [ttMerchant initWithThrift:offer.merchant context:context];
     
     return newOffer;
+}
+
++ (ttDealOffer *) fetchById:(NSString *) entityId context:(NSManagedObjectContext *)context
+{
+    ttDealOffer *offer = nil;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.dealOfferId = %@",entityId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_OFFER_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj == nil || [fetchedObj count] == 0)
+    {
+        offer = (ttDealOffer *)[NSEntityDescription
+                          insertNewObjectForEntityForName:DEAL_OFFER_ENTITY_NAME
+                          inManagedObjectContext:context];
+    }
+    else
+    {
+        offer = [fetchedObj objectAtIndex:0];
+    }
+    return offer;
 }
 
 + (ttDealOffer *)getDealOffer:(NSString *)doId

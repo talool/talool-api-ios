@@ -16,18 +16,9 @@
 
 + (ttActivity *)initWithThrift: (Activity_t *)activity context:(NSManagedObjectContext *)context
 {
-    ttActivity *a = (ttActivity *)[NSEntityDescription
-                               insertNewObjectForEntityForName:ACTIVITY_ENTITY_NAME
-                               inManagedObjectContext:context];
     
-    /*
-    NSLog(@"DEBUG::: ");
-    NSLog(@"DEBUG::: Activity title: %@",activity.title);
-    NSLog(@"DEBUG::: Activity subtitle: %@",activity.subtitle);
-    NSLog(@"DEBUG::: Activity event: %d",activity.activityEvent);
-    NSLog(@"DEBUG::: Activity link: %@",activity.activityLink.linkElement);
-    NSLog(@"DEBUG::: ");
-    */
+    // see if we have this entity already
+    ttActivity *a = [ttActivity fetchById:activity.activityId context:context];
     
     a.activityId = activity.activityId;
     a.title = activity.title;
@@ -39,6 +30,32 @@
     a.activityDate = [NSDate dateWithTimeIntervalSince1970:activity.activityDate/1000];
     
     return a;
+}
+
++ (ttActivity *) fetchById:(NSString *)entityId context:(NSManagedObjectContext *)context
+{
+    ttActivity *activity = nil;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.activityId = %@",entityId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:ACTIVITY_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj == nil || [fetchedObj count] == 0)
+    {
+        activity = (ttActivity *)[NSEntityDescription
+                              insertNewObjectForEntityForName:ACTIVITY_ENTITY_NAME
+                              inManagedObjectContext:context];
+    }
+    else
+    {
+        activity = [fetchedObj objectAtIndex:0];
+    }
+    return activity;
 }
 
 - (void) actionTaken:(ttCustomer *)customer

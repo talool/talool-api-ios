@@ -14,14 +14,39 @@
 
 + (ttActivityLink *)initWithThrift: (ActivityLink_t *)link context:(NSManagedObjectContext *)context
 {
-    ttActivityLink *a = (ttActivityLink *)[NSEntityDescription
-                                   insertNewObjectForEntityForName:ACTIVITY_LINK_ENTITY_NAME
-                                   inManagedObjectContext:context];
+    ttActivityLink *a = [ttActivityLink fetchByLink:link context:context];
     
     a.linkType = [NSNumber numberWithInt:link.linkType];
     a.elementId = link.linkElement;
     
     return a;
+}
+
++ (ttActivityLink *) fetchByLink:(ActivityLink_t *)lt context:(NSManagedObjectContext *)context
+{
+    ttActivityLink *link = nil;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.elementId = %@ AND SELF.linkType = %@",lt.linkElement,
+                         [NSNumber numberWithInt:lt.linkType]];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:ACTIVITY_LINK_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj == nil || [fetchedObj count] == 0)
+    {
+        link = (ttActivityLink *)[NSEntityDescription
+                                  insertNewObjectForEntityForName:ACTIVITY_LINK_ENTITY_NAME
+                                  inManagedObjectContext:context];
+    }
+    else
+    {
+        link = [fetchedObj objectAtIndex:0];
+    }
+    return link;
 }
 
 - (BOOL) isMerchantLink

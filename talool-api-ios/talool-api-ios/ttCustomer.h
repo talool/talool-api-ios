@@ -45,7 +45,7 @@
 - (void) refreshMerchants: (NSManagedObjectContext *)context;
 - (void) refreshFavoriteMerchants: (NSManagedObjectContext *)context;
 
-- (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err purge:(BOOL)purge;
+- (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err;
 - (NSArray *) getMyMerchants;
 - (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err;
 

@@ -16,6 +16,7 @@
 #import "ttMerchant.h"
 #import "ttDealAcquire.h"
 #import "ttDealOffer.h"
+#import "TaloolErrorHandler.h"
 
 
 @implementation ttCustomer
@@ -60,10 +61,17 @@
     [ttCustomer clearEntity:context entityName:MERCHANT_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:MERCHANT_LOCATION_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:LOCATION_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:ADDRESS_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:DEAL_ACQUIRE_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:DEAL_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:GIFT_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:DEAL_OFFER_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:ACTIVITY_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:ACTIVITY_LINK_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:SOCIAL_ACCOUNT_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:SOCIAL_NETWORK_DETAIL_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:FRIEND_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:CATEGORY_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:TOKEN_ENTITY_NAME];
     
     NSError *error;
@@ -265,22 +273,10 @@
     return (ttToken *)self.token;
 }
 
-/**
- *  Clears the deals for this merchant from the context before
- *  calling the service to repopulate the context and return
- *  the deals.
- **/
-- (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err purge:(BOOL)purge
+
+- (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     NSArray *deals;
-    // purge the context of deals for this merchant
-    if (purge) {
-        NSError *readError;
-        deals = [self getMyDealsForMerchant:merchant context:context error:&readError];
-        for (int i=0; i<[deals count]; i++) {
-            [context deleteObject:[deals objectAtIndex:i]];
-        }
-    }
     
     // get the latest deals from the service
     CustomerController *cc = [[CustomerController alloc] init];
@@ -318,23 +314,19 @@
 {
     // query the context for these deals
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"deal.merchant.merchantId = %@",merchant.merchantId];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY deal.merchant.merchantId = %@",merchant.merchantId];
     [request setPredicate:pred];
     NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
     [request setEntity:entity];
     
     NSError *error;
     NSMutableArray *deals = [[context executeFetchRequest:request error:&error] mutableCopy];
-    if (deals == nil) {
-        NSLog(@"FAIL: Nil deal acquires for merchant: %@",merchant.merchantId);
-        NSLog(@"FAIL: Nil deal acquires... error: %@",error.localizedDescription);
-    } else if ([deals count] == 0) {
+    if ([deals count] == 0) {
         // the user shouldn't have a merchant w/o deals
         // assume this is the first time viewing this merchant
         // hit the service to load the deals
-        NSLog(@"First view of merchant: %@; Need to fetch the deals from the service.",merchant.merchantId);
         NSError *refreshError = nil;
-        deals = (NSMutableArray *)[self refreshMyDealsForMerchant:merchant context:context error:&refreshError purge:NO];
+        deals = (NSMutableArray *)[self refreshMyDealsForMerchant:merchant context:context error:&refreshError];
     }
     
     return deals;
@@ -350,9 +342,24 @@
     
     CustomerController *cc = [[CustomerController alloc] init];
     NSError *error;
-    NSMutableArray *merchants = [cc getMerchants:self context:context error:&error];
-    NSSet *fMerchants = [[NSSet alloc] initWithArray:merchants];
+    NSArray *tempMerchants = [cc getMerchants:self context:context error:&error];
     
+    if ([tempMerchants count]==0 && error.code==ERROR_CODE_NETWORK_DOWN)
+    {
+        // pull any existing activities from the context
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_ENTITY_NAME inManagedObjectContext:context];
+        [request setEntity:entity];
+        NSError *error;
+        NSMutableArray *unsortedMerchants = [[context executeFetchRequest:request error:&error] mutableCopy];
+        // sort the MERCHANTS
+        NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
+        tempMerchants = [[[NSArray alloc] initWithArray:unsortedMerchants] sortedArrayUsingDescriptors:sortDescriptors];
+        NSLog(@"pulled and sorted %d merchants from the context",[tempMerchants count]);
+    }
+        
+    NSSet *fMerchants = [[NSSet alloc] initWithArray:tempMerchants];
     [self removeMerchants:self.merchants];
     [self addMerchants:fMerchants];
     
@@ -482,7 +489,25 @@
                       error:(NSError **)err
 {
     CustomerController *cc = [[CustomerController alloc] init];
-    return [cc getActivities:self context:context error:err];
+    NSError *error;
+    NSArray *activities = [cc getActivities:self context:context error:&error];
+    
+    if ([activities count]==0 && error.code==ERROR_CODE_NETWORK_DOWN)
+    {
+        // pull any existing activities from the context
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:ACTIVITY_ENTITY_NAME inManagedObjectContext:context];
+        [request setEntity:entity];
+        NSError *error;
+        NSMutableArray *activitiesTemp = [[context executeFetchRequest:request error:&error] mutableCopy];
+        // sort the activities
+        NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc] initWithKey:@"activityDate" ascending:NO];
+        NSArray *sortDescriptors = [NSArray arrayWithObject:sortByDate];
+        activities = [[[NSArray alloc] initWithArray:activitiesTemp] sortedArrayUsingDescriptors:sortDescriptors];
+        NSLog(@"pulled and sorted %d activities from the context",[activities count]);
+    }
+    
+    return activities;
 }
 
 - (BOOL)hasDeals:(NSManagedObjectContext *)context

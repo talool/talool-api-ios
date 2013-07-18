@@ -13,7 +13,6 @@
 @interface ttDeal : TaloolDeal
 
 + (ttDeal *)initWithThrift: (Deal_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context;
-+ (ttDeal *)initWithName:(NSString *)name  context:(NSManagedObjectContext *)context;
 - (Deal_t *)hydrateThriftObject;
 
 @end

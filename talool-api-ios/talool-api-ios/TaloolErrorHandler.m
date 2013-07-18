@@ -43,8 +43,18 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     }
     else if ([exception isKindOfClass:[TTransportException class]])
     {
-        errorDetails = [self getServiceDetails:method why:@"The Server Barfed"];
-        code = ERROR_CODE_TOMCAT_DOWN;
+        
+        NSError *err = [exception.userInfo objectForKey:@"error"];
+        if (err.code == ERROR_CODE_NETWORK_DOWN)
+        {
+            errorDetails = [self getServiceDetails:method why:err.localizedDescription];
+            code = ERROR_CODE_NETWORK_DOWN;
+        }
+        else
+        {
+            errorDetails = [self getServiceDetails:method why:@"The Server Barfed"];
+            code = ERROR_CODE_TOMCAT_DOWN;
+        }
     }
     else
     {
@@ -56,10 +66,10 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     
     *error = [NSError errorWithDomain:domain code:code userInfo:details];
     
-    NSLog(@"%@: %@",errorDetails, exception.description);
+    NSLog(@"Exception Handled: %@",errorDetails);
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendException:NO withNSException:exception];
+    //[tracker sendException:NO withNSException:exception];
     [tracker sendException:NO withDescription:@"%@: %@",errorDetails, exception.description];
 }
 
@@ -76,7 +86,7 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     NSLog(@"%@: %@",errorDetails, exception.description);
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendException:NO withNSException:exception];
+    //[tracker sendException:NO withNSException:exception];
     [tracker sendException:NO withDescription:@"%@: %@",errorDetails, exception.description];
     
 }
