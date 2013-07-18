@@ -23,7 +23,7 @@
     <entity name="TaloolActivity" representedClassName="ttActivity" syncable="YES">
         <attribute name="actionTaken" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="activityDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="activityId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="activityId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="event" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
@@ -77,7 +77,7 @@
     <entity name="TaloolDeal" representedClassName="ttDeal" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="dealId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="dealId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dealOfferId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expires" optional="YES" attributeType="Date" syncable="YES"/>
@@ -86,13 +86,13 @@
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="acquires" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="deal" inverseEntity="TaloolDealAcquire" syncable="YES"/>
+        <relationship name="acquires" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="deal" inverseEntity="TaloolDealAcquire" syncable="YES"/>
         <relationship name="gift" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolGift" inverseName="deal" inverseEntity="TaloolGift" syncable="YES"/>
         <relationship name="merchant" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="deals" inverseEntity="TaloolMerchant" syncable="YES"/>
     </entity>
     <entity name="TaloolDealAcquire" representedClassName="ttDealAcquire" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="dealAcquireId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="dealAcquireId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="invalidated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="redeemed" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="redemptionCode" optional="YES" attributeType="String" syncable="YES"/>
@@ -105,7 +105,7 @@
     </entity>
     <entity name="TaloolDealOffer" representedClassName="ttDealOffer" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="dealOfferId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="dealOfferId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dealType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="expires" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -117,18 +117,18 @@
     </entity>
     <entity name="TaloolGift" representedClassName="ttGift" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="giftId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="giftId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="gift" inverseEntity="TaloolDeal" syncable="YES"/>
         <relationship name="fromCustomer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="giftsGiven" inverseEntity="Friend" syncable="YES"/>
     </entity>
     <entity name="TaloolLocation" representedClassName="ttLocation" syncable="YES">
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" indexed="YES" syncable="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" indexed="YES" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="merchantLocation" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchantLocation" inverseName="location" inverseEntity="TaloolMerchantLocation" syncable="YES"/>
     </entity>
     <entity name="TaloolMerchant" representedClassName="ttMerchant" syncable="YES">
         <attribute name="isFav" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="merchantId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="merchantId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="category" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCategory" inverseName="merchants" inverseEntity="TaloolCategory" syncable="YES"/>
         <relationship name="customer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="merchants" inverseEntity="TaloolCustomer" syncable="YES"/>
@@ -140,7 +140,7 @@
         <attribute name="distanceInMeters" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="locationId" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="locationId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="logoUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
@@ -172,7 +172,7 @@
         <element name="TaloolDeal" positionX="-126" positionY="225" width="128" height="255"/>
         <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="210"/>
         <element name="TaloolDealOffer" positionX="-486" positionY="63" width="128" height="195"/>
-        <element name="TaloolGift" positionX="-128" positionY="522" width="128" height="105"/>
+        <element name="TaloolGift" positionX="-128" positionY="522" width="128" height="103"/>
         <element name="TaloolLocation" positionX="-486" positionY="-189" width="128" height="90"/>
         <element name="TaloolMerchant" positionX="-297" positionY="99" width="128" height="165"/>
         <element name="TaloolMerchantLocation" positionX="-333" positionY="-189" width="128" height="210"/>
