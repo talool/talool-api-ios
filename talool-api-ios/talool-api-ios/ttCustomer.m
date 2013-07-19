@@ -492,18 +492,25 @@
     
     if ([activities count]==0 && error.code==ERROR_CODE_NETWORK_DOWN)
     {
-        // pull any existing activities from the context
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:ACTIVITY_ENTITY_NAME inManagedObjectContext:context];
-        [request setEntity:entity];
-        NSError *error;
-        NSMutableArray *activitiesTemp = [[context executeFetchRequest:request error:&error] mutableCopy];
-        // sort the activities
-        NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc] initWithKey:@"activityDate" ascending:NO];
-        NSArray *sortDescriptors = [NSArray arrayWithObject:sortByDate];
-        activities = [[[NSArray alloc] initWithArray:activitiesTemp] sortedArrayUsingDescriptors:sortDescriptors];
-        NSLog(@"pulled and sorted %d activities from the context",[activities count]);
+        activities = [self fetchActivities:context];
     }
+    
+    return activities;
+}
+
+- (NSArray *) fetchActivities:(NSManagedObjectContext *)context
+{
+    // pull any existing activities from the context
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:ACTIVITY_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    NSError *error;
+    NSMutableArray *activitiesTemp = [[context executeFetchRequest:request error:&error] mutableCopy];
+    // sort the activities
+    NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc] initWithKey:@"activityDate" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByDate];
+    NSArray *activities = [[[NSArray alloc] initWithArray:activitiesTemp] sortedArrayUsingDescriptors:sortDescriptors];
+    NSLog(@"pulled and sorted %d activities from the context",[activities count]);
     
     return activities;
 }

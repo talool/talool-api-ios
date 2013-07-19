@@ -70,6 +70,7 @@
 
 - (NSArray *) getActivities:(NSManagedObjectContext *)context
                       error:(NSError **)err;
+- (NSArray *) fetchActivities:(NSManagedObjectContext *)context;
 
 @end
 
