@@ -108,12 +108,15 @@
     CustomerController *cController = [[CustomerController alloc] init];
     redemptionCode = [cController redeem:self latitude:latitude longitude:longitude error:&redeemError];
     
-    if (redeemError.code < 100 && redeemError.code > 0)
+    if (redeemError.code)
     {
+        *err = redeemError;
+    } else {
+        
         [self setRedeemed:[NSDate date]];
         self.invalidated = [NSDate date];
         self.redemptionCode = redemptionCode;
-
+        
         NSError *saveError;
         if (![context save:&saveError]) {
             NSLog(@"API: OH SHIT!!!! Failed to save context after redeemHere: %@ %@",saveError, [saveError userInfo]);
@@ -121,9 +124,7 @@
             *err = [NSError errorWithDomain:@"redeemHere" code:200 userInfo:details];
         }
         
-    } else {
-        [details setValue:@"Failed to redeem deal." forKey:NSLocalizedDescriptionKey];
-        *err = [NSError errorWithDomain:@"redeemHere" code:200 userInfo:details];
+        
     }
     
     customer.ux.hasRedeemed = [[NSNumber alloc] initWithBool:YES];

@@ -34,6 +34,7 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
         {
             errorDetails = [self getServiceDetails:method why:@"The Service Failed"];
             code = ERROR_CODE_SERVICE_DOWN;
+            NSLog(@"%@: %@",errorDetails, exception.description);
         }
     }
     else if ([exception isKindOfClass:[TApplicationException class]])

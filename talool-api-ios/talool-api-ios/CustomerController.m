@@ -225,8 +225,7 @@
 
 - (NSMutableArray *) getMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
-    // TODO Queue it!
-    NSLog(@"FIX IT: GET MERCHANTS: Queue this server call if needed.");
+    NSLog(@"GET MERCHANTS");
     
     NSMutableArray *merchants;
 
@@ -266,8 +265,7 @@
 
 - (NSMutableArray *) getAcquiredDeals:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
-    // TODO Queue it!
-    NSLog(@"FIX IT: GET DEAL ACQUIRES: Queue this server call if needed.");
+    NSLog(@"GET DEAL ACQUIRES");
     
     NSMutableArray *deals;
    
@@ -294,6 +292,7 @@
         for (int i=0; i<[deals count]; i++) {
             DealAcquire_t *td = [deals objectAtIndex:i];
             ttDealAcquire *d = [ttDealAcquire initWithThrift:td merchant:merchant context:context];
+            //NSLog(@"transformed %@ %@", d.deal.title, d.dealAcquireId);
             [deals setObject:d atIndexedSubscript:i];
         }
     }
@@ -336,8 +335,7 @@
 
 - (NSMutableArray *) getDealOffers:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
-    // TODO Queue it!
-    NSLog(@"FIX IT: GET DEAL OFFERS: Queue this server call if needed.");
+    NSLog(@"GET DEAL OFFERS");
     
     NSMutableArray *offers;
 
@@ -400,8 +398,7 @@
 
 - (NSMutableArray *) getMerchantsWithin:(ttCustomer *)customer latitude:(double) latitude longitude:(double) longitude context:(NSManagedObjectContext *)context error:(NSError**)error
 {
-    // TODO Queue it!
-    NSLog(@"FIX IT: GET MERCHANTS WITH RANGE (%d miles): Queue this server call if needed.", INFINITE_PROXIMITY);
+    NSLog(@"GET MERCHANTS WITH RANGE (%d miles)", INFINITE_PROXIMITY);
     
     NSMutableArray *merchants;
 
@@ -477,8 +474,7 @@
 
 - (NSMutableArray *) getFavoriteMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
-    // TODO Queue it!
-    NSLog(@"FIX IT: GET FAVORITE MERCHANTS: Queue this server call if needed.");
+    NSLog(@"GET FAVORITE MERCHANTS");
     
     NSMutableArray *merchants;
 
@@ -518,9 +514,6 @@
 
 - (NSMutableArray *) getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
-    // TODO Queue it!
-    NSLog(@"FIX IT: GET CATEGORIES: Queue this server call if needed.");
-    
     NSMutableArray *categories;
     
     @try {
@@ -553,8 +546,7 @@
 
 - (NSMutableArray *) getMerchantAcquiresByCategory:(ttCategory *)category customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
-    // TODO Queue it!
-    NSLog(@"FIX IT: GET MERCHANTS BY CATEGORY: Queue this server call if needed.");
+    NSLog(@"GET MERCHANTS BY CATEGORY");
     
     NSMutableArray *merchants;
 
@@ -660,8 +652,6 @@
                  context:(NSManagedObjectContext *)context
                    error:(NSError**)error
 {
-    // TODO Queue it!
-    //NSLog(@"FIX IT: GET GIFTS: Queue this server call if needed.");
     
     ttGift *gift;
     Gift_t *gift_t;

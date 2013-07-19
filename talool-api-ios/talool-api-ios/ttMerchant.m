@@ -104,10 +104,10 @@
     {
         if (location == NULL)
         {
-            label = @"";
-            //NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
+            location = [[self.locations allObjects] objectAtIndex:0];
         }
-        else if (location.name == NULL)
+        
+        if (location.name == NULL)
         {
             label = location.address.city;
         }
@@ -119,7 +119,6 @@
     else
     {
         label = @"";
-        //NSLog(@"Holy Shit!!!!! A Merchant w/o a location!!!");
     }
     return label;
 }

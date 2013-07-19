@@ -159,7 +159,7 @@
     
     customer = [cController registerUser:customer password:password context:context error:&regError];
     
-    if (regError.code < 100) {
+    if (!regError.code) {
         NSError *saveError;
         if (![context save:&saveError]) {
             NSLog(@"API: OH SHIT!!!! Failed to save context after registration: %@ %@",saveError, [saveError userInfo]);
@@ -167,8 +167,7 @@
             *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
         }
     } else {
-        [details setValue:@"Failed to register user." forKey:NSLocalizedDescriptionKey];
-        *err = [NSError errorWithDomain:@"reg" code:200 userInfo:details];
+        *err = regError;
     }
 }
 
@@ -280,8 +279,7 @@
     
     // get the latest deals from the service
     CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error;
-    deals = [cc getAcquiredDeals:merchant forCustomer:self context:context error:&error];
+    deals = [cc getAcquiredDeals:merchant forCustomer:self context:context error:err];
     
     // save these deals in the context
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
@@ -314,7 +312,7 @@
 {
     // query the context for these deals
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY deal.merchant.merchantId = %@",merchant.merchantId];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"deal.merchant.merchantId = %@",merchant.merchantId];
     [request setPredicate:pred];
     NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
     [request setEntity:entity];
