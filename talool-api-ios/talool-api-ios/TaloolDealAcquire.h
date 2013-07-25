@@ -22,7 +22,6 @@
 @property (nonatomic, retain) NSDate * shared;
 @property (nonatomic, retain) NSDate * invalidated;
 @property (nonatomic, retain) ttDeal *deal;
-@property (nonatomic, retain) TaloolCustomer *sharedBy;
 @property (nonatomic, retain) ttFriend *sharedTo;
 
 @end

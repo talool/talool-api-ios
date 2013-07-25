@@ -25,7 +25,6 @@
 @dynamic sex;
 @dynamic updated;
 @dynamic merchants;
-@dynamic sharedDealAcquires;
 @dynamic socialAccounts;
 @dynamic token;
 @dynamic ux;

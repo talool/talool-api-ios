@@ -22,7 +22,6 @@
 @property (nonatomic, retain) NSNumber * sex;
 @property (nonatomic, retain) NSDate * updated;
 @property (nonatomic, retain) NSSet *merchants;
-@property (nonatomic, retain) NSSet *sharedDealAcquires;
 @property (nonatomic, retain) NSSet *socialAccounts;
 @property (nonatomic, retain) TaloolToken *token;
 @property (nonatomic, retain) TaloolCustomerUX *ux;
@@ -34,11 +33,6 @@
 - (void)removeMerchantsObject:(ttMerchant *)value;
 - (void)addMerchants:(NSSet *)values;
 - (void)removeMerchants:(NSSet *)values;
-
-- (void)addSharedDealAcquiresObject:(TaloolDealAcquire *)value;
-- (void)removeSharedDealAcquiresObject:(TaloolDealAcquire *)value;
-- (void)addSharedDealAcquires:(NSSet *)values;
-- (void)removeSharedDealAcquires:(NSSet *)values;
 
 - (void)addSocialAccountsObject:(ttSocialAccount *)value;
 - (void)removeSocialAccountsObject:(ttSocialAccount *)value;

@@ -23,7 +23,6 @@
 @dynamic shared;
 @dynamic invalidated;
 @dynamic deal;
-@dynamic sharedBy;
 @dynamic sharedTo;
 
 @end

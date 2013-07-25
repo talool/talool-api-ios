@@ -223,6 +223,51 @@
     return userExists;
 }
 
+
+- (NSMutableArray *) getMerchantsWithLocation:(ttCustomer *)customer
+                                            latitude:(double)latitude
+                                           longitude:(double)longitude
+                                             context:(NSManagedObjectContext *)context
+                                               error:(NSError**)error
+{
+    NSLog(@"GET MERCHANTS WITH LOCATION");
+    
+    NSMutableArray *merchants;
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        Location_t *loc = [[Location_t alloc] initWithLongitude:longitude latitude:latitude];
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:0];
+        [options setAscending:YES];
+        [options setSortProperty:@"merchant.locations.distanceInMeters"];
+        merchants = [service getMerchantAcquiresWithLocation:options location:loc];
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"getMerchantsWithLocation" error:error];
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    @try {
+        // transform the Thrift response
+        for (int i=0; i<[merchants count]; i++) {
+            Merchant_t *td = [merchants objectAtIndex:i];
+            ttMerchant *d = [ttMerchant initWithThrift:td context:context];
+            [merchants setObject:d atIndexedSubscript:i];
+        }
+    }
+    @catch (NSException * e) {
+        [errorManager handleCoreDataException:e forMethod:@"getMerchantsWithLocation" entity:@"ttMerchant" error:error];
+        return nil;
+    }
+    
+    return merchants;
+}
+
 - (NSMutableArray *) getMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error
 {
     NSLog(@"GET MERCHANTS");
