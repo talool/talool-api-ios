@@ -4313,7 +4313,7 @@
   return self;
 }
 
-- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status sharedByCustomer: (Customer_t *) sharedByCustomer redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated
 {
   self = [super init];
   __dealAcquireId = [dealAcquireId retain_stub];
@@ -4322,8 +4322,6 @@
   __deal_isset = YES;
   __status = status;
   __status_isset = YES;
-  __sharedByCustomer = [sharedByCustomer retain_stub];
-  __sharedByCustomer_isset = YES;
   __redeemed = redeemed;
   __redeemed_isset = YES;
   __created = created;
@@ -4350,11 +4348,6 @@
   {
     __status = [decoder decodeIntForKey: @"status"];
     __status_isset = YES;
-  }
-  if ([decoder containsValueForKey: @"sharedByCustomer"])
-  {
-    __sharedByCustomer = [[decoder decodeObjectForKey: @"sharedByCustomer"] retain_stub];
-    __sharedByCustomer_isset = YES;
   }
   if ([decoder containsValueForKey: @"redeemed"])
   {
@@ -4388,10 +4381,6 @@
   {
     [encoder encodeInt: __status forKey: @"status"];
   }
-  if (__sharedByCustomer_isset)
-  {
-    [encoder encodeObject: __sharedByCustomer forKey: @"sharedByCustomer"];
-  }
   if (__redeemed_isset)
   {
     [encoder encodeInt64: __redeemed forKey: @"redeemed"];
@@ -4410,7 +4399,6 @@
 {
   [__dealAcquireId release_stub];
   [__deal release_stub];
-  [__sharedByCustomer release_stub];
   [super dealloc_stub];
 }
 
@@ -4471,27 +4459,6 @@
 
 - (void) unsetStatus {
   __status_isset = NO;
-}
-
-- (Customer_t *) sharedByCustomer {
-  return [[__sharedByCustomer retain_stub] autorelease_stub];
-}
-
-- (void) setSharedByCustomer: (Customer_t *) sharedByCustomer {
-  [sharedByCustomer retain_stub];
-  [__sharedByCustomer release_stub];
-  __sharedByCustomer = sharedByCustomer;
-  __sharedByCustomer_isset = YES;
-}
-
-- (BOOL) sharedByCustomerIsSet {
-  return __sharedByCustomer_isset;
-}
-
-- (void) unsetSharedByCustomer {
-  [__sharedByCustomer release_stub];
-  __sharedByCustomer = nil;
-  __sharedByCustomer_isset = NO;
 }
 
 - (int64_t) redeemed {
@@ -4586,16 +4553,6 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
-      case 4:
-        if (fieldType == TType_STRUCT) {
-          Customer_t *fieldValue = [[Customer_t alloc] init];
-          [fieldValue read: inProtocol];
-          [self setSharedByCustomer: fieldValue];
-          [fieldValue release_stub];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
       case 5:
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
@@ -4650,13 +4607,6 @@
     [outProtocol writeI32: __status];
     [outProtocol writeFieldEnd];
   }
-  if (__sharedByCustomer_isset) {
-    if (__sharedByCustomer != nil) {
-      [outProtocol writeFieldBeginWithName: @"sharedByCustomer" type: TType_STRUCT fieldID: 4];
-      [__sharedByCustomer write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
   if (__redeemed_isset) {
     [outProtocol writeFieldBeginWithName: @"redeemed" type: TType_I64 fieldID: 5];
     [outProtocol writeI64: __redeemed];
@@ -4684,8 +4634,6 @@
   [ms appendFormat: @"%@", __deal];
   [ms appendString: @",status:"];
   [ms appendFormat: @"%i", __status];
-  [ms appendString: @",sharedByCustomer:"];
-  [ms appendFormat: @"%@", __sharedByCustomer];
   [ms appendString: @",redeemed:"];
   [ms appendFormat: @"%qi", __redeemed];
   [ms appendString: @",created:"];
