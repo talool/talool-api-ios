@@ -244,7 +244,7 @@
         [options setMaxResults:1000];
         [options setPage:0];
         [options setAscending:YES];
-        [options setSortProperty:@"merchant.locations.distanceInMeters"];
+        [options setSortProperty:@"merchant.name"];
         merchants = [service getMerchantAcquiresWithLocation:options location:loc];
     }
     @catch (NSException * e) {
