@@ -331,8 +331,7 @@
 }
 
 /**
- *  Removes the merchants from this user, then calls the service
- *  to reattach the latest set of merchants.
+ *  Calls the service to get the latest set of merchants.
  *  Saves the context and returns nothing.
  **/
 - (void) refreshMerchants: (NSManagedObjectContext *)context
@@ -356,12 +355,9 @@
         tempMerchants = [[[NSArray alloc] initWithArray:unsortedMerchants] sortedArrayUsingDescriptors:sortDescriptors];
         NSLog(@"pulled and sorted %d merchants from the context",[tempMerchants count]);
     }
-        
-    NSSet *fMerchants = [[NSSet alloc] initWithArray:tempMerchants];
-    [self removeMerchants:self.merchants];
-    [self addMerchants:fMerchants];
     
-    // save these merchants in the context
+    self.merchants = [NSSet setWithArray:tempMerchants];
+
     NSError *saveError;
     if (![context save:&saveError]) {
         NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMerchants: %@ %@",saveError, [saveError userInfo]);

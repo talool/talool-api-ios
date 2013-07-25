@@ -34,39 +34,57 @@
     
     
     //NSString *locIsSet = (merchant.locationsIsSet)?@"true":@"false";
-    //NSLog(@"DEBUG::: location set: %@ for %@",locIsSet,merchant.name);
-    
-    
+    //NSLog(@"DEBUG::: location set: %@ for %@, %d locations",locIsSet,merchant.name, [merchant.locations count]);
     if (merchant.locationsIsSet) {
-        
-        
-        if ([m.locations count]>0)
+        m.location = nil;
+        @try
         {
-            [m removeLocations:m.locations];
-        }
-        
-        int closestDistance = 100000000;
-        for (int i=0; i<[merchant.locations count]; i++) {
-            MerchantLocation_t *mlt = [merchant.locations objectAtIndex:i];
-            ttMerchantLocation *ml = [ttMerchantLocation initWithThrift:mlt context:context];
-            
-            // store the closest location for easy access
-            if (mlt.distanceInMetersIsSet && mlt.distanceInMeters<closestDistance)
-            {
-                closestDistance = mlt.distanceInMeters;
-                m.location = ml;
+            NSMutableArray *locs = [[NSMutableArray alloc] initWithCapacity:[merchant.locations count]];
+            int closestDistance = 100000000;
+            for (int i=0; i<[merchant.locations count]; i++) {
+                MerchantLocation_t *mlt = [merchant.locations objectAtIndex:i];
+                ttMerchantLocation *ml = [ttMerchantLocation initWithThrift:mlt context:context];
+                
+                // store the closest location for easy access
+                if (mlt.distanceInMetersIsSet && mlt.distanceInMeters<closestDistance)
+                {
+                    closestDistance = mlt.distanceInMeters;
+                    m.location = ml;
+                }
+                
+                [locs setObject:ml atIndexedSubscript:i];
             }
-            
-            [m addLocationsObject:ml];
+            m.locations = [NSSet setWithArray:locs];
+        }
+        @catch (NSException *exception)
+        {
+            NSLog(@"EXCEPTION::: Failed to load merchant locations for %@", m.name);
         }
         
-        // make sure that location is set
-        if (m.location == nil && [m.locations count] > 0)
+        @try
         {
-            if ([m.locations count] > 0)
+            // make sure that location is set
+            if (m.location == nil && [m.locations count] > 0)
             {
                 m.location = (ttMerchantLocation *)m.locations.objectEnumerator.nextObject;
             }
+            else if (m.location == nil)
+            {
+                NSLog(@"DEBUG::: failed to set location for %@",m.name);
+            }
+        }
+        @catch (NSException *exception)
+        {
+            NSLog(@"EXCEPTION::: Failed to load merchant location for %@", m.name);
+        }
+        
+        if ([m.locations count] < 1)
+        {
+            NSLog(@"DEBUG::: failed to load locations for %@",m.name);
+        }
+        else
+        {
+            //NSLog(@"DEBUG::: loaded location with label %@",[m getLocationLabel]);
         }
     }
     
@@ -100,25 +118,25 @@
     {
         label = @"multiple locations";
     }
-    else if ([self.locations count] == 1)
+    else if (self.location || [self.locations count] == 1)
     {
-        if (location == NULL)
+        if (self.location == NULL)
         {
-            location = [[self.locations allObjects] objectAtIndex:0];
+            self.location = [[self.locations allObjects] objectAtIndex:0];
         }
         
-        if (location.name == NULL)
+        if (self.location.name == NULL)
         {
-            label = location.address.city;
+            label = [NSString stringWithFormat:@"%@, %@",self.location.address.address1, self.location.address.city];
         }
         else
         {
-            label = location.name;
+            label = self.location.name;
         }
     }
     else
     {
-        label = @"";
+        label = @"--";
     }
     return label;
 }
@@ -150,10 +168,12 @@
     {
         return location;
     }
-    else
+    else if ([self.locations count] > 0)
     {
         return [[self.locations allObjects] objectAtIndex:0];
     }
+    NSLog(@"DEGUG::: no locations for %@",self.name);
+    return nil;
 }
 
 + (ttMerchant *) fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context
