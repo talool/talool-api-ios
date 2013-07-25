@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <CoreLocation/CoreLocation.h>
 #import "TaloolCustomer.h"
 #import "ttToken.h"
 
@@ -42,7 +43,7 @@
 - (ttToken *)getTaloolToken;
 
 //- (void) refresh: (NSManagedObjectContext *)context;
-- (void) refreshMerchants: (NSManagedObjectContext *)context;
+- (void) refreshMerchants:(CLLocation *)location context:(NSManagedObjectContext *)context;
 - (void) refreshFavoriteMerchants: (NSManagedObjectContext *)context;
 
 - (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err;

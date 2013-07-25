@@ -52,10 +52,8 @@ static NSManagedObjectModel *_managedObjectModel;
                                                           error:&error]) {
         
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        
-        /*
-         TODO: we REALLY, REALLY, REALLY need to remove this abort before deploying to the store.
-         */
+
+#warning "The App will crash here if the data model is borked.  Need a more elegant solution."
         abort();
     }
     return persistentStoreCoordinator;

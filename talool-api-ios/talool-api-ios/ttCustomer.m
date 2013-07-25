@@ -334,12 +334,12 @@
  *  Calls the service to get the latest set of merchants.
  *  Saves the context and returns nothing.
  **/
-- (void) refreshMerchants: (NSManagedObjectContext *)context
+- (void) refreshMerchants:(CLLocation *)location context:(NSManagedObjectContext *)context
 {
     
     CustomerController *cc = [[CustomerController alloc] init];
     NSError *error;
-    NSArray *tempMerchants = [cc getMerchants:self context:context error:&error];
+    NSArray *tempMerchants = [cc getMerchants:self withLocation:location context:context error:&error];
     
     if ([tempMerchants count]==0 && error.code==ERROR_CODE_NETWORK_DOWN)
     {

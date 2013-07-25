@@ -224,11 +224,10 @@
 }
 
 
-- (NSMutableArray *) getMerchantsWithLocation:(ttCustomer *)customer
-                                            latitude:(double)latitude
-                                           longitude:(double)longitude
-                                             context:(NSManagedObjectContext *)context
-                                               error:(NSError**)error
+- (NSMutableArray *) getMerchants:(ttCustomer *)customer
+                     withLocation:(CLLocation *)location
+                          context:(NSManagedObjectContext *)context
+                            error:(NSError**)error
 {
     NSLog(@"GET MERCHANTS WITH LOCATION");
     
@@ -236,7 +235,11 @@
     
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-        Location_t *loc = [[Location_t alloc] initWithLongitude:longitude latitude:latitude];
+        Location_t *loc;
+        if (location)
+        {
+            loc = [[Location_t alloc] initWithLongitude:location.coordinate.longitude latitude:location.coordinate.latitude];
+        }
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
         [options setMaxResults:1000];
         [options setPage:0];
