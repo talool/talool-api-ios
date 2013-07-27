@@ -8,8 +8,7 @@
 
 #import "TaloolFrameworkHelper.h"
 
-#warning "Dev url for the API"
-NSString * const API_URL = @"https://dev-api.talool.com/1.1";
+NSString * const API_URL = @"https://api.talool.com/1.1";
 
 @implementation TaloolFrameworkHelper
 
