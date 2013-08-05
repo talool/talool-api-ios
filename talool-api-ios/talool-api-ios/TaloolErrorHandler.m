@@ -30,6 +30,16 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
             errorDetails = e.errorDesc;
             code = ERROR_CODE_INVALID_PASSWORD;
         }
+        else if (e.errorCode == ERROR_CODE_INVALID_EMAIL)
+        {
+            errorDetails = e.errorDesc;
+            code = ERROR_CODE_INVALID_PASSWORD;
+        }
+        else if (e.errorCode == ERROR_CODE_EMAIL_TAKEN)
+        {
+            errorDetails = e.errorDesc;
+            code = ERROR_CODE_INVALID_PASSWORD;
+        }
         else
         {
             errorDetails = [self getServiceDetails:method why:@"The Service Failed"];
