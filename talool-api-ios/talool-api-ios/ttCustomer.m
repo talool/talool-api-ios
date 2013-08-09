@@ -353,7 +353,7 @@
         NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
         tempMerchants = [[[NSArray alloc] initWithArray:unsortedMerchants] sortedArrayUsingDescriptors:sortDescriptors];
-        NSLog(@"pulled and sorted %d merchants from the context",[tempMerchants count]);
+        //NSLog(@"pulled and sorted %d merchants from the context",[tempMerchants count]);
     }
     
     self.merchants = [NSSet setWithArray:tempMerchants];
@@ -506,7 +506,7 @@
     NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc] initWithKey:@"activityDate" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortByDate];
     NSArray *activities = [[[NSArray alloc] initWithArray:activitiesTemp] sortedArrayUsingDescriptors:sortDescriptors];
-    NSLog(@"pulled and sorted %d activities from the context",[activities count]);
+    //NSLog(@"pulled and sorted %d activities from the context",[activities count]);
     
     return activities;
 }
