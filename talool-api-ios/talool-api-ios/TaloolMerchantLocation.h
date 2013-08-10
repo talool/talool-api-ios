@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class ttAddress, ttLocation, ttMerchant;
+@class ttMerchant;
 
 @interface TaloolMerchantLocation : NSManagedObject
 
@@ -21,8 +21,14 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * phone;
 @property (nonatomic, retain) NSString * websiteUrl;
-@property (nonatomic, retain) ttAddress *address;
-@property (nonatomic, retain) ttLocation *location;
+@property (nonatomic, retain) NSNumber * latitude;
+@property (nonatomic, retain) NSNumber * longitude;
+@property (nonatomic, retain) NSString * address1;
+@property (nonatomic, retain) NSString * address2;
+@property (nonatomic, retain) NSString * city;
+@property (nonatomic, retain) NSString * stateProvidenceCounty;
+@property (nonatomic, retain) NSString * country;
+@property (nonatomic, retain) NSString * zip;
 @property (nonatomic, retain) ttMerchant *merchant;
 
 @end

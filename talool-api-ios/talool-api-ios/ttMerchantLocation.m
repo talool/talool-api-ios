@@ -7,8 +7,6 @@
 //
 
 #import "ttMerchantLocation.h"
-#import "ttAddress.h"
-#import "ttLocation.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "TaloolFrameworkHelper.h"
@@ -28,8 +26,15 @@
     m.logoUrl = location.logoUrl;
     m.imageUrl = location.merchantImageUrl;
     m.phone = location.phone;
-    m.location = [ttLocation initWithThrift:location.location context:context];
-    m.address = [ttAddress initWithThrift:location.address context:context];
+    m.address1 = location.address.address1;
+    m.address2 = location.address.address2;
+    m.city = location.address.city;
+    m.stateProvidenceCounty = location.address.stateProvinceCounty;
+    m.country = location.address.country;
+    m.zip = location.address.zip;
+    m.latitude = [NSNumber numberWithDouble:location.location.latitude];
+    m.longitude = [NSNumber numberWithDouble:location.location.longitude];
+    
     if (location.distanceInMetersIsSet)
     {
         m.distanceInMeters = [[NSNumber alloc] initWithDouble:location.distanceInMeters];
@@ -50,8 +55,6 @@
     location.logoUrl = self.logoUrl;
     location.merchantImageUrl = self.imageUrl;
     location.phone = self.phone;
-    location.address = [(ttAddress *)self.address hydrateThriftObject];
-    location.location = [(ttLocation *)self.location hydrateThriftObject];
     location.distanceInMeters = [self.distanceInMeters doubleValue];
     
     return location;

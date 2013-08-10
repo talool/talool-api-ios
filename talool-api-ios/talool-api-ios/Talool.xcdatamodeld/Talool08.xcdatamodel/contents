@@ -35,6 +35,17 @@
         <attribute name="linkType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="activity" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolActivity" inverseName="link" inverseEntity="TaloolActivity" syncable="YES"/>
     </entity>
+    <entity name="TaloolAddress" representedClassName="ttAddress" syncable="YES">
+        <attribute name="address1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="address2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="stateProvidenceCounty" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="zip" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="merchantLocation" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchantLocation" inverseName="address" inverseEntity="TaloolMerchantLocation" syncable="YES"/>
+    </entity>
     <entity name="TaloolCategory" representedClassName="ttCategory" syncable="YES">
         <attribute name="categoryId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -108,6 +119,11 @@
         <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="gift" inverseEntity="TaloolDeal" syncable="YES"/>
         <relationship name="fromCustomer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="giftsGiven" inverseEntity="Friend" syncable="YES"/>
     </entity>
+    <entity name="TaloolLocation" representedClassName="ttLocation" syncable="YES">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" indexed="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" indexed="YES" syncable="YES"/>
+        <relationship name="merchantLocation" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchantLocation" inverseName="location" inverseEntity="TaloolMerchantLocation" syncable="YES"/>
+    </entity>
     <entity name="TaloolMerchant" representedClassName="ttMerchant" syncable="YES">
         <attribute name="isFav" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="merchantId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
@@ -119,22 +135,16 @@
         <relationship name="offers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDealOffer" inverseName="merchant" inverseEntity="TaloolDealOffer" syncable="YES"/>
     </entity>
     <entity name="TaloolMerchantLocation" representedClassName="ttMerchantLocation" syncable="YES">
-        <attribute name="address1" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="address2" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="distanceInMeters" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="locationId" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="logoUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="stateProvidenceCounty" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="websiteUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="zip" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="address" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolAddress" inverseName="merchantLocation" inverseEntity="TaloolAddress" syncable="YES"/>
+        <relationship name="location" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolLocation" inverseName="merchantLocation" inverseEntity="TaloolLocation" syncable="YES"/>
         <relationship name="merchant" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="locations" inverseEntity="TaloolMerchant" syncable="YES"/>
     </entity>
     <entity name="TaloolSearchOptions" representedClassName="TaloolSearchOptions" syncable="YES">
@@ -153,6 +163,7 @@
         <element name="SocialNetworkDetail" positionX="216" positionY="-220" width="128" height="103"/>
         <element name="TaloolActivity" positionX="223" positionY="162" width="128" height="165"/>
         <element name="TaloolActivityLink" positionX="396" positionY="297" width="128" height="90"/>
+        <element name="TaloolAddress" positionX="-146" positionY="-220" width="128" height="180"/>
         <element name="TaloolCategory" positionX="-128" positionY="0" width="128" height="88"/>
         <element name="TaloolCustomer" positionX="-326" positionY="297" width="128" height="225"/>
         <element name="TaloolCustomerUX" positionX="-324" positionY="573" width="128" height="120"/>
@@ -160,8 +171,9 @@
         <element name="TaloolDealAcquire" positionX="25" positionY="-0" width="128" height="195"/>
         <element name="TaloolDealOffer" positionX="-486" positionY="63" width="128" height="195"/>
         <element name="TaloolGift" positionX="-128" positionY="522" width="128" height="105"/>
+        <element name="TaloolLocation" positionX="-486" positionY="-189" width="128" height="90"/>
         <element name="TaloolMerchant" positionX="-297" positionY="99" width="128" height="165"/>
-        <element name="TaloolMerchantLocation" positionX="-486" positionY="-252" width="128" height="298"/>
+        <element name="TaloolMerchantLocation" positionX="-333" positionY="-189" width="128" height="210"/>
         <element name="TaloolSearchOptions" positionX="214" positionY="-91" width="128" height="103"/>
         <element name="TaloolToken" positionX="-488" positionY="432" width="128" height="73"/>
     </elements>

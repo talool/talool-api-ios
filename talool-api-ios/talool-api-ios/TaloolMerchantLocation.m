@@ -7,8 +7,6 @@
 //
 
 #import "TaloolMerchantLocation.h"
-#import "ttAddress.h"
-#import "ttLocation.h"
 #import "ttMerchant.h"
 
 
@@ -22,8 +20,14 @@
 @dynamic name;
 @dynamic phone;
 @dynamic websiteUrl;
-@dynamic address;
-@dynamic location;
+@dynamic latitude;
+@dynamic longitude;
+@dynamic address1;
+@dynamic address2;
+@dynamic city;
+@dynamic stateProvidenceCounty;
+@dynamic zip;
+@dynamic country;
 @dynamic merchant;
 
 @end

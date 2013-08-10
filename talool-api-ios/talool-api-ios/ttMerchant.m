@@ -8,7 +8,6 @@
 
 #import "ttMerchant.h"
 #import "ttMerchantLocation.h"
-#import "ttAddress.h"
 #import "ttCategory.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
@@ -127,7 +126,7 @@
         
         if (self.location.name == NULL)
         {
-            label = [NSString stringWithFormat:@"%@, %@",self.location.address.address1, self.location.address.city];
+            label = [NSString stringWithFormat:@"%@, %@",self.location.address1, self.location.city];
         }
         else
         {
