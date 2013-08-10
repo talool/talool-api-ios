@@ -60,8 +60,6 @@
     [ttCustomer clearEntity:context entityName:CUSTOMER_UX_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:MERCHANT_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:MERCHANT_LOCATION_ENTITY_NAME];
-    [ttCustomer clearEntity:context entityName:LOCATION_ENTITY_NAME];
-    [ttCustomer clearEntity:context entityName:ADDRESS_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:DEAL_ACQUIRE_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:DEAL_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:GIFT_ENTITY_NAME];
