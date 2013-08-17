@@ -351,7 +351,7 @@
         NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
         tempMerchants = [[[NSArray alloc] initWithArray:unsortedMerchants] sortedArrayUsingDescriptors:sortDescriptors];
-        //NSLog(@"pulled and sorted %d merchants from the context",[tempMerchants count]);
+        //NSLog(@"Network was down, so pulled and sorted %d merchants from the context",[tempMerchants count]);
     }
     
     self.merchants = [NSSet setWithArray:tempMerchants];

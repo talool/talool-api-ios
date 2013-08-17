@@ -25,6 +25,10 @@
     m.websiteUrl = location.websiteUrl;
     m.logoUrl = location.logoUrl;
     m.imageUrl = location.merchantImageUrl;
+    if (!location.merchantImageUrl)
+    {
+        NSLog(@"missing image for %@",m.websiteUrl);
+    }
     m.phone = location.phone;
     m.address1 = location.address.address1;
     m.address2 = location.address.address2;
