@@ -27,6 +27,7 @@
     newDeal.dealAcquireId = deal.dealAcquireId;
     newDeal.deal = [ttDeal initWithThrift:deal.deal merchant:merchant context:context];
     newDeal.status = [[NSNumber alloc] initWithUnsignedInteger:deal.status];
+    newDeal.redemptionCode = deal.redemptionCode;
     
     // don't override with the server value of the server returns null or if the client thinks it has been redeemed.
     if (deal.redeemedIsSet==YES && newDeal.redeemed == nil)
@@ -149,8 +150,8 @@
     if (fetchedObj == nil || [fetchedObj count] == 0)
     {
         acquire = (ttDealAcquire *)[NSEntityDescription
-                                  insertNewObjectForEntityForName:DEAL_ACQUIRE_ENTITY_NAME
-                                  inManagedObjectContext:context];
+                                    insertNewObjectForEntityForName:DEAL_ACQUIRE_ENTITY_NAME
+                                    inManagedObjectContext:context];
     }
     else
     {

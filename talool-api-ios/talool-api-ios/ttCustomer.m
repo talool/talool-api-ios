@@ -35,8 +35,8 @@
     customer.customerId = c.customerId;
     
     customer.ux = [NSEntityDescription
-                                          insertNewObjectForEntityForName:CUSTOMER_UX_ENTITY_NAME
-                                          inManagedObjectContext:context];
+                   insertNewObjectForEntityForName:CUSTOMER_UX_ENTITY_NAME
+                   inManagedObjectContext:context];
     
     
     if (c.socialAccountsIsSet) {
@@ -355,7 +355,7 @@
     }
     
     self.merchants = [NSSet setWithArray:tempMerchants];
-
+    
     NSError *saveError;
     if (![context save:&saveError]) {
         NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMerchants: %@ %@",saveError, [saveError userInfo]);
@@ -369,7 +369,7 @@
  *  These merchants are NOT tied to the customer.
  *
  *  TODO: the distanceInMeters param isn't used, so it should be removed
-**/
+ **/
 - (NSArray *) getMerchantsByProximity:(int)distanceInMeters
                             longitude:(double)longitude
                              latitude:(double)latitude
@@ -410,9 +410,9 @@
 }
 
 - (NSString *)giftToFacebook:(NSString *)dealAcquireId
-            facebookId:(NSString *)facebookId
-        receipientName:(NSString *)receipientName
-                 error:(NSError**)error;
+                  facebookId:(NSString *)facebookId
+              receipientName:(NSString *)receipientName
+                       error:(NSError**)error;
 {
     self.ux.hasShared = [[NSNumber alloc] initWithBool:YES];
     CustomerController *cc = [[CustomerController alloc] init];
@@ -420,9 +420,9 @@
 }
 
 - (NSString *)giftToEmail:(NSString *)dealAcquireId
-              email:(NSString *)email
-     receipientName:(NSString *)receipientName
-              error:(NSError**)error
+                    email:(NSString *)email
+           receipientName:(NSString *)receipientName
+                    error:(NSError**)error
 {
     self.ux.hasShared = [[NSNumber alloc] initWithBool:YES];
     CustomerController *cc = [[CustomerController alloc] init];
@@ -517,18 +517,34 @@
     return YES;
     
     /*
-    // query the context for valid deals
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.invalidated = nil"];
-    [request setPredicate:pred];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
-    [request setEntity:entity];
-    
-    NSError *error;
-    NSMutableArray *deals = [[context executeFetchRequest:request error:&error] mutableCopy];
-    
-    return ([deals count]>0);
-    */
+     // query the context for valid deals
+     NSFetchRequest *request = [[NSFetchRequest alloc] init];
+     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.invalidated = nil"];
+     [request setPredicate:pred];
+     NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
+     [request setEntity:entity];
+     
+     NSError *error;
+     NSMutableArray *deals = [[context executeFetchRequest:request error:&error] mutableCopy];
+     
+     return ([deals count]>0);
+     */
+}
+
++ (BOOL)sendResetPasswordEmail:(NSString *)email
+                         error:(NSError**)error
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc sendResetPasswordEmail:email error:error];
+}
+
++ (BOOL)resetPassword:(NSString *)customerId
+             password:(NSString *)password
+                 code:(NSString *)resetPasswordCode
+                error:(NSError**)error
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc resetPassword:customerId password:password code:resetPasswordCode error:error];
 }
 
 @end
