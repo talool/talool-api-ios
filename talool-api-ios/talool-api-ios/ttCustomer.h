@@ -33,6 +33,12 @@
                             sex:(NSNumber *)sex
                   socialAccount:(ttSocialAccount *)socialAccount
                         context:(NSManagedObjectContext *)context;
++ (BOOL)sendResetPasswordEmail:(NSString *)email
+                         error:(NSError**)error;
++ (BOOL)resetPassword:(NSString *)customerId
+             password:(NSString *)password
+                 code:(NSString *)resetPasswordCode
+                error:(NSError**)error;
 
 
 - (BOOL)isValid:(NSError **)error;
@@ -51,13 +57,13 @@
 - (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err;
 
 - (NSString *)giftToFacebook:(NSString *)dealAcquireId
-            facebookId:(NSString *)facebookId
-        receipientName:(NSString *)receipientName
-                 error:(NSError**)error;
+                  facebookId:(NSString *)facebookId
+              receipientName:(NSString *)receipientName
+                       error:(NSError**)error;
 - (NSString *)giftToEmail:(NSString *)dealAcquireId
-              email:(NSString *)email
-     receipientName:(NSString *)receipientName
-              error:(NSError**)error;
+                    email:(NSString *)email
+           receipientName:(NSString *)receipientName
+                    error:(NSError**)error;
 - (ttDealAcquire *)acceptGift:(NSString *)giftId
                       context:(NSManagedObjectContext *)context
                         error:(NSError**)error;

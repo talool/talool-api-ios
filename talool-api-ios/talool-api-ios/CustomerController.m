@@ -162,7 +162,7 @@
     
     ttCustomer *customer;
     CTokenAccess_t *token;
-
+    
     @try {
         // Do the Thrift Authentication
         [self connect];
@@ -276,7 +276,7 @@
     NSLog(@"GET MERCHANTS");
     
     NSMutableArray *merchants;
-
+    
     @try {
         // Do the Thrift Merchants
         [self connectWithToken:(ttToken *)customer.token];
@@ -316,7 +316,7 @@
     NSLog(@"GET DEAL ACQUIRES");
     
     NSMutableArray *deals;
-   
+    
     @try {
         // Do the Thrift Merchants
         [self connectWithToken:(ttToken *)customer.token];
@@ -386,7 +386,7 @@
     NSLog(@"GET DEAL OFFERS");
     
     NSMutableArray *offers;
-
+    
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         offers = [service getDealOffers];
@@ -449,7 +449,7 @@
     NSLog(@"GET MERCHANTS WITH RANGE (%d miles)", INFINITE_PROXIMITY);
     
     NSMutableArray *merchants;
-
+    
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         Location_t *loc = [[Location_t alloc] initWithLongitude:longitude latitude:latitude];
@@ -525,7 +525,7 @@
     NSLog(@"GET FAVORITE MERCHANTS");
     
     NSMutableArray *merchants;
-
+    
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
@@ -597,7 +597,7 @@
     NSLog(@"GET MERCHANTS BY CATEGORY");
     
     NSMutableArray *merchants;
-
+    
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
@@ -634,10 +634,10 @@
 }
 
 - (NSString *) giftToFacebook:(ttCustomer *)customer
-          dealAcquireId:(NSString *)dealAcquireId
-             facebookId:(NSString *)facebookId
-         receipientName:(NSString *)receipientName
-                  error:(NSError**)error
+                dealAcquireId:(NSString *)dealAcquireId
+                   facebookId:(NSString *)facebookId
+               receipientName:(NSString *)receipientName
+                        error:(NSError**)error
 {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
@@ -665,14 +665,14 @@
 }
 
 - (NSString *) giftToEmail:(ttCustomer *)customer
-       dealAcquireId:(NSString *)dealAcquireId
-               email:(NSString *)email
-      receipientName:(NSString *)receipientName
-               error:(NSError**)error
+             dealAcquireId:(NSString *)dealAcquireId
+                     email:(NSString *)email
+            receipientName:(NSString *)receipientName
+                     error:(NSError**)error
 {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
-     NSString *giftId;
+    NSString *giftId;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         giftId = [service giftToEmail:dealAcquireId email:email receipientName:receipientName];
@@ -729,9 +729,9 @@
 }
 
 - (ttDealAcquire *) acceptGift:(ttCustomer *)customer
-             giftId:(NSString *)giftId
-            context:(NSManagedObjectContext *)context
-              error:(NSError**)error
+                        giftId:(NSString *)giftId
+                       context:(NSManagedObjectContext *)context
+                         error:(NSError**)error
 {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
@@ -961,6 +961,67 @@
         [errorManager handleServiceException:e forMethod:@"activateCode" error:error];
         [tracker sendEventWithCategory:@"API"
                             withAction:@"activateCode"
+                             withLabel:@"fail"
+                             withValue:nil];
+        result = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    return result;
+}
+
+- (BOOL)sendResetPasswordEmail:(NSString *)email error:(NSError**)error
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    BOOL result;
+    
+    @try {
+        [self connect];
+        [service sendResetPasswordEmail:email];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"sendResetPasswordEmail"
+                             withLabel:@"success"
+                             withValue:nil];
+        result = YES;
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"sendResetPasswordEmail" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"sendResetPasswordEmail"
+                             withLabel:@"fail"
+                             withValue:nil];
+        result = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    return result;
+}
+
+- (BOOL)resetPassword:(NSString *)customerId
+             password:(NSString *)password
+                 code:(NSString *)resetPasswordCode
+                error:(NSError**)error
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    BOOL result;
+    
+    @try {
+        [self connect];
+        [service resetPassword:customerId resetPasswordCode:resetPasswordCode newPassword:password];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"resetPassword"
+                             withLabel:@"success"
+                             withValue:nil];
+        result = YES;
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"resetPassword" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"resetPassword"
                              withLabel:@"fail"
                              withValue:nil];
         result = NO;

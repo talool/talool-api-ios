@@ -21,6 +21,12 @@
 - (ttCustomer *)registerUser:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (BOOL)userExists:(NSString *) email;
+- (BOOL)sendResetPasswordEmail:(NSString *)email
+                         error:(NSError**)error;
+- (BOOL)resetPassword:(NSString *)customerId
+             password:(NSString *)password
+                 code:(NSString *)resetPasswordCode
+                error:(NSError**)error;
 
 - (NSMutableArray *) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 
@@ -49,23 +55,23 @@
 
 // GIFTS
 - (NSString *) giftToFacebook:(ttCustomer *)customer
-          dealAcquireId:(NSString *)dealAcquireId
-             facebookId:(NSString *)facebookId
-         receipientName:(NSString *)receipientName
-                  error:(NSError**)error;
+                dealAcquireId:(NSString *)dealAcquireId
+                   facebookId:(NSString *)facebookId
+               receipientName:(NSString *)receipientName
+                        error:(NSError**)error;
 - (NSString *) giftToEmail:(ttCustomer *)customer
-       dealAcquireId:(NSString *)dealAcquireId
-               email:(NSString *)email
-      receipientName:(NSString *)receipientName
-               error:(NSError**)error;
+             dealAcquireId:(NSString *)dealAcquireId
+                     email:(NSString *)email
+            receipientName:(NSString *)receipientName
+                     error:(NSError**)error;
 - (ttGift *) getGiftById:(NSString *)giftId
                 customer:(ttCustomer *)customer
                  context:(NSManagedObjectContext *)context
                    error:(NSError**)error;
 - (ttDealAcquire *) acceptGift:(ttCustomer *)customer
-             giftId:(NSString *)giftId
-            context:(NSManagedObjectContext *)context
-              error:(NSError**)error;
+                        giftId:(NSString *)giftId
+                       context:(NSManagedObjectContext *)context
+                         error:(NSError**)error;
 - (BOOL) rejectGift:(ttCustomer *)customer
              giftId:(NSString *)giftId
               error:(NSError**)error;
