@@ -33,12 +33,12 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
         else if (e.errorCode == ERROR_CODE_INVALID_EMAIL)
         {
             errorDetails = e.errorDesc;
-            code = ERROR_CODE_INVALID_PASSWORD;
+            code = ERROR_CODE_INVALID_EMAIL;
         }
         else if (e.errorCode == ERROR_CODE_EMAIL_TAKEN)
         {
             errorDetails = e.errorDesc;
-            code = ERROR_CODE_INVALID_PASSWORD;
+            code = ERROR_CODE_EMAIL_TAKEN;
         }
         else
         {
@@ -46,6 +46,21 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
             code = ERROR_CODE_SERVICE_DOWN;
             NSLog(@"%@: %@",errorDetails, exception.description);
         }
+    }
+    else if ([exception isKindOfClass:[TUserException_t class]])
+    {
+        errorDetails = [self getServiceDetails:method why:exception.description];
+        code = ERROR_CODE_USER_EXCEPTION;
+    }
+    else if ([exception isKindOfClass:[TNotFoundException_t class]])
+    {
+        errorDetails = [self getServiceDetails:method why:exception.description];
+        code = ERROR_CODE_NOT_FOUND_EXCEPTION;
+    }
+    else if ([exception isKindOfClass:[TException class]])
+    {
+        errorDetails = [self getServiceDetails:method why:exception.description];
+        code = ERROR_CODE_DEFAULT;
     }
     else if ([exception isKindOfClass:[TApplicationException class]])
     {
