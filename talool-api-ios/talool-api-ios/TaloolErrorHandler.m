@@ -33,12 +33,12 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
         else if (e.errorCode == ERROR_CODE_INVALID_EMAIL)
         {
             errorDetails = e.errorDesc;
-            code = ERROR_CODE_INVALID_PASSWORD;
+            code = ERROR_CODE_INVALID_EMAIL;
         }
         else if (e.errorCode == ERROR_CODE_EMAIL_TAKEN)
         {
             errorDetails = e.errorDesc;
-            code = ERROR_CODE_INVALID_PASSWORD;
+            code = ERROR_CODE_EMAIL_TAKEN;
         }
         else
         {
@@ -46,6 +46,21 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
             code = ERROR_CODE_SERVICE_DOWN;
             NSLog(@"%@: %@",errorDetails, exception.description);
         }
+    }
+    else if ([exception isKindOfClass:[TUserException_t class]])
+    {
+        errorDetails = [self getServiceDetails:method why:exception.description];
+        code = ERROR_CODE_USER_EXCEPTION;
+    }
+    else if ([exception isKindOfClass:[TNotFoundException_t class]])
+    {
+        errorDetails = [self getServiceDetails:method why:exception.description];
+        code = ERROR_CODE_NOT_FOUND_EXCEPTION;
+    }
+    else if ([exception isKindOfClass:[TException class]])
+    {
+        errorDetails = [self getServiceDetails:method why:exception.description];
+        code = ERROR_CODE_DEFAULT;
     }
     else if ([exception isKindOfClass:[TApplicationException class]])
     {
@@ -102,6 +117,26 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     
 }
 
+- (void) handlePaymentException:(NSException *)exception domain:(NSString *)domain method:(NSString *)method message:(NSString *)message error:(NSError **)error
+{
+    if (exception) {
+        message = exception.description;
+    }
+    
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    NSString *errorDetails = [self getPaymentDetails:method why:message];
+    
+    TaloolErrorCodeType code = ERROR_CODE_PAYMENT;
+    
+    [details setValue:errorDetails forKey:NSLocalizedDescriptionKey];
+    *error = [NSError errorWithDomain:domain code:code userInfo:details];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    //[tracker sendException:NO withNSException:exception];
+    [tracker sendException:NO withDescription:@"%@: %@",errorDetails, message];
+    
+}
+
 - (NSString *) getServiceDetails:(NSString *)what why:(NSString *) why
 {
     return [NSString stringWithFormat:errorFormat, what, why];
@@ -110,6 +145,11 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
 - (NSString *) getCoreDataDetails:(NSString *)what where:(NSString *)where
 {
     return [NSString stringWithFormat:errorFormat, what, where];
+}
+
+- (NSString *) getPaymentDetails:(NSString *)what why:(NSString *)why
+{
+    return [NSString stringWithFormat:errorFormat, what, why];
 }
 
 @end

@@ -26,6 +26,8 @@
 #import "TaloolPersistentStoreCoordinator.h"
 #import "APIErrorManager.h"
 #import "GAI.h"
+#import "Payment.h"
+#import "Error.h"
 
 
 @implementation CustomerController
@@ -1022,6 +1024,120 @@
         [errorManager handleServiceException:e forMethod:@"resetPassword" error:error];
         [tracker sendEventWithCategory:@"API"
                             withAction:@"resetPassword"
+                             withLabel:@"fail"
+                             withValue:nil];
+        result = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    return result;
+}
+
+- (BOOL) purchaseByCard:(NSString *)dealOfferId
+                   card:(NSString *)card
+               expMonth:(NSString *)expMonth
+                expYear:(NSString *)expYear
+           securityCode:(NSString *)securityCode
+                zipCode:(NSString *)zipCode
+           venmoSession:(NSString *)venmoSession
+               customer:(ttCustomer *)customer
+                  error:(NSError**)error
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    BOOL result;
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        
+        
+        Card_t *creditcard = [[Card_t alloc] initWithAccountNumber:card
+                                                   expirationMonth:expMonth
+                                                    expirationYear:expYear
+                                                      securityCode:securityCode
+                                                           zipCode:zipCode];
+        
+        NSMutableDictionary *metadata = (NSMutableDictionary *) @{VENMO_SDK_SESSION : venmoSession};
+        
+        PaymentDetail_t *payment = [[PaymentDetail_t alloc] initWithEncryptedFields:YES card:creditcard paymentMetadata:metadata saveCard:YES];
+
+        TransactionResult_t *transactionResult = [service purchaseByCard:dealOfferId paymentDetail:payment];
+        if (transactionResult.success)
+        {
+            [tracker sendEventWithCategory:@"API"
+                                withAction:@"purchaseByCard"
+                                 withLabel:@"success"
+                                 withValue:nil];
+        }
+        else
+        {
+            
+            // handle the error
+            [errorManager handlePaymentException:nil forMethod:@"purchaseByCard" message:transactionResult.message error:error];
+            
+            [tracker sendEventWithCategory:@"API"
+                                withAction:@"purchaseByCard"
+                                 withLabel:@"fail"
+                                 withValue:nil];
+            
+        }
+        
+        result = transactionResult.success;
+    }
+    @catch (NSException * e) {
+        [errorManager handlePaymentException:e forMethod:@"purchaseByCard" message:@"exception" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"purchaseByCard"
+                             withLabel:@"fail"
+                             withValue:nil];
+        result = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    return result;
+}
+
+- (BOOL) purchaseByCode:(NSString *)dealOfferId
+            paymentCode:(NSString *)paymentCode
+               customer:(ttCustomer *)customer
+                  error:(NSError**)error
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    BOOL result;
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        
+        TransactionResult_t *transactionResult = [service purchaseByCode:dealOfferId paymentCode:paymentCode];
+        if (transactionResult.success)
+        {
+            [tracker sendEventWithCategory:@"API"
+                                withAction:@"purchaseByCode"
+                                 withLabel:@"success"
+                                 withValue:nil];
+        }
+        else
+        {
+            
+            // handle the error
+            [errorManager handlePaymentException:nil forMethod:@"purchaseByCode" message:transactionResult.message error:error];
+            
+            [tracker sendEventWithCategory:@"API"
+                                withAction:@"purchaseByCode"
+                                 withLabel:@"fail"
+                                 withValue:nil];
+            
+        }
+        
+        result = transactionResult.success;
+    }
+    @catch (NSException * e) {
+        [errorManager handlePaymentException:e forMethod:@"purchaseByCode" message:@"exception" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"purchaseByCode"
                              withLabel:@"fail"
                              withValue:nil];
         result = NO;

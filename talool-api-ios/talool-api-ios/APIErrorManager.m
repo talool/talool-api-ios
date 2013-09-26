@@ -37,4 +37,12 @@ NSString * const TALOOL_DOMAIN = @"com.talool.talool-api-ios";
     [handler handleCoreDataException:exception domain:TALOOL_DOMAIN method:method entity:(NSString *)entity error:error];
 }
 
+- (void) handlePaymentException:(NSException *)exception
+                      forMethod:(NSString *)method
+                        message:(NSString *)message
+                          error:(NSError **)error
+{
+    [handler handlePaymentException:exception domain:TALOOL_DOMAIN method:method message:(NSString *)message error:error];
+}
+
 @end

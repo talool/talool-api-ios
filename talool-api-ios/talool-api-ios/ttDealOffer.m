@@ -126,6 +126,27 @@
     return [cc activateCode:customer offerId:self.dealOfferId code:code error:err];
 }
 
+- (BOOL) purchaseByCard:(NSString *)card
+               expMonth:(NSString *)expMonth
+                expYear:(NSString *)expYear
+           securityCode:(NSString *)securityCode
+                zipCode:(NSString *)zipCode
+           venmoSession:(NSString *)venmoSession
+               customer:(ttCustomer *)customer
+                  error:(NSError**)error
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc purchaseByCard:self.dealOfferId card:card expMonth:expMonth expYear:expYear securityCode:securityCode zipCode:zipCode venmoSession:venmoSession customer:customer error:error];
+}
+
+- (BOOL) purchaseByCode:(NSString *)paymentCode
+               customer:(ttCustomer *)customer
+                  error:(NSError**)error
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc purchaseByCode:self.dealOfferId paymentCode:paymentCode customer:customer error:error];
+}
+
 
 - (DealOffer_t *)hydrateThriftObject
 {

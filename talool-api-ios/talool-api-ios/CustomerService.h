@@ -13,15 +13,17 @@
 #import "TProcessor.h"
 #import "TObjective-C.h"
 
+#import "Error.h"
 #import "Core.h"
 #import "Activity.h"
+#import "Payment.h"
 
 @interface CTokenAccess_t : NSObject <NSCoding> {
-    Customer_t * __customer;
-    NSString * __token;
-    
-    BOOL __customer_isset;
-    BOOL __token_isset;
+  Customer_t * __customer;
+  NSString * __token;
+
+  BOOL __customer_isset;
+  BOOL __token_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -77,21 +79,23 @@
 - (void) rejectGift: (NSString *) giftId;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getActivities: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 - (void) activityAction: (NSString *) activityId;  // throws ServiceException_t *, TException
-- (void) sendResetPasswordEmail: (NSString *) email;  // throws ServiceException_t *, TException
-- (void) resetPassword: (NSString *) customerId resetPasswordCode: (NSString *) resetPasswordCode newPassword: (NSString *) newPassword;  // throws ServiceException_t *, TException
+- (void) sendResetPasswordEmail: (NSString *) email;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
+- (void) resetPassword: (NSString *) customerId resetPasswordCode: (NSString *) resetPasswordCode newPassword: (NSString *) newPassword;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
+- (TransactionResult_t *) purchaseByCard: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
+- (TransactionResult_t *) purchaseByCode: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {
-    id <TProtocol> inProtocol;
-    id <TProtocol> outProtocol;
+  id <TProtocol> inProtocol;
+  id <TProtocol> outProtocol;
 }
 - (id) initWithProtocol: (id <TProtocol>) protocol;
 - (id) initWithInProtocol: (id <TProtocol>) inProtocol outProtocol: (id <TProtocol>) outProtocol;
 @end
 
 @interface CustomerService_tProcessor : NSObject <TProcessor> {
-    id <CustomerService_t> mService;
-    NSDictionary * mMethodMap;
+  id <CustomerService_t> mService;
+  NSDictionary * mMethodMap;
 }
 - (id) initWithCustomerService_t: (id <CustomerService_t>) service;
 - (id<CustomerService_t>) service;

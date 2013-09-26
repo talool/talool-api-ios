@@ -15,43 +15,43 @@
 
 
 enum Sex_t {
-    Sex_t_M = 0,
-    Sex_t_F = 1,
-    Sex_t_U = 2
+  Sex_t_M = 0,
+  Sex_t_F = 1,
+  Sex_t_U = 2
 };
 
 enum SocialNetwork_t {
-    SocialNetwork_t_Facebook = 0,
-    SocialNetwork_t_Twitter = 1,
-    SocialNetwork_t_Pinterest = 2
+  SocialNetwork_t_Facebook = 0,
+  SocialNetwork_t_Twitter = 1,
+  SocialNetwork_t_Pinterest = 2
 };
 
 enum AcquireStatus_t {
-    AcquireStatus_t_PURCHASED = 0,
-    AcquireStatus_t_REDEEMED = 1,
-    AcquireStatus_t_REJECTED_CUSTOMER_SHARE = 2,
-    AcquireStatus_t_REJECTED_MERCHANT_SHARE = 3,
-    AcquireStatus_t_ACCEPTED_MERCHANT_SHARE = 4,
-    AcquireStatus_t_ACCEPTED_CUSTOMER_SHARE = 5,
-    AcquireStatus_t_PENDING_ACCEPT_MERCHANT_SHARE = 6,
-    AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE = 7
+  AcquireStatus_t_PURCHASED = 0,
+  AcquireStatus_t_REDEEMED = 1,
+  AcquireStatus_t_REJECTED_CUSTOMER_SHARE = 2,
+  AcquireStatus_t_REJECTED_MERCHANT_SHARE = 3,
+  AcquireStatus_t_ACCEPTED_MERCHANT_SHARE = 4,
+  AcquireStatus_t_ACCEPTED_CUSTOMER_SHARE = 5,
+  AcquireStatus_t_PENDING_ACCEPT_MERCHANT_SHARE = 6,
+  AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE = 7
 };
 
 enum DealType_t {
-    DealType_t_PAID_BOOK = 0,
-    DealType_t_FREE_BOOK = 1,
-    DealType_t_PAID_DEAL = 2,
-    DealType_t_FREE_DEAL = 3
+  DealType_t_PAID_BOOK = 0,
+  DealType_t_FREE_BOOK = 1,
+  DealType_t_PAID_DEAL = 2,
+  DealType_t_FREE_DEAL = 3
 };
 
 typedef int64_t Timestamp;
 
 @interface ServiceException_t : NSException <NSCoding> {
-    int32_t __errorCode;
-    NSString * __errorDesc;
-    
-    BOOL __errorCode_isset;
-    BOOL __errorDesc_isset;
+  int32_t __errorCode;
+  NSString * __errorDesc;
+
+  BOOL __errorCode_isset;
+  BOOL __errorDesc_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -80,11 +80,11 @@ typedef int64_t Timestamp;
 @end
 
 @interface Category_t : NSObject <NSCoding> {
-    int32_t __categoryId;
-    NSString * __name;
-    
-    BOOL __categoryId_isset;
-    BOOL __name_isset;
+  int32_t __categoryId;
+  NSString * __name;
+
+  BOOL __categoryId_isset;
+  BOOL __name_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -113,11 +113,11 @@ typedef int64_t Timestamp;
 @end
 
 @interface Location_t : NSObject <NSCoding> {
-    double __longitude;
-    double __latitude;
-    
-    BOOL __longitude_isset;
-    BOOL __latitude_isset;
+  double __longitude;
+  double __latitude;
+
+  BOOL __longitude_isset;
+  BOOL __latitude_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -146,15 +146,15 @@ typedef int64_t Timestamp;
 @end
 
 @interface SocialNetworkDetail_t : NSObject <NSCoding> {
-    int __socalNetwork;
-    NSString * __name;
-    NSString * __website;
-    NSString * __apiUrl;
-    
-    BOOL __socalNetwork_isset;
-    BOOL __name_isset;
-    BOOL __website_isset;
-    BOOL __apiUrl_isset;
+  int __socalNetwork;
+  NSString * __name;
+  NSString * __website;
+  NSString * __apiUrl;
+
+  BOOL __socalNetwork_isset;
+  BOOL __name_isset;
+  BOOL __website_isset;
+  BOOL __apiUrl_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -197,13 +197,13 @@ typedef int64_t Timestamp;
 @end
 
 @interface SocialAccount_t : NSObject <NSCoding> {
-    int __socialNetwork;
-    NSString * __loginId;
-    Timestamp __created;
-    
-    BOOL __socialNetwork_isset;
-    BOOL __loginId_isset;
-    BOOL __created_isset;
+  int __socialNetwork;
+  NSString * __loginId;
+  Timestamp __created;
+
+  BOOL __socialNetwork_isset;
+  BOOL __loginId_isset;
+  BOOL __created_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -239,19 +239,19 @@ typedef int64_t Timestamp;
 @end
 
 @interface Address_t : NSObject <NSCoding> {
-    NSString * __address1;
-    NSString * __address2;
-    NSString * __city;
-    NSString * __stateProvinceCounty;
-    NSString * __zip;
-    NSString * __country;
-    
-    BOOL __address1_isset;
-    BOOL __address2_isset;
-    BOOL __city_isset;
-    BOOL __stateProvinceCounty_isset;
-    BOOL __zip_isset;
-    BOOL __country_isset;
+  NSString * __address1;
+  NSString * __address2;
+  NSString * __city;
+  NSString * __stateProvinceCounty;
+  NSString * __zip;
+  NSString * __country;
+
+  BOOL __address1_isset;
+  BOOL __address2_isset;
+  BOOL __city_isset;
+  BOOL __stateProvinceCounty_isset;
+  BOOL __zip_isset;
+  BOOL __country_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -308,27 +308,27 @@ typedef int64_t Timestamp;
 @end
 
 @interface MerchantLocation_t : NSObject <NSCoding> {
-    int64_t __locationId;
-    NSString * __name;
-    NSString * __email;
-    NSString * __websiteUrl;
-    NSString * __logoUrl;
-    NSString * __merchantImageUrl;
-    NSString * __phone;
-    Location_t * __location;
-    Address_t * __address;
-    double __distanceInMeters;
-    
-    BOOL __locationId_isset;
-    BOOL __name_isset;
-    BOOL __email_isset;
-    BOOL __websiteUrl_isset;
-    BOOL __logoUrl_isset;
-    BOOL __merchantImageUrl_isset;
-    BOOL __phone_isset;
-    BOOL __location_isset;
-    BOOL __address_isset;
-    BOOL __distanceInMeters_isset;
+  int64_t __locationId;
+  NSString * __name;
+  NSString * __email;
+  NSString * __websiteUrl;
+  NSString * __logoUrl;
+  NSString * __merchantImageUrl;
+  NSString * __phone;
+  Location_t * __location;
+  Address_t * __address;
+  double __distanceInMeters;
+
+  BOOL __locationId_isset;
+  BOOL __name_isset;
+  BOOL __email_isset;
+  BOOL __websiteUrl_isset;
+  BOOL __logoUrl_isset;
+  BOOL __merchantImageUrl_isset;
+  BOOL __phone_isset;
+  BOOL __location_isset;
+  BOOL __address_isset;
+  BOOL __distanceInMeters_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -413,25 +413,25 @@ typedef int64_t Timestamp;
 @end
 
 @interface Customer_t : NSObject <NSCoding> {
-    NSString * __customerId;
-    NSString * __firstName;
-    NSString * __lastName;
-    NSString * __email;
-    int __sex;
-    Timestamp __birthDate;
-    NSMutableDictionary * __socialAccounts;
-    Timestamp __created;
-    Timestamp __updated;
-    
-    BOOL __customerId_isset;
-    BOOL __firstName_isset;
-    BOOL __lastName_isset;
-    BOOL __email_isset;
-    BOOL __sex_isset;
-    BOOL __birthDate_isset;
-    BOOL __socialAccounts_isset;
-    BOOL __created_isset;
-    BOOL __updated_isset;
+  NSString * __customerId;
+  NSString * __firstName;
+  NSString * __lastName;
+  NSString * __email;
+  int __sex;
+  Timestamp __birthDate;
+  NSMutableDictionary * __socialAccounts;
+  Timestamp __created;
+  Timestamp __updated;
+
+  BOOL __customerId_isset;
+  BOOL __firstName_isset;
+  BOOL __lastName_isset;
+  BOOL __email_isset;
+  BOOL __sex_isset;
+  BOOL __birthDate_isset;
+  BOOL __socialAccounts_isset;
+  BOOL __created_isset;
+  BOOL __updated_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -509,13 +509,13 @@ typedef int64_t Timestamp;
 @end
 
 @interface Token_t : NSObject <NSCoding> {
-    NSString * __accountId;
-    NSString * __email;
-    Timestamp __expires;
-    
-    BOOL __accountId_isset;
-    BOOL __email_isset;
-    BOOL __expires_isset;
+  NSString * __accountId;
+  NSString * __email;
+  Timestamp __expires;
+
+  BOOL __accountId_isset;
+  BOOL __email_isset;
+  BOOL __expires_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -551,15 +551,15 @@ typedef int64_t Timestamp;
 @end
 
 @interface Merchant_t : NSObject <NSCoding> {
-    NSString * __merchantId;
-    NSString * __name;
-    Category_t * __category;
-    NSMutableArray * __locations;
-    
-    BOOL __merchantId_isset;
-    BOOL __name_isset;
-    BOOL __category_isset;
-    BOOL __locations_isset;
+  NSString * __merchantId;
+  NSString * __name;
+  Category_t * __category;
+  NSMutableArray * __locations;
+
+  BOOL __merchantId_isset;
+  BOOL __name_isset;
+  BOOL __category_isset;
+  BOOL __locations_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -602,29 +602,29 @@ typedef int64_t Timestamp;
 @end
 
 @interface Deal_t : NSObject <NSCoding> {
-    NSString * __dealId;
-    Merchant_t * __merchant;
-    NSString * __dealOfferId;
-    NSString * __title;
-    NSString * __summary;
-    NSString * __details;
-    NSString * __code;
-    NSString * __imageUrl;
-    Timestamp __expires;
-    Timestamp __created;
-    Timestamp __updated;
-    
-    BOOL __dealId_isset;
-    BOOL __merchant_isset;
-    BOOL __dealOfferId_isset;
-    BOOL __title_isset;
-    BOOL __summary_isset;
-    BOOL __details_isset;
-    BOOL __code_isset;
-    BOOL __imageUrl_isset;
-    BOOL __expires_isset;
-    BOOL __created_isset;
-    BOOL __updated_isset;
+  NSString * __dealId;
+  Merchant_t * __merchant;
+  NSString * __dealOfferId;
+  NSString * __title;
+  NSString * __summary;
+  NSString * __details;
+  NSString * __code;
+  NSString * __imageUrl;
+  Timestamp __expires;
+  Timestamp __created;
+  Timestamp __updated;
+
+  BOOL __dealId_isset;
+  BOOL __merchant_isset;
+  BOOL __dealOfferId_isset;
+  BOOL __title_isset;
+  BOOL __summary_isset;
+  BOOL __details_isset;
+  BOOL __code_isset;
+  BOOL __imageUrl_isset;
+  BOOL __expires_isset;
+  BOOL __created_isset;
+  BOOL __updated_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -716,27 +716,27 @@ typedef int64_t Timestamp;
 @end
 
 @interface DealOffer_t : NSObject <NSCoding> {
-    NSString * __dealOfferId;
-    Merchant_t * __merchant;
-    int __dealType;
-    NSString * __title;
-    NSString * __summary;
-    NSString * __code;
-    NSString * __imageUrl;
-    NSString * __locationName;
-    double __price;
-    Timestamp __expires;
-    
-    BOOL __dealOfferId_isset;
-    BOOL __merchant_isset;
-    BOOL __dealType_isset;
-    BOOL __title_isset;
-    BOOL __summary_isset;
-    BOOL __code_isset;
-    BOOL __imageUrl_isset;
-    BOOL __locationName_isset;
-    BOOL __price_isset;
-    BOOL __expires_isset;
+  NSString * __dealOfferId;
+  Merchant_t * __merchant;
+  int __dealType;
+  NSString * __title;
+  NSString * __summary;
+  NSString * __code;
+  NSString * __imageUrl;
+  NSString * __locationName;
+  double __price;
+  Timestamp __expires;
+
+  BOOL __dealOfferId_isset;
+  BOOL __merchant_isset;
+  BOOL __dealType_isset;
+  BOOL __title_isset;
+  BOOL __summary_isset;
+  BOOL __code_isset;
+  BOOL __imageUrl_isset;
+  BOOL __locationName_isset;
+  BOOL __price_isset;
+  BOOL __expires_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -821,15 +821,15 @@ typedef int64_t Timestamp;
 @end
 
 @interface SearchOptions_t : NSObject <NSCoding> {
-    BOOL __ascending;
-    NSString * __sortProperty;
-    int32_t __maxResults;
-    int32_t __page;
-    
-    BOOL __ascending_isset;
-    BOOL __sortProperty_isset;
-    BOOL __maxResults_isset;
-    BOOL __page_isset;
+  BOOL __ascending;
+  NSString * __sortProperty;
+  int32_t __maxResults;
+  int32_t __page;
+
+  BOOL __ascending_isset;
+  BOOL __sortProperty_isset;
+  BOOL __maxResults_isset;
+  BOOL __page_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -872,21 +872,21 @@ typedef int64_t Timestamp;
 @end
 
 @interface DealAcquire_t : NSObject <NSCoding> {
-    NSString * __dealAcquireId;
-    Deal_t * __deal;
-    int __status;
-    Timestamp __redeemed;
-    Timestamp __created;
-    Timestamp __updated;
-    NSString * __redemptionCode;
-    
-    BOOL __dealAcquireId_isset;
-    BOOL __deal_isset;
-    BOOL __status_isset;
-    BOOL __redeemed_isset;
-    BOOL __created_isset;
-    BOOL __updated_isset;
-    BOOL __redemptionCode_isset;
+  NSString * __dealAcquireId;
+  Deal_t * __deal;
+  int __status;
+  Timestamp __redeemed;
+  Timestamp __created;
+  Timestamp __updated;
+  NSString * __redemptionCode;
+
+  BOOL __dealAcquireId_isset;
+  BOOL __deal_isset;
+  BOOL __status_isset;
+  BOOL __redeemed_isset;
+  BOOL __created_isset;
+  BOOL __updated_isset;
+  BOOL __redemptionCode_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -950,15 +950,15 @@ typedef int64_t Timestamp;
 @end
 
 @interface Gift_t : NSObject <NSCoding> {
-    NSString * __giftId;
-    Deal_t * __deal;
-    Customer_t * __fromCustomer;
-    Timestamp __created;
-    
-    BOOL __giftId_isset;
-    BOOL __deal_isset;
-    BOOL __fromCustomer_isset;
-    BOOL __created_isset;
+  NSString * __giftId;
+  Deal_t * __deal;
+  Customer_t * __fromCustomer;
+  Timestamp __created;
+
+  BOOL __giftId_isset;
+  BOOL __deal_isset;
+  BOOL __fromCustomer_isset;
+  BOOL __created_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)

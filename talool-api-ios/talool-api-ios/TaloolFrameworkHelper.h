@@ -15,6 +15,7 @@
 @end
 
 extern NSString * const API_URL;
+extern NSString * const VENMO_SDK_SESSION;
 
 #define METERS_PER_MILE 1609.344
 #define INFINITE_PROXIMITY 9999
