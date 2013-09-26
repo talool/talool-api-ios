@@ -9,6 +9,7 @@
 #import "TaloolFrameworkHelper.h"
 
 NSString * const API_URL = @"https://api.talool.com/1.1";
+NSString * const VENMO_SDK_SESSION = @"venmo_sdk_session";
 
 @implementation TaloolFrameworkHelper
 

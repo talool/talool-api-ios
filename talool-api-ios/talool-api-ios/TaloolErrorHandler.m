@@ -102,6 +102,26 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     
 }
 
+- (void) handlePaymentException:(NSException *)exception domain:(NSString *)domain method:(NSString *)method message:(NSString *)message error:(NSError **)error
+{
+    if (exception) {
+        message = exception.description;
+    }
+    
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    NSString *errorDetails = [self getPaymentDetails:method why:message];
+    
+    TaloolErrorCodeType code = ERROR_CODE_PAYMENT;
+    
+    [details setValue:errorDetails forKey:NSLocalizedDescriptionKey];
+    *error = [NSError errorWithDomain:domain code:code userInfo:details];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    //[tracker sendException:NO withNSException:exception];
+    [tracker sendException:NO withDescription:@"%@: %@",errorDetails, message];
+    
+}
+
 - (NSString *) getServiceDetails:(NSString *)what why:(NSString *) why
 {
     return [NSString stringWithFormat:errorFormat, what, why];
@@ -110,6 +130,11 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
 - (NSString *) getCoreDataDetails:(NSString *)what where:(NSString *)where
 {
     return [NSString stringWithFormat:errorFormat, what, where];
+}
+
+- (NSString *) getPaymentDetails:(NSString *)what why:(NSString *)why
+{
+    return [NSString stringWithFormat:errorFormat, what, why];
 }
 
 @end

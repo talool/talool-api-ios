@@ -32,6 +32,12 @@
                           method:(NSString *)method
                           entity:(NSString *)entity
                            error:(NSError **)error;
+
+- (void) handlePaymentException:(NSException *)exception
+                          domain:(NSString *)domain
+                          method:(NSString *)method
+                         message:(NSString *)message
+                           error:(NSError **)error;
 @end
 
 @interface APIErrorManager : NSObject {
@@ -56,6 +62,11 @@ typedef int ERROR_HANDLER_TYPE;
                        forMethod:(NSString *)method
                           entity:(NSString *)entity
                            error:(NSError **)error;
+
+- (void) handlePaymentException:(NSException *)exception
+                      forMethod:(NSString *)method
+                        message:(NSString *)message
+                          error:(NSError **)error;
 
 // add a handler impl
 
