@@ -11,6 +11,7 @@
 #import "Core.h"
 #import "CustomerService.h"
 #import "GAI.h"
+#import "Error.h"
 
 static NSString *errorFormat = @"Failed %@.  Reason: %@";
 
@@ -25,20 +26,10 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     if ([exception isKindOfClass:[ServiceException_t class]])
     {
         ServiceException_t *e = (ServiceException_t *)exception;
-        if (e.errorCode == ERROR_CODE_INVALID_PASSWORD)
+        if (e.errorCodeIsSet && e.errorDescIsSet)
         {
             errorDetails = e.errorDesc;
-            code = ERROR_CODE_INVALID_PASSWORD;
-        }
-        else if (e.errorCode == ERROR_CODE_INVALID_EMAIL)
-        {
-            errorDetails = e.errorDesc;
-            code = ERROR_CODE_INVALID_EMAIL;
-        }
-        else if (e.errorCode == ERROR_CODE_EMAIL_TAKEN)
-        {
-            errorDetails = e.errorDesc;
-            code = ERROR_CODE_EMAIL_TAKEN;
+            code = e.errorCode;
         }
         else
         {
@@ -49,12 +40,14 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     }
     else if ([exception isKindOfClass:[TUserException_t class]])
     {
+        TUserException_t *e = (TUserException_t *)exception;
         errorDetails = [self getServiceDetails:method why:exception.description];
-        code = ERROR_CODE_USER_EXCEPTION;
+        code = e.errorCode;
     }
     else if ([exception isKindOfClass:[TNotFoundException_t class]])
     {
-        errorDetails = [self getServiceDetails:method why:exception.description];
+        TNotFoundException_t *e = (TNotFoundException_t *)exception;
+        errorDetails = [self getServiceDetails:method why:[NSString stringWithFormat:@"Missing %@ for key %@",e.identifier, e.key]];
         code = ERROR_CODE_NOT_FOUND_EXCEPTION;
     }
     else if ([exception isKindOfClass:[TException class]])
