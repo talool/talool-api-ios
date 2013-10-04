@@ -30,7 +30,6 @@
 + (ttCustomer *) createCustomer:(NSString *)firstName
                        lastName:(NSString *)lastName
                           email:(NSString *)email
-                            sex:(NSNumber *)sex
                   socialAccount:(ttSocialAccount *)socialAccount
                         context:(NSManagedObjectContext *)context;
 + (BOOL)sendResetPasswordEmail:(NSString *)email
@@ -47,6 +46,7 @@
 - (Customer_t *)hydrateThriftObject;
 - (NSString *)getFullName;
 - (ttToken *)getTaloolToken;
+- (void)setAsFemale:(BOOL)isFemale;
 
 //- (void) refresh: (NSManagedObjectContext *)context;
 - (void) refreshMerchants:(CLLocation *)location context:(NSManagedObjectContext *)context;

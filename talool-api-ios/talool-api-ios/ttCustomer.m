@@ -194,7 +194,6 @@
 + (ttCustomer *) createCustomer:(NSString *)firstName
                        lastName:(NSString *)lastName
                           email:(NSString *)email
-                            sex:(NSNumber *)sex
                   socialAccount:(ttSocialAccount *)socialAccount
                         context:(NSManagedObjectContext *)context
 {
@@ -207,14 +206,25 @@
     [user setFirstName:firstName];
     [user setLastName:lastName];
     [user setEmail:email];
-    [user setSex:sex];
-    
+    [user setSex:[NSNumber numberWithInt:Sex_t_U]];
     
     if (socialAccount != nil){
         [user addSocialAccountsObject:socialAccount];
     }
     
     return user;
+}
+
+- (void)setAsFemale:(BOOL)isFemale
+{
+    if (isFemale)
+    {
+        self.sex = [NSNumber numberWithInt:Sex_t_F];
+    }
+    else
+    {
+        self.sex = [NSNumber numberWithInt:Sex_t_M];
+    }
 }
 
 -(BOOL)isValid:(NSError *__autoreleasing *)error
