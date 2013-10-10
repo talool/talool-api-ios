@@ -10657,26 +10657,35 @@ static NSString * CTOKEN_NAME = @"ctok";
 @end
 
 @interface ResetPassword_result : NSObject <NSCoding> {
+  CTokenAccess_t * __success;
   TServiceException_t * __serviceException;
   TUserException_t * __userException;
   TNotFoundException_t * __notFoundException;
 
+  BOOL __success_isset;
   BOOL __serviceException_isset;
   BOOL __userException_isset;
   BOOL __notFoundException_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=success, setter=setSuccess:) CTokenAccess_t * success;
 @property (nonatomic, retain, getter=serviceException, setter=setServiceException:) TServiceException_t * serviceException;
 @property (nonatomic, retain, getter=userException, setter=setUserException:) TUserException_t * userException;
 @property (nonatomic, retain, getter=notFoundException, setter=setNotFoundException:) TNotFoundException_t * notFoundException;
 #endif
 
 - (id) init;
-- (id) initWithServiceException: (TServiceException_t *) serviceException userException: (TUserException_t *) userException notFoundException: (TNotFoundException_t *) notFoundException;
+- (id) initWithSuccess: (CTokenAccess_t *) success serviceException: (TServiceException_t *) serviceException userException: (TUserException_t *) userException notFoundException: (TNotFoundException_t *) notFoundException;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (CTokenAccess_t *) success;
+- (void) setSuccess: (CTokenAccess_t *) success;
+#endif
+- (BOOL) successIsSet;
 
 #if !__has_feature(objc_arc)
 - (TServiceException_t *) serviceException;
@@ -10708,9 +10717,11 @@ static NSString * CTOKEN_NAME = @"ctok";
   return self;
 }
 
-- (id) initWithServiceException: (TServiceException_t *) serviceException userException: (TUserException_t *) userException notFoundException: (TNotFoundException_t *) notFoundException
+- (id) initWithSuccess: (CTokenAccess_t *) success serviceException: (TServiceException_t *) serviceException userException: (TUserException_t *) userException notFoundException: (TNotFoundException_t *) notFoundException
 {
   self = [super init];
+  __success = [success retain_stub];
+  __success_isset = YES;
   __serviceException = [serviceException retain_stub];
   __serviceException_isset = YES;
   __userException = [userException retain_stub];
@@ -10723,6 +10734,11 @@ static NSString * CTOKEN_NAME = @"ctok";
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
+  if ([decoder containsValueForKey: @"success"])
+  {
+    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+    __success_isset = YES;
+  }
   if ([decoder containsValueForKey: @"serviceException"])
   {
     __serviceException = [[decoder decodeObjectForKey: @"serviceException"] retain_stub];
@@ -10743,6 +10759,10 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
+  if (__success_isset)
+  {
+    [encoder encodeObject: __success forKey: @"success"];
+  }
   if (__serviceException_isset)
   {
     [encoder encodeObject: __serviceException forKey: @"serviceException"];
@@ -10759,10 +10779,32 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (void) dealloc
 {
+  [__success release_stub];
   [__serviceException release_stub];
   [__userException release_stub];
   [__notFoundException release_stub];
   [super dealloc_stub];
+}
+
+- (CTokenAccess_t *) success {
+  return [[__success retain_stub] autorelease_stub];
+}
+
+- (void) setSuccess: (CTokenAccess_t *) success {
+  [success retain_stub];
+  [__success release_stub];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release_stub];
+  __success = nil;
+  __success_isset = NO;
 }
 
 - (TServiceException_t *) serviceException {
@@ -10843,6 +10885,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     }
     switch (fieldID)
     {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          CTokenAccess_t *fieldValue = [[CTokenAccess_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       case 1:
         if (fieldType == TType_STRUCT) {
           TServiceException_t *fieldValue = [[TServiceException_t alloc] init];
@@ -10885,7 +10937,13 @@ static NSString * CTOKEN_NAME = @"ctok";
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"ResetPassword_result"];
 
-  if (__serviceException_isset) {
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__serviceException_isset) {
     if (__serviceException != nil) {
       [outProtocol writeFieldBeginWithName: @"serviceException" type: TType_STRUCT fieldID: 1];
       [__serviceException write: outProtocol];
@@ -10910,7 +10968,9 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"ResetPassword_result("];
-  [ms appendString: @"serviceException:"];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @",serviceException:"];
   [ms appendFormat: @"%@", __serviceException];
   [ms appendString: @",userException:"];
   [ms appendFormat: @"%@", __userException];
@@ -13254,7 +13314,7 @@ static NSString * CTOKEN_NAME = @"ctok";
   [[outProtocol transport] flush];
 }
 
-- (void) recv_resetPassword
+- (CTokenAccess_t *) recv_resetPassword
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -13266,6 +13326,9 @@ static NSString * CTOKEN_NAME = @"ctok";
   ResetPassword_result * result = [[[ResetPassword_result alloc] init] autorelease_stub];
   [result read: inProtocol];
   [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
   if ([result serviceExceptionIsSet]) {
     @throw [result serviceException];
   }
@@ -13275,13 +13338,14 @@ static NSString * CTOKEN_NAME = @"ctok";
   if ([result notFoundExceptionIsSet]) {
     @throw [result notFoundException];
   }
-  return;
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"resetPassword failed: unknown result"];
 }
 
-- (void) resetPassword: (NSString *) customerId resetPasswordCode: (NSString *) resetPasswordCode newPassword: (NSString *) newPassword
+- (CTokenAccess_t *) resetPassword: (NSString *) customerId resetPasswordCode: (NSString *) resetPasswordCode newPassword: (NSString *) newPassword
 {
   [self send_resetPassword : customerId resetPasswordCode: resetPasswordCode newPassword: newPassword];
-  [self recv_resetPassword];
+  return [self recv_resetPassword];
 }
 
 - (void) send_purchaseByCard: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail
@@ -14175,7 +14239,7 @@ static NSString * CTOKEN_NAME = @"ctok";
   [args read: inProtocol];
   [inProtocol readMessageEnd];
   ResetPassword_result * result = [[ResetPassword_result alloc] init];
-  [mService resetPassword: [args customerId] resetPasswordCode: [args resetPasswordCode] newPassword: [args newPassword]];
+  [result setSuccess: [mService resetPassword: [args customerId] resetPasswordCode: [args resetPasswordCode] newPassword: [args newPassword]]];
   [outProtocol writeMessageBeginWithName: @"resetPassword"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];

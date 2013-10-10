@@ -26,22 +26,13 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     if ([exception isKindOfClass:[ServiceException_t class]])
     {
         ServiceException_t *e = (ServiceException_t *)exception;
-        if (e.errorCodeIsSet && e.errorDescIsSet)
-        {
-            errorDetails = e.errorDesc;
-            code = e.errorCode;
-        }
-        else
-        {
-            errorDetails = [self getServiceDetails:method why:@"The Service Failed"];
-            code = ERROR_CODE_SERVICE_DOWN;
-            NSLog(@"%@: %@",errorDetails, exception.description);
-        }
+        errorDetails = [self getErrorMessageWithCode:e.errorCode];
+        code = e.errorCode;
     }
     else if ([exception isKindOfClass:[TUserException_t class]])
     {
         TUserException_t *e = (TUserException_t *)exception;
-        errorDetails = [self getServiceDetails:method why:exception.description];
+        errorDetails = [self getErrorMessageWithCode:e.errorCode];
         code = e.errorCode;
     }
     else if ([exception isKindOfClass:[TNotFoundException_t class]])
@@ -112,27 +103,73 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
 
 - (void) handlePaymentException:(NSException *)exception domain:(NSString *)domain method:(NSString *)method message:(NSString *)message error:(NSError **)error
 {
-    if (exception) {
-        message = exception.description;
-    }
-    
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    NSString *errorDetails = [self getPaymentDetails:method why:message];
-    
-    TaloolErrorCodeType code = ERROR_CODE_PAYMENT;
-    
-    [details setValue:errorDetails forKey:NSLocalizedDescriptionKey];
-    *error = [NSError errorWithDomain:domain code:code userInfo:details];
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    //[tracker sendException:NO withNSException:exception];
-    [tracker sendException:NO withDescription:@"%@: %@",errorDetails, message];
-    
+    [self handleServiceException:exception domain:domain method:method error:error];
 }
 
 - (NSString *) getServiceDetails:(NSString *)what why:(NSString *) why
 {
     return [NSString stringWithFormat:errorFormat, what, why];
+}
+
+- (NSString *) getErrorMessageWithCode:(int)code
+{
+    NSString *message;
+    
+    switch (code) {
+        case ErrorCode_t_VALID_EMAIL_REQUIRED:
+            message = @"Please provide a valid email address.";
+            break;
+        case ErrorCode_t_PASS_REQUIRED:
+            message = @"Your password is required.";
+            break;
+        case ErrorCode_t_PASS_CONFIRM_MUST_MATCH:
+            message = @"Your passwords must match.";
+            break;
+        case ErrorCode_t_PASS_RESET_CODE_REQUIRED:
+        case ErrorCode_t_PASS_RESET_CODE_INVALID:
+            message = @"Your password reset request is invalid.";
+            break;
+        case ErrorCode_t_PASS_RESET_CODE_EXPIRED:
+            message = @"Your password reset request has expired.";
+            break;
+        case ErrorCode_t_EMAIL_ALREADY_TAKEN:
+            message = @"That email address is already taken.";
+            break;
+        case ErrorCode_t_INVALID_USERNAME_OR_PASSWORD:
+        case ErrorCode_t_EMAIL_OR_PASS_INVALID:
+            message = @"Your email or password are invalid.";
+            break;
+        case ErrorCode_t_CUSTOMER_DOES_NOT_OWN_DEAL:
+            message = @"We're sorry, but this deal has been given to another user.";
+            break;
+        case ErrorCode_t_DEAL_ALREADY_REDEEMED:
+            message = @"This deal has already been redeemed.";
+            break;
+        case ErrorCode_t_GIFTING_NOT_ALLOWED:
+            message = @"We're sorry, but this deal can not be gifted.";
+            break;
+        case ErrorCode_t_CUSTOMER_NOT_FOUND:
+            message = @"We couldn't find your account.";
+            break;
+        case ErrorCode_t_EMAIL_REQUIRED:
+            message = @"You're email is required.";
+            break;
+        case ErrorCode_t_GENERAL_PROCESSOR_ERROR:
+            message = @"There was a problem processing your payment.  Please try again later.";
+            break;
+        case ErrorCode_t_ACTIVIATION_CODE_NOT_FOUND:
+            message = @"That activation code was not found.  Please double check your code and try again.";
+            break;
+        case ErrorCode_t_ACTIVIATION_CODE_ALREADY_ACTIVATED:
+            message = @"That activation code has already been used.  Codes can only be used once.";
+            break;
+        default:
+            message = @"We could not process your request at this time.  Please try again later.";
+            NSLog(@"Unknown error: %d", code);
+            break;
+    }
+    
+    return message;
 }
 
 - (NSString *) getCoreDataDetails:(NSString *)what where:(NSString *)where

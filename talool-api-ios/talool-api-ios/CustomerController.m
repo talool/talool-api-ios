@@ -1002,23 +1002,21 @@
     return result;
 }
 
-- (BOOL)resetPassword:(NSString *)customerId
-             password:(NSString *)password
-                 code:(NSString *)resetPasswordCode
-                error:(NSError**)error
+- (ttCustomer *)resetPassword:(NSString *)customerId
+                   password:(NSString *)password
+                       code:(NSString *)resetPasswordCode
+                    context:(NSManagedObjectContext *)context
+                      error:(NSError**)error
 {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
-    BOOL result;
+    CTokenAccess_t *token;
+    ttCustomer *customer;
     
     @try {
         [self connect];
-        [service resetPassword:customerId resetPasswordCode:resetPasswordCode newPassword:password];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"resetPassword"
-                             withLabel:@"success"
-                             withValue:nil];
-        result = YES;
+        token = [service resetPassword:customerId resetPasswordCode:resetPasswordCode newPassword:password];
+        NSLog(@"token includes name %@ and token %@",token.customer.firstName, token.token);
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"resetPassword" error:error];
@@ -1026,12 +1024,33 @@
                             withAction:@"resetPassword"
                              withLabel:@"fail"
                              withValue:nil];
-        result = NO;
+        return nil;
     }
     @finally {
         [self disconnect];
     }
-    return result;
+    
+    @try {
+        // transform the Thrift response into a ttCustomer
+        ttToken *ttt = [ttToken initWithThrift:token context:context];
+        customer = (ttCustomer *)ttt.customer;
+        customer.token = ttt;
+    }
+    @catch (NSException * e) {
+        [errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:error];
+        [tracker sendEventWithCategory:@"API"
+                            withAction:@"authenticate"
+                             withLabel:@"fail:coredata_exception"
+                             withValue:nil];
+        return nil;
+    }
+    
+    [tracker sendEventWithCategory:@"API"
+                        withAction:@"resetPassword"
+                         withLabel:@"success"
+                         withValue:nil];
+    
+    return customer;
 }
 
 - (BOOL) purchaseByCard:(NSString *)dealOfferId

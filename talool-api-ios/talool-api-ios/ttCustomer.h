@@ -34,10 +34,11 @@
                         context:(NSManagedObjectContext *)context;
 + (BOOL)sendResetPasswordEmail:(NSString *)email
                          error:(NSError**)error;
-+ (BOOL)resetPassword:(NSString *)customerId
-             password:(NSString *)password
-                 code:(NSString *)resetPasswordCode
-                error:(NSError**)error;
++ (ttCustomer *)resetPassword:(NSString *)customerId
+                     password:(NSString *)password
+                         code:(NSString *)resetPasswordCode
+                      context:(NSManagedObjectContext *)context
+                        error:(NSError**)error;
 
 
 - (BOOL)isValid:(NSError **)error;

@@ -23,10 +23,11 @@
 - (BOOL)userExists:(NSString *) email;
 - (BOOL)sendResetPasswordEmail:(NSString *)email
                          error:(NSError**)error;
-- (BOOL)resetPassword:(NSString *)customerId
-             password:(NSString *)password
-                 code:(NSString *)resetPasswordCode
-                error:(NSError**)error;
+- (ttCustomer *)resetPassword:(NSString *)customerId
+                   password:(NSString *)password
+                       code:(NSString *)resetPasswordCode
+                    context:(NSManagedObjectContext *)context
+                      error:(NSError**)error;
 
 - (NSMutableArray *) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 

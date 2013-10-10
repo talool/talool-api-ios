@@ -80,7 +80,7 @@
 - (NSMutableArray *) getActivities: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 - (void) activityAction: (NSString *) activityId;  // throws ServiceException_t *, TException
 - (void) sendResetPasswordEmail: (NSString *) email;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
-- (void) resetPassword: (NSString *) customerId resetPasswordCode: (NSString *) resetPasswordCode newPassword: (NSString *) newPassword;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
+- (CTokenAccess_t *) resetPassword: (NSString *) customerId resetPasswordCode: (NSString *) resetPasswordCode newPassword: (NSString *) newPassword;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 - (TransactionResult_t *) purchaseByCard: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 - (TransactionResult_t *) purchaseByCode: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 @end

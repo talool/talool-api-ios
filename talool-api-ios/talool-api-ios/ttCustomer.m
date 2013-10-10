@@ -548,13 +548,14 @@
     return [cc sendResetPasswordEmail:email error:error];
 }
 
-+ (BOOL)resetPassword:(NSString *)customerId
-             password:(NSString *)password
-                 code:(NSString *)resetPasswordCode
-                error:(NSError**)error
++ (ttCustomer *)resetPassword:(NSString *)customerId
+                     password:(NSString *)password
+                         code:(NSString *)resetPasswordCode
+                      context:(NSManagedObjectContext *)context
+                        error:(NSError**)error
 {
     CustomerController *cc = [[CustomerController alloc] init];
-    return [cc resetPassword:customerId password:password code:resetPasswordCode error:error];
+    return [cc resetPassword:customerId password:password code:resetPasswordCode context:context error:error];
 }
 
 @end
