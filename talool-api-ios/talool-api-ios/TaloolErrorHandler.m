@@ -13,7 +13,7 @@
 #import "GAI.h"
 #import "Error.h"
 
-static NSString *errorFormat = @"Failed %@.  Reason: %@";
+static NSString *defaultMessage = @"We were unable to complete your request";
 
 @implementation TaloolErrorHandler
 
@@ -38,18 +38,16 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     else if ([exception isKindOfClass:[TNotFoundException_t class]])
     {
         TNotFoundException_t *e = (TNotFoundException_t *)exception;
-        errorDetails = [self getServiceDetails:method why:[NSString stringWithFormat:@"Missing %@ for key %@",e.identifier, e.key]];
+        errorDetails = [NSString stringWithFormat:@"Missing %@ for key %@",e.identifier, e.key];
+        NSLog(@"TNotFoundException Handled: %@",errorDetails);
+        
         code = ERROR_CODE_NOT_FOUND_EXCEPTION;
-    }
-    else if ([exception isKindOfClass:[TException class]])
-    {
-        errorDetails = [self getServiceDetails:method why:exception.description];
-        code = ERROR_CODE_DEFAULT;
+        errorDetails = [self getErrorMessageWithCode:code];
     }
     else if ([exception isKindOfClass:[TApplicationException class]])
     {
-        errorDetails = [self getServiceDetails:method why:@"The App Failed"];
         code = ERROR_CODE_APP_FAIL;
+        errorDetails = [self getErrorMessageWithCode:code];
     }
     else if ([exception isKindOfClass:[TTransportException class]])
     {
@@ -57,19 +55,19 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
         NSError *err = [exception.userInfo objectForKey:@"error"];
         if (err.code == ERROR_CODE_NETWORK_DOWN)
         {
-            errorDetails = [self getServiceDetails:method why:err.localizedDescription];
             code = ERROR_CODE_NETWORK_DOWN;
+            errorDetails = [self getErrorMessageWithCode:code];
         }
         else
         {
-            errorDetails = [self getServiceDetails:method why:@"The Server Barfed"];
-            code = ERROR_CODE_TOMCAT_DOWN;
+            code = ERROR_CODE_SERVICE_DOWN;
+            errorDetails = [self getErrorMessageWithCode:code];
         }
     }
     else
     {
-        errorDetails = [self getServiceDetails:method why:@"... who knows why ..."];
-        code = ERROR_CODE_DEFAULT;
+        code = ErrorCode_t_UNKNOWN;
+        errorDetails = [self getErrorMessageWithCode:code];
     }
     
     [details setValue:errorDetails forKey:NSLocalizedDescriptionKey];
@@ -79,36 +77,28 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
     NSLog(@"Exception Handled: %@",errorDetails);
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    //[tracker sendException:NO withNSException:exception];
-    [tracker sendException:NO withDescription:@"%@: %@",errorDetails, exception.description];
+    [tracker sendException:NO withDescription:@"%@: %@: %@: %@",errorDetails, exception.description, domain, method];
 }
 
 - (void) handleCoreDataException:(NSException *)exception domain:(NSString *)domain method:(NSString *)method entity:(NSString *)entity error:(NSError **)error
 {
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    NSString *errorDetails = [self getCoreDataDetails:method where:entity];
-    
     TaloolErrorCodeType code = ERROR_CODE_CORE_DATA;
     
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    NSString *errorDetails = [self getErrorMessageWithCode:code];
     [details setValue:errorDetails forKey:NSLocalizedDescriptionKey];
     *error = [NSError errorWithDomain:domain code:code userInfo:details];
     
-    NSLog(@"%@: %@",errorDetails, exception.description);
+    NSLog(@"Core Data Exception Handled: %@: %@: %@: %@: %@",errorDetails, exception.description, domain, method, entity);
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    //[tracker sendException:NO withNSException:exception];
-    [tracker sendException:NO withDescription:@"%@: %@",errorDetails, exception.description];
+    [tracker sendException:NO withDescription:@"%@: %@: %@: %@: %@",errorDetails, exception.description, domain, method, entity];
     
 }
 
 - (void) handlePaymentException:(NSException *)exception domain:(NSString *)domain method:(NSString *)method message:(NSString *)message error:(NSError **)error
 {
     [self handleServiceException:exception domain:domain method:method error:error];
-}
-
-- (NSString *) getServiceDetails:(NSString *)what why:(NSString *) why
-{
-    return [NSString stringWithFormat:errorFormat, what, why];
 }
 
 - (NSString *) getErrorMessageWithCode:(int)code
@@ -163,23 +153,23 @@ static NSString *errorFormat = @"Failed %@.  Reason: %@";
         case ErrorCode_t_ACTIVIATION_CODE_ALREADY_ACTIVATED:
             message = @"That activation code has already been used.  Codes can only be used once.";
             break;
+        case ERROR_CODE_CORE_DATA:
+            message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Some data could not be saved."];
+            break;
+        case ERROR_CODE_NETWORK_DOWN:
+            message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Your network connection appears to be down."];
+            break;
+        case ERROR_CODE_NOT_FOUND_EXCEPTION:
+        case ERROR_CODE_APP_FAIL:
+            message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Please report this error to support@talool.com."];
+            break;
         default:
-            message = @"We could not process your request at this time.  Please try again later.";
+            message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Please try again later."];
             NSLog(@"Unknown error: %d", code);
             break;
     }
     
     return message;
-}
-
-- (NSString *) getCoreDataDetails:(NSString *)what where:(NSString *)where
-{
-    return [NSString stringWithFormat:errorFormat, what, where];
-}
-
-- (NSString *) getPaymentDetails:(NSString *)what why:(NSString *)why
-{
-    return [NSString stringWithFormat:errorFormat, what, why];
 }
 
 @end

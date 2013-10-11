@@ -12,25 +12,12 @@
 @interface TaloolErrorHandler : NSObject<ErrorHandlerDelegate>
 
 enum {
-    ERROR_CODE_DEFAULT = 100,
-    ERROR_CODE_INVALID_EMAIL = 101,
-    ERROR_CODE_SERVICE_DOWN = 200,
-    ERROR_CODE_USER_EXCEPTION = 201,
-    ERROR_CODE_NOT_FOUND_EXCEPTION = 202,
-    ERROR_CODE_APP_FAIL = 300,
-    ERROR_CODE_TOMCAT_DOWN = 500,
-    ERROR_CODE_CORE_DATA = 600,
-    ERROR_CODE_PAYMENT = 700,
-    ERROR_CODE_EMAIL_TAKEN = 1000,
-    ERROR_CODE_INVALID_PASSWORD = 1001,
+    ERROR_CODE_SERVICE_DOWN = 1,
+    ERROR_CODE_NOT_FOUND_EXCEPTION = 2,
+    ERROR_CODE_APP_FAIL = 3,
+    ERROR_CODE_CORE_DATA = 4,
     ERROR_CODE_NETWORK_DOWN = -1009
 };
 typedef int TaloolErrorCodeType;
-
-
-// TODO
-//- (TaloolErrorCodeType) getCodeForServiceException:(NSString *)method;
-//- (TaloolErrorCodeType) getCodeForApplicationException:(NSString *)method;
-//- (TaloolErrorCodeType) getCodeForTomcatException:(NSString *)method;
 
 @end
