@@ -20,7 +20,7 @@
 #import <ttDealOffer.h>
 #import <ttSocialAccount.h>
 #import <ttSocialNetworkDetail.h>
-#import <TaloolSearchOption.h>
+#import <TaloolSearchOptions.h>
 #import <TaloolCustomerUX.h>
 
 @interface talool_api_ios : NSObject
