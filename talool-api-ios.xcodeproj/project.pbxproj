@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		56742F31F33145D4ACFF3DD2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C781FB255BDA419186CF6944 /* libPods.a */; };
 		8118504A1803201C00AAED79 /* Activity.h in Headers */ = {isa = PBXBuildFile; fileRef = 811850401803201C00AAED79 /* Activity.h */; };
 		8118504B1803201C00AAED79 /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = 811850411803201C00AAED79 /* Activity.m */; };
 		8118504C1803201C00AAED79 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 811850421803201C00AAED79 /* Core.h */; };
@@ -44,12 +45,6 @@
 		81510D7C175EF44D002A869A /* ttGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 81510D7A175EF44D002A869A /* ttGift.m */; };
 		8151CB9117944EEC007894B2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CC610C16FB5A9400647AEC /* CoreData.framework */; };
 		8151CB9417944F0B007894B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CB9217944EF4007894B2 /* SystemConfiguration.framework */; };
-		8151CBA317944F33007894B2 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CB9C17944F33007894B2 /* libGoogleAnalytics.a */; };
-		8151CBA717945B16007894B2 /* GAI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9617944F33007894B2 /* GAI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8151CBA817945B16007894B2 /* GAITrackedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9717944F33007894B2 /* GAITrackedViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8151CBA917945B16007894B2 /* GAITracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9817944F33007894B2 /* GAITracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8151CBAA17945B16007894B2 /* GAITransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9917944F33007894B2 /* GAITransaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8151CBAB17945B16007894B2 /* GAITransactionItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 8151CB9A17944F33007894B2 /* GAITransactionItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		819FA93C177B7954006A819B /* TaloolActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 819FA93A177B7954006A819B /* TaloolActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		819FA93D177B7954006A819B /* TaloolActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 819FA93B177B7954006A819B /* TaloolActivity.m */; };
 		819FA940177B7954006A819B /* TaloolActivityLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 819FA93E177B7954006A819B /* TaloolActivityLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -185,6 +180,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		339064DD97DD498A9C311083 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		811850401803201C00AAED79 /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
 		811850411803201C00AAED79 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		811850421803201C00AAED79 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
@@ -336,6 +332,7 @@
 		91F7D6C816ED78F400D64C19 /* TaloolFrameworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolFrameworkHelper.m; sourceTree = "<group>"; };
 		91F7D6C916ED78F400D64C19 /* ttDeal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttDeal.h; sourceTree = "<group>"; };
 		91F7D6CA16ED78F400D64C19 /* ttDeal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttDeal.m; sourceTree = "<group>"; };
+		C781FB255BDA419186CF6944 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,7 +343,7 @@
 				8151CB9417944F0B007894B2 /* SystemConfiguration.framework in Frameworks */,
 				8151CB9117944EEC007894B2 /* CoreData.framework in Frameworks */,
 				914A1AE816E6ECAD0043989A /* Foundation.framework in Frameworks */,
-				8151CBA317944F33007894B2 /* libGoogleAnalytics.a in Frameworks */,
+				56742F31F33145D4ACFF3DD2 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +380,7 @@
 				916148AC16EBC9E1001C546C /* TaloolAPIResources */,
 				914A1AE616E6ECAC0043989A /* Frameworks */,
 				914A1AE516E6ECAC0043989A /* Products */,
+				339064DD97DD498A9C311083 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -405,6 +403,7 @@
 				914A1AF616E6ECAD0043989A /* SenTestingKit.framework */,
 				914A1AF816E6ECAD0043989A /* UIKit.framework */,
 				9161489A16EBC99C001C546C /* CoreFoundation.framework */,
+				C781FB255BDA419186CF6944 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -715,11 +714,6 @@
 				819FA940177B7954006A819B /* TaloolActivityLink.h in Headers */,
 				819FA944177B7980006A819B /* ttActivity.h in Headers */,
 				819FA948177B79B8006A819B /* ttActivityLink.h in Headers */,
-				8151CBA717945B16007894B2 /* GAI.h in Headers */,
-				8151CBA817945B16007894B2 /* GAITrackedViewController.h in Headers */,
-				8151CBA917945B16007894B2 /* GAITracker.h in Headers */,
-				8151CBAA17945B16007894B2 /* GAITransaction.h in Headers */,
-				8151CBAB17945B16007894B2 /* GAITransactionItem.h in Headers */,
 				914A1B7216E703310043989A /* TApplicationException.h in Headers */,
 				914A1B7316E703310043989A /* TException.h in Headers */,
 				811850521803201C00AAED79 /* Payment.h in Headers */,
@@ -753,10 +747,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 914A1B0916E6ECAD0043989A /* Build configuration list for PBXNativeTarget "talool-api-ios" */;
 			buildPhases = (
+				866E04C5C5FB479081D5A1D4 /* Check Pods Manifest.lock */,
 				914A1AE016E6ECAC0043989A /* Sources */,
 				914A1AE116E6ECAC0043989A /* Frameworks */,
 				914A1AE216E6ECAC0043989A /* CopyFiles */,
 				914A1B6716E702A70043989A /* Headers */,
+				95C23CDF09A54B1699794D6D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -822,6 +818,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		866E04C5C5FB479081D5A1D4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		95C23CDF09A54B1699794D6D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		914A1AE016E6ECAC0043989A /* Sources */ = {
@@ -965,6 +994,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				STRIP_STYLE = "non-global";
 			};
@@ -989,6 +1019,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				STRIP_STYLE = "non-global";
 				VALIDATE_PRODUCT = YES;
@@ -997,6 +1028,7 @@
 		};
 		914A1B0A16E6ECAD0043989A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 339064DD97DD498A9C311083 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = /tmp/talool_api_ios.dst;
@@ -1019,6 +1051,7 @@
 		};
 		914A1B0B16E6ECAD0043989A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 339064DD97DD498A9C311083 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = /tmp/talool_api_ios.dst;
@@ -1080,6 +1113,7 @@
 		916148BB16EBCE8F001C546C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1087,6 +1121,7 @@
 		916148BC16EBCE8F001C546C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

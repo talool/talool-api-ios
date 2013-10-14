@@ -10,7 +10,8 @@
 #import "TTransportException.h"
 #import "Core.h"
 #import "CustomerService.h"
-#import "GAI.h"
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 #import "Error.h"
 
 static NSString *defaultMessage = @"We were unable to complete your request";
@@ -77,7 +78,10 @@ static NSString *defaultMessage = @"We were unable to complete your request";
     NSLog(@"Exception Handled: %@",errorDetails);
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendException:NO withDescription:@"%@: %@: %@: %@",errorDetails, exception.description, domain, method];
+    [tracker send:[[GAIDictionaryBuilder
+                    createExceptionWithDescription:[NSString stringWithFormat:@"%@: %@: %@: %@",errorDetails, exception.description, domain, method]
+                    withFatal:NO] build]];
+
 }
 
 - (void) handleCoreDataException:(NSException *)exception domain:(NSString *)domain method:(NSString *)method entity:(NSString *)entity error:(NSError **)error
@@ -92,7 +96,9 @@ static NSString *defaultMessage = @"We were unable to complete your request";
     NSLog(@"Core Data Exception Handled: %@: %@: %@: %@: %@",errorDetails, exception.description, domain, method, entity);
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendException:NO withDescription:@"%@: %@: %@: %@: %@",errorDetails, exception.description, domain, method, entity];
+    [tracker send:[[GAIDictionaryBuilder
+                    createExceptionWithDescription:[NSString stringWithFormat:@"%@: %@: %@: %@: %@",errorDetails, exception.description, domain, method, entity]
+                    withFatal:NO] build]];
     
 }
 

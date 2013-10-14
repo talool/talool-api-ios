@@ -25,7 +25,8 @@
 #import "TaloolFrameworkHelper.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "APIErrorManager.h"
-#import "GAI.h"
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 #import "Payment.h"
 #import "Error.h"
 
@@ -91,10 +92,11 @@
     // validate data before sending to the server
     if (![customer isValid:error])
     {
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"registerUser"
-                             withLabel:@"fail:invalid_user"
-                             withValue:nil];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"registerUser"
+                                                               label:@"fail:invalid_user"
+                                                               value:nil] build]];
+        
         return nil;
     }
     
@@ -109,10 +111,10 @@
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"registerUser" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"registerUser"
-                             withLabel:@"fail:service_exception"
-                             withValue:nil];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"registerUser"
+                                                               label:@"fail:service_exception"
+                                                               value:nil] build]];
         return nil;
     }
     @finally {
@@ -141,18 +143,18 @@
     }
     @catch (NSException * e) {
         [errorManager handleCoreDataException:e forMethod:@"registerUser" entity:@"ttCustomer" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"registerUser"
-                             withLabel:@"fail:coredata_exception"
-                             withValue:nil];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"registerUser"
+                                                               label:@"fail:coredata_exception"
+                                                               value:nil] build]];
         return nil;
     }
     
     
-    [tracker sendEventWithCategory:@"API"
-                        withAction:@"registerUser"
-                         withLabel:@"success"
-                         withValue:nil];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                          action:@"registerUser"
+                                                           label:@"success"
+                                                           value:nil] build]];
     
     return customer;
     
@@ -172,10 +174,10 @@
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"authenticate" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"authenticate"
-                             withLabel:@"fail:service_exception"
-                             withValue:nil];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"authenticate"
+                                                               label:@"fail:service_exception"
+                                                               value:nil] build]];
         return nil;
     }
     @finally {
@@ -190,17 +192,17 @@
     }
     @catch (NSException * e) {
         [errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"authenticate"
-                             withLabel:@"fail:coredata_exception"
-                             withValue:nil];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"authenticate"
+                                                               label:@"fail:coredata_exception"
+                                                               value:nil] build]];
         return nil;
     }
-    
-    [tracker sendEventWithCategory:@"API"
-                        withAction:@"authenticate"
-                         withLabel:@"success"
-                         withValue:nil];
+
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                          action:@"authenticate"
+                                                           label:@"success"
+                                                           value:nil] build]];
     
     return customer;
 }
@@ -366,19 +368,20 @@
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"redeem" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"redeem"
-                             withLabel:@"fail"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"redeem"
+                                                               label:@"fail"
+                                                               value:nil] build]];
     }
     @finally {
         [self disconnect];
     }
     
-    [tracker sendEventWithCategory:@"API"
-                        withAction:@"redeem"
-                         withLabel:@"success"
-                         withValue:nil];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                          action:@"redeem"
+                                                           label:@"success"
+                                                           value:nil] build]];
     
     return redemptionCode;
 }
@@ -425,18 +428,20 @@
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service purchaseDealOffer:dealOfferId];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"purchase"
-                             withLabel:@"success"
-                             withValue:nil];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                             action:@"purchase"
+                                                              label:@"success"
+                                                              value:nil] build]];
+        
         success = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"purchaseDealOffer" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"purchase"
-                             withLabel:@"fail"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"purchase"
+                                                               label:@"fail"
+                                                               value:nil] build]];
         success = NO;
     }
     @finally {
@@ -502,10 +507,10 @@
         [self disconnect];
     }
     
-    [tracker sendEventWithCategory:@"API"
-                        withAction:@"favorite"
-                         withLabel:@"success"
-                         withValue:nil];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                          action:@"favorite"
+                                                           label:@"success"
+                                                           value:nil] build]];
 }
 
 - (void) removeFavoriteMerchant:(ttCustomer *)customer merchantId:(NSString *)merchantId error:(NSError**)error
@@ -647,17 +652,19 @@
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         giftId = [service giftToFacebook:dealAcquireId facebookId:facebookId receipientName:receipientName];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"giftToFacebook"
-                             withLabel:@"success"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"giftToFacebook"
+                                                               label:@"success"
+                                                               value:nil] build]];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"giftToFacebook" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"giftToFacebook"
-                             withLabel:@"fail"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"giftToFacebook"
+                                                               label:@"fail"
+                                                               value:nil] build]];
     }
     @finally {
         [self disconnect];
@@ -678,17 +685,19 @@
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         giftId = [service giftToEmail:dealAcquireId email:email receipientName:receipientName];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"giftToEmail"
-                             withLabel:@"success"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"giftToEmail"
+                                                               label:@"success"
+                                                               value:nil] build]];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"giftToEmail" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"giftToEmail"
-                             withLabel:@"fail"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"giftToEmail"
+                                                               label:@"fail"
+                                                               value:nil] build]];
     }
     @finally {
         [self disconnect];
@@ -742,17 +751,19 @@
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         dt = [service acceptGift:giftId];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"acceptGift"
-                             withLabel:@"success"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"acceptGift"
+                                                               label:@"success"
+                                                               value:nil] build]];
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"acceptGift" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"acceptGift"
-                             withLabel:@"fail:service_exception"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"acceptGift"
+                                                               label:@"fail:service_exception"
+                                                               value:nil] build]];
     }
     @finally {
         [self disconnect];
@@ -764,10 +775,11 @@
     }
     @catch (NSException * e) {
         [errorManager handleCoreDataException:e forMethod:@"acceptGift" entity:@"ttGift" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"acceptGift"
-                             withLabel:@"fail:coredata_exception"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"acceptGift"
+                                                               label:@"fail:coredata_exception"
+                                                               value:nil] build]];
         return nil;
     }
     
@@ -784,18 +796,18 @@
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service rejectGift:giftId];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"rejectGift"
-                             withLabel:@"success"
-                             withValue:nil];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"rejectGift"
+                                                               label:@"success"
+                                                               value:nil] build]];
         success = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"rejectGift" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"rejectGift"
-                             withLabel:@"fail"
-                             withValue:nil];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"rejectGift"
+                                                               label:@"fail"
+                                                               value:nil] build]];
         success = NO;
     }
     @finally {
@@ -925,18 +937,20 @@
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service activityAction:actionId];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"actionTaken"
-                             withLabel:@"success"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"actionTaken"
+                                                               label:@"success"
+                                                               value:nil] build]];
         result = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"actionTaken" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"actionTaken"
-                             withLabel:@"fail"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"actionTaken"
+                                                               label:@"fail"
+                                                               value:nil] build]];
         result = NO;
     }
     @finally {
@@ -953,18 +967,20 @@
     @try {
         [self connectWithToken:(ttToken *)customer.token];
         [service activateCode:offerId code:code];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"activateCode"
-                             withLabel:@"success"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"activateCode"
+                                                               label:@"success"
+                                                               value:nil] build]];
         result = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"activateCode" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"activateCode"
-                             withLabel:@"fail"
-                             withValue:nil];
+ 
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"activateCode"
+                                                               label:@"fail"
+                                                               value:nil] build]];
         result = NO;
     }
     @finally {
@@ -982,18 +998,20 @@
     @try {
         [self connect];
         [service sendResetPasswordEmail:email];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"sendResetPasswordEmail"
-                             withLabel:@"success"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"sendResetPasswordEmail"
+                                                               label:@"success"
+                                                               value:nil] build]];
         result = YES;
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"sendResetPasswordEmail" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"sendResetPasswordEmail"
-                             withLabel:@"fail"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"sendResetPasswordEmail"
+                                                               label:@"fail"
+                                                               value:nil] build]];
         result = NO;
     }
     @finally {
@@ -1020,10 +1038,11 @@
     }
     @catch (NSException * e) {
         [errorManager handleServiceException:e forMethod:@"resetPassword" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"resetPassword"
-                             withLabel:@"fail"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"resetPassword"
+                                                               label:@"fail"
+                                                               value:nil] build]];
         return nil;
     }
     @finally {
@@ -1038,17 +1057,18 @@
     }
     @catch (NSException * e) {
         [errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"authenticate"
-                             withLabel:@"fail:coredata_exception"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"authenticate_after_reset"
+                                                               label:@"fail:coredata_exception"
+                                                               value:nil] build]];
         return nil;
     }
-    
-    [tracker sendEventWithCategory:@"API"
-                        withAction:@"resetPassword"
-                         withLabel:@"success"
-                         withValue:nil];
+
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                          action:@"resetPassword"
+                                                           label:@"success"
+                                                           value:nil] build]];
     
     return customer;
 }
@@ -1084,21 +1104,22 @@
         TransactionResult_t *transactionResult = [service purchaseByCard:dealOfferId paymentDetail:payment];
         if (transactionResult.success)
         {
-            [tracker sendEventWithCategory:@"API"
-                                withAction:@"purchaseByCard"
-                                 withLabel:@"success"
-                                 withValue:nil];
+
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                  action:@"purchaseByCard"
+                                                                   label:@"success"
+                                                                   value:nil] build]];
         }
         else
         {
             
             // handle the error
             [errorManager handlePaymentException:nil forMethod:@"purchaseByCard" message:transactionResult.message error:error];
-            
-            [tracker sendEventWithCategory:@"API"
-                                withAction:@"purchaseByCard"
-                                 withLabel:@"fail"
-                                 withValue:nil];
+
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                  action:@"purchaseByCard"
+                                                                   label:@"fail"
+                                                                   value:nil] build]];
             
         }
         
@@ -1106,10 +1127,11 @@
     }
     @catch (NSException * e) {
         [errorManager handlePaymentException:e forMethod:@"purchaseByCard" message:@"exception" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"purchaseByCard"
-                             withLabel:@"fail"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"purchaseByCard"
+                                                               label:@"fail"
+                                                               value:nil] build]];
         result = NO;
     }
     @finally {
@@ -1133,21 +1155,22 @@
         TransactionResult_t *transactionResult = [service purchaseByCode:dealOfferId paymentCode:paymentCode];
         if (transactionResult.success)
         {
-            [tracker sendEventWithCategory:@"API"
-                                withAction:@"purchaseByCode"
-                                 withLabel:@"success"
-                                 withValue:nil];
+
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                  action:@"purchaseByCode"
+                                                                   label:@"success"
+                                                                   value:nil] build]];
         }
         else
         {
             
             // handle the error
             [errorManager handlePaymentException:nil forMethod:@"purchaseByCode" message:transactionResult.message error:error];
-            
-            [tracker sendEventWithCategory:@"API"
-                                withAction:@"purchaseByCode"
-                                 withLabel:@"fail"
-                                 withValue:nil];
+
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                  action:@"purchaseByCode"
+                                                                   label:@"fail"
+                                                                   value:nil] build]];
             
         }
         
@@ -1155,10 +1178,11 @@
     }
     @catch (NSException * e) {
         [errorManager handlePaymentException:e forMethod:@"purchaseByCode" message:@"exception" error:error];
-        [tracker sendEventWithCategory:@"API"
-                            withAction:@"purchaseByCode"
-                             withLabel:@"fail"
-                             withValue:nil];
+
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"purchaseByCode"
+                                                               label:@"fail"
+                                                               value:nil] build]];
         result = NO;
     }
     @finally {
