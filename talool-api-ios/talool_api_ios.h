@@ -8,20 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
-#import <talool-api-ios/ttCategory.h>
-#import <talool-api-ios/ttCustomer.h>
-#import <talool-api-ios/ttToken.h>
-#import <talool-api-ios/ttMerchant.h>
-#import <talool-api-ios/ttMerchantLocation.h>
-#import <talool-api-ios/ttDeal.h>
-#import <talool-api-ios/ttGift.h>
-#import <talool-api-ios/ttFriend.h>
-#import <talool-api-ios/ttDealAcquire.h>
-#import <talool-api-ios/ttDealOffer.h>
-#import <talool-api-ios/ttSocialAccount.h>
-#import <talool-api-ios/ttSocialNetworkDetail.h>
-#import <talool-api-ios/TaloolSearchOption.h>
-#import <talool-api-ios/TaloolCustomerUX.h>
+#import <ttCategory.h>
+#import <ttCustomer.h>
+#import <ttToken.h>
+#import <ttMerchant.h>
+#import <ttMerchantLocation.h>
+#import <ttDeal.h>
+#import <ttGift.h>
+#import <ttFriend.h>
+#import <ttDealAcquire.h>
+#import <ttDealOffer.h>
+#import <ttSocialAccount.h>
+#import <ttSocialNetworkDetail.h>
+#import <TaloolSearchOption.h>
+#import <TaloolCustomerUX.h>
 
 @interface talool_api_ios : NSObject
 
