@@ -53,7 +53,7 @@
          the phone will crash with a EXC_BAD_ACCESS when this
          controller is gabage collected.
          */
-        NSURL *url = [NSURL URLWithString:API_URL];
+        NSURL *url = [NSURL URLWithString:[[TaloolFrameworkHelper sharedInstance] getApiUrl]];
         transport = [[THTTPClient alloc] initWithURL:url];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
         service = [[CustomerService_tClient alloc] initWithProtocol:protocol];
@@ -68,7 +68,7 @@
     TaloolHTTPClient *transport;
     TBinaryProtocol *protocol;
     @try {
-        NSURL *url = [NSURL URLWithString:API_URL];
+        NSURL *url = [NSURL URLWithString:[NSURL URLWithString:[[TaloolFrameworkHelper sharedInstance] getApiUrl]]];
         transport = [[TaloolHTTPClient alloc] initWithURL:url];
         [[transport getRequest] setValue:token.token forHTTPHeaderField:CustomerServiceConstants.CTOKEN_NAME];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];

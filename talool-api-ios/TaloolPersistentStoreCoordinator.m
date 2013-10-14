@@ -10,8 +10,6 @@
 #import "TaloolFrameworkHelper.h"
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 
-#define GA_TRACKING_ID  @"UA-42344079-1"
-
 NSString * const CUSTOMER_ENTITY_NAME = @"TaloolCustomer";
 NSString * const CUSTOMER_UX_ENTITY_NAME = @"TaloolCustomerUX";
 NSString * const MERCHANT_ENTITY_NAME = @"TaloolMerchant";
@@ -67,15 +65,6 @@ static NSManagedObjectModel *_managedObjectModel;
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-    
-    // Optional: automatically send uncaught exceptions to Google Analytics.
-    [GAI sharedInstance].trackUncaughtExceptions = YES;
-    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-    [GAI sharedInstance].dispatchInterval = 20;
-    // Optional: set debug to YES for extra debugging information.
-    //[GAI sharedInstance].debug = YES;
-    // Create tracker instance.
-    [[GAI sharedInstance] trackerWithTrackingId:GA_TRACKING_ID];
     
     NSURL *modelURL = [[TaloolFrameworkHelper frameworkBundle] URLForResource:@"Talool" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];

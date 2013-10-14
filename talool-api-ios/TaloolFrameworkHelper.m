@@ -8,8 +8,11 @@
 
 #import "TaloolFrameworkHelper.h"
 
-NSString * const API_URL = @"https://api.talool.com/1.1";
 NSString * const VENMO_SDK_SESSION = @"venmo_sdk_session";
+
+@interface TaloolFrameworkHelper ()
+@property EnvironmentType envType;
+@end
 
 @implementation TaloolFrameworkHelper
 
@@ -22,6 +25,26 @@ NSString * const VENMO_SDK_SESSION = @"venmo_sdk_session";
         frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
     });
     return frameworkBundle;
+}
+
++ (TaloolFrameworkHelper *)sharedInstance
+{
+    static dispatch_once_t once;
+    static TaloolFrameworkHelper * sharedInstance;
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+        sharedInstance.envType = EnvironmentTypeProduction;
+    });
+    return sharedInstance;
+}
+
+- (void) setEnvironment:(EnvironmentType)env;
+{
+    self.envType = env;
+}
+- (NSString *) getApiUrl
+{
+    return (self.envType == EnvironmentTypeProduction) ? API_URL_PROD:API_URL_DEV;
 }
 
 @end

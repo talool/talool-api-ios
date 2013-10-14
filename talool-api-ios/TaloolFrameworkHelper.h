@@ -11,10 +11,19 @@
 @interface TaloolFrameworkHelper : NSObject
 
 + (NSBundle *) frameworkBundle;
++ (TaloolFrameworkHelper *)sharedInstance;
+
+enum {
+    EnvironmentTypeProduction = 1,
+    EnvironmentTypeDevelopment = 2
+};
+typedef int EnvironmentType;
+
+- (void) setEnvironment:(EnvironmentType)env;
+- (NSString *) getApiUrl;
 
 @end
 
-extern NSString * const API_URL;
 extern NSString * const VENMO_SDK_SESSION;
 
 #define METERS_PER_MILE 1609.344
@@ -23,3 +32,6 @@ extern NSString * const VENMO_SDK_SESSION;
 #define DEFAULT_PROXIMITY 9999
 #define MIN_PROXIMITY 1
 #define MIN_PROXIMITY_CHANGE_IN_MILES .05
+
+#define API_URL_PROD @"https://api.talool.com/1.1"
+#define API_URL_DEV @"https://dev-api.talool.com/1.1"
