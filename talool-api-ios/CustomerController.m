@@ -68,7 +68,7 @@
     TaloolHTTPClient *transport;
     TBinaryProtocol *protocol;
     @try {
-        NSURL *url = [NSURL URLWithString:[NSURL URLWithString:[[TaloolFrameworkHelper sharedInstance] getApiUrl]]];
+        NSURL *url = [NSURL URLWithString:[[TaloolFrameworkHelper sharedInstance] getApiUrl]];
         transport = [[TaloolHTTPClient alloc] initWithURL:url];
         [[transport getRequest] setValue:token.token forHTTPHeaderField:CustomerServiceConstants.CTOKEN_NAME];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
