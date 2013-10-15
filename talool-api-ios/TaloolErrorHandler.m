@@ -14,7 +14,7 @@
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 #import "Error.h"
 
-static NSString *defaultMessage = @"We were unable to complete your request";
+static NSString *defaultMessage = @"We were unable to complete your request.";
 
 @implementation TaloolErrorHandler
 

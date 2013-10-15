@@ -9,6 +9,7 @@
 #import "TaloolPersistentStoreCoordinator.h"
 #import "TaloolFrameworkHelper.h"
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import "TestFlight.h"
 
 NSString * const CUSTOMER_ENTITY_NAME = @"TaloolCustomer";
 NSString * const CUSTOMER_UX_ENTITY_NAME = @"TaloolCustomerUX";
@@ -51,9 +52,13 @@ static NSManagedObjectModel *_managedObjectModel;
                                                           error:&error]) {
         
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        
+        [TestFlight passCheckpoint:@"PERSISTENCE_STORE_BORKED"];
+        TFLog(@"PERSISTENCE ERROR: %@, %@", error, [error userInfo]);
+        
+        // TODO consider clearing all the data
+        // abort();
 
-#warning "The App will crash here if the data model is borked.  Need a more elegant solution."
-        abort();
     }
     return persistentStoreCoordinator;
 }
