@@ -253,8 +253,10 @@
     customer.lastName = self.lastName;
     customer.email = self.email;
     customer.sex = [self.sex integerValue];
-    customer.birthDate = [self.birthDate timeIntervalSince1970];
-    
+    if (self.birthDate)
+    {
+        customer.birthDate = [self.birthDate timeIntervalSince1970]*1000;
+    }
     customer.customerId = self.customerId;
     
     NSEnumerator *enumerator = [self.socialAccounts objectEnumerator];
