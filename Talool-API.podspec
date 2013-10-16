@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.resource            = "talool-api-ios/talool-api-ios.bundle"
   
   s.preserve_paths      = 'talool-api-ios/*'
-  s.frameworks          = 'CoreFoundation', 'Foundation', 'UIKit', 'SystemConfiguration', 'CoreData', 'SenTestingKit'
+  s.frameworks          = 'CoreFoundation', 'Foundation', 'SystemConfiguration', 'CoreData'
   s.requires_arc        = true
 
   s.dependency 'GoogleAnalytics-iOS-SDK', "~> 3.0.1"
