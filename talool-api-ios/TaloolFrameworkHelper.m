@@ -47,5 +47,10 @@ NSString * const VENMO_SDK_SESSION = @"venmo_sdk_session";
     return (self.envType == EnvironmentTypeProduction) ? API_URL_PROD:API_URL_DEV;
 }
 
+- (BOOL) isProduction
+{
+    return (self.envType == EnvironmentTypeProduction);
+}
+
 @end
 

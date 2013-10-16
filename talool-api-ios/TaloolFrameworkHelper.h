@@ -21,6 +21,7 @@ typedef int EnvironmentType;
 
 - (void) setEnvironment:(EnvironmentType)env;
 - (NSString *) getApiUrl;
+- (BOOL) isProduction;
 
 @end
 
