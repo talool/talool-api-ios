@@ -14,29 +14,8 @@
 #import "TObjective-C.h"
 
 
-enum ErrorCode_t {
-  ErrorCode_t_UNKNOWN = 0,
-  ErrorCode_t_VALID_EMAIL_REQUIRED = 100,
-  ErrorCode_t_PASS_REQUIRED = 101,
-  ErrorCode_t_PASS_CONFIRM_MUST_MATCH = 102,
-  ErrorCode_t_PASS_RESET_CODE_REQUIRED = 103,
-  ErrorCode_t_PASS_RESET_CODE_EXPIRED = 104,
-  ErrorCode_t_PASS_RESET_CODE_INVALID = 105,
-  ErrorCode_t_EMAIL_ALREADY_TAKEN = 1000,
-  ErrorCode_t_INVALID_USERNAME_OR_PASSWORD = 1001,
-  ErrorCode_t_CUSTOMER_DOES_NOT_OWN_DEAL = 1002,
-  ErrorCode_t_DEAL_ALREADY_REDEEMED = 1003,
-  ErrorCode_t_GIFTING_NOT_ALLOWED = 1004,
-  ErrorCode_t_CUSTOMER_NOT_FOUND = 1005,
-  ErrorCode_t_EMAIL_REQUIRED = 1006,
-  ErrorCode_t_EMAIL_OR_PASS_INVALID = 1007,
-  ErrorCode_t_GENERAL_PROCESSOR_ERROR = 1500,
-  ErrorCode_t_ACTIVIATION_CODE_NOT_FOUND = 3000,
-  ErrorCode_t_ACTIVIATION_CODE_ALREADY_ACTIVATED = 3001
-};
-
 @interface TServiceException_t : NSException <NSCoding> {
-  int __errorCode;
+  int32_t __errorCode;
   NSString * __message;
 
   BOOL __errorCode_isset;
@@ -44,19 +23,19 @@ enum ErrorCode_t {
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=errorCode, setter=setErrorCode:) int errorCode;
+@property (nonatomic, getter=errorCode, setter=setErrorCode:) int32_t errorCode;
 @property (nonatomic, retain, getter=message, setter=setMessage:) NSString * message;
 #endif
 
 - (id) init;
-- (id) initWithErrorCode: (int) errorCode message: (NSString *) message;
+- (id) initWithErrorCode: (int32_t) errorCode message: (NSString *) message;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if !__has_feature(objc_arc)
-- (int) errorCode;
-- (void) setErrorCode: (int) errorCode;
+- (int32_t) errorCode;
+- (void) setErrorCode: (int32_t) errorCode;
 #endif
 - (BOOL) errorCodeIsSet;
 
@@ -69,7 +48,7 @@ enum ErrorCode_t {
 @end
 
 @interface TUserException_t : NSException <NSCoding> {
-  int __errorCode;
+  int32_t __errorCode;
   NSString * __param;
 
   BOOL __errorCode_isset;
@@ -77,19 +56,19 @@ enum ErrorCode_t {
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=errorCode, setter=setErrorCode:) int errorCode;
+@property (nonatomic, getter=errorCode, setter=setErrorCode:) int32_t errorCode;
 @property (nonatomic, retain, getter=param, setter=setParam:) NSString * param;
 #endif
 
 - (id) init;
-- (id) initWithErrorCode: (int) errorCode param: (NSString *) param;
+- (id) initWithErrorCode: (int32_t) errorCode param: (NSString *) param;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if !__has_feature(objc_arc)
-- (int) errorCode;
-- (void) setErrorCode: (int) errorCode;
+- (int32_t) errorCode;
+- (void) setErrorCode: (int32_t) errorCode;
 #endif
 - (BOOL) errorCodeIsSet;
 

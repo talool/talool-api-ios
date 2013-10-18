@@ -22,7 +22,7 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
 {
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     NSString *errorDetails;
-    TaloolErrorCodeType code;
+    ErrorCode code;
     
     if ([exception isKindOfClass:[ServiceException_t class]])
     {
@@ -42,32 +42,32 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
         errorDetails = [NSString stringWithFormat:@"Missing %@ for key %@",e.identifier, e.key];
         NSLog(@"TNotFoundException Handled: %@",errorDetails);
         
-        code = ERROR_CODE_NOT_FOUND_EXCEPTION;
+        code = ErrorCode_NOT_FOUND_EXCEPTION;
         errorDetails = [self getErrorMessageWithCode:code];
     }
     else if ([exception isKindOfClass:[TApplicationException class]])
     {
-        code = ERROR_CODE_APP_FAIL;
+        code = ErrorCode_APP_FAIL;
         errorDetails = [self getErrorMessageWithCode:code];
     }
     else if ([exception isKindOfClass:[TTransportException class]])
     {
         
         NSError *err = [exception.userInfo objectForKey:@"error"];
-        if (err.code == ERROR_CODE_NETWORK_DOWN)
+        if (err.code == ErrorCode_NETWORK_DOWN)
         {
-            code = ERROR_CODE_NETWORK_DOWN;
+            code = ErrorCode_NETWORK_DOWN;
             errorDetails = [self getErrorMessageWithCode:code];
         }
         else
         {
-            code = ERROR_CODE_SERVICE_DOWN;
+            code = ErrorCode_SERVICE_DOWN;
             errorDetails = [self getErrorMessageWithCode:code];
         }
     }
     else
     {
-        code = ErrorCode_t_UNKNOWN;
+        code = ErrorCode_UNKNOWN;
         errorDetails = [self getErrorMessageWithCode:code];
     }
     
@@ -86,7 +86,7 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
 
 - (void) handleCoreDataException:(NSException *)exception domain:(NSString *)domain method:(NSString *)method entity:(NSString *)entity error:(NSError **)error
 {
-    TaloolErrorCodeType code = ERROR_CODE_CORE_DATA;
+    ErrorCode code = ErrorCode_CORE_DATA;
     
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     NSString *errorDetails = [self getErrorMessageWithCode:code];
@@ -112,61 +112,61 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
     NSString *message;
     
     switch (code) {
-        case ErrorCode_t_VALID_EMAIL_REQUIRED:
+        case ErrorCode_VALID_EMAIL_REQUIRED:
             message = @"Please provide a valid email address.";
             break;
-        case ErrorCode_t_PASS_REQUIRED:
+        case ErrorCode_PASS_REQUIRED:
             message = @"Your password is required.";
             break;
-        case ErrorCode_t_PASS_CONFIRM_MUST_MATCH:
+        case ErrorCode_PASS_CONFIRM_MUST_MATCH:
             message = @"Your passwords must match.";
             break;
-        case ErrorCode_t_PASS_RESET_CODE_REQUIRED:
-        case ErrorCode_t_PASS_RESET_CODE_INVALID:
+        case ErrorCode_PASS_RESET_CODE_REQUIRED:
+        case ErrorCode_PASS_RESET_CODE_INVALID:
             message = @"Your password reset request is invalid.";
             break;
-        case ErrorCode_t_PASS_RESET_CODE_EXPIRED:
+        case ErrorCode_PASS_RESET_CODE_EXPIRED:
             message = @"Your password reset request has expired.";
             break;
-        case ErrorCode_t_EMAIL_ALREADY_TAKEN:
+        case ErrorCode_EMAIL_ALREADY_TAKEN:
             message = @"That email address is already taken.";
             break;
-        case ErrorCode_t_INVALID_USERNAME_OR_PASSWORD:
-        case ErrorCode_t_EMAIL_OR_PASS_INVALID:
+        case ErrorCode_INVALID_USERNAME_OR_PASSWORD:
+        case ErrorCode_EMAIL_OR_PASS_INVALID:
             message = @"Your email or password are invalid.";
             break;
-        case ErrorCode_t_CUSTOMER_DOES_NOT_OWN_DEAL:
+        case ErrorCode_CUSTOMER_DOES_NOT_OWN_DEAL:
             message = @"We're sorry, but this deal has been given to another user.";
             break;
-        case ErrorCode_t_DEAL_ALREADY_REDEEMED:
+        case ErrorCode_DEAL_ALREADY_REDEEMED:
             message = @"This deal has already been redeemed.";
             break;
-        case ErrorCode_t_GIFTING_NOT_ALLOWED:
+        case ErrorCode_GIFTING_NOT_ALLOWED:
             message = @"We're sorry, but this deal can not be gifted.";
             break;
-        case ErrorCode_t_CUSTOMER_NOT_FOUND:
+        case ErrorCode_CUSTOMER_NOT_FOUND:
             message = @"We couldn't find your account.";
             break;
-        case ErrorCode_t_EMAIL_REQUIRED:
+        case ErrorCode_EMAIL_REQUIRED:
             message = @"You're email is required.";
             break;
-        case ErrorCode_t_GENERAL_PROCESSOR_ERROR:
+        case ErrorCode_GENERAL_PROCESSOR_ERROR:
             message = @"There was a problem processing your payment.  Please try again later.";
             break;
-        case ErrorCode_t_ACTIVIATION_CODE_NOT_FOUND:
+        case ErrorCode_ACTIVIATION_CODE_NOT_FOUND:
             message = @"That activation code was not found.  Please double check your code and try again.";
             break;
-        case ErrorCode_t_ACTIVIATION_CODE_ALREADY_ACTIVATED:
+        case ErrorCode_ACTIVIATION_CODE_ALREADY_ACTIVATED:
             message = @"That activation code has already been used.  Codes can only be used once.";
             break;
-        case ERROR_CODE_CORE_DATA:
+        case ErrorCode_CORE_DATA:
             message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Some data could not be saved."];
             break;
-        case ERROR_CODE_NETWORK_DOWN:
+        case ErrorCode_NETWORK_DOWN:
             message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Your network connection appears to be down."];
             break;
-        case ERROR_CODE_NOT_FOUND_EXCEPTION:
-        case ERROR_CODE_APP_FAIL:
+        case ErrorCode_NOT_FOUND_EXCEPTION:
+        case ErrorCode_APP_FAIL:
             message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Please report this error to support@talool.com."];
             break;
         default:

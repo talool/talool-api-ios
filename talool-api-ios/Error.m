@@ -23,7 +23,7 @@
   return [super initWithName: @"TServiceException_t" reason: @"unknown" userInfo: nil];
 }
 
-- (id) initWithErrorCode: (int) errorCode message: (NSString *) message
+- (id) initWithErrorCode: (int32_t) errorCode message: (NSString *) message
 {
   self = [self init];
   __errorCode = errorCode;
@@ -38,7 +38,7 @@
   self = [super initWithCoder: decoder];
   if ([decoder containsValueForKey: @"errorCode"])
   {
-    __errorCode = [decoder decodeIntForKey: @"errorCode"];
+    __errorCode = [decoder decodeInt32ForKey: @"errorCode"];
     __errorCode_isset = YES;
   }
   if ([decoder containsValueForKey: @"message"])
@@ -54,7 +54,7 @@
   [super encodeWithCoder: encoder];
   if (__errorCode_isset)
   {
-    [encoder encodeInt: __errorCode forKey: @"errorCode"];
+    [encoder encodeInt32: __errorCode forKey: @"errorCode"];
   }
   if (__message_isset)
   {
@@ -68,11 +68,11 @@
   [super dealloc_stub];
 }
 
-- (int) errorCode {
+- (int32_t) errorCode {
   return __errorCode;
 }
 
-- (void) setErrorCode: (int) errorCode {
+- (void) setErrorCode: (int32_t) errorCode {
   __errorCode = errorCode;
   __errorCode_isset = YES;
 }
@@ -123,7 +123,7 @@
     {
       case 1:
         if (fieldType == TType_I32) {
-          int fieldValue = [inProtocol readI32];
+          int32_t fieldValue = [inProtocol readI32];
           [self setErrorCode: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -183,7 +183,7 @@
   return [super initWithName: @"TUserException_t" reason: @"unknown" userInfo: nil];
 }
 
-- (id) initWithErrorCode: (int) errorCode param: (NSString *) param
+- (id) initWithErrorCode: (int32_t) errorCode param: (NSString *) param
 {
   self = [self init];
   __errorCode = errorCode;
@@ -198,7 +198,7 @@
   self = [super initWithCoder: decoder];
   if ([decoder containsValueForKey: @"errorCode"])
   {
-    __errorCode = [decoder decodeIntForKey: @"errorCode"];
+    __errorCode = [decoder decodeInt32ForKey: @"errorCode"];
     __errorCode_isset = YES;
   }
   if ([decoder containsValueForKey: @"param"])
@@ -214,7 +214,7 @@
   [super encodeWithCoder: encoder];
   if (__errorCode_isset)
   {
-    [encoder encodeInt: __errorCode forKey: @"errorCode"];
+    [encoder encodeInt32: __errorCode forKey: @"errorCode"];
   }
   if (__param_isset)
   {
@@ -228,11 +228,11 @@
   [super dealloc_stub];
 }
 
-- (int) errorCode {
+- (int32_t) errorCode {
   return __errorCode;
 }
 
-- (void) setErrorCode: (int) errorCode {
+- (void) setErrorCode: (int32_t) errorCode {
   __errorCode = errorCode;
   __errorCode_isset = YES;
 }
@@ -283,7 +283,7 @@
     {
       case 1:
         if (fieldType == TType_I32) {
-          int fieldValue = [inProtocol readI32];
+          int32_t fieldValue = [inProtocol readI32];
           [self setErrorCode: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];

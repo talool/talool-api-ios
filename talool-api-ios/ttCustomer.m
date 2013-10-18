@@ -351,7 +351,7 @@
     NSError *error;
     NSArray *tempMerchants = [cc getMerchants:self withLocation:location context:context error:&error];
     
-    if ([tempMerchants count]==0 && error.code==ERROR_CODE_NETWORK_DOWN)
+    if ([tempMerchants count]==0 && error.code==ErrorCode_NETWORK_DOWN)
     {
         // pull any existing activities from the context
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -496,7 +496,7 @@
     NSError *error;
     NSArray *activities = [cc getActivities:self context:context error:&error];
     
-    if ([activities count]==0 && error.code==ERROR_CODE_NETWORK_DOWN)
+    if ([activities count]==0 && error.code==ErrorCode_NETWORK_DOWN)
     {
         activities = [self fetchActivities:context];
     }
