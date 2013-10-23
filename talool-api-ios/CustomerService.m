@@ -191,6 +191,127 @@
 
 @end
 
+@implementation CTokenAccessResponse_t
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithTokenAccess: (CTokenAccess_t *) tokenAccess
+{
+  self = [super init];
+  __tokenAccess = [tokenAccess retain_stub];
+  __tokenAccess_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"tokenAccess"])
+  {
+    __tokenAccess = [[decoder decodeObjectForKey: @"tokenAccess"] retain_stub];
+    __tokenAccess_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__tokenAccess_isset)
+  {
+    [encoder encodeObject: __tokenAccess forKey: @"tokenAccess"];
+  }
+}
+
+- (void) dealloc
+{
+  [__tokenAccess release_stub];
+  [super dealloc_stub];
+}
+
+- (CTokenAccess_t *) tokenAccess {
+  return [[__tokenAccess retain_stub] autorelease_stub];
+}
+
+- (void) setTokenAccess: (CTokenAccess_t *) tokenAccess {
+  [tokenAccess retain_stub];
+  [__tokenAccess release_stub];
+  __tokenAccess = tokenAccess;
+  __tokenAccess_isset = YES;
+}
+
+- (BOOL) tokenAccessIsSet {
+  return __tokenAccess_isset;
+}
+
+- (void) unsetTokenAccess {
+  [__tokenAccess release_stub];
+  __tokenAccess = nil;
+  __tokenAccess_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          CTokenAccess_t *fieldValue = [[CTokenAccess_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setTokenAccess: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"CTokenAccessResponse_t"];
+  if (__tokenAccess_isset) {
+    if (__tokenAccess != nil) {
+      [outProtocol writeFieldBeginWithName: @"tokenAccess" type: TType_STRUCT fieldID: 1];
+      [__tokenAccess write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"CTokenAccessResponse_t("];
+  [ms appendString: @"tokenAccess:"];
+  [ms appendFormat: @"%@", __tokenAccess];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 static NSString * CTOKEN_NAME = @"ctok";
 
 @implementation CustomerServiceConstants
@@ -12040,6 +12161,414 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
+@interface loginFacebook_args : NSObject <NSCoding> {
+  NSString * __facebookId;
+  NSString * __facebookAccessToken;
+
+  BOOL __facebookId_isset;
+  BOOL __facebookAccessToken_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=facebookId, setter=setFacebookId:) NSString * facebookId;
+@property (nonatomic, retain, getter=facebookAccessToken, setter=setFacebookAccessToken:) NSString * facebookAccessToken;
+#endif
+
+- (id) init;
+- (id) initWithFacebookId: (NSString *) facebookId facebookAccessToken: (NSString *) facebookAccessToken;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) facebookId;
+- (void) setFacebookId: (NSString *) facebookId;
+#endif
+- (BOOL) facebookIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) facebookAccessToken;
+- (void) setFacebookAccessToken: (NSString *) facebookAccessToken;
+#endif
+- (BOOL) facebookAccessTokenIsSet;
+
+@end
+
+@implementation loginFacebook_args
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithFacebookId: (NSString *) facebookId facebookAccessToken: (NSString *) facebookAccessToken
+{
+  self = [super init];
+  __facebookId = [facebookId retain_stub];
+  __facebookId_isset = YES;
+  __facebookAccessToken = [facebookAccessToken retain_stub];
+  __facebookAccessToken_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"facebookId"])
+  {
+    __facebookId = [[decoder decodeObjectForKey: @"facebookId"] retain_stub];
+    __facebookId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"facebookAccessToken"])
+  {
+    __facebookAccessToken = [[decoder decodeObjectForKey: @"facebookAccessToken"] retain_stub];
+    __facebookAccessToken_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__facebookId_isset)
+  {
+    [encoder encodeObject: __facebookId forKey: @"facebookId"];
+  }
+  if (__facebookAccessToken_isset)
+  {
+    [encoder encodeObject: __facebookAccessToken forKey: @"facebookAccessToken"];
+  }
+}
+
+- (void) dealloc
+{
+  [__facebookId release_stub];
+  [__facebookAccessToken release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) facebookId {
+  return [[__facebookId retain_stub] autorelease_stub];
+}
+
+- (void) setFacebookId: (NSString *) facebookId {
+  [facebookId retain_stub];
+  [__facebookId release_stub];
+  __facebookId = facebookId;
+  __facebookId_isset = YES;
+}
+
+- (BOOL) facebookIdIsSet {
+  return __facebookId_isset;
+}
+
+- (void) unsetFacebookId {
+  [__facebookId release_stub];
+  __facebookId = nil;
+  __facebookId_isset = NO;
+}
+
+- (NSString *) facebookAccessToken {
+  return [[__facebookAccessToken retain_stub] autorelease_stub];
+}
+
+- (void) setFacebookAccessToken: (NSString *) facebookAccessToken {
+  [facebookAccessToken retain_stub];
+  [__facebookAccessToken release_stub];
+  __facebookAccessToken = facebookAccessToken;
+  __facebookAccessToken_isset = YES;
+}
+
+- (BOOL) facebookAccessTokenIsSet {
+  return __facebookAccessToken_isset;
+}
+
+- (void) unsetFacebookAccessToken {
+  [__facebookAccessToken release_stub];
+  __facebookAccessToken = nil;
+  __facebookAccessToken_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setFacebookId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setFacebookAccessToken: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"loginFacebook_args"];
+  if (__facebookId_isset) {
+    if (__facebookId != nil) {
+      [outProtocol writeFieldBeginWithName: @"facebookId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __facebookId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__facebookAccessToken_isset) {
+    if (__facebookAccessToken != nil) {
+      [outProtocol writeFieldBeginWithName: @"facebookAccessToken" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __facebookAccessToken];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"loginFacebook_args("];
+  [ms appendString: @"facebookId:"];
+  [ms appendFormat: @"\"%@\"", __facebookId];
+  [ms appendString: @",facebookAccessToken:"];
+  [ms appendFormat: @"\"%@\"", __facebookAccessToken];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface LoginFacebook_result : NSObject <NSCoding> {
+  CTokenAccessResponse_t * __success;
+  TServiceException_t * __error;
+
+  BOOL __success_isset;
+  BOOL __error_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=success, setter=setSuccess:) CTokenAccessResponse_t * success;
+@property (nonatomic, retain, getter=error, setter=setError:) TServiceException_t * error;
+#endif
+
+- (id) init;
+- (id) initWithSuccess: (CTokenAccessResponse_t *) success error: (TServiceException_t *) error;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (CTokenAccessResponse_t *) success;
+- (void) setSuccess: (CTokenAccessResponse_t *) success;
+#endif
+- (BOOL) successIsSet;
+
+#if !__has_feature(objc_arc)
+- (TServiceException_t *) error;
+- (void) setError: (TServiceException_t *) error;
+#endif
+- (BOOL) errorIsSet;
+
+@end
+
+@implementation LoginFacebook_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithSuccess: (CTokenAccessResponse_t *) success error: (TServiceException_t *) error
+{
+  self = [super init];
+  __success = [success retain_stub];
+  __success_isset = YES;
+  __error = [error retain_stub];
+  __error_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"success"])
+  {
+    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+    __success_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"error"])
+  {
+    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+    __error_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__success_isset)
+  {
+    [encoder encodeObject: __success forKey: @"success"];
+  }
+  if (__error_isset)
+  {
+    [encoder encodeObject: __error forKey: @"error"];
+  }
+}
+
+- (void) dealloc
+{
+  [__success release_stub];
+  [__error release_stub];
+  [super dealloc_stub];
+}
+
+- (CTokenAccessResponse_t *) success {
+  return [[__success retain_stub] autorelease_stub];
+}
+
+- (void) setSuccess: (CTokenAccessResponse_t *) success {
+  [success retain_stub];
+  [__success release_stub];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release_stub];
+  __success = nil;
+  __success_isset = NO;
+}
+
+- (TServiceException_t *) error {
+  return [[__error retain_stub] autorelease_stub];
+}
+
+- (void) setError: (TServiceException_t *) error {
+  [error retain_stub];
+  [__error release_stub];
+  __error = error;
+  __error_isset = YES;
+}
+
+- (BOOL) errorIsSet {
+  return __error_isset;
+}
+
+- (void) unsetError {
+  [__error release_stub];
+  __error = nil;
+  __error_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          CTokenAccessResponse_t *fieldValue = [[CTokenAccessResponse_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          TServiceException_t *fieldValue = [[TServiceException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setError: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"LoginFacebook_result"];
+
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__error_isset) {
+    if (__error != nil) {
+      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+      [__error write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"LoginFacebook_result("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @",error:"];
+  [ms appendFormat: @"%@", __error];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 @implementation CustomerService_tClient
 - (id) initWithProtocol: (id <TProtocol>) protocol
 {
@@ -13456,6 +13985,54 @@ static NSString * CTOKEN_NAME = @"ctok";
   return [self recv_purchaseByCode];
 }
 
+- (void) send_loginFacebook: (NSString *) facebookId facebookAccessToken: (NSString *) facebookAccessToken
+{
+  [outProtocol writeMessageBeginWithName: @"loginFacebook" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"loginFacebook_args"];
+  if (facebookId != nil)  {
+    [outProtocol writeFieldBeginWithName: @"facebookId" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: facebookId];
+    [outProtocol writeFieldEnd];
+  }
+  if (facebookAccessToken != nil)  {
+    [outProtocol writeFieldBeginWithName: @"facebookAccessToken" type: TType_STRING fieldID: 2];
+    [outProtocol writeString: facebookAccessToken];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (CTokenAccessResponse_t *) recv_loginFacebook
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  LoginFacebook_result * result = [[[LoginFacebook_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  if ([result errorIsSet]) {
+    @throw [result error];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"loginFacebook failed: unknown result"];
+}
+
+- (CTokenAccessResponse_t *) loginFacebook: (NSString *) facebookId facebookAccessToken: (NSString *) facebookAccessToken
+{
+  [self send_loginFacebook : facebookId facebookAccessToken: facebookAccessToken];
+  return [self recv_loginFacebook];
+}
+
 @end
 
 @implementation CustomerService_tProcessor
@@ -13715,6 +14292,14 @@ static NSString * CTOKEN_NAME = @"ctok";
     [invocation setSelector: s];
     [invocation retainArguments];
     [mMethodMap setValue: invocation forKey: @"purchaseByCode"];
+  }
+  {
+    SEL s = @selector(process_loginFacebook_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"loginFacebook"];
   }
   return self;
 }
@@ -14275,6 +14860,23 @@ static NSString * CTOKEN_NAME = @"ctok";
   PurchaseByCode_result * result = [[PurchaseByCode_result alloc] init];
   [result setSuccess: [mService purchaseByCode: [args dealOfferId] paymentCode: [args paymentCode]]];
   [outProtocol writeMessageBeginWithName: @"purchaseByCode"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_loginFacebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  loginFacebook_args * args = [[loginFacebook_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  LoginFacebook_result * result = [[LoginFacebook_result alloc] init];
+  [result setSuccess: [mService loginFacebook: [args facebookId] facebookAccessToken: [args facebookAccessToken]]];
+  [outProtocol writeMessageBeginWithName: @"loginFacebook"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];

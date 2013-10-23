@@ -207,6 +207,64 @@
     return customer;
 }
 
+- (ttCustomer *)authenticateFacebook:(NSString *)facebookId
+                       facebookToken:(NSString *)facebookToken
+                             context:(NSManagedObjectContext *)context
+                               error:(NSError**)error
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    ttCustomer *customer;
+    CTokenAccess_t *token;
+    CTokenAccessResponse_t *resp;
+    
+    @try {
+        // Do the Thrift Authentication
+        [self connect];
+        resp = [service loginFacebook:facebookId facebookAccessToken:facebookToken];
+        if (resp.tokenAccessIsSet)
+        {
+            token = resp.tokenAccess;
+        }
+    }
+    @catch (NSException * e) {
+        [errorManager handleServiceException:e forMethod:@"authenticateFacebook" error:error];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"authenticateFacebook"
+                                                               label:@"fail:service_exception"
+                                                               value:nil] build]];
+        return nil;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    if (token)
+    {
+        @try {
+            // transform the Thrift response into a ttCustomer
+            ttToken *ttt = [ttToken initWithThrift:token context:context];
+            customer = (ttCustomer *)ttt.customer;
+            customer.token = ttt;
+        }
+        @catch (NSException * e) {
+            [errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:error];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                  action:@"authenticate"
+                                                                   label:@"fail:coredata_exception"
+                                                                   value:nil] build]];
+            return nil;
+        }
+    
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"authenticate"
+                                                               label:@"success"
+                                                               value:nil] build]];
+    }
+    
+    return customer;
+}
+
 - (BOOL)userExists:(NSString *) email
 {
     

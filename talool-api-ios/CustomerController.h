@@ -20,6 +20,10 @@
 // CUSTOMERS
 - (ttCustomer *)registerUser:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError**)error;
+- (ttCustomer *)authenticateFacebook:(NSString *)facebookId
+                       facebookToken:(NSString *)facebookToken
+                             context:(NSManagedObjectContext *)context
+                               error:(NSError**)error;
 - (BOOL)userExists:(NSString *) email;
 - (BOOL)sendResetPasswordEmail:(NSString *)email
                          error:(NSError**)error;

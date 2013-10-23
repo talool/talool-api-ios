@@ -23,6 +23,10 @@
 + (ttCustomer *)getLoggedInUser:(NSManagedObjectContext *)context;
 + (void)logoutUser:(NSManagedObjectContext *)context;
 + (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err;
++ (ttCustomer *)authenticateFacebook:(NSString *)facebookId
+                       facebookToken:(NSString *)facebookToken
+                             context:(NSManagedObjectContext *)context
+                               error:(NSError**)error;
 + (void) registerCustomer:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err;
 + (BOOL) doesCustomerExist:(NSString *) email;
 + (NSString *)nonrandomPassword:(NSString *)seed;

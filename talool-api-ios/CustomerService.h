@@ -51,6 +51,30 @@
 
 @end
 
+@interface CTokenAccessResponse_t : NSObject <NSCoding> {
+  CTokenAccess_t * __tokenAccess;
+
+  BOOL __tokenAccess_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=tokenAccess, setter=setTokenAccess:) CTokenAccess_t * tokenAccess;
+#endif
+
+- (id) init;
+- (id) initWithTokenAccess: (CTokenAccess_t *) tokenAccess;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (CTokenAccess_t *) tokenAccess;
+- (void) setTokenAccess: (CTokenAccess_t *) tokenAccess;
+#endif
+- (BOOL) tokenAccessIsSet;
+
+@end
+
 @protocol CustomerService_t <NSObject>
 - (CTokenAccess_t *) createAccount: (Customer_t *) customer password: (NSString *) password;  // throws ServiceException_t *, TException
 - (CTokenAccess_t *) authenticate: (NSString *) email password: (NSString *) password;  // throws ServiceException_t *, TException
@@ -83,6 +107,7 @@
 - (CTokenAccess_t *) resetPassword: (NSString *) customerId resetPasswordCode: (NSString *) resetPasswordCode newPassword: (NSString *) newPassword;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 - (TransactionResult_t *) purchaseByCard: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 - (TransactionResult_t *) purchaseByCode: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
+- (CTokenAccessResponse_t *) loginFacebook: (NSString *) facebookId facebookAccessToken: (NSString *) facebookAccessToken;  // throws TServiceException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {

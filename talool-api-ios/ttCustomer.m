@@ -140,6 +140,30 @@
     return user;
 }
 
++ (ttCustomer *)authenticateFacebook:(NSString *)facebookId
+                       facebookToken:(NSString *)facebookToken
+                             context:(NSManagedObjectContext *)context
+                               error:(NSError**)err
+{
+    // clear out any existsing users
+    [ttCustomer clearUsers:context];
+    
+    CustomerController *cController = [[CustomerController alloc] init];
+    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    
+    ttCustomer *user = [cController authenticateFacebook:facebookId facebookToken:facebookToken context:context error:err];
+    if (user) {
+        NSError *saveError;
+        if (![context save:&saveError]) {
+            NSLog(@"API: OH SHIT!!!! Failed to save context after authenticating: %@ %@",saveError, [saveError userInfo]);
+            [details setValue:@"Failed to save context after authentication." forKey:NSLocalizedDescriptionKey];
+            *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
+        }
+    }
+    
+    return user;
+}
+
 + (void)logoutUser:(NSManagedObjectContext *)context
 {
     ttCustomer *user = [ttCustomer getLoggedInUser:context];
