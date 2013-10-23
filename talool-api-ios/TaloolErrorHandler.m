@@ -150,6 +150,9 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
         case ErrorCode_EMAIL_REQUIRED:
             message = @"You're email is required.";
             break;
+        case ErrorCode_NOT_GIFT_RECIPIENT:
+            message = @"This gift was sent to someone else.";
+            break;
         case ErrorCode_GENERAL_PROCESSOR_ERROR:
             message = @"There was a problem processing your payment.  Please try again later.";
             break;
