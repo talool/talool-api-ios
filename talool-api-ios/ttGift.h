@@ -8,7 +8,7 @@
 
 #import "TaloolGift.h"
 
-@class Gift_t, ttCustomer;
+@class Gift_t, ttCustomer, ttDealAcquire;
 
 @interface ttGift : TaloolGift
 
@@ -19,5 +19,6 @@
 - (BOOL) isAccepted;
 - (BOOL) isRejected;
 - (BOOL) isInvalidated;
+- (ttDealAcquire *) getDealAquire:(NSManagedObjectContext *)context;
 
 @end

@@ -65,6 +65,37 @@
     return gift;
 }
 
+- (ttDealAcquire *) getDealAquire:(NSManagedObjectContext *)context
+{
+    ttDealAcquire *deal;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.deal.dealId = %@",self.deal.dealId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj != nil && [fetchedObj count] == 1)
+    {
+        deal = [fetchedObj objectAtIndex:0];
+    }
+    else if (fetchedObj != nil && [fetchedObj count] > 1)
+    {
+        for (int i=0; i<[fetchedObj count]; i++) {
+            deal = [fetchedObj objectAtIndex:i];
+            if (deal.status == [NSNumber numberWithInt:AcquireStatus_t_PURCHASED] ||
+                deal.status == [NSNumber numberWithInt:AcquireStatus_t_ACCEPTED_CUSTOMER_SHARE] ||
+                deal.status == [NSNumber numberWithInt:AcquireStatus_t_ACCEPTED_MERCHANT_SHARE])
+            {
+                break;
+            }
+        }
+    }
+    return deal;
+}
+
 - (BOOL) isPending
 {
     return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_PENDING]);
