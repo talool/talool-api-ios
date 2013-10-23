@@ -44,6 +44,13 @@ enum DealType_t {
   DealType_t_FREE_DEAL = 3
 };
 
+enum GiftStatus_t {
+  GiftStatus_t_PENDING = 0,
+  GiftStatus_t_ACCEPTED = 1,
+  GiftStatus_t_REJECTED = 2,
+  GiftStatus_t_INVALIDATED = 3
+};
+
 typedef int64_t Timestamp;
 
 @interface ServiceException_t : NSException <NSCoding> {
@@ -954,11 +961,13 @@ typedef int64_t Timestamp;
   Deal_t * __deal;
   Customer_t * __fromCustomer;
   Timestamp __created;
+  int __giftStatus;
 
   BOOL __giftId_isset;
   BOOL __deal_isset;
   BOOL __fromCustomer_isset;
   BOOL __created_isset;
+  BOOL __giftStatus_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -966,10 +975,11 @@ typedef int64_t Timestamp;
 @property (nonatomic, retain, getter=deal, setter=setDeal:) Deal_t * deal;
 @property (nonatomic, retain, getter=fromCustomer, setter=setFromCustomer:) Customer_t * fromCustomer;
 @property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
+@property (nonatomic, getter=giftStatus, setter=setGiftStatus:) int giftStatus;
 #endif
 
 - (id) init;
-- (id) initWithGiftId: (NSString *) giftId deal: (Deal_t *) deal fromCustomer: (Customer_t *) fromCustomer created: (Timestamp) created;
+- (id) initWithGiftId: (NSString *) giftId deal: (Deal_t *) deal fromCustomer: (Customer_t *) fromCustomer created: (Timestamp) created giftStatus: (int) giftStatus;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -997,6 +1007,12 @@ typedef int64_t Timestamp;
 - (void) setCreated: (Timestamp) created;
 #endif
 - (BOOL) createdIsSet;
+
+#if !__has_feature(objc_arc)
+- (int) giftStatus;
+- (void) setGiftStatus: (int) giftStatus;
+#endif
+- (BOOL) giftStatusIsSet;
 
 @end
 

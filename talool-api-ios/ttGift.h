@@ -15,5 +15,9 @@
 + (ttGift *)initWithThrift: (Gift_t *)gift context:(NSManagedObjectContext *)context;
 + (ttGift *)getGiftById:(NSString* )giftId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err;
 - (Gift_t *)hydrateThriftObject;
+- (BOOL) isPending;
+- (BOOL) isAccepted;
+- (BOOL) isRejected;
+- (BOOL) isInvalidated;
 
 @end

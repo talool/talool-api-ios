@@ -26,6 +26,7 @@
     ttMerchant *merch = [ttMerchant initWithThrift:gift.deal.merchant context:context];
     newGift.deal = [ttDeal initWithThrift:gift.deal merchant:merch context:context];
     newGift.fromCustomer = [ttFriend initWithThrift:gift.fromCustomer context:context];
+    newGift.giftStatus = [NSNumber numberWithInt:gift.giftStatus];
     
     return newGift;
 }
@@ -62,6 +63,23 @@
         gift = [fetchedObj objectAtIndex:0];
     }
     return gift;
+}
+
+- (BOOL) isPending
+{
+    return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_PENDING]);
+}
+- (BOOL) isAccepted
+{
+    return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_ACCEPTED]);
+}
+- (BOOL) isRejected
+{
+    return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_REJECTED]);
+}
+- (BOOL) isInvalidated
+{
+    return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_INVALIDATED]);
 }
 
 - (Gift_t *)hydrateThriftObject

@@ -4706,7 +4706,7 @@
   return self;
 }
 
-- (id) initWithGiftId: (NSString *) giftId deal: (Deal_t *) deal fromCustomer: (Customer_t *) fromCustomer created: (Timestamp) created
+- (id) initWithGiftId: (NSString *) giftId deal: (Deal_t *) deal fromCustomer: (Customer_t *) fromCustomer created: (Timestamp) created giftStatus: (int) giftStatus
 {
   self = [super init];
   __giftId = [giftId retain_stub];
@@ -4717,6 +4717,8 @@
   __fromCustomer_isset = YES;
   __created = created;
   __created_isset = YES;
+  __giftStatus = giftStatus;
+  __giftStatus_isset = YES;
   return self;
 }
 
@@ -4743,6 +4745,11 @@
     __created = [decoder decodeInt64ForKey: @"created"];
     __created_isset = YES;
   }
+  if ([decoder containsValueForKey: @"giftStatus"])
+  {
+    __giftStatus = [decoder decodeIntForKey: @"giftStatus"];
+    __giftStatus_isset = YES;
+  }
   return self;
 }
 
@@ -4763,6 +4770,10 @@
   if (__created_isset)
   {
     [encoder encodeInt64: __created forKey: @"created"];
+  }
+  if (__giftStatus_isset)
+  {
+    [encoder encodeInt: __giftStatus forKey: @"giftStatus"];
   }
 }
 
@@ -4854,6 +4865,23 @@
   __created_isset = NO;
 }
 
+- (int) giftStatus {
+  return __giftStatus;
+}
+
+- (void) setGiftStatus: (int) giftStatus {
+  __giftStatus = giftStatus;
+  __giftStatus_isset = YES;
+}
+
+- (BOOL) giftStatusIsSet {
+  return __giftStatus_isset;
+}
+
+- (void) unsetGiftStatus {
+  __giftStatus_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -4905,6 +4933,14 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 5:
+        if (fieldType == TType_I32) {
+          int fieldValue = [inProtocol readI32];
+          [self setGiftStatus: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -4942,6 +4978,11 @@
     [outProtocol writeI64: __created];
     [outProtocol writeFieldEnd];
   }
+  if (__giftStatus_isset) {
+    [outProtocol writeFieldBeginWithName: @"giftStatus" type: TType_I32 fieldID: 5];
+    [outProtocol writeI32: __giftStatus];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -4956,6 +4997,8 @@
   [ms appendFormat: @"%@", __fromCustomer];
   [ms appendString: @",created:"];
   [ms appendFormat: @"%qi", __created];
+  [ms appendString: @",giftStatus:"];
+  [ms appendFormat: @"%i", __giftStatus];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }

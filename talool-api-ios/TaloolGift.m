@@ -15,6 +15,7 @@
 
 @dynamic created;
 @dynamic giftId;
+@dynamic giftStatus;
 @dynamic deal;
 @dynamic fromCustomer;
 

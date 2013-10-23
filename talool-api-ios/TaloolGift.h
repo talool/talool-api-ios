@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSDate * created;
 @property (nonatomic, retain) NSString * giftId;
+@property (nonatomic, retain) NSNumber * giftStatus;
 @property (nonatomic, retain) ttDeal *deal;
 @property (nonatomic, retain) Friend *fromCustomer;
 
