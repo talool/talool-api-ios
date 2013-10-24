@@ -54,6 +54,8 @@
 		81BB913718180CE700C4D2CF /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 81BB913518180CE700C4D2CF /* Core.h */; };
 		81BB913818180CE700C4D2CF /* Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BB913618180CE700C4D2CF /* Core.m */; };
 		81BB913B1818124E00C4D2CF /* talool-api-ios.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 81BB913A1818124E00C4D2CF /* talool-api-ios.bundle */; };
+		81BB91411819AAC200C4D2CF /* TTLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 81BB913F1819AAC200C4D2CF /* TTLog.h */; };
+		81BB91421819AAC200C4D2CF /* TTLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BB91401819AAC200C4D2CF /* TTLog.m */; };
 		81FF00DF17611CF40040E1F6 /* TaloolCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 81FF00DD17611CF40040E1F6 /* TaloolCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81FF00E017611CF40040E1F6 /* TaloolCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FF00DE17611CF40040E1F6 /* TaloolCustomer.m */; };
 		81FF00E317611CF50040E1F6 /* TaloolDealAcquire.h in Headers */ = {isa = PBXBuildFile; fileRef = 81FF00E117611CF50040E1F6 /* TaloolDealAcquire.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -223,6 +225,8 @@
 		81BB913618180CE700C4D2CF /* Core.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Core.m; sourceTree = "<group>"; };
 		81BB913918180E4300C4D2CF /* Talool09.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = Talool09.xcdatamodel; sourceTree = "<group>"; };
 		81BB913A1818124E00C4D2CF /* talool-api-ios.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "talool-api-ios.bundle"; sourceTree = "<group>"; };
+		81BB913F1819AAC200C4D2CF /* TTLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLog.h; sourceTree = "<group>"; };
+		81BB91401819AAC200C4D2CF /* TTLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLog.m; sourceTree = "<group>"; };
 		81BD1288178864AF00AF7475 /* Talool05.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool05.xcdatamodel; sourceTree = "<group>"; };
 		81E191CE1780976F007255C1 /* Talool03.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool03.xcdatamodel; sourceTree = "<group>"; };
 		81FD676A17B675C700D3C4D1 /* Talool08.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool08.xcdatamodel; sourceTree = "<group>"; };
@@ -420,6 +424,8 @@
 				9161489216EBA743001C546C /* TaloolPersistentStoreCoordinator.m */,
 				91F7D6C716ED78F400D64C19 /* TaloolFrameworkHelper.h */,
 				91F7D6C816ED78F400D64C19 /* TaloolFrameworkHelper.m */,
+				81BB913F1819AAC200C4D2CF /* TTLog.h */,
+				81BB91401819AAC200C4D2CF /* TTLog.m */,
 				914A1B5F16E6EE710043989A /* Managed Objects */,
 				914A1B6116E6EEE10043989A /* Model Controllers */,
 				914A1B5D16E6EDED0043989A /* thrift */,
@@ -709,6 +715,7 @@
 				81FF00EB17611CF50040E1F6 /* TaloolGift.h in Headers */,
 				81FF00EF17611CF50040E1F6 /* TaloolToken.h in Headers */,
 				816D21D71811A5E30087EC29 /* Error.h in Headers */,
+				81BB91411819AAC200C4D2CF /* TTLog.h in Headers */,
 				81FF00F317611D860040E1F6 /* ttFriend.h in Headers */,
 				816D21D91811A5E30087EC29 /* Payment.h in Headers */,
 				811A9CDC1760368D00B42612 /* TaloolDeal.h in Headers */,
@@ -877,6 +884,7 @@
 				914A1B5316E6ED9B0043989A /* THTTPClient.m in Sources */,
 				914A1B5416E6ED9B0043989A /* TMemoryBuffer.m in Sources */,
 				914A1B5516E6ED9B0043989A /* TNSFileHandleTransport.m in Sources */,
+				81BB91421819AAC200C4D2CF /* TTLog.m in Sources */,
 				914A1B5616E6ED9B0043989A /* TNSStreamTransport.m in Sources */,
 				914A1B5716E6ED9B0043989A /* TSocketClient.m in Sources */,
 				914A1B5816E6ED9B0043989A /* TTransportException.m in Sources */,
