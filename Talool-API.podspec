@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                = "Talool-API"
-  s.version             = "1.0.21"
+  s.version             = "1.0.22"
   s.summary             = "Talool client library"
   s.description         = <<-DESC
                           This Library handles all service calls for Talool, so you can
@@ -22,6 +22,8 @@ Pod::Spec.new do |s|
   s.preserve_paths      = 'talool-api-ios/*'
   s.frameworks          = 'CoreFoundation', 'Foundation', 'SystemConfiguration', 'CoreData'
   s.requires_arc        = true
+
+  s.prefix_header_file  = 'talool-api-ios/talool-api-ios-Prefix.pch'
 
   s.dependency 'GoogleAnalytics-iOS-SDK', "~> 3.0.1"
 
