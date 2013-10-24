@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                = "Talool-API"
-  s.version             = "1.0.20"
+  s.version             = "1.0.21"
   s.summary             = "Talool client library"
   s.description         = <<-DESC
                           This Library handles all service calls for Talool, so you can
