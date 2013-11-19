@@ -3515,7 +3515,7 @@
   return self;
 }
 
-- (id) initWithDealOfferId: (NSString *) dealOfferId merchant: (Merchant_t *) merchant dealType: (int) dealType title: (NSString *) title summary: (NSString *) summary code: (NSString *) code imageUrl: (NSString *) imageUrl locationName: (NSString *) locationName price: (double) price expires: (Timestamp) expires
+- (id) initWithDealOfferId: (NSString *) dealOfferId merchant: (Merchant_t *) merchant dealType: (int) dealType title: (NSString *) title summary: (NSString *) summary code: (NSString *) code imageUrl: (NSString *) imageUrl locationName: (NSString *) locationName price: (double) price expires: (Timestamp) expires dealOfferMerchantLogo: (NSString *) dealOfferMerchantLogo dealOfferBackgroundImage: (NSString *) dealOfferBackgroundImage
 {
   self = [super init];
   __dealOfferId = [dealOfferId retain_stub];
@@ -3538,6 +3538,10 @@
   __price_isset = YES;
   __expires = expires;
   __expires_isset = YES;
+  __dealOfferMerchantLogo = [dealOfferMerchantLogo retain_stub];
+  __dealOfferMerchantLogo_isset = YES;
+  __dealOfferBackgroundImage = [dealOfferBackgroundImage retain_stub];
+  __dealOfferBackgroundImage_isset = YES;
   return self;
 }
 
@@ -3594,6 +3598,16 @@
     __expires = [decoder decodeInt64ForKey: @"expires"];
     __expires_isset = YES;
   }
+  if ([decoder containsValueForKey: @"dealOfferMerchantLogo"])
+  {
+    __dealOfferMerchantLogo = [[decoder decodeObjectForKey: @"dealOfferMerchantLogo"] retain_stub];
+    __dealOfferMerchantLogo_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"dealOfferBackgroundImage"])
+  {
+    __dealOfferBackgroundImage = [[decoder decodeObjectForKey: @"dealOfferBackgroundImage"] retain_stub];
+    __dealOfferBackgroundImage_isset = YES;
+  }
   return self;
 }
 
@@ -3639,6 +3653,14 @@
   {
     [encoder encodeInt64: __expires forKey: @"expires"];
   }
+  if (__dealOfferMerchantLogo_isset)
+  {
+    [encoder encodeObject: __dealOfferMerchantLogo forKey: @"dealOfferMerchantLogo"];
+  }
+  if (__dealOfferBackgroundImage_isset)
+  {
+    [encoder encodeObject: __dealOfferBackgroundImage forKey: @"dealOfferBackgroundImage"];
+  }
 }
 
 - (void) dealloc
@@ -3650,6 +3672,8 @@
   [__code release_stub];
   [__imageUrl release_stub];
   [__locationName release_stub];
+  [__dealOfferMerchantLogo release_stub];
+  [__dealOfferBackgroundImage release_stub];
   [super dealloc_stub];
 }
 
@@ -3851,6 +3875,48 @@
   __expires_isset = NO;
 }
 
+- (NSString *) dealOfferMerchantLogo {
+  return [[__dealOfferMerchantLogo retain_stub] autorelease_stub];
+}
+
+- (void) setDealOfferMerchantLogo: (NSString *) dealOfferMerchantLogo {
+  [dealOfferMerchantLogo retain_stub];
+  [__dealOfferMerchantLogo release_stub];
+  __dealOfferMerchantLogo = dealOfferMerchantLogo;
+  __dealOfferMerchantLogo_isset = YES;
+}
+
+- (BOOL) dealOfferMerchantLogoIsSet {
+  return __dealOfferMerchantLogo_isset;
+}
+
+- (void) unsetDealOfferMerchantLogo {
+  [__dealOfferMerchantLogo release_stub];
+  __dealOfferMerchantLogo = nil;
+  __dealOfferMerchantLogo_isset = NO;
+}
+
+- (NSString *) dealOfferBackgroundImage {
+  return [[__dealOfferBackgroundImage retain_stub] autorelease_stub];
+}
+
+- (void) setDealOfferBackgroundImage: (NSString *) dealOfferBackgroundImage {
+  [dealOfferBackgroundImage retain_stub];
+  [__dealOfferBackgroundImage release_stub];
+  __dealOfferBackgroundImage = dealOfferBackgroundImage;
+  __dealOfferBackgroundImage_isset = YES;
+}
+
+- (BOOL) dealOfferBackgroundImageIsSet {
+  return __dealOfferBackgroundImage_isset;
+}
+
+- (void) unsetDealOfferBackgroundImage {
+  [__dealOfferBackgroundImage release_stub];
+  __dealOfferBackgroundImage = nil;
+  __dealOfferBackgroundImage_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -3948,6 +4014,22 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 11:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setDealOfferMerchantLogo: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 12:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setDealOfferBackgroundImage: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -4023,6 +4105,20 @@
     [outProtocol writeI64: __expires];
     [outProtocol writeFieldEnd];
   }
+  if (__dealOfferMerchantLogo_isset) {
+    if (__dealOfferMerchantLogo != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealOfferMerchantLogo" type: TType_STRING fieldID: 11];
+      [outProtocol writeString: __dealOfferMerchantLogo];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__dealOfferBackgroundImage_isset) {
+    if (__dealOfferBackgroundImage != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealOfferBackgroundImage" type: TType_STRING fieldID: 12];
+      [outProtocol writeString: __dealOfferBackgroundImage];
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -4049,6 +4145,10 @@
   [ms appendFormat: @"%f", __price];
   [ms appendString: @",expires:"];
   [ms appendFormat: @"%qi", __expires];
+  [ms appendString: @",dealOfferMerchantLogo:"];
+  [ms appendFormat: @"\"%@\"", __dealOfferMerchantLogo];
+  [ms appendString: @",dealOfferBackgroundImage:"];
+  [ms appendFormat: @"\"%@\"", __dealOfferBackgroundImage];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -4303,6 +4403,368 @@
 
 @end
 
+@implementation GiftDetail_t
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithGiftId: (NSString *) giftId giftedTime: (Timestamp) giftedTime fromName: (NSString *) fromName fromEmail: (NSString *) fromEmail toName: (NSString *) toName toEmail: (NSString *) toEmail
+{
+  self = [super init];
+  __giftId = [giftId retain_stub];
+  __giftId_isset = YES;
+  __giftedTime = giftedTime;
+  __giftedTime_isset = YES;
+  __fromName = [fromName retain_stub];
+  __fromName_isset = YES;
+  __fromEmail = [fromEmail retain_stub];
+  __fromEmail_isset = YES;
+  __toName = [toName retain_stub];
+  __toName_isset = YES;
+  __toEmail = [toEmail retain_stub];
+  __toEmail_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"giftId"])
+  {
+    __giftId = [[decoder decodeObjectForKey: @"giftId"] retain_stub];
+    __giftId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"giftedTime"])
+  {
+    __giftedTime = [decoder decodeInt64ForKey: @"giftedTime"];
+    __giftedTime_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"fromName"])
+  {
+    __fromName = [[decoder decodeObjectForKey: @"fromName"] retain_stub];
+    __fromName_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"fromEmail"])
+  {
+    __fromEmail = [[decoder decodeObjectForKey: @"fromEmail"] retain_stub];
+    __fromEmail_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"toName"])
+  {
+    __toName = [[decoder decodeObjectForKey: @"toName"] retain_stub];
+    __toName_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"toEmail"])
+  {
+    __toEmail = [[decoder decodeObjectForKey: @"toEmail"] retain_stub];
+    __toEmail_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__giftId_isset)
+  {
+    [encoder encodeObject: __giftId forKey: @"giftId"];
+  }
+  if (__giftedTime_isset)
+  {
+    [encoder encodeInt64: __giftedTime forKey: @"giftedTime"];
+  }
+  if (__fromName_isset)
+  {
+    [encoder encodeObject: __fromName forKey: @"fromName"];
+  }
+  if (__fromEmail_isset)
+  {
+    [encoder encodeObject: __fromEmail forKey: @"fromEmail"];
+  }
+  if (__toName_isset)
+  {
+    [encoder encodeObject: __toName forKey: @"toName"];
+  }
+  if (__toEmail_isset)
+  {
+    [encoder encodeObject: __toEmail forKey: @"toEmail"];
+  }
+}
+
+- (void) dealloc
+{
+  [__giftId release_stub];
+  [__fromName release_stub];
+  [__fromEmail release_stub];
+  [__toName release_stub];
+  [__toEmail release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) giftId {
+  return [[__giftId retain_stub] autorelease_stub];
+}
+
+- (void) setGiftId: (NSString *) giftId {
+  [giftId retain_stub];
+  [__giftId release_stub];
+  __giftId = giftId;
+  __giftId_isset = YES;
+}
+
+- (BOOL) giftIdIsSet {
+  return __giftId_isset;
+}
+
+- (void) unsetGiftId {
+  [__giftId release_stub];
+  __giftId = nil;
+  __giftId_isset = NO;
+}
+
+- (int64_t) giftedTime {
+  return __giftedTime;
+}
+
+- (void) setGiftedTime: (int64_t) giftedTime {
+  __giftedTime = giftedTime;
+  __giftedTime_isset = YES;
+}
+
+- (BOOL) giftedTimeIsSet {
+  return __giftedTime_isset;
+}
+
+- (void) unsetGiftedTime {
+  __giftedTime_isset = NO;
+}
+
+- (NSString *) fromName {
+  return [[__fromName retain_stub] autorelease_stub];
+}
+
+- (void) setFromName: (NSString *) fromName {
+  [fromName retain_stub];
+  [__fromName release_stub];
+  __fromName = fromName;
+  __fromName_isset = YES;
+}
+
+- (BOOL) fromNameIsSet {
+  return __fromName_isset;
+}
+
+- (void) unsetFromName {
+  [__fromName release_stub];
+  __fromName = nil;
+  __fromName_isset = NO;
+}
+
+- (NSString *) fromEmail {
+  return [[__fromEmail retain_stub] autorelease_stub];
+}
+
+- (void) setFromEmail: (NSString *) fromEmail {
+  [fromEmail retain_stub];
+  [__fromEmail release_stub];
+  __fromEmail = fromEmail;
+  __fromEmail_isset = YES;
+}
+
+- (BOOL) fromEmailIsSet {
+  return __fromEmail_isset;
+}
+
+- (void) unsetFromEmail {
+  [__fromEmail release_stub];
+  __fromEmail = nil;
+  __fromEmail_isset = NO;
+}
+
+- (NSString *) toName {
+  return [[__toName retain_stub] autorelease_stub];
+}
+
+- (void) setToName: (NSString *) toName {
+  [toName retain_stub];
+  [__toName release_stub];
+  __toName = toName;
+  __toName_isset = YES;
+}
+
+- (BOOL) toNameIsSet {
+  return __toName_isset;
+}
+
+- (void) unsetToName {
+  [__toName release_stub];
+  __toName = nil;
+  __toName_isset = NO;
+}
+
+- (NSString *) toEmail {
+  return [[__toEmail retain_stub] autorelease_stub];
+}
+
+- (void) setToEmail: (NSString *) toEmail {
+  [toEmail retain_stub];
+  [__toEmail release_stub];
+  __toEmail = toEmail;
+  __toEmail_isset = YES;
+}
+
+- (BOOL) toEmailIsSet {
+  return __toEmail_isset;
+}
+
+- (void) unsetToEmail {
+  [__toEmail release_stub];
+  __toEmail = nil;
+  __toEmail_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setGiftId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setGiftedTime: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setFromName: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setFromEmail: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 5:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setToName: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 6:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setToEmail: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"GiftDetail_t"];
+  if (__giftId_isset) {
+    if (__giftId != nil) {
+      [outProtocol writeFieldBeginWithName: @"giftId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __giftId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__giftedTime_isset) {
+    [outProtocol writeFieldBeginWithName: @"giftedTime" type: TType_I64 fieldID: 2];
+    [outProtocol writeI64: __giftedTime];
+    [outProtocol writeFieldEnd];
+  }
+  if (__fromName_isset) {
+    if (__fromName != nil) {
+      [outProtocol writeFieldBeginWithName: @"fromName" type: TType_STRING fieldID: 3];
+      [outProtocol writeString: __fromName];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__fromEmail_isset) {
+    if (__fromEmail != nil) {
+      [outProtocol writeFieldBeginWithName: @"fromEmail" type: TType_STRING fieldID: 4];
+      [outProtocol writeString: __fromEmail];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__toName_isset) {
+    if (__toName != nil) {
+      [outProtocol writeFieldBeginWithName: @"toName" type: TType_STRING fieldID: 5];
+      [outProtocol writeString: __toName];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__toEmail_isset) {
+    if (__toEmail != nil) {
+      [outProtocol writeFieldBeginWithName: @"toEmail" type: TType_STRING fieldID: 6];
+      [outProtocol writeString: __toEmail];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"GiftDetail_t("];
+  [ms appendString: @"giftId:"];
+  [ms appendFormat: @"\"%@\"", __giftId];
+  [ms appendString: @",giftedTime:"];
+  [ms appendFormat: @"%qi", __giftedTime];
+  [ms appendString: @",fromName:"];
+  [ms appendFormat: @"\"%@\"", __fromName];
+  [ms appendString: @",fromEmail:"];
+  [ms appendFormat: @"\"%@\"", __fromEmail];
+  [ms appendString: @",toName:"];
+  [ms appendFormat: @"\"%@\"", __toName];
+  [ms appendString: @",toEmail:"];
+  [ms appendFormat: @"\"%@\"", __toEmail];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 @implementation DealAcquire_t
 
 - (id) init
@@ -4313,7 +4775,7 @@
   return self;
 }
 
-- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated redemptionCode: (NSString *) redemptionCode
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated redemptionCode: (NSString *) redemptionCode giftDetail: (GiftDetail_t *) giftDetail
 {
   self = [super init];
   __dealAcquireId = [dealAcquireId retain_stub];
@@ -4330,6 +4792,8 @@
   __updated_isset = YES;
   __redemptionCode = [redemptionCode retain_stub];
   __redemptionCode_isset = YES;
+  __giftDetail = [giftDetail retain_stub];
+  __giftDetail_isset = YES;
   return self;
 }
 
@@ -4371,6 +4835,11 @@
     __redemptionCode = [[decoder decodeObjectForKey: @"redemptionCode"] retain_stub];
     __redemptionCode_isset = YES;
   }
+  if ([decoder containsValueForKey: @"giftDetail"])
+  {
+    __giftDetail = [[decoder decodeObjectForKey: @"giftDetail"] retain_stub];
+    __giftDetail_isset = YES;
+  }
   return self;
 }
 
@@ -4404,6 +4873,10 @@
   {
     [encoder encodeObject: __redemptionCode forKey: @"redemptionCode"];
   }
+  if (__giftDetail_isset)
+  {
+    [encoder encodeObject: __giftDetail forKey: @"giftDetail"];
+  }
 }
 
 - (void) dealloc
@@ -4411,6 +4884,7 @@
   [__dealAcquireId release_stub];
   [__deal release_stub];
   [__redemptionCode release_stub];
+  [__giftDetail release_stub];
   [super dealloc_stub];
 }
 
@@ -4545,6 +5019,27 @@
   __redemptionCode_isset = NO;
 }
 
+- (GiftDetail_t *) giftDetail {
+  return [[__giftDetail retain_stub] autorelease_stub];
+}
+
+- (void) setGiftDetail: (GiftDetail_t *) giftDetail {
+  [giftDetail retain_stub];
+  [__giftDetail release_stub];
+  __giftDetail = giftDetail;
+  __giftDetail_isset = YES;
+}
+
+- (BOOL) giftDetailIsSet {
+  return __giftDetail_isset;
+}
+
+- (void) unsetGiftDetail {
+  [__giftDetail release_stub];
+  __giftDetail = nil;
+  __giftDetail_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -4618,6 +5113,16 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 9:
+        if (fieldType == TType_STRUCT) {
+          GiftDetail_t *fieldValue = [[GiftDetail_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setGiftDetail: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -4670,6 +5175,13 @@
       [outProtocol writeFieldEnd];
     }
   }
+  if (__giftDetail_isset) {
+    if (__giftDetail != nil) {
+      [outProtocol writeFieldBeginWithName: @"giftDetail" type: TType_STRUCT fieldID: 9];
+      [__giftDetail write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -4690,6 +5202,8 @@
   [ms appendFormat: @"%qi", __updated];
   [ms appendString: @",redemptionCode:"];
   [ms appendFormat: @"\"%@\"", __redemptionCode];
+  [ms appendString: @",giftDetail:"];
+  [ms appendFormat: @"%@", __giftDetail];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -5005,9 +5519,374 @@
 
 @end
 
+@implementation DealOfferGeoSummary_t
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithDealOffer: (DealOffer_t *) dealOffer distanceInMeters: (double) distanceInMeters closestMerchantInMeters: (double) closestMerchantInMeters doubleMetrics: (NSMutableDictionary *) doubleMetrics longMetrics: (NSMutableDictionary *) longMetrics
+{
+  self = [super init];
+  __dealOffer = [dealOffer retain_stub];
+  __dealOffer_isset = YES;
+  __distanceInMeters = distanceInMeters;
+  __distanceInMeters_isset = YES;
+  __closestMerchantInMeters = closestMerchantInMeters;
+  __closestMerchantInMeters_isset = YES;
+  __doubleMetrics = [doubleMetrics retain_stub];
+  __doubleMetrics_isset = YES;
+  __longMetrics = [longMetrics retain_stub];
+  __longMetrics_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"dealOffer"])
+  {
+    __dealOffer = [[decoder decodeObjectForKey: @"dealOffer"] retain_stub];
+    __dealOffer_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"distanceInMeters"])
+  {
+    __distanceInMeters = [decoder decodeDoubleForKey: @"distanceInMeters"];
+    __distanceInMeters_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"closestMerchantInMeters"])
+  {
+    __closestMerchantInMeters = [decoder decodeDoubleForKey: @"closestMerchantInMeters"];
+    __closestMerchantInMeters_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"doubleMetrics"])
+  {
+    __doubleMetrics = [[decoder decodeObjectForKey: @"doubleMetrics"] retain_stub];
+    __doubleMetrics_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"longMetrics"])
+  {
+    __longMetrics = [[decoder decodeObjectForKey: @"longMetrics"] retain_stub];
+    __longMetrics_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__dealOffer_isset)
+  {
+    [encoder encodeObject: __dealOffer forKey: @"dealOffer"];
+  }
+  if (__distanceInMeters_isset)
+  {
+    [encoder encodeDouble: __distanceInMeters forKey: @"distanceInMeters"];
+  }
+  if (__closestMerchantInMeters_isset)
+  {
+    [encoder encodeDouble: __closestMerchantInMeters forKey: @"closestMerchantInMeters"];
+  }
+  if (__doubleMetrics_isset)
+  {
+    [encoder encodeObject: __doubleMetrics forKey: @"doubleMetrics"];
+  }
+  if (__longMetrics_isset)
+  {
+    [encoder encodeObject: __longMetrics forKey: @"longMetrics"];
+  }
+}
+
+- (void) dealloc
+{
+  [__dealOffer release_stub];
+  [__doubleMetrics release_stub];
+  [__longMetrics release_stub];
+  [super dealloc_stub];
+}
+
+- (DealOffer_t *) dealOffer {
+  return [[__dealOffer retain_stub] autorelease_stub];
+}
+
+- (void) setDealOffer: (DealOffer_t *) dealOffer {
+  [dealOffer retain_stub];
+  [__dealOffer release_stub];
+  __dealOffer = dealOffer;
+  __dealOffer_isset = YES;
+}
+
+- (BOOL) dealOfferIsSet {
+  return __dealOffer_isset;
+}
+
+- (void) unsetDealOffer {
+  [__dealOffer release_stub];
+  __dealOffer = nil;
+  __dealOffer_isset = NO;
+}
+
+- (double) distanceInMeters {
+  return __distanceInMeters;
+}
+
+- (void) setDistanceInMeters: (double) distanceInMeters {
+  __distanceInMeters = distanceInMeters;
+  __distanceInMeters_isset = YES;
+}
+
+- (BOOL) distanceInMetersIsSet {
+  return __distanceInMeters_isset;
+}
+
+- (void) unsetDistanceInMeters {
+  __distanceInMeters_isset = NO;
+}
+
+- (double) closestMerchantInMeters {
+  return __closestMerchantInMeters;
+}
+
+- (void) setClosestMerchantInMeters: (double) closestMerchantInMeters {
+  __closestMerchantInMeters = closestMerchantInMeters;
+  __closestMerchantInMeters_isset = YES;
+}
+
+- (BOOL) closestMerchantInMetersIsSet {
+  return __closestMerchantInMeters_isset;
+}
+
+- (void) unsetClosestMerchantInMeters {
+  __closestMerchantInMeters_isset = NO;
+}
+
+- (NSMutableDictionary *) doubleMetrics {
+  return [[__doubleMetrics retain_stub] autorelease_stub];
+}
+
+- (void) setDoubleMetrics: (NSMutableDictionary *) doubleMetrics {
+  [doubleMetrics retain_stub];
+  [__doubleMetrics release_stub];
+  __doubleMetrics = doubleMetrics;
+  __doubleMetrics_isset = YES;
+}
+
+- (BOOL) doubleMetricsIsSet {
+  return __doubleMetrics_isset;
+}
+
+- (void) unsetDoubleMetrics {
+  [__doubleMetrics release_stub];
+  __doubleMetrics = nil;
+  __doubleMetrics_isset = NO;
+}
+
+- (NSMutableDictionary *) longMetrics {
+  return [[__longMetrics retain_stub] autorelease_stub];
+}
+
+- (void) setLongMetrics: (NSMutableDictionary *) longMetrics {
+  [longMetrics retain_stub];
+  [__longMetrics release_stub];
+  __longMetrics = longMetrics;
+  __longMetrics_isset = YES;
+}
+
+- (BOOL) longMetricsIsSet {
+  return __longMetrics_isset;
+}
+
+- (void) unsetLongMetrics {
+  [__longMetrics release_stub];
+  __longMetrics = nil;
+  __longMetrics_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          DealOffer_t *fieldValue = [[DealOffer_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setDealOffer: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_DOUBLE) {
+          double fieldValue = [inProtocol readDouble];
+          [self setDistanceInMeters: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_DOUBLE) {
+          double fieldValue = [inProtocol readDouble];
+          [self setClosestMerchantInMeters: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_MAP) {
+          int _size11;
+          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size11];
+          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size11];
+          int _i12;
+          for (_i12 = 0; _i12 < _size11; ++_i12)
+          {
+            NSString * _key13 = [inProtocol readString];
+            double _val14 = [inProtocol readDouble];
+            [fieldValue setObject: [NSNumber numberWithDouble: _val14] forKey: _key13];
+          }
+          [inProtocol readMapEnd];
+          [self setDoubleMetrics: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 5:
+        if (fieldType == TType_MAP) {
+          int _size15;
+          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size15];
+          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size15];
+          int _i16;
+          for (_i16 = 0; _i16 < _size15; ++_i16)
+          {
+            NSString * _key17 = [inProtocol readString];
+            int64_t _val18 = [inProtocol readI64];
+            [fieldValue setObject: [NSNumber numberWithLongLong: _val18] forKey: _key17];
+          }
+          [inProtocol readMapEnd];
+          [self setLongMetrics: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"DealOfferGeoSummary_t"];
+  if (__dealOffer_isset) {
+    if (__dealOffer != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealOffer" type: TType_STRUCT fieldID: 1];
+      [__dealOffer write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__distanceInMeters_isset) {
+    [outProtocol writeFieldBeginWithName: @"distanceInMeters" type: TType_DOUBLE fieldID: 2];
+    [outProtocol writeDouble: __distanceInMeters];
+    [outProtocol writeFieldEnd];
+  }
+  if (__closestMerchantInMeters_isset) {
+    [outProtocol writeFieldBeginWithName: @"closestMerchantInMeters" type: TType_DOUBLE fieldID: 3];
+    [outProtocol writeDouble: __closestMerchantInMeters];
+    [outProtocol writeFieldEnd];
+  }
+  if (__doubleMetrics_isset) {
+    if (__doubleMetrics != nil) {
+      [outProtocol writeFieldBeginWithName: @"doubleMetrics" type: TType_MAP fieldID: 4];
+      {
+        [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_DOUBLE size: [__doubleMetrics count]];
+        NSEnumerator * _iter19 = [__doubleMetrics keyEnumerator];
+        id key20;
+        while ((key20 = [_iter19 nextObject]))
+        {
+          [outProtocol writeString: key20];
+          [outProtocol writeDouble: [[__doubleMetrics objectForKey: key20] doubleValue]];
+        }
+        [outProtocol writeMapEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__longMetrics_isset) {
+    if (__longMetrics != nil) {
+      [outProtocol writeFieldBeginWithName: @"longMetrics" type: TType_MAP fieldID: 5];
+      {
+        [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_I64 size: [__longMetrics count]];
+        NSEnumerator * _iter21 = [__longMetrics keyEnumerator];
+        id key22;
+        while ((key22 = [_iter21 nextObject]))
+        {
+          [outProtocol writeString: key22];
+          [outProtocol writeI64: [[__longMetrics objectForKey: key22] longLongValue]];
+        }
+        [outProtocol writeMapEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"DealOfferGeoSummary_t("];
+  [ms appendString: @"dealOffer:"];
+  [ms appendFormat: @"%@", __dealOffer];
+  [ms appendString: @",distanceInMeters:"];
+  [ms appendFormat: @"%f", __distanceInMeters];
+  [ms appendString: @",closestMerchantInMeters:"];
+  [ms appendFormat: @"%f", __closestMerchantInMeters];
+  [ms appendString: @",doubleMetrics:"];
+  [ms appendFormat: @"%@", __doubleMetrics];
+  [ms appendString: @",longMetrics:"];
+  [ms appendFormat: @"%@", __longMetrics];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+static NSString * METRIC_TOTAL_MERCHANTS = @"TotalMerchants";
+static NSString * METRIC_TOTAL_REDEMPTIONS = @"TotalRedemptions";
+static NSString * METRIC_TOTAL_DEALS = @"TotalDeals";
+static NSString * METRIC_TOTAL_ACQUIRES = @"TotalAcquires";
 
 @implementation CoreConstants
 + (void) initialize {
+}
++ (NSString *) METRIC_TOTAL_MERCHANTS{
+  return METRIC_TOTAL_MERCHANTS;
+}
++ (NSString *) METRIC_TOTAL_REDEMPTIONS{
+  return METRIC_TOTAL_REDEMPTIONS;
+}
++ (NSString *) METRIC_TOTAL_DEALS{
+  return METRIC_TOTAL_DEALS;
+}
++ (NSString *) METRIC_TOTAL_ACQUIRES{
+  return METRIC_TOTAL_ACQUIRES;
 }
 @end
 

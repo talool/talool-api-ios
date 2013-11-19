@@ -24,6 +24,8 @@
     newOffer.summary = offer.summary;
     newOffer.dealType = [[NSNumber alloc] initWithUnsignedInteger:offer.dealType];
     newOffer.imageUrl = offer.imageUrl;
+    newOffer.iconUrl = offer.dealOfferMerchantLogo;
+    newOffer.backgroundUrl = offer.dealOfferBackgroundImage;
     newOffer.locationName = offer.locationName;
     
     if (offer.expires==0)

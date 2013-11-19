@@ -24,5 +24,6 @@
 @dynamic invalidated;
 @dynamic deal;
 @dynamic sharedTo;
+@dynamic giftDetail;
 
 @end

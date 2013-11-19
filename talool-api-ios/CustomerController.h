@@ -43,13 +43,21 @@
                      withLocation:(CLLocation *)location
                           context:(NSManagedObjectContext *)context
                             error:(NSError**)error;
-- (NSMutableArray *) getMerchantsWithin:(ttCustomer *)customer latitude:(double) latitude longitude:(double) longitude context:(NSManagedObjectContext *)context error:(NSError**)error;
+- (NSMutableArray *) getMerchantsWithin:(ttCustomer *)customer
+                               latitude:(double)latitude
+                              longitude:(double)longitude
+                                context:(NSManagedObjectContext *)context
+                                  error:(NSError**)error;
 - (void) addFavoriteMerchant:(ttCustomer *)customer merchantId:(NSString *)merchantId error:(NSError**)error;
 - (void) removeFavoriteMerchant:(ttCustomer *)customer merchantId:(NSString *)merchantId error:(NSError**)error;
 - (NSMutableArray *) getFavoriteMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 
 
 // DEALS AND DEAL OFFERS
+- (BOOL) getDealOfferGeoSummaries:(ttCustomer *)customer
+                     withLocation:(CLLocation *)location
+                          context:(NSManagedObjectContext *)context
+                            error:(NSError**)error;
 - (NSMutableArray *) getAcquiredDeals:(ttMerchant *)merchant forCustomer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;
 - (NSString *)redeem: (ttDealAcquire *)dealAcquire latitude: (double) latitude longitude: (double) longitude error:(NSError**)error;
 - (NSMutableArray *) getDealOffers:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError**)error;

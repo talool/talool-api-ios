@@ -31,6 +31,8 @@ extern NSString * const DEAL_OFFER_ENTITY_NAME;
 extern NSString * const CATEGORY_ENTITY_NAME;
 extern NSString * const ACTIVITY_ENTITY_NAME;
 extern NSString * const ACTIVITY_LINK_ENTITY_NAME;
+extern NSString * const DEAL_OFFER_GEO_SUMMARY_ENTITY_NAME;
+extern NSString * const GIFT_DETAIL_ENTITY_NAME;
 extern int const SOCIAL_NETWORK_FACEBOOK;
 extern int const SOCIAL_NETWORK_TWITTER;
 extern int const SOCIAL_NETWORK_PINTEREST;

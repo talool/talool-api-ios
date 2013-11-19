@@ -17,7 +17,7 @@
 
 +(ttMerchantLocation *)initWithThrift:(MerchantLocation_t *)location context:(NSManagedObjectContext *)context
 {
-    ttMerchantLocation *m = [ttMerchantLocation fetchMerchantLocationById:[NSNumber numberWithInt:location.locationId] context:context];
+    ttMerchantLocation *m = [ttMerchantLocation fetchMerchantLocationById:[NSNumber numberWithLongLong:location.locationId] context:context];
     
     m.locationId = [NSNumber numberWithInt:location.locationId];
     m.name = location.name;
@@ -27,7 +27,7 @@
     m.imageUrl = location.merchantImageUrl;
     if (!location.merchantImageUrl)
     {
-        NSLog(@"missing image for %@",m.websiteUrl);
+        //NSLog(@"missing image for %@",m.websiteUrl);
     }
     m.phone = location.phone;
     m.address1 = location.address.address1;

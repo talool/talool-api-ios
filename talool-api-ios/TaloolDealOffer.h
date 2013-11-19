@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class TaloolMerchant;
+@class TaloolMerchant, TaloolDealOfferGeoSummary;
 
 @interface TaloolDealOffer : NSManagedObject
 
@@ -19,9 +19,12 @@
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSString * code;
 @property (nonatomic, retain) NSString * imageUrl;
+@property (nonatomic, retain) NSString * iconUrl;
+@property (nonatomic, retain) NSString * backgroundUrl;
 @property (nonatomic, retain) NSString * locationName;
 @property (nonatomic, retain) NSNumber * price;
 @property (nonatomic, retain) NSDate * expires;
 @property (nonatomic, retain) TaloolMerchant *merchant;
+@property (nonatomic, retain) TaloolDealOfferGeoSummary *geoSummary;
 
 @end

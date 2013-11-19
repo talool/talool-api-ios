@@ -733,6 +733,8 @@ typedef int64_t Timestamp;
   NSString * __locationName;
   double __price;
   Timestamp __expires;
+  NSString * __dealOfferMerchantLogo;
+  NSString * __dealOfferBackgroundImage;
 
   BOOL __dealOfferId_isset;
   BOOL __merchant_isset;
@@ -744,6 +746,8 @@ typedef int64_t Timestamp;
   BOOL __locationName_isset;
   BOOL __price_isset;
   BOOL __expires_isset;
+  BOOL __dealOfferMerchantLogo_isset;
+  BOOL __dealOfferBackgroundImage_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -757,10 +761,12 @@ typedef int64_t Timestamp;
 @property (nonatomic, retain, getter=locationName, setter=setLocationName:) NSString * locationName;
 @property (nonatomic, getter=price, setter=setPrice:) double price;
 @property (nonatomic, getter=expires, setter=setExpires:) Timestamp expires;
+@property (nonatomic, retain, getter=dealOfferMerchantLogo, setter=setDealOfferMerchantLogo:) NSString * dealOfferMerchantLogo;
+@property (nonatomic, retain, getter=dealOfferBackgroundImage, setter=setDealOfferBackgroundImage:) NSString * dealOfferBackgroundImage;
 #endif
 
 - (id) init;
-- (id) initWithDealOfferId: (NSString *) dealOfferId merchant: (Merchant_t *) merchant dealType: (int) dealType title: (NSString *) title summary: (NSString *) summary code: (NSString *) code imageUrl: (NSString *) imageUrl locationName: (NSString *) locationName price: (double) price expires: (Timestamp) expires;
+- (id) initWithDealOfferId: (NSString *) dealOfferId merchant: (Merchant_t *) merchant dealType: (int) dealType title: (NSString *) title summary: (NSString *) summary code: (NSString *) code imageUrl: (NSString *) imageUrl locationName: (NSString *) locationName price: (double) price expires: (Timestamp) expires dealOfferMerchantLogo: (NSString *) dealOfferMerchantLogo dealOfferBackgroundImage: (NSString *) dealOfferBackgroundImage;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -825,6 +831,18 @@ typedef int64_t Timestamp;
 #endif
 - (BOOL) expiresIsSet;
 
+#if !__has_feature(objc_arc)
+- (NSString *) dealOfferMerchantLogo;
+- (void) setDealOfferMerchantLogo: (NSString *) dealOfferMerchantLogo;
+#endif
+- (BOOL) dealOfferMerchantLogoIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) dealOfferBackgroundImage;
+- (void) setDealOfferBackgroundImage: (NSString *) dealOfferBackgroundImage;
+#endif
+- (BOOL) dealOfferBackgroundImageIsSet;
+
 @end
 
 @interface SearchOptions_t : NSObject <NSCoding> {
@@ -878,6 +896,75 @@ typedef int64_t Timestamp;
 
 @end
 
+@interface GiftDetail_t : NSObject <NSCoding> {
+  NSString * __giftId;
+  Timestamp __giftedTime;
+  NSString * __fromName;
+  NSString * __fromEmail;
+  NSString * __toName;
+  NSString * __toEmail;
+
+  BOOL __giftId_isset;
+  BOOL __giftedTime_isset;
+  BOOL __fromName_isset;
+  BOOL __fromEmail_isset;
+  BOOL __toName_isset;
+  BOOL __toEmail_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=giftId, setter=setGiftId:) NSString * giftId;
+@property (nonatomic, getter=giftedTime, setter=setGiftedTime:) Timestamp giftedTime;
+@property (nonatomic, retain, getter=fromName, setter=setFromName:) NSString * fromName;
+@property (nonatomic, retain, getter=fromEmail, setter=setFromEmail:) NSString * fromEmail;
+@property (nonatomic, retain, getter=toName, setter=setToName:) NSString * toName;
+@property (nonatomic, retain, getter=toEmail, setter=setToEmail:) NSString * toEmail;
+#endif
+
+- (id) init;
+- (id) initWithGiftId: (NSString *) giftId giftedTime: (Timestamp) giftedTime fromName: (NSString *) fromName fromEmail: (NSString *) fromEmail toName: (NSString *) toName toEmail: (NSString *) toEmail;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) giftId;
+- (void) setGiftId: (NSString *) giftId;
+#endif
+- (BOOL) giftIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (Timestamp) giftedTime;
+- (void) setGiftedTime: (Timestamp) giftedTime;
+#endif
+- (BOOL) giftedTimeIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) fromName;
+- (void) setFromName: (NSString *) fromName;
+#endif
+- (BOOL) fromNameIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) fromEmail;
+- (void) setFromEmail: (NSString *) fromEmail;
+#endif
+- (BOOL) fromEmailIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) toName;
+- (void) setToName: (NSString *) toName;
+#endif
+- (BOOL) toNameIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) toEmail;
+- (void) setToEmail: (NSString *) toEmail;
+#endif
+- (BOOL) toEmailIsSet;
+
+@end
+
 @interface DealAcquire_t : NSObject <NSCoding> {
   NSString * __dealAcquireId;
   Deal_t * __deal;
@@ -886,6 +973,7 @@ typedef int64_t Timestamp;
   Timestamp __created;
   Timestamp __updated;
   NSString * __redemptionCode;
+  GiftDetail_t * __giftDetail;
 
   BOOL __dealAcquireId_isset;
   BOOL __deal_isset;
@@ -894,6 +982,7 @@ typedef int64_t Timestamp;
   BOOL __created_isset;
   BOOL __updated_isset;
   BOOL __redemptionCode_isset;
+  BOOL __giftDetail_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -904,10 +993,11 @@ typedef int64_t Timestamp;
 @property (nonatomic, getter=created, setter=setCreated:) Timestamp created;
 @property (nonatomic, getter=updated, setter=setUpdated:) Timestamp updated;
 @property (nonatomic, retain, getter=redemptionCode, setter=setRedemptionCode:) NSString * redemptionCode;
+@property (nonatomic, retain, getter=giftDetail, setter=setGiftDetail:) GiftDetail_t * giftDetail;
 #endif
 
 - (id) init;
-- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated redemptionCode: (NSString *) redemptionCode;
+- (id) initWithDealAcquireId: (NSString *) dealAcquireId deal: (Deal_t *) deal status: (int) status redeemed: (Timestamp) redeemed created: (Timestamp) created updated: (Timestamp) updated redemptionCode: (NSString *) redemptionCode giftDetail: (GiftDetail_t *) giftDetail;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -953,6 +1043,12 @@ typedef int64_t Timestamp;
 - (void) setRedemptionCode: (NSString *) redemptionCode;
 #endif
 - (BOOL) redemptionCodeIsSet;
+
+#if !__has_feature(objc_arc)
+- (GiftDetail_t *) giftDetail;
+- (void) setGiftDetail: (GiftDetail_t *) giftDetail;
+#endif
+- (BOOL) giftDetailIsSet;
 
 @end
 
@@ -1016,6 +1112,70 @@ typedef int64_t Timestamp;
 
 @end
 
+@interface DealOfferGeoSummary_t : NSObject <NSCoding> {
+  DealOffer_t * __dealOffer;
+  double __distanceInMeters;
+  double __closestMerchantInMeters;
+  NSMutableDictionary * __doubleMetrics;
+  NSMutableDictionary * __longMetrics;
+
+  BOOL __dealOffer_isset;
+  BOOL __distanceInMeters_isset;
+  BOOL __closestMerchantInMeters_isset;
+  BOOL __doubleMetrics_isset;
+  BOOL __longMetrics_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=dealOffer, setter=setDealOffer:) DealOffer_t * dealOffer;
+@property (nonatomic, getter=distanceInMeters, setter=setDistanceInMeters:) double distanceInMeters;
+@property (nonatomic, getter=closestMerchantInMeters, setter=setClosestMerchantInMeters:) double closestMerchantInMeters;
+@property (nonatomic, retain, getter=doubleMetrics, setter=setDoubleMetrics:) NSMutableDictionary * doubleMetrics;
+@property (nonatomic, retain, getter=longMetrics, setter=setLongMetrics:) NSMutableDictionary * longMetrics;
+#endif
+
+- (id) init;
+- (id) initWithDealOffer: (DealOffer_t *) dealOffer distanceInMeters: (double) distanceInMeters closestMerchantInMeters: (double) closestMerchantInMeters doubleMetrics: (NSMutableDictionary *) doubleMetrics longMetrics: (NSMutableDictionary *) longMetrics;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (DealOffer_t *) dealOffer;
+- (void) setDealOffer: (DealOffer_t *) dealOffer;
+#endif
+- (BOOL) dealOfferIsSet;
+
+#if !__has_feature(objc_arc)
+- (double) distanceInMeters;
+- (void) setDistanceInMeters: (double) distanceInMeters;
+#endif
+- (BOOL) distanceInMetersIsSet;
+
+#if !__has_feature(objc_arc)
+- (double) closestMerchantInMeters;
+- (void) setClosestMerchantInMeters: (double) closestMerchantInMeters;
+#endif
+- (BOOL) closestMerchantInMetersIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSMutableDictionary *) doubleMetrics;
+- (void) setDoubleMetrics: (NSMutableDictionary *) doubleMetrics;
+#endif
+- (BOOL) doubleMetricsIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSMutableDictionary *) longMetrics;
+- (void) setLongMetrics: (NSMutableDictionary *) longMetrics;
+#endif
+- (BOOL) longMetricsIsSet;
+
+@end
+
 @interface CoreConstants : NSObject {
 }
++ (NSString *) METRIC_TOTAL_MERCHANTS;
++ (NSString *) METRIC_TOTAL_REDEMPTIONS;
++ (NSString *) METRIC_TOTAL_DEALS;
++ (NSString *) METRIC_TOTAL_ACQUIRES;
 @end

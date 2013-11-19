@@ -12,6 +12,7 @@
 #import "ttFriend.h"
 #import "TaloolCustomerUX.h"
 #import "ttMerchant.h"
+#import "ttGiftDetail.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "CustomerController.h"
@@ -47,6 +48,11 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"MM/dd/yyyy"];
         newDeal.invalidated = [formatter dateFromString:str];
+    }
+    
+    if ([deal giftDetailIsSet])
+    {
+        newDeal.giftDetail = [ttGiftDetail initWithThrift:deal.giftDetail context:context];
     }
     
     return newDeal;

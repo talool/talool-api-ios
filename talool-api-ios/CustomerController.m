@@ -18,6 +18,7 @@
 #import "ttDealOffer.h"
 #import "ttCategory.h"
 #import "ttGift.h"
+#import "ttDealOfferGeoSummary.h"
 #import "Core.h"
 #import "Activity.h"
 #import "ttActivity.h"
@@ -322,6 +323,7 @@
         for (int i=0; i<[merchants count]; i++) {
             Merchant_t *td = [merchants objectAtIndex:i];
             ttMerchant *d = [ttMerchant initWithThrift:td context:context];
+            d.customer = customer;
             [merchants setObject:d atIndexedSubscript:i];
         }
     }
@@ -362,6 +364,7 @@
         for (int i=0; i<[merchants count]; i++) {
             Merchant_t *tm = [merchants objectAtIndex:i];
             ttMerchant *m = [ttMerchant initWithThrift:tm context:context];
+            m.customer = customer;
             [merchants setObject:m atIndexedSubscript:i];
         }
     }
@@ -1246,6 +1249,76 @@
     @finally {
         [self disconnect];
     }
+    return result;
+}
+
+- (BOOL) getDealOfferGeoSummaries:(ttCustomer *)customer
+                     withLocation:(CLLocation *)location
+                          context:(NSManagedObjectContext *)context
+                            error:(NSError**)error
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    BOOL result;
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        Location_t *loc;
+        if (location)
+        {
+            loc = [[Location_t alloc] initWithLongitude:location.coordinate.longitude latitude:location.coordinate.latitude];
+        }
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:0];
+        [options setAscending:YES];
+        [options setSortProperty:@"dealOfferGeoSummary.distanceInMeters"];
+        
+        DealOfferGeoSummariesResponse_t *response = [service getDealOfferGeoSummariesWithin:loc
+                                                                                   maxMiles:INFINITE_PROXIMITY
+                                                                              searchOptions:options];
+        if (response.dealOfferGeoSummariesIsSet)
+        {
+            
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                  action:@"getDealOfferGeoSummaries"
+                                                                   label:@"success"
+                                                                   value:nil] build]];
+            
+
+            // store the objects in the response in CoreData
+            for (int i=0; i<[response.dealOfferGeoSummaries count]; i++) {
+                [ttDealOfferGeoSummary initWithThrift:[response.dealOfferGeoSummaries objectAtIndex:i]
+                                              context:context];
+            }
+            
+
+        }
+        else
+        {
+            
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                  action:@"getDealOfferGeoSummaries"
+                                                                   label:@"emptyset"
+                                                                   value:nil] build]];
+            
+        }
+        
+        result = YES;
+    }
+    @catch (NSException * e) {
+        [errorManager handlePaymentException:e forMethod:@"getDealOfferGeoSummaries" message:@"exception" error:error];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"getDealOfferGeoSummaries"
+                                                               label:@"fail"
+                                                               value:nil] build]];
+        result = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    
     return result;
 }
 

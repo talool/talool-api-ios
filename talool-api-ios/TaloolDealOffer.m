@@ -18,9 +18,12 @@
 @dynamic summary;
 @dynamic code;
 @dynamic imageUrl;
+@dynamic iconUrl;
+@dynamic backgroundUrl;
 @dynamic price;
 @dynamic expires;
 @dynamic merchant;
 @dynamic locationName;
+@dynamic geoSummary;
 
 @end
