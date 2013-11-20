@@ -584,4 +584,10 @@
     return [cc resetPassword:customerId password:password code:resetPasswordCode context:context error:error];
 }
 
+- (BOOL) fetchDealOfferSummaries:(CLLocation *)location context:(NSManagedObjectContext *)context error:(NSError **)err
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc getDealOfferGeoSummaries:self withLocation:location context:context error:err];
+}
+
 @end

@@ -78,6 +78,7 @@
 - (BOOL) showDealRedemptionInstructions:(ttDealAcquire *)dealAcquire;
 - (void) showedDealRedemptionInstructions;
 
+- (BOOL) fetchDealOfferSummaries:(CLLocation *)location context:(NSManagedObjectContext *)context error:(NSError **)err;
 - (BOOL) purchaseDealOffer:(ttDealOffer *)offer error:(NSError **)err;
 
 - (NSArray *) getActivities:(NSManagedObjectContext *)context
