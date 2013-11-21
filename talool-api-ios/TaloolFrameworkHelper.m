@@ -12,6 +12,7 @@ NSString * const VENMO_SDK_SESSION = @"venmo_sdk_session";
 
 @interface TaloolFrameworkHelper ()
 @property EnvironmentType envType;
+@property NSString *userAgent;
 @end
 
 @implementation TaloolFrameworkHelper
@@ -50,6 +51,16 @@ NSString * const VENMO_SDK_SESSION = @"venmo_sdk_session";
 - (BOOL) isProduction
 {
     return (self.envType == EnvironmentTypeProduction);
+}
+
+- (void) setUserAgent:(NSString *)appVersion iosVersion:(NSString *)iosVersion
+{
+    _userAgent = [NSString stringWithFormat:@"Talool/%@ (%@)",appVersion, iosVersion];
+}
+
+- (NSString *) getUserAgent
+{
+    return _userAgent;
 }
 
 @end

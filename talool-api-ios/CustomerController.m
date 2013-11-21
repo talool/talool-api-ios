@@ -34,7 +34,6 @@
 
 @implementation CustomerController
 
-
 - (id)init
 {
 	if ((self = [super init])) {
@@ -55,7 +54,9 @@
          controller is gabage collected.
          */
         NSURL *url = [NSURL URLWithString:[[TaloolFrameworkHelper sharedInstance] getApiUrl]];
-        transport = [[THTTPClient alloc] initWithURL:url];
+        transport = [[THTTPClient alloc] initWithURL:url
+                                           userAgent:[[TaloolFrameworkHelper sharedInstance] getUserAgent]
+                                             timeout:0];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
         service = [[CustomerService_tClient alloc] initWithProtocol:protocol];
     } @catch(NSException * e) {
@@ -70,7 +71,9 @@
     TBinaryProtocol *protocol;
     @try {
         NSURL *url = [NSURL URLWithString:[[TaloolFrameworkHelper sharedInstance] getApiUrl]];
-        transport = [[TaloolHTTPClient alloc] initWithURL:url];
+        transport = (TaloolHTTPClient *)[[THTTPClient alloc] initWithURL:url
+                                                               userAgent:[[TaloolFrameworkHelper sharedInstance] getUserAgent]
+                                                                 timeout:0];
         [[transport getRequest] setValue:token.token forHTTPHeaderField:CustomerServiceConstants.CTOKEN_NAME];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
         service = [[CustomerService_tClient alloc] initWithProtocol:protocol];

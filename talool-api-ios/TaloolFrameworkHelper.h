@@ -23,6 +23,9 @@ typedef int EnvironmentType;
 - (NSString *) getApiUrl;
 - (BOOL) isProduction;
 
+- (void) setUserAgent:(NSString *)appVersion iosVersion:(NSString *)iosVersion;
+- (NSString *) getUserAgent;
+
 @end
 
 extern NSString * const VENMO_SDK_SESSION;
