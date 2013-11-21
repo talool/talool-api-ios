@@ -71,9 +71,9 @@
     TBinaryProtocol *protocol;
     @try {
         NSURL *url = [NSURL URLWithString:[[TaloolFrameworkHelper sharedInstance] getApiUrl]];
-        transport = (TaloolHTTPClient *)[[THTTPClient alloc] initWithURL:url
-                                                               userAgent:[[TaloolFrameworkHelper sharedInstance] getUserAgent]
-                                                                 timeout:0];
+        transport = [[TaloolHTTPClient alloc] initWithURL:url
+                                                userAgent:[[TaloolFrameworkHelper sharedInstance] getUserAgent]
+                                                  timeout:0];
         [[transport getRequest] setValue:token.token forHTTPHeaderField:CustomerServiceConstants.CTOKEN_NAME];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
         service = [[CustomerService_tClient alloc] initWithProtocol:protocol];
