@@ -1272,11 +1272,18 @@
         [options setMaxResults:1000];
         [options setPage:0];
         [options setAscending:YES];
-        [options setSortProperty:@"dealOfferGeoSummary.distanceInMeters"];
+        [options setSortProperty:@"distanceInMeters"];
+        
+        SearchOptions_t *fallbackOptions = [[SearchOptions_t alloc] init];
+        [fallbackOptions setMaxResults:1000];
+        [fallbackOptions setPage:0];
+        [fallbackOptions setAscending:YES];
+        [fallbackOptions setSortProperty:@"title"];
         
         DealOfferGeoSummariesResponse_t *response = [service getDealOfferGeoSummariesWithin:loc
                                                                                    maxMiles:INFINITE_PROXIMITY
-                                                                              searchOptions:options];
+                                                                              searchOptions:options
+                                                                      fallbackSearchOptions:fallbackOptions];
         if (response.dealOfferGeoSummariesIsSet)
         {
             

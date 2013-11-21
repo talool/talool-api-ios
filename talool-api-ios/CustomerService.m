@@ -322,11 +322,13 @@
   return self;
 }
 
-- (id) initWithDealOfferGeoSummaries: (NSMutableArray *) dealOfferGeoSummaries
+- (id) initWithDealOfferGeoSummaries: (NSMutableArray *) dealOfferGeoSummaries fallbackResponse: (BOOL) fallbackResponse
 {
   self = [super init];
   __dealOfferGeoSummaries = [dealOfferGeoSummaries retain_stub];
   __dealOfferGeoSummaries_isset = YES;
+  __fallbackResponse = fallbackResponse;
+  __fallbackResponse_isset = YES;
   return self;
 }
 
@@ -338,6 +340,11 @@
     __dealOfferGeoSummaries = [[decoder decodeObjectForKey: @"dealOfferGeoSummaries"] retain_stub];
     __dealOfferGeoSummaries_isset = YES;
   }
+  if ([decoder containsValueForKey: @"fallbackResponse"])
+  {
+    __fallbackResponse = [decoder decodeBoolForKey: @"fallbackResponse"];
+    __fallbackResponse_isset = YES;
+  }
   return self;
 }
 
@@ -346,6 +353,10 @@
   if (__dealOfferGeoSummaries_isset)
   {
     [encoder encodeObject: __dealOfferGeoSummaries forKey: @"dealOfferGeoSummaries"];
+  }
+  if (__fallbackResponse_isset)
+  {
+    [encoder encodeBool: __fallbackResponse forKey: @"fallbackResponse"];
   }
 }
 
@@ -374,6 +385,23 @@
   [__dealOfferGeoSummaries release_stub];
   __dealOfferGeoSummaries = nil;
   __dealOfferGeoSummaries_isset = NO;
+}
+
+- (BOOL) fallbackResponse {
+  return __fallbackResponse;
+}
+
+- (void) setFallbackResponse: (BOOL) fallbackResponse {
+  __fallbackResponse = fallbackResponse;
+  __fallbackResponse_isset = YES;
+}
+
+- (BOOL) fallbackResponseIsSet {
+  return __fallbackResponse_isset;
+}
+
+- (void) unsetFallbackResponse {
+  __fallbackResponse_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -411,6 +439,14 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 2:
+        if (fieldType == TType_BOOL) {
+          BOOL fieldValue = [inProtocol readBool];
+          [self setFallbackResponse: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -437,6 +473,11 @@
       [outProtocol writeFieldEnd];
     }
   }
+  if (__fallbackResponse_isset) {
+    [outProtocol writeFieldBeginWithName: @"fallbackResponse" type: TType_BOOL fieldID: 2];
+    [outProtocol writeBool: __fallbackResponse];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -445,6 +486,8 @@
   NSMutableString * ms = [NSMutableString stringWithString: @"DealOfferGeoSummariesResponse_t("];
   [ms appendString: @"dealOfferGeoSummaries:"];
   [ms appendFormat: @"%@", __dealOfferGeoSummaries];
+  [ms appendString: @",fallbackResponse:"];
+  [ms appendFormat: @"%i", __fallbackResponse];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -12712,20 +12755,23 @@ static NSString * CTOKEN_NAME = @"ctok";
   Location_t * __location;
   int32_t __maxMiles;
   SearchOptions_t * __searchOptions;
+  SearchOptions_t * __fallbackSearchOptions;
 
   BOOL __location_isset;
   BOOL __maxMiles_isset;
   BOOL __searchOptions_isset;
+  BOOL __fallbackSearchOptions_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=location, setter=setLocation:) Location_t * location;
 @property (nonatomic, getter=maxMiles, setter=setMaxMiles:) int32_t maxMiles;
 @property (nonatomic, retain, getter=searchOptions, setter=setSearchOptions:) SearchOptions_t * searchOptions;
+@property (nonatomic, retain, getter=fallbackSearchOptions, setter=setFallbackSearchOptions:) SearchOptions_t * fallbackSearchOptions;
 #endif
 
 - (id) init;
-- (id) initWithLocation: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions;
+- (id) initWithLocation: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions fallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -12748,6 +12794,12 @@ static NSString * CTOKEN_NAME = @"ctok";
 #endif
 - (BOOL) searchOptionsIsSet;
 
+#if !__has_feature(objc_arc)
+- (SearchOptions_t *) fallbackSearchOptions;
+- (void) setFallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions;
+#endif
+- (BOOL) fallbackSearchOptionsIsSet;
+
 @end
 
 @implementation getDealOfferGeoSummariesWithin_args
@@ -12760,7 +12812,7 @@ static NSString * CTOKEN_NAME = @"ctok";
   return self;
 }
 
-- (id) initWithLocation: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions
+- (id) initWithLocation: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions fallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions
 {
   self = [super init];
   __location = [location retain_stub];
@@ -12769,6 +12821,8 @@ static NSString * CTOKEN_NAME = @"ctok";
   __maxMiles_isset = YES;
   __searchOptions = [searchOptions retain_stub];
   __searchOptions_isset = YES;
+  __fallbackSearchOptions = [fallbackSearchOptions retain_stub];
+  __fallbackSearchOptions_isset = YES;
   return self;
 }
 
@@ -12790,6 +12844,11 @@ static NSString * CTOKEN_NAME = @"ctok";
     __searchOptions = [[decoder decodeObjectForKey: @"searchOptions"] retain_stub];
     __searchOptions_isset = YES;
   }
+  if ([decoder containsValueForKey: @"fallbackSearchOptions"])
+  {
+    __fallbackSearchOptions = [[decoder decodeObjectForKey: @"fallbackSearchOptions"] retain_stub];
+    __fallbackSearchOptions_isset = YES;
+  }
   return self;
 }
 
@@ -12807,12 +12866,17 @@ static NSString * CTOKEN_NAME = @"ctok";
   {
     [encoder encodeObject: __searchOptions forKey: @"searchOptions"];
   }
+  if (__fallbackSearchOptions_isset)
+  {
+    [encoder encodeObject: __fallbackSearchOptions forKey: @"fallbackSearchOptions"];
+  }
 }
 
 - (void) dealloc
 {
   [__location release_stub];
   [__searchOptions release_stub];
+  [__fallbackSearchOptions release_stub];
   [super dealloc_stub];
 }
 
@@ -12875,6 +12939,27 @@ static NSString * CTOKEN_NAME = @"ctok";
   __searchOptions_isset = NO;
 }
 
+- (SearchOptions_t *) fallbackSearchOptions {
+  return [[__fallbackSearchOptions retain_stub] autorelease_stub];
+}
+
+- (void) setFallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions {
+  [fallbackSearchOptions retain_stub];
+  [__fallbackSearchOptions release_stub];
+  __fallbackSearchOptions = fallbackSearchOptions;
+  __fallbackSearchOptions_isset = YES;
+}
+
+- (BOOL) fallbackSearchOptionsIsSet {
+  return __fallbackSearchOptions_isset;
+}
+
+- (void) unsetFallbackSearchOptions {
+  [__fallbackSearchOptions release_stub];
+  __fallbackSearchOptions = nil;
+  __fallbackSearchOptions_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -12918,6 +13003,16 @@ static NSString * CTOKEN_NAME = @"ctok";
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 4:
+        if (fieldType == TType_STRUCT) {
+          SearchOptions_t *fieldValue = [[SearchOptions_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setFallbackSearchOptions: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -12948,6 +13043,13 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldEnd];
     }
   }
+  if (__fallbackSearchOptions_isset) {
+    if (__fallbackSearchOptions != nil) {
+      [outProtocol writeFieldBeginWithName: @"fallbackSearchOptions" type: TType_STRUCT fieldID: 4];
+      [__fallbackSearchOptions write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -12960,6 +13062,8 @@ static NSString * CTOKEN_NAME = @"ctok";
   [ms appendFormat: @"%i", __maxMiles];
   [ms appendString: @",searchOptions:"];
   [ms appendFormat: @"%@", __searchOptions];
+  [ms appendString: @",fallbackSearchOptions:"];
+  [ms appendFormat: @"%@", __fallbackSearchOptions];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -14636,7 +14740,7 @@ static NSString * CTOKEN_NAME = @"ctok";
   return [self recv_loginFacebook];
 }
 
-- (void) send_getDealOfferGeoSummariesWithin: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions
+- (void) send_getDealOfferGeoSummariesWithin: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions fallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions
 {
   [outProtocol writeMessageBeginWithName: @"getDealOfferGeoSummariesWithin" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"getDealOfferGeoSummariesWithin_args"];
@@ -14651,6 +14755,11 @@ static NSString * CTOKEN_NAME = @"ctok";
   if (searchOptions != nil)  {
     [outProtocol writeFieldBeginWithName: @"searchOptions" type: TType_STRUCT fieldID: 3];
     [searchOptions write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+  if (fallbackSearchOptions != nil)  {
+    [outProtocol writeFieldBeginWithName: @"fallbackSearchOptions" type: TType_STRUCT fieldID: 4];
+    [fallbackSearchOptions write: outProtocol];
     [outProtocol writeFieldEnd];
   }
   [outProtocol writeFieldStop];
@@ -14681,9 +14790,9 @@ static NSString * CTOKEN_NAME = @"ctok";
                                            reason: @"getDealOfferGeoSummariesWithin failed: unknown result"];
 }
 
-- (DealOfferGeoSummariesResponse_t *) getDealOfferGeoSummariesWithin: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions
+- (DealOfferGeoSummariesResponse_t *) getDealOfferGeoSummariesWithin: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions fallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions
 {
-  [self send_getDealOfferGeoSummariesWithin : location maxMiles: maxMiles searchOptions: searchOptions];
+  [self send_getDealOfferGeoSummariesWithin : location maxMiles: maxMiles searchOptions: searchOptions fallbackSearchOptions: fallbackSearchOptions];
   return [self recv_getDealOfferGeoSummariesWithin];
 }
 
@@ -15554,7 +15663,7 @@ static NSString * CTOKEN_NAME = @"ctok";
   [args read: inProtocol];
   [inProtocol readMessageEnd];
   GetDealOfferGeoSummariesWithin_result * result = [[GetDealOfferGeoSummariesWithin_result alloc] init];
-  [result setSuccess: [mService getDealOfferGeoSummariesWithin: [args location] maxMiles: [args maxMiles] searchOptions: [args searchOptions]]];
+  [result setSuccess: [mService getDealOfferGeoSummariesWithin: [args location] maxMiles: [args maxMiles] searchOptions: [args searchOptions] fallbackSearchOptions: [args fallbackSearchOptions]]];
   [outProtocol writeMessageBeginWithName: @"getDealOfferGeoSummariesWithin"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];

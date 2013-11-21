@@ -23,10 +23,10 @@
     summary.distanceInMeters = [NSNumber numberWithDouble:geoSummary.distanceInMeters];
     summary.closestMerchantInMeters = [NSNumber numberWithDouble:geoSummary.closestMerchantInMeters];
     
-    summary.totalAcquires = [geoSummary.doubleMetrics objectForKey:[CoreConstants METRIC_TOTAL_ACQUIRES]];
-    summary.totalDeals = [geoSummary.doubleMetrics objectForKey:[CoreConstants METRIC_TOTAL_DEALS]];
-    summary.totalMerchants = [geoSummary.doubleMetrics objectForKey:[CoreConstants METRIC_TOTAL_MERCHANTS]];
-    summary.totalRedemptions = [geoSummary.doubleMetrics objectForKey:[CoreConstants METRIC_TOTAL_REDEMPTIONS]];
+    summary.totalDeals = [geoSummary.longMetrics objectForKey:[CoreConstants METRIC_TOTAL_DEALS]];
+    summary.totalMerchants = [geoSummary.longMetrics objectForKey:[CoreConstants METRIC_TOTAL_MERCHANTS]];
+    summary.totalAcquires = [geoSummary.longMetrics objectForKey:[CoreConstants METRIC_TOTAL_ACQUIRES]];
+    summary.totalRedemptions = [geoSummary.longMetrics objectForKey:[CoreConstants METRIC_TOTAL_REDEMPTIONS]];
     
     
     return summary;

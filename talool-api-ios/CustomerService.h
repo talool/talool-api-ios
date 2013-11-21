@@ -77,16 +77,19 @@
 
 @interface DealOfferGeoSummariesResponse_t : NSObject <NSCoding> {
   NSMutableArray * __dealOfferGeoSummaries;
+  BOOL __fallbackResponse;
 
   BOOL __dealOfferGeoSummaries_isset;
+  BOOL __fallbackResponse_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=dealOfferGeoSummaries, setter=setDealOfferGeoSummaries:) NSMutableArray * dealOfferGeoSummaries;
+@property (nonatomic, getter=fallbackResponse, setter=setFallbackResponse:) BOOL fallbackResponse;
 #endif
 
 - (id) init;
-- (id) initWithDealOfferGeoSummaries: (NSMutableArray *) dealOfferGeoSummaries;
+- (id) initWithDealOfferGeoSummaries: (NSMutableArray *) dealOfferGeoSummaries fallbackResponse: (BOOL) fallbackResponse;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -96,6 +99,12 @@
 - (void) setDealOfferGeoSummaries: (NSMutableArray *) dealOfferGeoSummaries;
 #endif
 - (BOOL) dealOfferGeoSummariesIsSet;
+
+#if !__has_feature(objc_arc)
+- (BOOL) fallbackResponse;
+- (void) setFallbackResponse: (BOOL) fallbackResponse;
+#endif
+- (BOOL) fallbackResponseIsSet;
 
 @end
 
@@ -132,7 +141,7 @@
 - (TransactionResult_t *) purchaseByCard: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 - (TransactionResult_t *) purchaseByCode: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 - (CTokenAccessResponse_t *) loginFacebook: (NSString *) facebookId facebookAccessToken: (NSString *) facebookAccessToken;  // throws TServiceException_t *, TException
-- (DealOfferGeoSummariesResponse_t *) getDealOfferGeoSummariesWithin: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions;  // throws TServiceException_t *, TException
+- (DealOfferGeoSummariesResponse_t *) getDealOfferGeoSummariesWithin: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions fallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions;  // throws TServiceException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {
