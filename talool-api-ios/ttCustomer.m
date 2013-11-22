@@ -63,7 +63,9 @@
     [ttCustomer clearEntity:context entityName:DEAL_ACQUIRE_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:DEAL_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:GIFT_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:GIFT_DETAIL_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:DEAL_OFFER_ENTITY_NAME];
+    [ttCustomer clearEntity:context entityName:DEAL_OFFER_GEO_SUMMARY_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:ACTIVITY_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:ACTIVITY_LINK_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:SOCIAL_ACCOUNT_ENTITY_NAME];
@@ -587,7 +589,16 @@
 - (BOOL) fetchDealOfferSummaries:(CLLocation *)location context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     CustomerController *cc = [[CustomerController alloc] init];
-    return [cc getDealOfferGeoSummaries:self withLocation:location context:context error:err];
+    BOOL result = [cc getDealOfferGeoSummaries:self withLocation:location context:context error:err];
+    if (result)
+    {
+        NSError *error;
+        if (![context save:&error]) {
+            NSLog(@"API: OH SHIT!!!! Failed to save context after fetchDealOfferSummaries: %@ %@",error, [error userInfo]);
+        }
+    }
+    
+    return result;
 }
 
 @end
