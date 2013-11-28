@@ -13,17 +13,11 @@
 @interface ttDealOffer : TaloolDealOffer
 
 + (ttDealOffer *)initWithThrift: (DealOffer_t *)offer context:(NSManagedObjectContext *)context;
-+ (ttDealOffer *)getDealOffer:(NSString *)doId
-                     customer:(ttCustomer *)customer
-                      context:(NSManagedObjectContext *)context
-                        error:(NSError **)err;
-+ (NSArray *)getDealOffers:(ttCustomer *)customer
-                   context:(NSManagedObjectContext *)context
-                     error:(NSError **)err;
-- (DealOffer_t *)hydrateThriftObject;
-- (NSArray *)getDeals:(ttCustomer *)customer
+
+- (BOOL)getDeals:(ttCustomer *)customer
               context:(NSManagedObjectContext *)context
                 error:(NSError **)err;
+
 - (BOOL)activiateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err;
 
 - (BOOL) purchaseByCard:(NSString *)card

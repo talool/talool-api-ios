@@ -12,10 +12,16 @@
 #import "ttMerchant.h"
 #import "ttDealAcquire.h"
 #import "Core.h"
-#import "CustomerController.h"
+#import "GiftController.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import <APIErrorManager.h>
 
 @implementation ttGift
+
+
+
+#pragma mark -
+#pragma mark - Create or Update the Core Data Object
 
 + (ttGift *)initWithThrift: (Gift_t *)gift context:(NSManagedObjectContext *)context
 {
@@ -29,14 +35,6 @@
     newGift.giftStatus = [NSNumber numberWithInt:gift.giftStatus];
     
     return newGift;
-}
-
-+ (ttGift *)getGiftById:(NSString* )giftId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
-{
-    
-    CustomerController *cc = [[CustomerController alloc] init];
-    ttGift *gift = [cc getGiftById:giftId customer:customer context:context error:err];
-    return gift;
 }
 
 + (ttGift *) fetchById:(NSString *) giftId context:(NSManagedObjectContext *)context
@@ -64,6 +62,11 @@
     }
     return gift;
 }
+
+
+
+#pragma mark -
+#pragma mark - Convenience methods
 
 - (ttDealAcquire *) getDealAquire:(NSManagedObjectContext *)context
 {
@@ -113,14 +116,84 @@
     return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_INVALIDATED]);
 }
 
-- (Gift_t *)hydrateThriftObject
+
+
+#pragma mark -
+#pragma mark - Gift Management
+
++ (BOOL) getGiftById:(NSString* )giftId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
-    Gift_t *gift = [[Gift_t alloc] init];
-    
-    gift.giftId = self.giftId;
-    gift.deal = [(ttDeal *)self.deal hydrateThriftObject];
-    
-    return gift;
+    BOOL result = NO;
+    GiftController *gc = [[GiftController alloc] init];
+    Gift_t *gift = [gc getGiftById:giftId customer:customer error:err];
+    if (gift && !err)
+    {
+        @try {
+            // transform the Thrift response
+            [ttGift initWithThrift:gift context:context];
+            result = [context save:err];
+        }
+        @catch (NSException * e) {
+            [gc.errorManager handleCoreDataException:e forMethod:@"getGiftById" entity:@"ttGift" error:err];
+        }
+        
+    }
+    return result;
 }
+
++ (NSString *) giftToFacebook:(NSString *)dealAcquireId
+               customer:(ttCustomer *)customer
+             facebookId:(NSString *)facebookId
+         receipientName:(NSString *)receipientName
+                  error:(NSError**)error
+{
+    GiftController *gc = [[GiftController alloc] init];
+    return [gc giftToFacebook:customer dealAcquireId:dealAcquireId facebookId:facebookId receipientName:receipientName error:error];
+}
+
++ (NSString *) giftToEmail:(NSString *)dealAcquireId
+            customer:(ttCustomer *)customer
+               email:(NSString *)email
+      receipientName:(NSString *)receipientName
+               error:(NSError**)error
+{
+    GiftController *gc = [[GiftController alloc] init];
+    return [gc giftToEmail:customer dealAcquireId:dealAcquireId email:email receipientName:receipientName error:error];
+}
+
++ (BOOL) acceptGift:(NSString *)giftId
+           customer:(ttCustomer *)customer
+            context:(NSManagedObjectContext *)context
+              error:(NSError**)error;
+{
+    BOOL result = NO;
+    GiftController *gc = [[GiftController alloc] init];
+    DealAcquire_t *deal = [gc acceptGift:customer giftId:giftId error:error];
+    
+    if (deal && !error)
+    {
+        @try {
+            // transform the Thrift response
+            [ttDealAcquire initWithThrift:deal context:context];
+            result = [context save:error];
+        }
+        @catch (NSException * e) {
+            [gc.errorManager handleCoreDataException:e forMethod:@"acceptGift" entity:@"ttGift" error:error];
+        }
+    }
+    
+    
+    return result;
+}
+
++ (BOOL) rejectGift:(NSString *)giftId
+           customer:(ttCustomer *)customer
+            context:(NSManagedObjectContext *)context
+              error:(NSError**)error
+{
+    GiftController *gc = [[GiftController alloc] init];
+    return [gc rejectGift:customer giftId:giftId error:error];
+}
+
 
 @end

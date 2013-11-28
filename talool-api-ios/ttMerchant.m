@@ -12,7 +12,8 @@
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import "TaloolFrameworkHelper.h"
-#import "CustomerController.h"
+#import "MerchantController.h"
+#import <APIErrorManager.h>
 
 @interface ttMerchant()
 @property (nonatomic, retain) ttMerchantLocation *location;
@@ -21,6 +22,10 @@
 @implementation ttMerchant
 
 @synthesize location;
+
+
+#pragma mark -
+#pragma mark - Create or Update the Core Data Object
 
 +(ttMerchant *)initWithThrift:(Merchant_t *)merchant context:(NSManagedObjectContext *)context
 {
@@ -90,25 +95,34 @@
     return m;
 }
 
--(Merchant_t *)hydrateThriftObject
++ (ttMerchant *) fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context
 {
-    Merchant_t *merchant = [[Merchant_t alloc] init];
+    ttMerchant *merchant = nil;
     
-    merchant.merchantId = self.merchantId;
-    merchant.name = self.name;
-    merchant.category = [(ttCategory *)self.category hydrateThriftObject];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.merchantId = %@",merchantId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
     
-    NSEnumerator *enumerator = [self.locations objectEnumerator];
-    ttMerchantLocation *ml;
-    MerchantLocation_t *mlt;
-    int i=0;
-    while (ml = [enumerator nextObject]) {
-        mlt = [ml hydrateThriftObject];
-        [merchant.locations setObject:mlt atIndexedSubscript:i++];
+    NSError *error;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj == nil || [fetchedObj count] == 0)
+    {
+        merchant = (ttMerchant *)[NSEntityDescription
+                                  insertNewObjectForEntityForName:MERCHANT_ENTITY_NAME
+                                  inManagedObjectContext:context];
     }
-
+    else
+    {
+        merchant = [fetchedObj objectAtIndex:0];
+    }
     return merchant;
 }
+
+#pragma mark -
+#pragma mark - Convenience methods for the merchant
 
 - (NSString *)getLocationLabel
 {
@@ -140,22 +154,6 @@
     return label;
 }
 
-- (void) favorite:(ttCustomer *)customer
-{
-    CustomerController *cController = [[CustomerController alloc] init];
-    NSError *error = [NSError alloc];
-    [cController addFavoriteMerchant:customer merchantId:self.merchantId error:&error];
-    self.isFav = [NSNumber numberWithBool:YES];
-}
-
-- (void) unfavorite:(ttCustomer *)customer
-{
-    CustomerController *cController = [[CustomerController alloc] init];
-    NSError *error = [NSError alloc];
-    [cController removeFavoriteMerchant:customer merchantId:self.merchantId error:&error];
-    self.isFav = [NSNumber numberWithBool:NO];
-}
-
 - (Boolean) isFavorite
 {
     return [self.isFav boolValue];
@@ -175,50 +173,97 @@
     return nil;
 }
 
-+ (ttMerchant *) fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context
+
+
+#pragma mark -
+#pragma mark - Add/Remove Favorites
+
+- (BOOL) favorite:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
-    ttMerchant *merchant = nil;
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.merchantId = %@",merchantId];
-    [request setPredicate:pred];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_ENTITY_NAME inManagedObjectContext:context];
-    [request setEntity:entity];
-    
-    NSError *error;
-    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
-    
-    if (fetchedObj == nil || [fetchedObj count] == 0)
+    MerchantController *mc = [[MerchantController alloc] init];
+    BOOL result = [mc addFavoriteMerchant:customer merchantId:self.merchantId error:error];
+    if (result && !error)
     {
-        merchant = (ttMerchant *)[NSEntityDescription
-                       insertNewObjectForEntityForName:MERCHANT_ENTITY_NAME
-                       inManagedObjectContext:context];
+        self.isFav = [NSNumber numberWithBool:YES];
+        result = [context save:error];
     }
-    else
-    {
-        merchant = [fetchedObj objectAtIndex:0];
-    }
-    return merchant;
+    return result;
 }
 
-+ (NSArray *) getMerchantsInContext:(NSManagedObjectContext *)context
+- (BOOL) unfavorite:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
-    NSArray *merchants;
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"locations.@count != 0"];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY locations.distanceInMeters < %d",DEFAULT_PROXIMITY*METERS_PER_MILE];
-    [request setPredicate:pred];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_ENTITY_NAME inManagedObjectContext:context];
-    [request setEntity:entity];
-    
-    NSError *error;
-    merchants = [context executeFetchRequest:request error:&error];
-    
-    NSLog(@"DEBUG::: Found %d merchants closer than %d",[merchants count],DEFAULT_PROXIMITY);
-    
-    return merchants;
+    MerchantController *mc = [[MerchantController alloc] init];
+    BOOL result = [mc removeFavoriteMerchant:customer merchantId:self.merchantId error:error];
+    if (result && !error)
+    {
+        self.isFav = [NSNumber numberWithBool:NO];
+        result = [context save:error];
+    }
+    return result;
 }
+
+
+
+
+#pragma mark -
+#pragma mark - Get the lists of Merchants for a Customer
+
++ (BOOL) getMerchants:(ttCustomer *)customer
+         withLocation:(CLLocation *)loc
+              context:(NSManagedObjectContext *)context
+                error:(NSError **)error
+{
+    BOOL result = NO;
+    
+    MerchantController *mc = [[MerchantController alloc] init];
+    NSMutableArray *merchants = [mc getMerchants:customer withLocation:loc error:error];
+    
+    if (merchants && !error)
+    {
+        @try
+        {
+            // transform the Thrift response and save the context
+            for (Merchant_t *m in merchants) [ttMerchant initWithThrift:m context:context];
+            result = [context save:error];
+        }
+        @catch (NSException * e)
+        {
+            [mc.errorManager handleCoreDataException:e forMethod:@"getFavoriteMerchants" entity:@"ttMerchant" error:error];
+        }
+    }
+    
+    return result;
+}
+
++ (BOOL) getFavoriteMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
+{
+    BOOL result = NO;
+    
+    MerchantController *mc = [[MerchantController alloc] init];
+    NSMutableArray *favs = [mc getFavoriteMerchants:customer error:error];
+    
+    if (favs && !error)
+    {
+        @try
+        {
+            // transform the Thrift response and save the context
+            for (Merchant_t *m in favs)
+            {
+                ttMerchant *tm = [ttMerchant initWithThrift:m context:context];
+                tm.isFav = [NSNumber numberWithBool:YES];
+            }
+            result = [context save:error];
+        }
+        @catch (NSException * e)
+        {
+            [mc.errorManager handleCoreDataException:e forMethod:@"getFavoriteMerchants" entity:@"ttMerchant" error:error];
+        }
+    }
+    
+    return result;
+}
+
+
 
 
 @end

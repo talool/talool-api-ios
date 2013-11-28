@@ -31,7 +31,9 @@
 - (BOOL) isAd;
 
 - (BOOL) isClosed;
-- (void) actionTaken:(ttCustomer *)customer;
+- (BOOL) actionTaken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err;
+
++ (BOOL) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error;
 
 + (NSPredicate *) getGiftPredicate;
 + (NSPredicate *) getMoneyPredicate;

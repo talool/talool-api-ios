@@ -12,10 +12,6 @@
 
 @implementation ttSocialAccount
 
-- (BOOL)isValid
-{
-    return YES;
-}
 
 + (ttSocialAccount *) createSocialAccount:(int *)socialNetwork
                                   loginId:(NSString *)loginId

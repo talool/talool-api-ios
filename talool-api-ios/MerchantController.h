@@ -6,20 +6,30 @@
 //  Copyright (c) 2013 Douglas McCuen. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import <CoreLocation/CoreLocation.h>
+#import "TaloolThriftController.h"
 
-@class ttMerchant;
-@class ttCustomer;
+@class ttCustomer, ttCategory;
 
-@interface MerchantController : NSObject {
-	NSMutableArray *merchants;
-}
+@interface MerchantController : TaloolThriftController
 
-@property (nonatomic, readonly) NSMutableArray *merchants;
 
-- (unsigned)countOfMerchants;
-- (id)objectInMerchantsAtIndex:(unsigned)theIndex;
+- (NSMutableArray *) getCategories:(ttCustomer *)customer error:(NSError**)error;
+
+- (NSMutableArray *) getMerchants:(ttCustomer *)customer
+                     withLocation:(CLLocation *)location
+                            error:(NSError**)error;
+
+- (NSMutableArray *) getFavoriteMerchants:(ttCustomer *)customer
+                                    error:(NSError**)error;
+
+- (BOOL) addFavoriteMerchant:(ttCustomer *)customer
+                  merchantId:(NSString *)merchantId
+                       error:(NSError**)error;
+
+- (BOOL) removeFavoriteMerchant:(ttCustomer *)customer
+                     merchantId:(NSString *)merchantId
+                          error:(NSError**)error;
 
 
 @end

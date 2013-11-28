@@ -12,10 +12,6 @@
 
 @implementation ttSocialNetworkDetail
 
-- (BOOL)isValid
-{
-    return YES;
-}
 + (ttSocialNetworkDetail *)initWithThrift: (SocialNetworkDetail_t *)snd context:(NSManagedObjectContext *)context
 {
     ttSocialNetworkDetail *ttsnd = (ttSocialNetworkDetail *)[NSEntityDescription
@@ -23,13 +19,6 @@
                                                   inManagedObjectContext:context];
     
     return ttsnd;
-}
-
-- (SocialNetworkDetail_t *)hydrateThriftObject
-{
-    SocialNetworkDetail_t *snd = [[SocialNetworkDetail_t alloc] init];
-    
-    return snd;
 }
 
 @end

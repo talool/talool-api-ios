@@ -7,23 +7,44 @@
 //
 
 #import "TaloolMerchant.h"
+#import <CoreLocation/CoreLocation.h>
 
 @class Merchant_t, ttCustomer, ttMerchantLocation, ttLocation;
 
 @interface ttMerchant : TaloolMerchant
 
 
+#pragma mark -
+#pragma mark - Create or Update the Core Data Object
 
 + (ttMerchant *)initWithThrift: (Merchant_t *)merchant context:(NSManagedObjectContext *)context;
-- (Merchant_t *)hydrateThriftObject;
-- (NSString *)getLocationLabel;
-- (void)favorite:(ttCustomer *)customer;
-- (void)unfavorite:(ttCustomer *)customer;
-- (Boolean) isFavorite;
+
+
+#pragma mark -
+#pragma mark - Get Merchants
+
++ (BOOL) getMerchants:(ttCustomer *)customer
+         withLocation:(CLLocation *)loc
+              context:(NSManagedObjectContext *)context
+                error:(NSError **)error;
++ (BOOL) getFavoriteMerchants:(ttCustomer *)customer
+                      context:(NSManagedObjectContext *)context
+                        error:(NSError **)error;
+
+
+#pragma mark -
+#pragma mark - Add/Remove Favorites
+
+- (BOOL) favorite:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error;
+- (BOOL) unfavorite:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error;
+
+
+#pragma mark -
+#pragma mark - Convenience
 
 - (ttMerchantLocation *) getClosestLocation;
+- (NSString *) getLocationLabel;
+- (Boolean) isFavorite;
 
-+ (ttMerchant *) fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context;
-+ (NSArray *) getMerchantsInContext:(NSManagedObjectContext *)context;
 
 @end

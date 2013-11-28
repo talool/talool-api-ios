@@ -8,11 +8,16 @@
 
 #import "ttDealOffer.h"
 #import "ttMerchant.h"
+#import "ttDeal.h"
 #import "Core.h"
-#import "CustomerController.h"
+#import "DealOfferController.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import <APIErrorManager.h>
 
 @implementation ttDealOffer
+
+#pragma mark -
+#pragma mark - Create or Update the Core Data Object
 
 + (ttDealOffer *)initWithThrift: (DealOffer_t *)offer context:(NSManagedObjectContext *)context
 {
@@ -77,64 +82,48 @@
     return offer;
 }
 
-+ (ttDealOffer *)getDealOffer:(NSString *)doId
-                     customer:(ttCustomer *)customer
-                      context:(NSManagedObjectContext *)context
-                        error:(NSError **)err
+
+#pragma mark -
+#pragma mark - Get the Deals for the Deal Offer
+
+- (BOOL)getDeals:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
-    ttDealOffer *offer;
+    BOOL result = NO;
     
-    // check the context before going to the service
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.dealOfferId = %@",doId];
-    [request setPredicate:pred];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_OFFER_ENTITY_NAME inManagedObjectContext:context];
-    [request setEntity:entity];
+    DealOfferController *doc = [[DealOfferController alloc] init];
+    NSArray *deals = [doc getDealsByDealOfferId:self.dealOfferId customer:customer error:err];
     
-    NSError *error;
-    NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
-    if ([mutableFetchResults count] == 1)
+    if (!err)
     {
-        offer = [mutableFetchResults objectAtIndex:0];
+        @try {
+            // transform the Thrift response into a ttDealAcquire array
+            for (int i=0; i<[deals count]; i++)
+            {
+                Deal_t *td = [deals objectAtIndex:i];
+                [ttDeal initWithThrift:td merchant:nil context:context];
+            }
+            // save the context
+            if ([context save:err])
+            {
+                result = YES;
+            }
+        }
+        @catch (NSException * e) {
+            [doc.errorManager handleCoreDataException:e forMethod:@"getDealByDealOfferId" entity:@"ttDeal" error:err];
+        }
     }
-    else
-    {
-        CustomerController *cc = [[CustomerController alloc] init];
-        offer = [cc getDealOffer:doId customer:customer context:context error:err];
-    }
-    return offer;
+    
+    return result;
 }
 
-+ (NSArray *)getDealOffers:(ttCustomer *)customer
-                   context:(NSManagedObjectContext *)context
-                     error:(NSError **)err
-{
-    NSArray *offers;
-    
-    // TODO pull from context first
-    CustomerController *cc = [[CustomerController alloc] init];
-    offers = [cc getDealOffers:customer context:context error:err];
-    
-    return offers;
-}
 
-- (NSArray *)getDeals:(ttCustomer *)customer
-              context:(NSManagedObjectContext *)context
-                error:(NSError **)err
-{
-    NSArray *deals;
-    
-    // TODO pull from context first
-    CustomerController *cc = [[CustomerController alloc] init];
-    deals = [cc getDealsByDealOfferId:self.dealOfferId customer:customer context:context error:err];
-    
-    return deals;
-}
+#pragma mark -
+#pragma mark - Activate or Purchase the Deal Offer
 
 - (BOOL)activiateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err
 {
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc activateCode:customer offerId:self.dealOfferId code:code error:err];
+    DealOfferController *doc = [[DealOfferController alloc] init];
+    return [doc activateCode:customer offerId:self.dealOfferId code:code error:err];
 }
 
 - (BOOL) purchaseByCard:(NSString *)card
@@ -146,33 +135,17 @@
                customer:(ttCustomer *)customer
                   error:(NSError**)error
 {
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc purchaseByCard:self.dealOfferId card:card expMonth:expMonth expYear:expYear securityCode:securityCode zipCode:zipCode venmoSession:venmoSession customer:customer error:error];
+    DealOfferController *doc = [[DealOfferController alloc] init];
+    return [doc purchaseByCard:self.dealOfferId card:card expMonth:expMonth expYear:expYear securityCode:securityCode zipCode:zipCode venmoSession:venmoSession customer:customer error:error];
 }
 
 - (BOOL) purchaseByCode:(NSString *)paymentCode
                customer:(ttCustomer *)customer
                   error:(NSError**)error
 {
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc purchaseByCode:self.dealOfferId paymentCode:paymentCode customer:customer error:error];
+    DealOfferController *doc = [[DealOfferController alloc] init];
+    return [doc purchaseByCode:self.dealOfferId paymentCode:paymentCode customer:customer error:error];
 }
 
-
-- (DealOffer_t *)hydrateThriftObject
-{
-    DealOffer_t *offer = [[DealOffer_t alloc] init];
-    offer.code = self.code;
-    offer.dealOfferId = self.dealOfferId;
-    offer.title = self.title;
-    offer.summary = self.summary;
-    offer.dealType = [self.dealType intValue];
-    offer.imageUrl = self.imageUrl;
-    offer.locationName = self.locationName;
-    offer.price = [self.price doubleValue];
-    offer.merchant = [(ttMerchant *)self.merchant hydrateThriftObject];
-    
-    return offer;
-}
 
 @end

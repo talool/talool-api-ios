@@ -9,9 +9,14 @@
 #import "ttCategory.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
-#import "CustomerController.h"
+#import "MerchantController.h"
+#import "APIErrorManager.h"
 
 @implementation ttCategory
+
+
+#pragma mark -
+#pragma mark - Create or Update the Core Data Object
 
 + (ttCategory *)initWithThrift: (Category_t *)category context:(NSManagedObjectContext *)context
 {
@@ -47,34 +52,31 @@
     return nil;
 }
 
-- (Category_t *)hydrateThriftObject
-{
-    Category_t *cat = [[Category_t alloc] init];
-    
-    cat.name = self.name;
-    cat.categoryId = [self.categoryId intValue];
-    
-    return cat;
-}
 
-+ (NSArray *)getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context
+
+#pragma mark -
+#pragma mark - Get the Categories
+
++ (BOOL)getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
-    CustomerController *cController = [[CustomerController alloc] init];
-    NSError *error;
-    NSArray *cats = [cController getCategories:customer context:context error:&error];
+    BOOL result = NO;
     
-    if ([cats count]==0)
+    MerchantController *mc = [[MerchantController alloc] init];
+    NSArray *cats = [mc getCategories:customer error:error];
+    
+    if (cats && !error)
     {
-        // pull any existing catagories from the context
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:CATEGORY_ENTITY_NAME inManagedObjectContext:context];
-        [request setEntity:entity];
-        NSError *error;
-        cats = [context executeFetchRequest:request error:&error];
-        NSLog(@"Pulled %d categories in the context", [cats count]);
+        @try {
+            // transform the Thrift response and save the context
+            for (Category_t *cat in cats) [ttCategory initWithThrift:cat context:context];
+            result = [context save:error];
+        }
+        @catch (NSException * e) {
+            [mc.errorManager handleCoreDataException:e forMethod:@"getCategories" entity:@"ttCategory" error:error];
+        }
     }
     
-    return cats;
+    return result;
 }
 
 @end

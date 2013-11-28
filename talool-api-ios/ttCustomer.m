@@ -13,15 +13,16 @@
 #import "TaloolPersistentStoreCoordinator.h"
 #import "MerchantController.h"
 #import "CustomerController.h"
+#import "DealAcquireController.h"
 #import "ttMerchant.h"
 #import "ttDealAcquire.h"
 #import "ttDealOffer.h"
 #import "TaloolErrorHandler.h"
+#import "APIErrorManager.h"
 
 
 @implementation ttCustomer
 
-@synthesize favoriteMerchants;
 
 +(ttCustomer *)initWithThrift:(Customer_t *)c context:(NSManagedObjectContext *)context
 {
@@ -53,7 +54,12 @@
     return customer;
 }
 
-+ (void)clearUsers:(NSManagedObjectContext *)context
+
+
+#pragma mark -
+#pragma mark Login/Logout (static methods)
+
++ (BOOL) clearUsers:(NSManagedObjectContext *)context error:(NSError**)error
 {
     // Clear all the user's data
     [ttCustomer clearEntity:context entityName:CUSTOMER_ENTITY_NAME];
@@ -74,10 +80,7 @@
     [ttCustomer clearEntity:context entityName:CATEGORY_ENTITY_NAME];
     [ttCustomer clearEntity:context entityName:TOKEN_ENTITY_NAME];
     
-    NSError *error;
-    if (![context save:&error]) {
-        NSLog(@"API: OH SHIT!!!! Failed to save context after clearing users: %@ %@",error, [error userInfo]);
-    }
+    return [context save:error];
 }
 
 + (void)clearEntity:(NSManagedObjectContext *)context entityName:(NSString *)enitityName
@@ -106,93 +109,155 @@
     
     NSError *error;
     NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&error] mutableCopy];
-    if ([mutableFetchResults count] == 1) {
-        user = [mutableFetchResults objectAtIndex:0];
-    } else if ([mutableFetchResults count] > 1) {
-        NSLog(@"FAIL: Too many users stored!!!");
-        [ttCustomer clearUsers:context];
-    }
-    
-    //NSLog(@"customer token: %@",user.token.token);
-    
-    return user;
-}
-
-+ (ttCustomer *)authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err
-{
-    // clear out any existsing users
-    [ttCustomer clearUsers:context];
-    
-    CustomerController *cController = [[CustomerController alloc] init];
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
-    ttCustomer *user = [cController authenticate:email password:password context:context error:err];
-    if ([*err code] < 100) {
-        
-        //[user refresh:context];
-        
-        NSError *saveError;
-        if (![context save:&saveError]) {
-            NSLog(@"API: OH SHIT!!!! Failed to save context after authenticating: %@ %@",saveError, [saveError userInfo]);
-            [details setValue:@"Failed to save context after authentication." forKey:NSLocalizedDescriptionKey];
-            *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
+    if (mutableFetchResults && !error)
+    {
+        if ([mutableFetchResults count] == 1) {
+            user = [mutableFetchResults objectAtIndex:0];
+        } else if ([mutableFetchResults count] > 1) {
+            NSLog(@"FAIL: Too many users stored!!!");
+            [ttCustomer clearUsers:context error:&error];
         }
     }
     
     return user;
 }
 
-+ (ttCustomer *)authenticateFacebook:(NSString *)facebookId
++ (BOOL) authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err
+{
+    BOOL result = NO;
+    
+    // clear out any existsing users
+    [ttCustomer clearUsers:context error:err];
+    
+    if (!err)
+    {
+        CustomerController *cc = [[CustomerController alloc] init];
+        CTokenAccess_t *token = [cc authenticate:email password:password error:err];
+        
+        if (token && !err)
+        {
+            @try {
+                // transform the Thrift response into a ttCustomer
+                ttToken *ttt = [ttToken initWithThrift:token context:context];
+                ttCustomer *customer = (ttCustomer *)ttt.customer;
+                customer.token = ttt;
+                result = [context save:err];
+            }
+            @catch (NSException * e) {
+                [cc.errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:err];
+            }
+        }
+    }
+    
+    return result;
+}
+
++ (BOOL) authenticateFacebook:(NSString *)facebookId
                        facebookToken:(NSString *)facebookToken
                              context:(NSManagedObjectContext *)context
                                error:(NSError**)err
 {
+    BOOL result = NO;
+    
     // clear out any existsing users
-    [ttCustomer clearUsers:context];
+    [ttCustomer clearUsers:context error:err];
     
-    CustomerController *cController = [[CustomerController alloc] init];
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    
-    ttCustomer *user = [cController authenticateFacebook:facebookId facebookToken:facebookToken context:context error:err];
-    if (user) {
-        NSError *saveError;
-        if (![context save:&saveError]) {
-            NSLog(@"API: OH SHIT!!!! Failed to save context after authenticating: %@ %@",saveError, [saveError userInfo]);
-            [details setValue:@"Failed to save context after authentication." forKey:NSLocalizedDescriptionKey];
-            *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
+    if (!err)
+    {
+        CustomerController *cc = [[CustomerController alloc] init];
+        CTokenAccess_t *token = [cc authenticateFacebook:facebookId facebookToken:facebookToken error:err];
+        if (token && !err)
+        {
+            @try {
+                // transform the Thrift response into a ttCustomer
+                ttToken *ttt = [ttToken initWithThrift:token context:context];
+                ttCustomer *customer = (ttCustomer *)ttt.customer;
+                customer.token = ttt;
+                result = [context save:err];
+            }
+            @catch (NSException * e) {
+                [cc.errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:err];
+            }
         }
     }
     
-    return user;
+    return result;
 }
 
-+ (void)logoutUser:(NSManagedObjectContext *)context
++ (BOOL) logoutUser:(NSManagedObjectContext *)context error:(NSError**)error
 {
+    BOOL result = NO;
     ttCustomer *user = [ttCustomer getLoggedInUser:context];
     if (user != nil) {
         // clear out any existsing users
-        [ttCustomer clearUsers:context];
+        result = [ttCustomer clearUsers:context error:error];
     }
+    return result;
 }
 
-+ (void) registerCustomer:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err{
++ (BOOL) registerCustomer:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err
+{
+    BOOL result = NO;
     
-    CustomerController *cController = [[CustomerController alloc] init];
-    NSError *regError;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
+    CustomerController *cc = [[CustomerController alloc] init];
     
-    customer = [cController registerUser:customer password:password context:context error:&regError];
+    // validate data before sending to the server
+    if (![customer isValid:err]) return result;
+
+    Customer_t *ct = [customer hydrateThriftObject];
     
-    if (!regError.code) {
-        NSError *saveError;
-        if (![context save:&saveError]) {
-            NSLog(@"API: OH SHIT!!!! Failed to save context after registration: %@ %@",saveError, [saveError userInfo]);
-            [details setValue:@"Failed to save context after authentication." forKey:NSLocalizedDescriptionKey];
-            *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
+    CTokenAccess_t *token = [cc registerUser:ct password:password error:err];
+    
+    if (token && !err)
+    {
+        @try {
+            // transform the Thrift response into a ttCustomer
+            ttToken *ttt = [ttToken initWithThrift:token context:context];
+            customer = (ttCustomer *)ttt.customer;
+            customer.token = ttt;
+            result = [context save:err];
         }
-    } else {
-        *err = regError;
+        @catch (NSException * e) {
+            [cc.errorManager handleCoreDataException:e forMethod:@"registerUser" entity:@"ttCustomer" error:err];
+        }
     }
+    
+    return result;
+}
+
++ (BOOL) sendResetPasswordEmail:(NSString *)email
+                         error:(NSError**)error
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    return [cc sendResetPasswordEmail:email error:error];
+}
+
++ (BOOL) resetPassword:(NSString *)customerId
+              password:(NSString *)password
+                  code:(NSString *)resetPasswordCode
+               context:(NSManagedObjectContext *)context
+                 error:(NSError**)error
+{
+    BOOL result = NO;
+    
+    CustomerController *cc = [[CustomerController alloc] init];
+    CTokenAccess_t *token = [cc resetPassword:customerId password:password code:resetPasswordCode error:error];
+    
+    if (token && !error)
+    {
+        @try {
+            // transform the Thrift response into a ttCustomer
+            ttToken *ttt = [ttToken initWithThrift:token context:context];
+            ttCustomer *customer = (ttCustomer *)ttt.customer;
+            customer.token = ttt;
+            result = [context save:error];
+        }
+        @catch (NSException * e) {
+            [cc.errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:error];
+        }
+    }
+    
+    return result;
 }
 
 + (BOOL) doesCustomerExist:(NSString *) email
@@ -201,44 +266,20 @@
     return [cController userExists:email];
 }
 
-+ (NSString *) randomPassword:(int)length
+
+#pragma mark -
+#pragma mark Convenience Methods
+
+- (BOOL)isFacebookUser
 {
-    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    NSMutableString *randomString = [NSMutableString stringWithCapacity: length];
-    for (int i=0; i<length; i++) {
-        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
+    NSEnumerator *e = [self.socialAccounts objectEnumerator];
+    ttSocialAccount *sa;
+    while (sa = [e nextObject]) {
+        if ([sa.socialNetwork intValue] == SocialNetwork_t_Facebook) {
+            return YES;
+        }
     }
-    return randomString;
-}
-
-+ (NSString *) nonrandomPassword:(NSString *)seed
-{
-    return [NSString stringWithFormat:@"talool4%@", seed];
-}
-
-
-+ (ttCustomer *) createCustomer:(NSString *)firstName
-                       lastName:(NSString *)lastName
-                          email:(NSString *)email
-                  socialAccount:(ttSocialAccount *)socialAccount
-                        context:(NSManagedObjectContext *)context
-{
-    
-    ttCustomer *user = (ttCustomer *)[NSEntityDescription
-                                      insertNewObjectForEntityForName:CUSTOMER_ENTITY_NAME
-                                      inManagedObjectContext:context];
-    
-    [user setCreated:[NSDate date]];
-    [user setFirstName:firstName];
-    [user setLastName:lastName];
-    [user setEmail:email];
-    [user setSex:[NSNumber numberWithInt:Sex_t_U]];
-    
-    if (socialAccount != nil){
-        [user addSocialAccountsObject:socialAccount];
-    }
-    
-    return user;
+    return NO;
 }
 
 - (void)setAsFemale:(BOOL)isFemale
@@ -303,302 +344,46 @@
     return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
 }
 
--(ttToken *) getTaloolToken
++ (NSString *) randomPassword:(int)length
 {
-    return (ttToken *)self.token;
+    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    NSMutableString *randomString = [NSMutableString stringWithCapacity: length];
+    for (int i=0; i<length; i++) {
+        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
+    }
+    return randomString;
+}
+
++ (NSString *) nonrandomPassword:(NSString *)seed
+{
+    return [NSString stringWithFormat:@"talool4%@", seed];
 }
 
 
-- (NSArray *) refreshMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err
++ (ttCustomer *) createCustomer:(NSString *)firstName
+                       lastName:(NSString *)lastName
+                          email:(NSString *)email
+                  socialAccount:(ttSocialAccount *)socialAccount
+                        context:(NSManagedObjectContext *)context
 {
-    NSArray *deals;
     
-    // get the latest deals from the service
-    CustomerController *cc = [[CustomerController alloc] init];
-    deals = [cc getAcquiredDeals:merchant forCustomer:self context:context error:err];
+    ttCustomer *user = (ttCustomer *)[NSEntityDescription
+                                      insertNewObjectForEntityForName:CUSTOMER_ENTITY_NAME
+                                      inManagedObjectContext:context];
     
-    // save these deals in the context
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    NSError *saveError;
-    if (![context save:&saveError]) {
-        NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMyDealsForMerchant: %@ %@",saveError, [saveError userInfo]);
-        [details setValue:@"Failed to save context after refreshMyDealsForMerchant." forKey:NSLocalizedDescriptionKey];
-        *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
+    [user setCreated:[NSDate date]];
+    [user setFirstName:firstName];
+    [user setLastName:lastName];
+    [user setEmail:email];
+    [user setSex:[NSNumber numberWithInt:Sex_t_U]];
+    
+    if (socialAccount != nil){
+        [user addSocialAccountsObject:socialAccount];
     }
     
-    return deals;
+    return user;
 }
 
-/**
- *  Convenience method.
- *  Converts the set of merchants to an array
- **/
-- (NSArray *) getMyMerchants
-{
-    NSArray *merchants = [self.merchants allObjects];
-    
-    return merchants;
-}
 
-/**
- *  Gets the deals for a merchant from the context.
- *  Fails gracefully to a server call if no deals are found in the context.
- **/
-- (NSArray *) getMyDealsForMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)err
-{
-    // query the context for these deals
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"deal.merchant.merchantId = %@",merchant.merchantId];
-    [request setPredicate:pred];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
-    [request setEntity:entity];
-    
-    NSError *error;
-    NSMutableArray *deals = [[context executeFetchRequest:request error:&error] mutableCopy];
-    if ([deals count] == 0) {
-        // the user shouldn't have a merchant w/o deals
-        // assume this is the first time viewing this merchant
-        // hit the service to load the deals
-        NSError *refreshError = nil;
-        deals = (NSMutableArray *)[self refreshMyDealsForMerchant:merchant context:context error:&refreshError];
-    }
-    
-    return deals;
-}
-
-/**
- *  Calls the service to get the latest set of merchants.
- *  Saves the context and returns nothing.
- **/
-- (void) refreshMerchants:(CLLocation *)location context:(NSManagedObjectContext *)context
-{
-    
-    CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error;
-    NSArray *tempMerchants = [cc getMerchants:self withLocation:location context:context error:&error];
-    
-    if ([tempMerchants count]==0 && error.code==ErrorCode_NETWORK_DOWN)
-    {
-        // pull any existing activities from the context
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_ENTITY_NAME inManagedObjectContext:context];
-        [request setEntity:entity];
-        NSError *error;
-        NSMutableArray *unsortedMerchants = [[context executeFetchRequest:request error:&error] mutableCopy];
-        // sort the MERCHANTS
-        NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-        NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
-        tempMerchants = [[[NSArray alloc] initWithArray:unsortedMerchants] sortedArrayUsingDescriptors:sortDescriptors];
-        //NSLog(@"Network was down, so pulled and sorted %d merchants from the context",[tempMerchants count]);
-    }
-    
-    self.merchants = [NSSet setWithArray:tempMerchants];
-    
-    NSError *saveError;
-    if (![context save:&saveError]) {
-        NSLog(@"API: OH SHIT!!!! Failed to save context after refreshMerchants: %@ %@",saveError, [saveError userInfo]);
-    }
-    
-}
-
-/**
- *  Call the service for merchant around the user.
- *  Store the merchants in the context and return them.
- *  These merchants are NOT tied to the customer.
- *
- *  TODO: the distanceInMeters param isn't used, so it should be removed
- **/
-- (NSArray *) getMerchantsByProximity:(int)distanceInMeters
-                            longitude:(double)longitude
-                             latitude:(double)latitude
-                              context:(NSManagedObjectContext *)context
-                                error:(NSError **)err
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error;
-    NSMutableArray *merchants = [cc getMerchantsWithin:self latitude:latitude longitude:longitude context:context error:&error];
-    
-    // save these merchants in the context
-    NSError *saveError;
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    if (![context save:&saveError]) {
-        NSLog(@"API: OH SHIT!!!! Failed to save context after getMerchantsByProximity: %@ %@",saveError, [saveError userInfo]);
-        [details setValue:@"Failed to save context after refreshMyDealsForMerchant." forKey:NSLocalizedDescriptionKey];
-        *err = [NSError errorWithDomain:@"save" code:200 userInfo:details];
-    }
-    
-    return merchants;
-}
-
-/**
- *  Call the service for the user's favorite merchants.
- *  Store the merchants in the context and on the user.
- **/
-- (void) refreshFavoriteMerchants:(NSManagedObjectContext *)context
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error;
-    favoriteMerchants = [cc getFavoriteMerchants:self context:context error:&error];
-    
-    // save these merchants in the context
-    NSError *saveError;
-    if (![context save:&saveError]) {
-        NSLog(@"API: OH SHIT!!!! Failed to save context after getFavoriteMerchants: %@ %@",saveError, [saveError userInfo]);
-    }
-}
-
-- (NSString *)giftToFacebook:(NSString *)dealAcquireId
-                  facebookId:(NSString *)facebookId
-              receipientName:(NSString *)receipientName
-                       error:(NSError**)error;
-{
-    self.ux.hasShared = [[NSNumber alloc] initWithBool:YES];
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc giftToFacebook:self dealAcquireId:dealAcquireId facebookId:facebookId receipientName:receipientName error:error];
-}
-
-- (NSString *)giftToEmail:(NSString *)dealAcquireId
-                    email:(NSString *)email
-           receipientName:(NSString *)receipientName
-                    error:(NSError**)error
-{
-    self.ux.hasShared = [[NSNumber alloc] initWithBool:YES];
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc giftToEmail:self dealAcquireId:dealAcquireId email:email receipientName:receipientName error:error];
-}
-
-- (ttDealAcquire *)acceptGift:(NSString *)giftId
-                      context:(NSManagedObjectContext *)context
-                        error:(NSError**)error;
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc acceptGift:self giftId:giftId context:context error:error];
-}
-
-- (BOOL)rejectGift:(NSString *)giftId
-             error:(NSError**)error
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc rejectGift:self giftId:giftId error:error];
-}
-
-- (BOOL) showDealRedemptionInstructions:(ttDealAcquire *)dealAcquire
-{
-    return (([self.ux.redeemPreviewCount intValue] < 1) &&
-            !self.ux.hasRedeemed &&
-            ![dealAcquire hasBeenShared] &&
-            ![dealAcquire hasBeenShared] &&
-            ![dealAcquire hasExpired]
-            );
-}
-
-- (void) showedDealRedemptionInstructions
-{
-    self.ux.redeemPreviewCount = [NSNumber numberWithInt:[self.ux.redeemPreviewCount intValue] + 1];
-}
-
-- (BOOL)isFacebookUser
-{
-    NSEnumerator *e = [self.socialAccounts objectEnumerator];
-    ttSocialAccount *sa;
-    while (sa = [e nextObject]) {
-        if ([sa.socialNetwork intValue] == SocialNetwork_t_Facebook) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (BOOL) purchaseDealOffer:(ttDealOffer *)offer error:(NSError **)err
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc purchaseDealOffer:self dealOfferId:offer.dealOfferId error:err];
-}
-
-- (NSArray *) getActivities:(NSManagedObjectContext *)context
-                      error:(NSError **)err
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    NSError *error;
-    NSArray *activities = [cc getActivities:self context:context error:&error];
-    
-    if ([activities count]==0 && error.code==ErrorCode_NETWORK_DOWN)
-    {
-        activities = [self fetchActivities:context];
-    }
-    
-    return activities;
-}
-
-- (NSArray *) fetchActivities:(NSManagedObjectContext *)context
-{
-    // pull any existing activities from the context
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:ACTIVITY_ENTITY_NAME inManagedObjectContext:context];
-    [request setEntity:entity];
-    NSError *error;
-    NSMutableArray *activitiesTemp = [[context executeFetchRequest:request error:&error] mutableCopy];
-    // sort the activities
-    NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc] initWithKey:@"activityDate" ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByDate];
-    NSArray *activities = [[[NSArray alloc] initWithArray:activitiesTemp] sortedArrayUsingDescriptors:sortDescriptors];
-    //NSLog(@"pulled and sorted %d activities from the context",[activities count]);
-    
-    return activities;
-}
-
-- (BOOL)hasDeals:(NSManagedObjectContext *)context
-{
-    // TODO move this to a service call
-    //      there are too many false positives
-    
-    return YES;
-    
-    /*
-     // query the context for valid deals
-     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.invalidated = nil"];
-     [request setPredicate:pred];
-     NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
-     [request setEntity:entity];
-     
-     NSError *error;
-     NSMutableArray *deals = [[context executeFetchRequest:request error:&error] mutableCopy];
-     
-     return ([deals count]>0);
-     */
-}
-
-+ (BOOL)sendResetPasswordEmail:(NSString *)email
-                         error:(NSError**)error
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc sendResetPasswordEmail:email error:error];
-}
-
-+ (ttCustomer *)resetPassword:(NSString *)customerId
-                     password:(NSString *)password
-                         code:(NSString *)resetPasswordCode
-                      context:(NSManagedObjectContext *)context
-                        error:(NSError**)error
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    return [cc resetPassword:customerId password:password code:resetPasswordCode context:context error:error];
-}
-
-- (BOOL) fetchDealOfferSummaries:(CLLocation *)location context:(NSManagedObjectContext *)context error:(NSError **)err
-{
-    CustomerController *cc = [[CustomerController alloc] init];
-    BOOL result = [cc getDealOfferGeoSummaries:self withLocation:location context:context error:err];
-    if (result)
-    {
-        NSError *error;
-        if (![context save:&error]) {
-            NSLog(@"API: OH SHIT!!!! Failed to save context after fetchDealOfferSummaries: %@ %@",error, [error userInfo]);
-        }
-    }
-    
-    return result;
-}
 
 @end

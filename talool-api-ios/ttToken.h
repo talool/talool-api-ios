@@ -14,6 +14,5 @@
 @interface ttToken : TaloolToken
 
 + (ttToken *)initWithThrift: (CTokenAccess_t *)token context:(NSManagedObjectContext *)context;
-- (CTokenAccess_t *)hydrateThriftObject;
 
 @end

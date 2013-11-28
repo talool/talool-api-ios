@@ -25,11 +25,4 @@
     return t;
 }
 
-- (CTokenAccess_t *)hydrateThriftObject
-{
-    ttCustomer *ttc = (ttCustomer *)self.customer;
-    Customer_t *customer = [ttc hydrateThriftObject];
-    return [[CTokenAccess_t alloc] initWithCustomer:customer token:self.token];
-}
-
 @end

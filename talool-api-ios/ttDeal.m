@@ -49,20 +49,6 @@
     return newDeal;
 }
 
-- (Deal_t *)hydrateThriftObject
-{
-    Deal_t *deal = [[Deal_t alloc] init];
-    deal.dealId = self.dealId;
-    deal.title = self.title;
-    deal.details = self.details;
-    deal.summary = self.summary;
-    deal.code = self.code;
-    deal.imageUrl = self.imageUrl;
-    deal.dealOfferId = self.dealOfferId;
-    
-    return deal;
-}
-
 + (ttDeal *) fetchDealById:(NSString *) dealId context:(NSManagedObjectContext *)context
 {
     ttDeal *deal = nil;

@@ -15,11 +15,15 @@
 #import "ttGiftDetail.h"
 #import "Core.h"
 #import "TaloolPersistentStoreCoordinator.h"
-#import "CustomerController.h"
+#import "DealAcquireController.h"
+#import "APIErrorManager.h"
+
 
 @implementation ttDealAcquire
 
-@synthesize customer;
+
+#pragma mark -
+#pragma mark - Create or Update the Core Data Object
 
 + (ttDealAcquire *)initWithThrift: (DealAcquire_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context
 {
@@ -63,16 +67,36 @@
     return [ttDealAcquire initWithThrift:deal merchant:nil context:context];
 }
 
-- (DealAcquire_t *)hydrateThriftObject
++ (ttDealAcquire *) fetchDealAcquireById:(NSString *) dealAcquireId context:(NSManagedObjectContext *)context
 {
-    DealAcquire_t *acquire = [[DealAcquire_t alloc] init];
-    acquire.dealAcquireId = self.dealAcquireId;
-    acquire.deal = [(ttDeal *)self.deal hydrateThriftObject];
-    acquire.redeemed = [self.redeemed timeIntervalSince1970]*1000;
-    acquire.status = [self.status intValue];
+    ttDealAcquire *acquire = nil;
     
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.dealAcquireId = %@",dealAcquireId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj == nil || [fetchedObj count] == 0)
+    {
+        acquire = (ttDealAcquire *)[NSEntityDescription
+                                    insertNewObjectForEntityForName:DEAL_ACQUIRE_ENTITY_NAME
+                                    inManagedObjectContext:context];
+    }
+    else
+    {
+        acquire = [fetchedObj objectAtIndex:0];
+    }
     return acquire;
 }
+
+
+
+#pragma mark -
+#pragma mark - Convenience methods
 
 - (BOOL) hasBeenRedeemed
 {
@@ -98,72 +122,73 @@
     return NO;
 }
 
-- (void) setSharedWith:(ttFriend *)taloolFriend
+
+
+#pragma mark -
+#pragma mark - Mark as shared
+
+- (BOOL) setSharedWith:(ttFriend *)taloolFriend error:(NSError**)error context:(NSManagedObjectContext *)context
 {
     self.status = [[NSNumber alloc] initWithUnsignedInteger:AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE];
     self.shared = [NSDate date];
     self.invalidated = [NSDate date];
     self.sharedTo = taloolFriend;
+    return [context save:error];
 }
 
-- (NSString *)redeemHere:(double)latitude longitude:(double)longitude error:(NSError**)err context:(NSManagedObjectContext *)context
+
+#pragma mark -
+#pragma mark - Redeem
+
+- (BOOL) redeemHere:(ttCustomer *)customer
+           latitude:(double)latitude
+          longitude:(double)longitude
+              error:(NSError**)error
+            context:(NSManagedObjectContext *)context
 {
-    NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    NSError *redeemError;
-    NSString *redemptionCode;
+    BOOL result = NO;
     
-    CustomerController *cController = [[CustomerController alloc] init];
-    redemptionCode = [cController redeem:self latitude:latitude longitude:longitude error:&redeemError];
+    DealAcquireController *dac = [[DealAcquireController alloc] init];
+    NSString *redemptionCode = [dac redeem:self forCustomer:customer latitude:latitude longitude:longitude error:error];
     
-    if (redeemError.code)
+    if (redemptionCode && !error)
     {
-        *err = redeemError;
-    } else {
-        
         [self setRedeemed:[NSDate date]];
         self.invalidated = [NSDate date];
         self.redemptionCode = redemptionCode;
         
-        NSError *saveError;
-        if (![context save:&saveError]) {
-            NSLog(@"API: OH SHIT!!!! Failed to save context after redeemHere: %@ %@",saveError, [saveError userInfo]);
-            [details setValue:@"Failed to save context after redeemHere." forKey:NSLocalizedDescriptionKey];
-            *err = [NSError errorWithDomain:@"redeemHere" code:200 userInfo:details];
-        }
-        
-        
+        result = [context save:error];
     }
     
-    customer.ux.hasRedeemed = [[NSNumber alloc] initWithBool:YES];
-    
-    return redemptionCode;
-    
+    return result;
 }
 
-+ (ttDealAcquire *) fetchDealAcquireById:(NSString *) dealAcquireId context:(NSManagedObjectContext *)context
+
+
+#pragma mark -
+#pragma mark - Get the Deal Acquires for a Customer
+
++ (BOOL) getDealAcquires:(ttCustomer *)customer forMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)error
 {
-    ttDealAcquire *acquire = nil;
+    BOOL result = NO;
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.dealAcquireId = %@",dealAcquireId];
-    [request setPredicate:pred];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
-    [request setEntity:entity];
+    // get the latest deals from the service
+    DealAcquireController *dac = [[DealAcquireController alloc] init];
+    NSArray *deals = [dac getAcquiredDeals:merchant forCustomer:customer error:error];
     
-    NSError *error;
-    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
-    
-    if (fetchedObj == nil || [fetchedObj count] == 0)
+    if (deals && !error)
     {
-        acquire = (ttDealAcquire *)[NSEntityDescription
-                                    insertNewObjectForEntityForName:DEAL_ACQUIRE_ENTITY_NAME
-                                    inManagedObjectContext:context];
+        @try {
+            // transform the Thrift response into a ttDealAcquire array
+            for (DealAcquire_t *d in deals) [ttDealAcquire initWithThrift:d merchant:merchant context:context];
+            result = [context save:error];
+        }
+        @catch (NSException * e) {
+            [dac.errorManager handleCoreDataException:e forMethod:@"getAcquiredDeals" entity:@"ttDealAcquire" error:error];
+        }
     }
-    else
-    {
-        acquire = [fetchedObj objectAtIndex:0];
-    }
-    return acquire;
+    
+    return result;
 }
 
 @end

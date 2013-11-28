@@ -35,6 +35,16 @@
 		81510D7C175EF44D002A869A /* ttGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 81510D7A175EF44D002A869A /* ttGift.m */; };
 		8151CB9117944EEC007894B2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CC610C16FB5A9400647AEC /* CoreData.framework */; };
 		8151CB9417944F0B007894B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8151CB9217944EF4007894B2 /* SystemConfiguration.framework */; };
+		8190F2BC18468DAA00FF0AFB /* TaloolThriftController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8190F2BA18468DAA00FF0AFB /* TaloolThriftController.h */; };
+		8190F2BD18468DAA00FF0AFB /* TaloolThriftController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8190F2BB18468DAA00FF0AFB /* TaloolThriftController.m */; };
+		8190F2C0184694BA00FF0AFB /* DealOfferController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8190F2BE184694BA00FF0AFB /* DealOfferController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8190F2C1184694BA00FF0AFB /* DealOfferController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8190F2BF184694BA00FF0AFB /* DealOfferController.m */; };
+		8190F2C41846DAAC00FF0AFB /* GiftController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8190F2C21846DAAC00FF0AFB /* GiftController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8190F2C51846DAAC00FF0AFB /* GiftController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8190F2C31846DAAC00FF0AFB /* GiftController.m */; };
+		8190F2C81846DACA00FF0AFB /* ActivityController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8190F2C61846DACA00FF0AFB /* ActivityController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8190F2C91846DACA00FF0AFB /* ActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8190F2C71846DACA00FF0AFB /* ActivityController.m */; };
+		8190F2CC1846DADC00FF0AFB /* DealAcquireController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8190F2CA1846DADC00FF0AFB /* DealAcquireController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8190F2CD1846DADC00FF0AFB /* DealAcquireController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8190F2CB1846DADC00FF0AFB /* DealAcquireController.m */; };
 		819FA93C177B7954006A819B /* TaloolActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 819FA93A177B7954006A819B /* TaloolActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		819FA93D177B7954006A819B /* TaloolActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 819FA93B177B7954006A819B /* TaloolActivity.m */; };
 		819FA940177B7954006A819B /* TaloolActivityLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 819FA93E177B7954006A819B /* TaloolActivityLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -210,6 +220,16 @@
 		8151CB9A17944F33007894B2 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
 		8151CB9C17944F33007894B2 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		817914A71798913400576CDD /* Talool06.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool06.xcdatamodel; sourceTree = "<group>"; };
+		8190F2BA18468DAA00FF0AFB /* TaloolThriftController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolThriftController.h; sourceTree = "<group>"; };
+		8190F2BB18468DAA00FF0AFB /* TaloolThriftController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolThriftController.m; sourceTree = "<group>"; };
+		8190F2BE184694BA00FF0AFB /* DealOfferController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealOfferController.h; sourceTree = "<group>"; };
+		8190F2BF184694BA00FF0AFB /* DealOfferController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealOfferController.m; sourceTree = "<group>"; };
+		8190F2C21846DAAC00FF0AFB /* GiftController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftController.h; sourceTree = "<group>"; };
+		8190F2C31846DAAC00FF0AFB /* GiftController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftController.m; sourceTree = "<group>"; };
+		8190F2C61846DACA00FF0AFB /* ActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityController.h; sourceTree = "<group>"; };
+		8190F2C71846DACA00FF0AFB /* ActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityController.m; sourceTree = "<group>"; };
+		8190F2CA1846DADC00FF0AFB /* DealAcquireController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealAcquireController.h; sourceTree = "<group>"; };
+		8190F2CB1846DADC00FF0AFB /* DealAcquireController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealAcquireController.m; sourceTree = "<group>"; };
 		819FA939177B717E006A819B /* Talool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool.xcdatamodel; sourceTree = "<group>"; };
 		819FA93A177B7954006A819B /* TaloolActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolActivity.h; sourceTree = "<group>"; };
 		819FA93B177B7954006A819B /* TaloolActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolActivity.m; sourceTree = "<group>"; };
@@ -646,12 +666,22 @@
 		914A1B6116E6EEE10043989A /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8190F2BA18468DAA00FF0AFB /* TaloolThriftController.h */,
+				8190F2BB18468DAA00FF0AFB /* TaloolThriftController.m */,
 				914A1B1D16E6ED390043989A /* MerchantController.h */,
 				914A1B1E16E6ED390043989A /* MerchantController.m */,
+				8190F2BE184694BA00FF0AFB /* DealOfferController.h */,
+				8190F2BF184694BA00FF0AFB /* DealOfferController.m */,
 				914A1B1F16E6ED390043989A /* CustomerController.h */,
 				914A1B2016E6ED390043989A /* CustomerController.m */,
 				91CC60D016F57CD900647AEC /* TaloolHTTPClient.h */,
 				91CC60D116F57CD900647AEC /* TaloolHTTPClient.m */,
+				8190F2C21846DAAC00FF0AFB /* GiftController.h */,
+				8190F2C31846DAAC00FF0AFB /* GiftController.m */,
+				8190F2C61846DACA00FF0AFB /* ActivityController.h */,
+				8190F2C71846DACA00FF0AFB /* ActivityController.m */,
+				8190F2CA1846DADC00FF0AFB /* DealAcquireController.h */,
+				8190F2CB1846DADC00FF0AFB /* DealAcquireController.m */,
 			);
 			name = "Model Controllers";
 			sourceTree = "<group>";
@@ -740,12 +770,17 @@
 				81FF00EF17611CF50040E1F6 /* TaloolToken.h in Headers */,
 				81BB91411819AAC200C4D2CF /* TTLog.h in Headers */,
 				81E7089D183BE92C00C75C57 /* ttGiftDetail.h in Headers */,
+				8190F2BC18468DAA00FF0AFB /* TaloolThriftController.h in Headers */,
 				81E70891183BDEE200C75C57 /* TaloolGiftDetail.h in Headers */,
 				81FF00F317611D860040E1F6 /* ttFriend.h in Headers */,
 				81E70899183BE2E900C75C57 /* ttDealOfferGeoSummary.h in Headers */,
 				811A9CDC1760368D00B42612 /* TaloolDeal.h in Headers */,
+				8190F2C41846DAAC00FF0AFB /* GiftController.h in Headers */,
 				81E70895183BDEE300C75C57 /* TaloolDealOfferGeoSummary.h in Headers */,
+				8190F2CC1846DADC00FF0AFB /* DealAcquireController.h in Headers */,
+				8190F2C0184694BA00FF0AFB /* DealOfferController.h in Headers */,
 				811A9CC6175FFD0700B42612 /* TaloolCustomerUX.h in Headers */,
+				8190F2C81846DACA00FF0AFB /* ActivityController.h in Headers */,
 				81510D7B175EF44D002A869A /* ttGift.h in Headers */,
 				819FA93C177B7954006A819B /* TaloolActivity.h in Headers */,
 				819FA940177B7954006A819B /* TaloolActivityLink.h in Headers */,
@@ -909,6 +944,7 @@
 				914A1B5216E6ED9B0043989A /* TException.m in Sources */,
 				914A1B5316E6ED9B0043989A /* THTTPClient.m in Sources */,
 				914A1B5416E6ED9B0043989A /* TMemoryBuffer.m in Sources */,
+				8190F2C91846DACA00FF0AFB /* ActivityController.m in Sources */,
 				914A1B5516E6ED9B0043989A /* TNSFileHandleTransport.m in Sources */,
 				81BB91421819AAC200C4D2CF /* TTLog.m in Sources */,
 				81E70887183BD29000C75C57 /* Core.m in Sources */,
@@ -919,7 +955,9 @@
 				9161489416EBA743001C546C /* TaloolPersistentStoreCoordinator.m in Sources */,
 				81E7088D183BD29000C75C57 /* Payment.m in Sources */,
 				91F7D6CC16ED78F400D64C19 /* TaloolFrameworkHelper.m in Sources */,
+				8190F2BD18468DAA00FF0AFB /* TaloolThriftController.m in Sources */,
 				91F7D6CE16ED78F400D64C19 /* ttDeal.m in Sources */,
+				8190F2C51846DAAC00FF0AFB /* GiftController.m in Sources */,
 				91F546AF16F16EC400BEFF91 /* ttSocialAccount.m in Sources */,
 				91F546B316F16EEA00BEFF91 /* ttSocialNetworkDetail.m in Sources */,
 				91CC60CB16F5354100647AEC /* ttToken.m in Sources */,
@@ -951,7 +989,9 @@
 				81E70885183BD29000C75C57 /* Activity.m in Sources */,
 				81FF00EC17611CF50040E1F6 /* TaloolGift.m in Sources */,
 				81FF00F017611CF50040E1F6 /* TaloolToken.m in Sources */,
+				8190F2C1184694BA00FF0AFB /* DealOfferController.m in Sources */,
 				81FF00F417611D860040E1F6 /* ttFriend.m in Sources */,
+				8190F2CD1846DADC00FF0AFB /* DealAcquireController.m in Sources */,
 				8145C4461778C81C00880294 /* Talool.xcdatamodeld in Sources */,
 				819FA93D177B7954006A819B /* TaloolActivity.m in Sources */,
 				819FA941177B7954006A819B /* TaloolActivityLink.m in Sources */,

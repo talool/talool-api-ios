@@ -48,22 +48,6 @@
     return m;
 }
 
--(MerchantLocation_t *)hydrateThriftObject
-{
-    MerchantLocation_t *location = [[MerchantLocation_t alloc] init];
-    
-    location.locationId = [self.locationId integerValue];
-    location.name = self.name;
-    location.email = self.email;
-    location.websiteUrl = self.websiteUrl;
-    location.logoUrl = self.logoUrl;
-    location.merchantImageUrl = self.imageUrl;
-    location.phone = self.phone;
-    location.distanceInMeters = [self.distanceInMeters doubleValue];
-    
-    return location;
-}
-
 + (ttMerchantLocation *) fetchMerchantLocationById:(NSNumber *) merchantLocationId context:(NSManagedObjectContext *)context
 {
     ttMerchantLocation *merchantLocation = nil;

@@ -12,8 +12,7 @@
 
 @interface ttCategory : TaloolCategory
 
-+ (NSArray *)getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context;
++ (BOOL)getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err;
 + (ttCategory *)initWithThrift: (Category_t *)category context:(NSManagedObjectContext *)context;
-- (Category_t *)hydrateThriftObject;
 
 @end

@@ -10,7 +10,8 @@
 #import "ttActivityLink.h"
 #import "Activity.h"
 #import "TaloolPersistentStoreCoordinator.h"
-#import "CustomerController.h"
+#import "ActivityController.h"
+#import <APIErrorManager.h>
 
 @implementation ttActivity
 
@@ -58,14 +59,35 @@
     return activity;
 }
 
-- (void) actionTaken:(ttCustomer *)customer
++ (BOOL) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
-    CustomerController *cc = [[CustomerController alloc] init];
-    NSError *err;
-    if ([cc actionTaken:customer actionId:self.activityId error:&err])
+    BOOL result = NO;
+    
+    ActivityController *ac = [[ActivityController alloc] init];
+    NSArray *activities = [ac getActivities:customer error:error];
+    
+    @try {
+        // transform the Thrift response and save the context
+        for (Activity_t *at in activities) [ttActivity initWithThrift:at context:context];
+        result = [context save:error];
+    }
+    @catch (NSException * e) {
+        [ac.errorManager handleCoreDataException:e forMethod:@"getActivities" entity:@"ttActivity" error:error];
+    }
+    
+    return result;
+}
+
+- (BOOL) actionTaken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
+{
+    ActivityController *ac = [[ActivityController alloc] init];
+    BOOL result = [ac actionTaken:customer actionId:self.activityId error:err];
+    if (result && !err)
     {
         self.actionTaken = [NSNumber numberWithBool:YES];
+        result = [context save:err];
     }
+    return result;
 }
 
 - (BOOL) isClosed

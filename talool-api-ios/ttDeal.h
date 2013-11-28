@@ -13,6 +13,5 @@
 @interface ttDeal : TaloolDeal
 
 + (ttDeal *)initWithThrift: (Deal_t *)deal merchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context;
-- (Deal_t *)hydrateThriftObject;
 
 @end
