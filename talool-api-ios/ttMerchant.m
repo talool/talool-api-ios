@@ -180,6 +180,7 @@
 
 - (BOOL) favorite:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
+    error = nil;
     MerchantController *mc = [[MerchantController alloc] init];
     BOOL result = [mc addFavoriteMerchant:customer merchantId:self.merchantId error:error];
     if (result && !error)
@@ -192,6 +193,7 @@
 
 - (BOOL) unfavorite:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
+    error = nil;
     MerchantController *mc = [[MerchantController alloc] init];
     BOOL result = [mc removeFavoriteMerchant:customer merchantId:self.merchantId error:error];
     if (result && !error)
@@ -214,7 +216,7 @@
                 error:(NSError **)error
 {
     BOOL result = NO;
-    
+    error = nil;
     MerchantController *mc = [[MerchantController alloc] init];
     NSMutableArray *merchants = [mc getMerchants:customer withLocation:loc error:error];
     
@@ -238,7 +240,7 @@
 + (BOOL) getFavoriteMerchants:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
     BOOL result = NO;
-    
+    error = nil;
     MerchantController *mc = [[MerchantController alloc] init];
     NSMutableArray *favs = [mc getFavoriteMerchants:customer error:error];
     

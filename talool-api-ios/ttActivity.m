@@ -62,7 +62,7 @@
 + (BOOL) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
     BOOL result = NO;
-    
+    error = nil;
     ActivityController *ac = [[ActivityController alloc] init];
     NSArray *activities = [ac getActivities:customer error:error];
     
@@ -80,6 +80,7 @@
 
 - (BOOL) actionTaken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
+    err = nil;
     ActivityController *ac = [[ActivityController alloc] init];
     BOOL result = [ac actionTaken:customer actionId:self.activityId error:err];
     if (result && !err)

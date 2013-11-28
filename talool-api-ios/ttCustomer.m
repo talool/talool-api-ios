@@ -125,6 +125,7 @@
 + (BOOL) authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     BOOL result = NO;
+    err = nil;
     
     // clear out any existsing users
     [ttCustomer clearUsers:context error:err];
@@ -158,6 +159,7 @@
                                error:(NSError**)err
 {
     BOOL result = NO;
+    err = nil;
     
     // clear out any existsing users
     [ttCustomer clearUsers:context error:err];
@@ -187,6 +189,7 @@
 + (BOOL) logoutUser:(NSManagedObjectContext *)context error:(NSError**)error
 {
     BOOL result = NO;
+    error = nil;
     ttCustomer *user = [ttCustomer getLoggedInUser:context];
     if (user != nil) {
         // clear out any existsing users
@@ -198,7 +201,7 @@
 + (BOOL) registerCustomer:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     BOOL result = NO;
-    
+    err = nil;
     CustomerController *cc = [[CustomerController alloc] init];
     
     // validate data before sending to the server
@@ -228,6 +231,7 @@
 + (BOOL) sendResetPasswordEmail:(NSString *)email
                          error:(NSError**)error
 {
+    error = nil;
     CustomerController *cc = [[CustomerController alloc] init];
     return [cc sendResetPasswordEmail:email error:error];
 }
@@ -239,7 +243,7 @@
                  error:(NSError**)error
 {
     BOOL result = NO;
-    
+    error = nil;
     CustomerController *cc = [[CustomerController alloc] init];
     CTokenAccess_t *token = [cc resetPassword:customerId password:password code:resetPasswordCode error:error];
     

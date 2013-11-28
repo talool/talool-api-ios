@@ -60,7 +60,7 @@
 + (BOOL)getCategories:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
     BOOL result = NO;
-    
+    error = nil;
     MerchantController *mc = [[MerchantController alloc] init];
     NSArray *cats = [mc getCategories:customer error:error];
     

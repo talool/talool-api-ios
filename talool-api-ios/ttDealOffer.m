@@ -89,6 +89,7 @@
 - (BOOL)getDeals:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     BOOL result = NO;
+    err = nil;
     
     DealOfferController *doc = [[DealOfferController alloc] init];
     NSArray *deals = [doc getDealsByDealOfferId:self.dealOfferId customer:customer error:err];
@@ -122,6 +123,7 @@
 
 - (BOOL)activiateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err
 {
+    err = nil;
     DealOfferController *doc = [[DealOfferController alloc] init];
     return [doc activateCode:customer offerId:self.dealOfferId code:code error:err];
 }
@@ -135,6 +137,7 @@
                customer:(ttCustomer *)customer
                   error:(NSError**)error
 {
+    error = nil;
     DealOfferController *doc = [[DealOfferController alloc] init];
     return [doc purchaseByCard:self.dealOfferId card:card expMonth:expMonth expYear:expYear securityCode:securityCode zipCode:zipCode venmoSession:venmoSession customer:customer error:error];
 }
@@ -143,6 +146,7 @@
                customer:(ttCustomer *)customer
                   error:(NSError**)error
 {
+    error = nil;
     DealOfferController *doc = [[DealOfferController alloc] init];
     return [doc purchaseByCode:self.dealOfferId paymentCode:paymentCode customer:customer error:error];
 }
