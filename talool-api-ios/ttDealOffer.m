@@ -82,6 +82,25 @@
     return offer;
 }
 
++ (BOOL) getById:(NSString *)dealOfferId
+                 customer:(ttCustomer *)customer
+                  context:(NSManagedObjectContext *)context
+                    error:(NSError **)error
+{
+    BOOL result = NO;
+    error = nil;
+    
+    DealOfferController *doc = [[DealOfferController alloc] init];
+    DealOffer_t *offer = [doc getDealOfferById:dealOfferId customer:customer error:error];
+    if (offer && !error)
+    {
+        [ttDealOffer initWithThrift:offer context:context];
+        result = [context save:error];
+    }
+    
+    return result;
+}
+
 
 #pragma mark -
 #pragma mark - Get the Deals for the Deal Offer

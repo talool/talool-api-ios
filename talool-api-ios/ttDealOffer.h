@@ -13,6 +13,11 @@
 @interface ttDealOffer : TaloolDealOffer
 
 + (ttDealOffer *)initWithThrift: (DealOffer_t *)offer context:(NSManagedObjectContext *)context;
++ (ttDealOffer *) fetchById:(NSString *) entityId context:(NSManagedObjectContext *)context;
++ (BOOL) getById:(NSString *)dealOfferId
+                 customer:(ttCustomer *)customer
+                  context:(NSManagedObjectContext *)context
+                    error:(NSError **)error;
 
 - (BOOL)getDeals:(ttCustomer *)customer
               context:(NSManagedObjectContext *)context

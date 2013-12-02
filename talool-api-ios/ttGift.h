@@ -13,6 +13,7 @@
 @interface ttGift : TaloolGift
 
 + (ttGift *)initWithThrift: (Gift_t *)gift context:(NSManagedObjectContext *)context;
++ (ttGift *) fetchById:(NSString *) giftId context:(NSManagedObjectContext *)context;
 
 #pragma mark -
 #pragma mark - Convenience methods

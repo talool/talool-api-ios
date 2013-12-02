@@ -225,7 +225,11 @@
         @try
         {
             // transform the Thrift response and save the context
-            for (Merchant_t *m in merchants) [ttMerchant initWithThrift:m context:context];
+            for (Merchant_t *m in merchants)
+            {
+                ttMerchant *tm = [ttMerchant initWithThrift:m context:context];
+                tm.customer = customer;
+            }
             result = [context save:error];
         }
         @catch (NSException * e)

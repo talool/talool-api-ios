@@ -13,5 +13,6 @@
 @interface ttGiftDetail : TaloolGiftDetail
 
 + (ttGiftDetail *)initWithThrift: (GiftDetail_t *)detail context:(NSManagedObjectContext *)context;
++ (ttGiftDetail *) fetchById:(NSString *)entityId context:(NSManagedObjectContext *)context;
 
 @end

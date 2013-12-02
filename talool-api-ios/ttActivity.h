@@ -13,6 +13,8 @@
 @interface ttActivity : TaloolActivity
 
 + (ttActivity *)initWithThrift: (Activity_t *)activity context:(NSManagedObjectContext *)context;
++ (ttActivity *) fetchById:(NSString *)entityId context:(NSManagedObjectContext *)context;
+
 - (BOOL) isPurchaseEvent;
 - (BOOL) isRedeemEvent;
 - (BOOL) isRejectGiftEvent;
@@ -33,7 +35,7 @@
 - (BOOL) isClosed;
 - (BOOL) actionTaken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err;
 
-+ (BOOL) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error;
++ (NSDictionary *) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error;
 
 + (NSPredicate *) getGiftPredicate;
 + (NSPredicate *) getMoneyPredicate;

@@ -254,6 +254,45 @@
     return result;
 }
 
+- (DealOffer_t *) getDealOfferById:(NSString *)doId customer:(ttCustomer *)customer error:(NSError**)error
+{
+    NSLog(@"GET DEAL OFFER BY ID");
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    DealOffer_t *offer;
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+
+        offer = [self.service getDealOffer:doId];
+        
+        if (!offer)
+        {
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                  action:@"getDealOfferById"
+                                                                   label:@"emptyset"
+                                                                   value:nil] build]];
+        }
+        
+    }
+    @catch (NSException * e)
+    {
+        [self.errorManager handlePaymentException:e forMethod:@"getDealOfferGeoSummaries" message:@"exception" error:error];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"getDealOfferById"
+                                                               label:@"fail"
+                                                               value:nil] build]];
+    }
+    @finally
+    {
+        [self disconnect];
+    }
+    
+    return offer;
+}
+
 
 
 #pragma mark -

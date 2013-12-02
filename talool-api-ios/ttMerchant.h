@@ -18,7 +18,7 @@
 #pragma mark - Create or Update the Core Data Object
 
 + (ttMerchant *)initWithThrift: (Merchant_t *)merchant context:(NSManagedObjectContext *)context;
-
++ (ttMerchant *)fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context;
 
 #pragma mark -
 #pragma mark - Get Merchants
