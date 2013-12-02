@@ -62,31 +62,33 @@
 + (NSDictionary *) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
     BOOL result = NO;
-    error = nil;
     ActivityController *ac = [[ActivityController alloc] init];
     NSArray *activities = [ac getActivities:customer error:error];
     int opencount = 0;
     
-    @try {
-        // transform the Thrift response, count open activities, and save the context
-        for (Activity_t *at in activities) {
-            ttActivity *act = [ttActivity initWithThrift:at context:context];
-            if ([act isWelcomeEvent] ||
-                [act isTaloolReachEvent] ||
-                [act isMerchantReachEvent] ||
-                [act isFacebookReceiveGiftEvent] ||
-                [act isEmailReceiveGiftEvent])
-            {
-                if (![act isClosed])
+    if (activities)
+    {
+        @try {
+            // transform the Thrift response, count open activities, and save the context
+            for (Activity_t *at in activities) {
+                ttActivity *act = [ttActivity initWithThrift:at context:context];
+                if ([act isWelcomeEvent] ||
+                    [act isTaloolReachEvent] ||
+                    [act isMerchantReachEvent] ||
+                    [act isFacebookReceiveGiftEvent] ||
+                    [act isEmailReceiveGiftEvent])
                 {
-                    opencount++;
+                    if (![act isClosed])
+                    {
+                        opencount++;
+                    }
                 }
             }
+            result = [context save:error];
         }
-        result = [context save:error];
-    }
-    @catch (NSException * e) {
-        [ac.errorManager handleCoreDataException:e forMethod:@"getActivities" entity:@"ttActivity" error:error];
+        @catch (NSException * e) {
+            [ac.errorManager handleCoreDataException:e forMethod:@"getActivities" entity:@"ttActivity" error:error];
+        }
     }
     
     NSMutableDictionary *response = [[NSMutableDictionary alloc] init];
@@ -97,10 +99,9 @@
 
 - (BOOL) actionTaken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
-    err = nil;
     ActivityController *ac = [[ActivityController alloc] init];
     BOOL result = [ac actionTaken:customer actionId:self.activityId error:err];
-    if (result && !err)
+    if (result)
     {
         self.actionTaken = [NSNumber numberWithBool:YES];
         result = [context save:err];

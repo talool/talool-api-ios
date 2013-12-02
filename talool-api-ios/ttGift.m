@@ -124,10 +124,9 @@
 + (BOOL) getGiftById:(NSString* )giftId customer:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     BOOL result = NO;
-    err = nil;
     GiftController *gc = [[GiftController alloc] init];
     Gift_t *gift = [gc getGiftById:giftId customer:customer error:err];
-    if (gift && !err)
+    if (gift)
     {
         @try {
             // transform the Thrift response
@@ -148,7 +147,6 @@
          receipientName:(NSString *)receipientName
                   error:(NSError**)error
 {
-    error = nil;
     GiftController *gc = [[GiftController alloc] init];
     return [gc giftToFacebook:customer dealAcquireId:dealAcquireId facebookId:facebookId receipientName:receipientName error:error];
 }
@@ -159,7 +157,6 @@
       receipientName:(NSString *)receipientName
                error:(NSError**)error
 {
-    error = nil;
     GiftController *gc = [[GiftController alloc] init];
     return [gc giftToEmail:customer dealAcquireId:dealAcquireId email:email receipientName:receipientName error:error];
 }
@@ -170,11 +167,10 @@
               error:(NSError**)error;
 {
     BOOL result = NO;
-    error = nil;
     GiftController *gc = [[GiftController alloc] init];
     DealAcquire_t *deal = [gc acceptGift:customer giftId:giftId error:error];
     
-    if (deal && !error)
+    if (deal)
     {
         @try {
             // transform the Thrift response
@@ -195,7 +191,6 @@
             context:(NSManagedObjectContext *)context
               error:(NSError**)error
 {
-    error = nil;
     GiftController *gc = [[GiftController alloc] init];
     return [gc rejectGift:customer giftId:giftId error:error];
 }

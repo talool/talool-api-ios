@@ -124,18 +124,13 @@
 
 + (BOOL) authenticate:(NSString *)email password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err
 {
-    BOOL result = NO;
-    err = nil;
-    
-    // clear out any existsing users
-    [ttCustomer clearUsers:context error:err];
-    
-    if (!err)
+    BOOL result = [ttCustomer clearUsers:context error:err];
+    if (result)
     {
         CustomerController *cc = [[CustomerController alloc] init];
         CTokenAccess_t *token = [cc authenticate:email password:password error:err];
         
-        if (token && !err)
+        if (token)
         {
             @try {
                 // transform the Thrift response into a ttCustomer
@@ -147,6 +142,10 @@
             @catch (NSException * e) {
                 [cc.errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:err];
             }
+        }
+        else
+        {
+            result = NO;
         }
     }
     
@@ -158,17 +157,13 @@
                              context:(NSManagedObjectContext *)context
                                error:(NSError**)err
 {
-    BOOL result = NO;
-    err = nil;
+    BOOL result = [ttCustomer clearUsers:context error:err];
     
-    // clear out any existsing users
-    [ttCustomer clearUsers:context error:err];
-    
-    if (!err)
+    if (result)
     {
         CustomerController *cc = [[CustomerController alloc] init];
         CTokenAccess_t *token = [cc authenticateFacebook:facebookId facebookToken:facebookToken error:err];
-        if (token && !err)
+        if (token)
         {
             @try {
                 // transform the Thrift response into a ttCustomer
@@ -181,6 +176,10 @@
                 [cc.errorManager handleCoreDataException:e forMethod:@"authenticate" entity:@"ttCustomer" error:err];
             }
         }
+        else
+        {
+            result = NO;
+        }
     }
     
     return result;
@@ -189,7 +188,6 @@
 + (BOOL) logoutUser:(NSManagedObjectContext *)context error:(NSError**)error
 {
     BOOL result = NO;
-    error = nil;
     ttCustomer *user = [ttCustomer getLoggedInUser:context];
     if (user != nil) {
         // clear out any existsing users
@@ -201,7 +199,6 @@
 + (BOOL) registerCustomer:(ttCustomer *)customer password:(NSString *)password context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     BOOL result = NO;
-    err = nil;
     CustomerController *cc = [[CustomerController alloc] init];
     
     // validate data before sending to the server
@@ -211,7 +208,7 @@
     
     CTokenAccess_t *token = [cc registerUser:ct password:password error:err];
     
-    if (token && !err)
+    if (token)
     {
         @try {
             // transform the Thrift response into a ttCustomer
@@ -231,7 +228,6 @@
 + (BOOL) sendResetPasswordEmail:(NSString *)email
                          error:(NSError**)error
 {
-    error = nil;
     CustomerController *cc = [[CustomerController alloc] init];
     return [cc sendResetPasswordEmail:email error:error];
 }
@@ -243,11 +239,10 @@
                  error:(NSError**)error
 {
     BOOL result = NO;
-    error = nil;
     CustomerController *cc = [[CustomerController alloc] init];
     CTokenAccess_t *token = [cc resetPassword:customerId password:password code:resetPasswordCode error:error];
     
-    if (token && !error)
+    if (token)
     {
         @try {
             // transform the Thrift response into a ttCustomer

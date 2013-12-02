@@ -129,7 +129,6 @@
 
 - (BOOL) setSharedWith:(ttFriend *)taloolFriend error:(NSError**)error context:(NSManagedObjectContext *)context
 {
-    error = nil;
     self.status = [[NSNumber alloc] initWithUnsignedInteger:AcquireStatus_t_PENDING_ACCEPT_CUSTOMER_SHARE];
     self.shared = [NSDate date];
     self.invalidated = [NSDate date];
@@ -148,11 +147,10 @@
             context:(NSManagedObjectContext *)context
 {
     BOOL result = NO;
-    error = nil;
     DealAcquireController *dac = [[DealAcquireController alloc] init];
     NSString *redemptionCode = [dac redeem:self forCustomer:customer latitude:latitude longitude:longitude error:error];
     
-    if (redemptionCode && !error)
+    if (redemptionCode)
     {
         [self setRedeemed:[NSDate date]];
         self.invalidated = [NSDate date];
@@ -172,12 +170,11 @@
 + (BOOL) getDealAcquires:(ttCustomer *)customer forMerchant:(ttMerchant *)merchant context:(NSManagedObjectContext *)context error:(NSError **)error
 {
     BOOL result = NO;
-    error = nil;
     // get the latest deals from the service
     DealAcquireController *dac = [[DealAcquireController alloc] init];
     NSArray *deals = [dac getAcquiredDeals:merchant forCustomer:customer error:error];
     
-    if (deals && !error)
+    if (deals)
     {
         @try {
             // transform the Thrift response into a ttDealAcquire array

@@ -85,10 +85,9 @@
 + (BOOL) fetchDealOfferSummaries:(ttCustomer *)customer location:(CLLocation *)location context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     BOOL result = NO;
-    err = nil;
     DealOfferController *doc = [[DealOfferController alloc] init];
     NSMutableArray *resultset = [doc getDealOfferGeoSummaries:customer withLocation:location error:err];
-    if (resultset && !err)
+    if (resultset)
     {
         // store the objects in the response in CoreData
         for (int i=0; i<[resultset count]; i++) {

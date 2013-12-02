@@ -88,11 +88,10 @@
                     error:(NSError **)error
 {
     BOOL result = NO;
-    error = nil;
     
     DealOfferController *doc = [[DealOfferController alloc] init];
     DealOffer_t *offer = [doc getDealOfferById:dealOfferId customer:customer error:error];
-    if (offer && !error)
+    if (offer)
     {
         [ttDealOffer initWithThrift:offer context:context];
         result = [context save:error];
@@ -108,12 +107,11 @@
 - (BOOL)getDeals:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     BOOL result = NO;
-    err = nil;
     
     DealOfferController *doc = [[DealOfferController alloc] init];
     NSArray *deals = [doc getDealsByDealOfferId:self.dealOfferId customer:customer error:err];
     
-    if (!err)
+    if (deals)
     {
         @try {
             // transform the Thrift response into a ttDealAcquire array
@@ -123,10 +121,7 @@
                 [ttDeal initWithThrift:td merchant:nil context:context];
             }
             // save the context
-            if ([context save:err])
-            {
-                result = YES;
-            }
+            result = [context save:err];
         }
         @catch (NSException * e) {
             [doc.errorManager handleCoreDataException:e forMethod:@"getDealByDealOfferId" entity:@"ttDeal" error:err];
@@ -142,7 +137,6 @@
 
 - (BOOL)activiateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err
 {
-    err = nil;
     DealOfferController *doc = [[DealOfferController alloc] init];
     return [doc activateCode:customer offerId:self.dealOfferId code:code error:err];
 }
@@ -156,7 +150,6 @@
                customer:(ttCustomer *)customer
                   error:(NSError**)error
 {
-    error = nil;
     DealOfferController *doc = [[DealOfferController alloc] init];
     return [doc purchaseByCard:self.dealOfferId card:card expMonth:expMonth expYear:expYear securityCode:securityCode zipCode:zipCode venmoSession:venmoSession customer:customer error:error];
 }
@@ -165,7 +158,6 @@
                customer:(ttCustomer *)customer
                   error:(NSError**)error
 {
-    error = nil;
     DealOfferController *doc = [[DealOfferController alloc] init];
     return [doc purchaseByCode:self.dealOfferId paymentCode:paymentCode customer:customer error:error];
 }
