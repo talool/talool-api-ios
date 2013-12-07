@@ -13,15 +13,12 @@
 
 @implementation ttFriend
 
-@synthesize fullName;
-
 + (ttFriend *)initWithThrift: (Customer_t *)customer context:(NSManagedObjectContext *)context
 {
     ttFriend *f = [ttFriend fetchById:customer.customerId context:context];
     
     f.firstName = customer.firstName;
     f.lastName = customer.lastName;
-    f.fullName = [NSString stringWithFormat:@"%@ %@",customer.firstName, customer.lastName];
     f.email = customer.email;
     f.customerId = customer.customerId;
     
@@ -33,7 +30,7 @@
     ttFriend *f = [ttFriend fetchByEmail:email context:context];
     
     f.firstName = name;
-    f.fullName = name;
+    f.lastName = name;
     f.email = email;
     
     return f;
@@ -89,6 +86,11 @@
         friend = [fetchedObj objectAtIndex:0];
     }
     return friend;
+}
+
+- (NSString *) fullName
+{
+    return [NSString stringWithFormat:@"%@ %@",self.firstName, self.lastName];
 }
 
 @end

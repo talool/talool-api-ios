@@ -59,6 +59,27 @@
     return activity;
 }
 
++ (void) refreshActivityForGiftId:(NSString *)entityId context:(NSManagedObjectContext *)context
+{
+    ttActivity *activity = nil;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"link.elementId = %@",entityId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:ACTIVITY_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedObj != nil || [fetchedObj count] == 1)
+    {
+        activity = [fetchedObj objectAtIndex:0];
+        [context refreshObject:activity mergeChanges:YES];
+    }
+    
+}
+
 + (NSDictionary *) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error
 {
     BOOL result = NO;

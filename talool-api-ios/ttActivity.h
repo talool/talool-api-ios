@@ -14,6 +14,7 @@
 
 + (ttActivity *)initWithThrift: (Activity_t *)activity context:(NSManagedObjectContext *)context;
 + (ttActivity *) fetchById:(NSString *)entityId context:(NSManagedObjectContext *)context;
++ (void) refreshActivityForGiftId:(NSString *)entityId context:(NSManagedObjectContext *)context;
 
 - (BOOL) isPurchaseEvent;
 - (BOOL) isRedeemEvent;
