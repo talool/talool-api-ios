@@ -19,6 +19,7 @@
 
 + (ttMerchant *)initWithThrift: (Merchant_t *)merchant context:(NSManagedObjectContext *)context;
 + (ttMerchant *)fetchMerchantById:(NSString *) merchantId context:(NSManagedObjectContext *)context;
++ (NSArray *)fetchMerchants:(NSManagedObjectContext *)context withPredicate:(NSPredicate *)predicate;
 
 #pragma mark -
 #pragma mark - Get Merchants

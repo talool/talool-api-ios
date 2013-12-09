@@ -121,6 +121,21 @@
     return merchant;
 }
 
++ (NSArray *)fetchMerchants:(NSManagedObjectContext *)context withPredicate:(NSPredicate *)predicate
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    if (predicate)
+    {
+        [request setPredicate:predicate];
+    }
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:MERCHANT_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    return [context executeFetchRequest:request error:&error];
+}
+
 #pragma mark -
 #pragma mark - Convenience methods for the merchant
 
