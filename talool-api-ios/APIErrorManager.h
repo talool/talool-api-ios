@@ -20,7 +20,7 @@
 
 @class TaloolErrorHandler;
 
-NSString * const TALOOL_DOMAIN = @"com.talool.talool-api-ios";
+static NSString * TALOOL_DOMAIN = @"com.talool.talool-api-ios";
 
 @protocol ErrorHandlerDelegate <NSObject>
 
