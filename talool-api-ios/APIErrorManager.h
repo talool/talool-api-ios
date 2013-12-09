@@ -20,6 +20,8 @@
 
 @class TaloolErrorHandler;
 
+NSString * const TALOOL_DOMAIN = @"com.talool.talool-api-ios";
+
 @protocol ErrorHandlerDelegate <NSObject>
 
 - (void) handleServiceException:(NSException *)exception

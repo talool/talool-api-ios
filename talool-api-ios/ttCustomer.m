@@ -229,7 +229,20 @@
                          error:(NSError**)error
 {
     CustomerController *cc = [[CustomerController alloc] init];
-    return [cc sendResetPasswordEmail:email error:error];
+    BOOL result = [cc sendResetPasswordEmail:email error:error];
+    if (!result)
+    {
+        // override the error message
+        if ([*error code] == ErrorCode_NOT_FOUND_EXCEPTION)
+        {
+            NSMutableDictionary* details = [NSMutableDictionary dictionary];
+            NSString *errorDetails = @"We were not able to locate an account registered with that email address.  Please double check the address and try again.";
+            [details setValue:errorDetails forKey:NSLocalizedDescriptionKey];
+            *error = [NSError errorWithDomain:TALOOL_DOMAIN code:[*error code] userInfo:details];
+        }
+    }
+    
+    return result;
 }
 
 + (BOOL) resetPassword:(NSString *)customerId

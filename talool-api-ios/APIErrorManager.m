@@ -9,8 +9,6 @@
 #import "APIErrorManager.h"
 #import "TaloolErrorHandler.h"
 
-NSString * const TALOOL_DOMAIN = @"com.talool.talool-api-ios";
-
 @implementation APIErrorManager
 
 @synthesize handler;
