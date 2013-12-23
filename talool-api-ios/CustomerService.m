@@ -494,6 +494,145 @@
 
 @end
 
+@implementation MerchantsResponse_t
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithMerchants: (NSMutableArray *) merchants
+{
+  self = [super init];
+  __merchants = [merchants retain_stub];
+  __merchants_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"merchants"])
+  {
+    __merchants = [[decoder decodeObjectForKey: @"merchants"] retain_stub];
+    __merchants_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__merchants_isset)
+  {
+    [encoder encodeObject: __merchants forKey: @"merchants"];
+  }
+}
+
+- (void) dealloc
+{
+  [__merchants release_stub];
+  [super dealloc_stub];
+}
+
+- (NSMutableArray *) merchants {
+  return [[__merchants retain_stub] autorelease_stub];
+}
+
+- (void) setMerchants: (NSMutableArray *) merchants {
+  [merchants retain_stub];
+  [__merchants release_stub];
+  __merchants = merchants;
+  __merchants_isset = YES;
+}
+
+- (BOOL) merchantsIsSet {
+  return __merchants_isset;
+}
+
+- (void) unsetMerchants {
+  [__merchants release_stub];
+  __merchants = nil;
+  __merchants_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_LIST) {
+          int _size5;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size5];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size5];
+          int _i6;
+          for (_i6 = 0; _i6 < _size5; ++_i6)
+          {
+            Merchant_t *_elem7 = [[Merchant_t alloc] init];
+            [_elem7 read: inProtocol];
+            [fieldValue addObject: _elem7];
+            [_elem7 release_stub];
+          }
+          [inProtocol readListEnd];
+          [self setMerchants: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"MerchantsResponse_t"];
+  if (__merchants_isset) {
+    if (__merchants != nil) {
+      [outProtocol writeFieldBeginWithName: @"merchants" type: TType_LIST fieldID: 1];
+      {
+        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__merchants count]];
+        int i9;
+        for (i9 = 0; i9 < [__merchants count]; i9++)
+        {
+          [[__merchants objectAtIndex: i9] write: outProtocol];
+        }
+        [outProtocol writeListEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"MerchantsResponse_t("];
+  [ms appendString: @"merchants:"];
+  [ms appendFormat: @"%@", __merchants];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 static NSString * CTOKEN_NAME = @"ctok";
 
 @implementation CustomerServiceConstants
@@ -2527,16 +2666,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size5;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size5];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size5];
-          int _i6;
-          for (_i6 = 0; _i6 < _size5; ++_i6)
+          int _size10;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size10];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size10];
+          int _i11;
+          for (_i11 = 0; _i11 < _size10; ++_i11)
           {
-            Merchant_t *_elem7 = [[Merchant_t alloc] init];
-            [_elem7 read: inProtocol];
-            [fieldValue addObject: _elem7];
-            [_elem7 release_stub];
+            Merchant_t *_elem12 = [[Merchant_t alloc] init];
+            [_elem12 read: inProtocol];
+            [fieldValue addObject: _elem12];
+            [_elem12 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -2572,10 +2711,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i9;
-        for (i9 = 0; i9 < [__success count]; i9++)
+        int i14;
+        for (i14 = 0; i14 < [__success count]; i14++)
         {
-          [[__success objectAtIndex: i9] write: outProtocol];
+          [[__success objectAtIndex: i14] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -2957,16 +3096,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size10;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size10];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size10];
-          int _i11;
-          for (_i11 = 0; _i11 < _size10; ++_i11)
+          int _size15;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size15];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size15];
+          int _i16;
+          for (_i16 = 0; _i16 < _size15; ++_i16)
           {
-            Merchant_t *_elem12 = [[Merchant_t alloc] init];
-            [_elem12 read: inProtocol];
-            [fieldValue addObject: _elem12];
-            [_elem12 release_stub];
+            Merchant_t *_elem17 = [[Merchant_t alloc] init];
+            [_elem17 read: inProtocol];
+            [fieldValue addObject: _elem17];
+            [_elem17 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -3002,10 +3141,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i14;
-        for (i14 = 0; i14 < [__success count]; i14++)
+        int i19;
+        for (i19 = 0; i19 < [__success count]; i19++)
         {
-          [[__success objectAtIndex: i14] write: outProtocol];
+          [[__success objectAtIndex: i19] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -3378,16 +3517,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size15;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size15];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size15];
-          int _i16;
-          for (_i16 = 0; _i16 < _size15; ++_i16)
+          int _size20;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size20];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size20];
+          int _i21;
+          for (_i21 = 0; _i21 < _size20; ++_i21)
           {
-            Merchant_t *_elem17 = [[Merchant_t alloc] init];
-            [_elem17 read: inProtocol];
-            [fieldValue addObject: _elem17];
-            [_elem17 release_stub];
+            Merchant_t *_elem22 = [[Merchant_t alloc] init];
+            [_elem22 read: inProtocol];
+            [fieldValue addObject: _elem22];
+            [_elem22 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -3423,10 +3562,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i19;
-        for (i19 = 0; i19 < [__success count]; i19++)
+        int i24;
+        for (i24 = 0; i24 < [__success count]; i24++)
         {
-          [[__success objectAtIndex: i19] write: outProtocol];
+          [[__success objectAtIndex: i24] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -3806,16 +3945,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size20;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size20];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size20];
-          int _i21;
-          for (_i21 = 0; _i21 < _size20; ++_i21)
+          int _size25;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size25];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size25];
+          int _i26;
+          for (_i26 = 0; _i26 < _size25; ++_i26)
           {
-            DealAcquire_t *_elem22 = [[DealAcquire_t alloc] init];
-            [_elem22 read: inProtocol];
-            [fieldValue addObject: _elem22];
-            [_elem22 release_stub];
+            DealAcquire_t *_elem27 = [[DealAcquire_t alloc] init];
+            [_elem27 read: inProtocol];
+            [fieldValue addObject: _elem27];
+            [_elem27 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -3851,10 +3990,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i24;
-        for (i24 = 0; i24 < [__success count]; i24++)
+        int i29;
+        for (i29 = 0; i29 < [__success count]; i29++)
         {
-          [[__success objectAtIndex: i24] write: outProtocol];
+          [[__success objectAtIndex: i29] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -4504,16 +4643,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size25;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size25];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size25];
-          int _i26;
-          for (_i26 = 0; _i26 < _size25; ++_i26)
+          int _size30;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size30];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size30];
+          int _i31;
+          for (_i31 = 0; _i31 < _size30; ++_i31)
           {
-            DealOffer_t *_elem27 = [[DealOffer_t alloc] init];
-            [_elem27 read: inProtocol];
-            [fieldValue addObject: _elem27];
-            [_elem27 release_stub];
+            DealOffer_t *_elem32 = [[DealOffer_t alloc] init];
+            [_elem32 read: inProtocol];
+            [fieldValue addObject: _elem32];
+            [_elem32 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -4549,10 +4688,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i29;
-        for (i29 = 0; i29 < [__success count]; i29++)
+        int i34;
+        for (i34 = 0; i34 < [__success count]; i34++)
         {
-          [[__success objectAtIndex: i29] write: outProtocol];
+          [[__success objectAtIndex: i34] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -5629,16 +5768,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size30;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size30];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size30];
-          int _i31;
-          for (_i31 = 0; _i31 < _size30; ++_i31)
+          int _size35;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size35];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size35];
+          int _i36;
+          for (_i36 = 0; _i36 < _size35; ++_i36)
           {
-            Deal_t *_elem32 = [[Deal_t alloc] init];
-            [_elem32 read: inProtocol];
-            [fieldValue addObject: _elem32];
-            [_elem32 release_stub];
+            Deal_t *_elem37 = [[Deal_t alloc] init];
+            [_elem37 read: inProtocol];
+            [fieldValue addObject: _elem37];
+            [_elem37 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -5674,10 +5813,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i34;
-        for (i34 = 0; i34 < [__success count]; i34++)
+        int i39;
+        for (i39 = 0; i39 < [__success count]; i39++)
         {
-          [[__success objectAtIndex: i34] write: outProtocol];
+          [[__success objectAtIndex: i39] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -6400,16 +6539,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size35;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size35];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size35];
-          int _i36;
-          for (_i36 = 0; _i36 < _size35; ++_i36)
+          int _size40;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size40];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size40];
+          int _i41;
+          for (_i41 = 0; _i41 < _size40; ++_i41)
           {
-            Merchant_t *_elem37 = [[Merchant_t alloc] init];
-            [_elem37 read: inProtocol];
-            [fieldValue addObject: _elem37];
-            [_elem37 release_stub];
+            Merchant_t *_elem42 = [[Merchant_t alloc] init];
+            [_elem42 read: inProtocol];
+            [fieldValue addObject: _elem42];
+            [_elem42 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -6445,10 +6584,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i39;
-        for (i39 = 0; i39 < [__success count]; i39++)
+        int i44;
+        for (i44 = 0; i44 < [__success count]; i44++)
         {
-          [[__success objectAtIndex: i39] write: outProtocol];
+          [[__success objectAtIndex: i44] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -7347,16 +7486,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size40;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size40];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size40];
-          int _i41;
-          for (_i41 = 0; _i41 < _size40; ++_i41)
+          int _size45;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size45];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size45];
+          int _i46;
+          for (_i46 = 0; _i46 < _size45; ++_i46)
           {
-            Merchant_t *_elem42 = [[Merchant_t alloc] init];
-            [_elem42 read: inProtocol];
-            [fieldValue addObject: _elem42];
-            [_elem42 release_stub];
+            Merchant_t *_elem47 = [[Merchant_t alloc] init];
+            [_elem47 read: inProtocol];
+            [fieldValue addObject: _elem47];
+            [_elem47 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -7392,10 +7531,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i44;
-        for (i44 = 0; i44 < [__success count]; i44++)
+        int i49;
+        for (i49 = 0; i49 < [__success count]; i49++)
         {
-          [[__success objectAtIndex: i44] write: outProtocol];
+          [[__success objectAtIndex: i49] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -7637,16 +7776,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size45;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size45];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size45];
-          int _i46;
-          for (_i46 = 0; _i46 < _size45; ++_i46)
+          int _size50;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size50];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size50];
+          int _i51;
+          for (_i51 = 0; _i51 < _size50; ++_i51)
           {
-            Category_t *_elem47 = [[Category_t alloc] init];
-            [_elem47 read: inProtocol];
-            [fieldValue addObject: _elem47];
-            [_elem47 release_stub];
+            Category_t *_elem52 = [[Category_t alloc] init];
+            [_elem52 read: inProtocol];
+            [fieldValue addObject: _elem52];
+            [_elem52 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -7682,10 +7821,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i49;
-        for (i49 = 0; i49 < [__success count]; i49++)
+        int i54;
+        for (i54 = 0; i54 < [__success count]; i54++)
         {
-          [[__success objectAtIndex: i49] write: outProtocol];
+          [[__success objectAtIndex: i54] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -9923,16 +10062,16 @@ static NSString * CTOKEN_NAME = @"ctok";
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size50;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size50];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size50];
-          int _i51;
-          for (_i51 = 0; _i51 < _size50; ++_i51)
+          int _size55;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size55];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size55];
+          int _i56;
+          for (_i56 = 0; _i56 < _size55; ++_i56)
           {
-            Activity_t *_elem52 = [[Activity_t alloc] init];
-            [_elem52 read: inProtocol];
-            [fieldValue addObject: _elem52];
-            [_elem52 release_stub];
+            Activity_t *_elem57 = [[Activity_t alloc] init];
+            [_elem57 read: inProtocol];
+            [fieldValue addObject: _elem57];
+            [_elem57 release_stub];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -9968,10 +10107,10 @@ static NSString * CTOKEN_NAME = @"ctok";
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i54;
-        for (i54 = 0; i54 < [__success count]; i54++)
+        int i59;
+        for (i59 = 0; i59 < [__success count]; i59++)
         {
-          [[__success objectAtIndex: i54] write: outProtocol];
+          [[__success objectAtIndex: i59] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -13276,6 +13415,416 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
+@interface getMerchantsByDealOfferId_args : NSObject <NSCoding> {
+  NSString * __dealOfferId;
+  SearchOptions_t * __searchOptions;
+
+  BOOL __dealOfferId_isset;
+  BOOL __searchOptions_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=dealOfferId, setter=setDealOfferId:) NSString * dealOfferId;
+@property (nonatomic, retain, getter=searchOptions, setter=setSearchOptions:) SearchOptions_t * searchOptions;
+#endif
+
+- (id) init;
+- (id) initWithDealOfferId: (NSString *) dealOfferId searchOptions: (SearchOptions_t *) searchOptions;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) dealOfferId;
+- (void) setDealOfferId: (NSString *) dealOfferId;
+#endif
+- (BOOL) dealOfferIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (SearchOptions_t *) searchOptions;
+- (void) setSearchOptions: (SearchOptions_t *) searchOptions;
+#endif
+- (BOOL) searchOptionsIsSet;
+
+@end
+
+@implementation getMerchantsByDealOfferId_args
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithDealOfferId: (NSString *) dealOfferId searchOptions: (SearchOptions_t *) searchOptions
+{
+  self = [super init];
+  __dealOfferId = [dealOfferId retain_stub];
+  __dealOfferId_isset = YES;
+  __searchOptions = [searchOptions retain_stub];
+  __searchOptions_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"dealOfferId"])
+  {
+    __dealOfferId = [[decoder decodeObjectForKey: @"dealOfferId"] retain_stub];
+    __dealOfferId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"searchOptions"])
+  {
+    __searchOptions = [[decoder decodeObjectForKey: @"searchOptions"] retain_stub];
+    __searchOptions_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__dealOfferId_isset)
+  {
+    [encoder encodeObject: __dealOfferId forKey: @"dealOfferId"];
+  }
+  if (__searchOptions_isset)
+  {
+    [encoder encodeObject: __searchOptions forKey: @"searchOptions"];
+  }
+}
+
+- (void) dealloc
+{
+  [__dealOfferId release_stub];
+  [__searchOptions release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) dealOfferId {
+  return [[__dealOfferId retain_stub] autorelease_stub];
+}
+
+- (void) setDealOfferId: (NSString *) dealOfferId {
+  [dealOfferId retain_stub];
+  [__dealOfferId release_stub];
+  __dealOfferId = dealOfferId;
+  __dealOfferId_isset = YES;
+}
+
+- (BOOL) dealOfferIdIsSet {
+  return __dealOfferId_isset;
+}
+
+- (void) unsetDealOfferId {
+  [__dealOfferId release_stub];
+  __dealOfferId = nil;
+  __dealOfferId_isset = NO;
+}
+
+- (SearchOptions_t *) searchOptions {
+  return [[__searchOptions retain_stub] autorelease_stub];
+}
+
+- (void) setSearchOptions: (SearchOptions_t *) searchOptions {
+  [searchOptions retain_stub];
+  [__searchOptions release_stub];
+  __searchOptions = searchOptions;
+  __searchOptions_isset = YES;
+}
+
+- (BOOL) searchOptionsIsSet {
+  return __searchOptions_isset;
+}
+
+- (void) unsetSearchOptions {
+  [__searchOptions release_stub];
+  __searchOptions = nil;
+  __searchOptions_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setDealOfferId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRUCT) {
+          SearchOptions_t *fieldValue = [[SearchOptions_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSearchOptions: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"getMerchantsByDealOfferId_args"];
+  if (__dealOfferId_isset) {
+    if (__dealOfferId != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealOfferId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __dealOfferId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__searchOptions_isset) {
+    if (__searchOptions != nil) {
+      [outProtocol writeFieldBeginWithName: @"searchOptions" type: TType_STRUCT fieldID: 2];
+      [__searchOptions write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"getMerchantsByDealOfferId_args("];
+  [ms appendString: @"dealOfferId:"];
+  [ms appendFormat: @"\"%@\"", __dealOfferId];
+  [ms appendString: @",searchOptions:"];
+  [ms appendFormat: @"%@", __searchOptions];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface GetMerchantsByDealOfferId_result : NSObject <NSCoding> {
+  MerchantsResponse_t * __success;
+  ServiceException_t * __error;
+
+  BOOL __success_isset;
+  BOOL __error_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=success, setter=setSuccess:) MerchantsResponse_t * success;
+@property (nonatomic, retain, getter=error, setter=setError:) ServiceException_t * error;
+#endif
+
+- (id) init;
+- (id) initWithSuccess: (MerchantsResponse_t *) success error: (ServiceException_t *) error;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (MerchantsResponse_t *) success;
+- (void) setSuccess: (MerchantsResponse_t *) success;
+#endif
+- (BOOL) successIsSet;
+
+#if !__has_feature(objc_arc)
+- (ServiceException_t *) error;
+- (void) setError: (ServiceException_t *) error;
+#endif
+- (BOOL) errorIsSet;
+
+@end
+
+@implementation GetMerchantsByDealOfferId_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithSuccess: (MerchantsResponse_t *) success error: (ServiceException_t *) error
+{
+  self = [super init];
+  __success = [success retain_stub];
+  __success_isset = YES;
+  __error = [error retain_stub];
+  __error_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"success"])
+  {
+    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+    __success_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"error"])
+  {
+    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+    __error_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__success_isset)
+  {
+    [encoder encodeObject: __success forKey: @"success"];
+  }
+  if (__error_isset)
+  {
+    [encoder encodeObject: __error forKey: @"error"];
+  }
+}
+
+- (void) dealloc
+{
+  [__success release_stub];
+  [__error release_stub];
+  [super dealloc_stub];
+}
+
+- (MerchantsResponse_t *) success {
+  return [[__success retain_stub] autorelease_stub];
+}
+
+- (void) setSuccess: (MerchantsResponse_t *) success {
+  [success retain_stub];
+  [__success release_stub];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release_stub];
+  __success = nil;
+  __success_isset = NO;
+}
+
+- (ServiceException_t *) error {
+  return [[__error retain_stub] autorelease_stub];
+}
+
+- (void) setError: (ServiceException_t *) error {
+  [error retain_stub];
+  [__error release_stub];
+  __error = error;
+  __error_isset = YES;
+}
+
+- (BOOL) errorIsSet {
+  return __error_isset;
+}
+
+- (void) unsetError {
+  [__error release_stub];
+  __error = nil;
+  __error_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          MerchantsResponse_t *fieldValue = [[MerchantsResponse_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          ServiceException_t *fieldValue = [[ServiceException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setError: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"GetMerchantsByDealOfferId_result"];
+
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__error_isset) {
+    if (__error != nil) {
+      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+      [__error write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetMerchantsByDealOfferId_result("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @",error:"];
+  [ms appendFormat: @"%@", __error];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 @implementation CustomerService_tClient
 - (id) initWithProtocol: (id <TProtocol>) protocol
 {
@@ -14796,6 +15345,54 @@ static NSString * CTOKEN_NAME = @"ctok";
   return [self recv_getDealOfferGeoSummariesWithin];
 }
 
+- (void) send_getMerchantsByDealOfferId: (NSString *) dealOfferId searchOptions: (SearchOptions_t *) searchOptions
+{
+  [outProtocol writeMessageBeginWithName: @"getMerchantsByDealOfferId" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getMerchantsByDealOfferId_args"];
+  if (dealOfferId != nil)  {
+    [outProtocol writeFieldBeginWithName: @"dealOfferId" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: dealOfferId];
+    [outProtocol writeFieldEnd];
+  }
+  if (searchOptions != nil)  {
+    [outProtocol writeFieldBeginWithName: @"searchOptions" type: TType_STRUCT fieldID: 2];
+    [searchOptions write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (MerchantsResponse_t *) recv_getMerchantsByDealOfferId
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  GetMerchantsByDealOfferId_result * result = [[[GetMerchantsByDealOfferId_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  if ([result errorIsSet]) {
+    @throw [result error];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"getMerchantsByDealOfferId failed: unknown result"];
+}
+
+- (MerchantsResponse_t *) getMerchantsByDealOfferId: (NSString *) dealOfferId searchOptions: (SearchOptions_t *) searchOptions
+{
+  [self send_getMerchantsByDealOfferId : dealOfferId searchOptions: searchOptions];
+  return [self recv_getMerchantsByDealOfferId];
+}
+
 @end
 
 @implementation CustomerService_tProcessor
@@ -15071,6 +15668,14 @@ static NSString * CTOKEN_NAME = @"ctok";
     [invocation setSelector: s];
     [invocation retainArguments];
     [mMethodMap setValue: invocation forKey: @"getDealOfferGeoSummariesWithin"];
+  }
+  {
+    SEL s = @selector(process_getMerchantsByDealOfferId_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"getMerchantsByDealOfferId"];
   }
   return self;
 }
@@ -15665,6 +16270,23 @@ static NSString * CTOKEN_NAME = @"ctok";
   GetDealOfferGeoSummariesWithin_result * result = [[GetDealOfferGeoSummariesWithin_result alloc] init];
   [result setSuccess: [mService getDealOfferGeoSummariesWithin: [args location] maxMiles: [args maxMiles] searchOptions: [args searchOptions] fallbackSearchOptions: [args fallbackSearchOptions]]];
   [outProtocol writeMessageBeginWithName: @"getDealOfferGeoSummariesWithin"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_getMerchantsByDealOfferId_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  getMerchantsByDealOfferId_args * args = [[getMerchantsByDealOfferId_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  GetMerchantsByDealOfferId_result * result = [[GetMerchantsByDealOfferId_result alloc] init];
+  [result setSuccess: [mService getMerchantsByDealOfferId: [args dealOfferId] searchOptions: [args searchOptions]]];
+  [outProtocol writeMessageBeginWithName: @"getMerchantsByDealOfferId"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];

@@ -175,6 +175,13 @@
         @try {
             // transform the Thrift response
             [ttDealAcquire initWithThrift:deal context:context];
+            
+            ttGift *gift = [ttGift fetchById:giftId context:context];
+            if (gift)
+            {
+                gift.giftStatus = [NSNumber numberWithInt:GiftStatus_t_ACCEPTED];
+            }
+            
             result = [context save:error];
         }
         @catch (NSException * e) {
@@ -192,7 +199,20 @@
               error:(NSError**)error
 {
     GiftController *gc = [[GiftController alloc] init];
-    return [gc rejectGift:customer giftId:giftId error:error];
+    BOOL result = [gc rejectGift:customer giftId:giftId error:error];
+    
+    if (result)
+    {
+        ttGift *gift = [ttGift fetchById:giftId context:context];
+        if (gift)
+        {
+            gift.giftStatus = [NSNumber numberWithInt:GiftStatus_t_REJECTED];
+        }
+        
+        result = [context save:error];
+    }
+    
+    return result;
 }
 
 

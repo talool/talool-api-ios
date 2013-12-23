@@ -108,6 +108,30 @@
 
 @end
 
+@interface MerchantsResponse_t : NSObject <NSCoding> {
+  NSMutableArray * __merchants;
+
+  BOOL __merchants_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=merchants, setter=setMerchants:) NSMutableArray * merchants;
+#endif
+
+- (id) init;
+- (id) initWithMerchants: (NSMutableArray *) merchants;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSMutableArray *) merchants;
+- (void) setMerchants: (NSMutableArray *) merchants;
+#endif
+- (BOOL) merchantsIsSet;
+
+@end
+
 @protocol CustomerService_t <NSObject>
 - (CTokenAccess_t *) createAccount: (Customer_t *) customer password: (NSString *) password;  // throws ServiceException_t *, TException
 - (CTokenAccess_t *) authenticate: (NSString *) email password: (NSString *) password;  // throws ServiceException_t *, TException
@@ -142,6 +166,7 @@
 - (TransactionResult_t *) purchaseByCode: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 - (CTokenAccessResponse_t *) loginFacebook: (NSString *) facebookId facebookAccessToken: (NSString *) facebookAccessToken;  // throws TServiceException_t *, TException
 - (DealOfferGeoSummariesResponse_t *) getDealOfferGeoSummariesWithin: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions fallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions;  // throws TServiceException_t *, TException
+- (MerchantsResponse_t *) getMerchantsByDealOfferId: (NSString *) dealOfferId searchOptions: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {

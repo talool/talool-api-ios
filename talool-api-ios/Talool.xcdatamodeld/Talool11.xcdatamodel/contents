@@ -74,7 +74,7 @@
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="acquiredDeals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="deal" inverseEntity="TaloolDealAcquire" syncable="YES"/>
+        <relationship name="acquires" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaloolDealAcquire" inverseName="deal" inverseEntity="TaloolDealAcquire" syncable="YES"/>
         <relationship name="gift" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolGift" inverseName="deal" inverseEntity="TaloolGift" syncable="YES"/>
         <relationship name="merchant" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolMerchant" inverseName="deals" inverseEntity="TaloolMerchant" syncable="YES"/>
     </entity>
@@ -87,7 +87,7 @@
         <attribute name="shared" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="acquiredDeals" inverseEntity="TaloolDeal" syncable="YES"/>
+        <relationship name="deal" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolDeal" inverseName="acquires" inverseEntity="TaloolDeal" syncable="YES"/>
         <relationship name="giftDetail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolGiftDetail" inverseName="dealAcquire" inverseEntity="TaloolGiftDetail" syncable="YES"/>
         <relationship name="sharedTo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="giftsReceived" inverseEntity="Friend" syncable="YES"/>
     </entity>
@@ -182,12 +182,12 @@
         <element name="TaloolDeal" positionX="0" positionY="0" width="0" height="0"/>
         <element name="TaloolDealAcquire" positionX="0" positionY="0" width="0" height="0"/>
         <element name="TaloolDealOffer" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="TaloolDealOfferGeoSummary" positionX="0" positionY="0" width="0" height="0"/>
         <element name="TaloolGift" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="TaloolGiftDetail" positionX="0" positionY="0" width="0" height="0"/>
         <element name="TaloolMerchant" positionX="0" positionY="0" width="0" height="0"/>
         <element name="TaloolMerchantLocation" positionX="0" positionY="0" width="0" height="0"/>
         <element name="TaloolSearchOptions" positionX="0" positionY="0" width="0" height="0"/>
         <element name="TaloolToken" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolGiftDetail" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolDealOfferGeoSummary" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

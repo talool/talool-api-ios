@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class TaloolDealAcquire, ttGift, ttMerchant;
+@class ttDealAcquire, ttGift, ttMerchant;
 
 @interface TaloolDeal : NSManagedObject
 
@@ -24,8 +24,17 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSDate * updated;
 @property (nonatomic, retain) NSString * dealOfferId;
-@property (nonatomic, retain) TaloolDealAcquire *acquires;
+@property (nonatomic, retain) NSSet *acquireDeals;
 @property (nonatomic, retain) ttGift *gift;
 @property (nonatomic, retain) ttMerchant *merchant;
+
+@end
+
+@interface TaloolDeal (CoreDataGeneratedAccessors)
+
+- (void)addAcquiredDealsObject:(ttDealAcquire *)value;
+- (void)removeAcquiredDealsObject:(ttDealAcquire *)value;
+- (void)addAcquiredDeals:(NSSet *)values;
+- (void)removeAcquiredDeals:(NSSet *)values;
 
 @end
