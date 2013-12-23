@@ -25,7 +25,7 @@
 @dynamic title;
 @dynamic updated;
 @dynamic dealOfferId;
-@dynamic acquireDeals;
+@dynamic acquiredDeals;
 @dynamic gift;
 @dynamic merchant;
 

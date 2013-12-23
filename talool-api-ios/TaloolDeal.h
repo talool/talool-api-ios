@@ -24,7 +24,7 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSDate * updated;
 @property (nonatomic, retain) NSString * dealOfferId;
-@property (nonatomic, retain) NSSet *acquireDeals;
+@property (nonatomic, retain) NSSet *acquiredDeals;
 @property (nonatomic, retain) ttGift *gift;
 @property (nonatomic, retain) ttMerchant *merchant;
 
