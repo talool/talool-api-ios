@@ -46,6 +46,7 @@
 - (ttMerchantLocation *) getClosestLocation;
 - (NSString *) getLocationLabel;
 - (Boolean) isFavorite;
+- (int) getAvailableDealAcquireCount:(NSManagedObjectContext *)context;
 
 
 @end

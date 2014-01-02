@@ -188,6 +188,19 @@
     return nil;
 }
 
+- (int) getAvailableDealAcquireCount:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"deal.merchant.merchantId = %@ AND SELF.invalidated = nil",self.merchantId];
+    [request setPredicate:pred];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_ACQUIRE_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
+    return [fetchedObj count];
+}
+
 
 
 #pragma mark -
