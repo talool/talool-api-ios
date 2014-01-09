@@ -202,7 +202,7 @@
     CustomerController *cc = [[CustomerController alloc] init];
     
     // validate data before sending to the server
-    if (![customer isValid:err]) return result;
+    if (![customer isValid:err password:password]) return result;
 
     Customer_t *ct = [customer hydrateThriftObject];
     
@@ -306,7 +306,7 @@
     }
 }
 
--(BOOL)isValid:(NSError *__autoreleasing *)error
+-(BOOL)isValid:(NSError *__autoreleasing *)error password:(NSString *)password
 {
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
     if (self.firstName == nil || self.firstName.length < 2) {
@@ -319,6 +319,11 @@
         return NO;
     } else if (self.email == nil || self.email.length < 2) {
         [details setValue:@"Your email is invalid" forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
+        return NO;
+    } else if (password == nil || password.length < 7) {
+        NSMutableDictionary* details = [NSMutableDictionary dictionary];
+        [details setValue:@"Your password is invalid" forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
         return NO;
     }

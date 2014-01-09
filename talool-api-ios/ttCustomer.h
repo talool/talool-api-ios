@@ -58,7 +58,7 @@
 #pragma mark -
 #pragma mark Convenience Methods
 
-- (BOOL)isValid:(NSError **)error;
+- (BOOL)isValid:(NSError **)error password:(NSString *)password;
 - (BOOL)isFacebookUser;
 - (NSString *)getFullName;
 - (void)setAsFemale:(BOOL)isFemale;
