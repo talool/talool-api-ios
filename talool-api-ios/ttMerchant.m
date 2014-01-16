@@ -32,10 +32,21 @@
     
     if (merchant.locationsIsSet)
     {
+        // convert the locations
+        NSMutableArray *locs = [[NSMutableArray alloc] initWithCapacity:[merchant.locations count]];
+        for (int i=0; i<[merchant.locations count]; i++)
+        {
+            MerchantLocation_t *mlt = [merchant.locations objectAtIndex:i];
+            ttMerchantLocation *ml = [ttMerchantLocation initWithThrift:mlt context:context];
+            [locs setObject:ml atIndexedSubscript:i];
+        }
+        
+        // sort the locations by distance
         NSArray *sortDescriptors = [NSArray arrayWithObjects:
                                     [NSSortDescriptor sortDescriptorWithKey:@"distanceInMeters" ascending:YES],
                                     nil];
-        NSArray *sortedLocations = [merchant.locations sortedArrayUsingDescriptors:sortDescriptors];
+        NSArray *sortedLocations = [locs sortedArrayUsingDescriptors:sortDescriptors];
+        
         m.closestLocation = [sortedLocations objectAtIndex:0];
         m.locations = [NSSet setWithArray:sortedLocations];
 
