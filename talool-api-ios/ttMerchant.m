@@ -15,13 +15,7 @@
 #import "MerchantController.h"
 #import <APIErrorManager.h>
 
-@interface ttMerchant()
-@property (nonatomic, retain) ttMerchantLocation *location;
-@end
-
 @implementation ttMerchant
-
-@synthesize location;
 
 
 #pragma mark -
@@ -36,60 +30,15 @@
     m.name = merchant.name;
     m.category = [ttCategory initWithThrift:merchant.category context:context];
     
-    
-    //NSString *locIsSet = (merchant.locationsIsSet)?@"true":@"false";
-    //NSLog(@"DEBUG::: location set: %@ for %@, %d locations",locIsSet,merchant.name, [merchant.locations count]);
-    if (merchant.locationsIsSet) {
-        m.location = nil;
-        @try
-        {
-            NSMutableArray *locs = [[NSMutableArray alloc] initWithCapacity:[merchant.locations count]];
-            int closestDistance = 100000000;
-            for (int i=0; i<[merchant.locations count]; i++) {
-                MerchantLocation_t *mlt = [merchant.locations objectAtIndex:i];
-                ttMerchantLocation *ml = [ttMerchantLocation initWithThrift:mlt context:context];
-                
-                // store the closest location for easy access
-                if (mlt.distanceInMetersIsSet && mlt.distanceInMeters<closestDistance)
-                {
-                    closestDistance = mlt.distanceInMeters;
-                    m.location = ml;
-                }
-                
-                [locs setObject:ml atIndexedSubscript:i];
-            }
-            m.locations = [NSSet setWithArray:locs];
-        }
-        @catch (NSException *exception)
-        {
-            NSLog(@"EXCEPTION::: Failed to load merchant locations for %@", m.name);
-        }
-        
-        @try
-        {
-            // make sure that location is set
-            if (m.location == nil && [m.locations count] > 0)
-            {
-                m.location = (ttMerchantLocation *)m.locations.objectEnumerator.nextObject;
-            }
-            else if (m.location == nil)
-            {
-                NSLog(@"DEBUG::: failed to set location for %@",m.name);
-            }
-        }
-        @catch (NSException *exception)
-        {
-            NSLog(@"EXCEPTION::: Failed to load merchant location for %@", m.name);
-        }
-        
-        if ([m.locations count] < 1)
-        {
-            NSLog(@"DEBUG::: failed to load locations for %@",m.name);
-        }
-        else
-        {
-            //NSLog(@"DEBUG::: loaded location with label %@",[m getLocationLabel]);
-        }
+    if (merchant.locationsIsSet)
+    {
+        NSArray *sortDescriptors = [NSArray arrayWithObjects:
+                                    [NSSortDescriptor sortDescriptorWithKey:@"distanceInMeters" ascending:YES],
+                                    nil];
+        NSArray *sortedLocations = [merchant.locations sortedArrayUsingDescriptors:sortDescriptors];
+        m.closestLocation = [sortedLocations objectAtIndex:0];
+        m.locations = [NSSet setWithArray:sortedLocations];
+
     }
     
     return m;
@@ -146,20 +95,20 @@
     {
         label = @"multiple locations";
     }
-    else if (self.location || [self.locations count] == 1)
+    else if (self.closestLocation || [self.locations count] == 1)
     {
-        if (self.location == NULL)
+        if (self.closestLocation == NULL)
         {
-            self.location = [[self.locations allObjects] objectAtIndex:0];
+            self.closestLocation = [[self.locations allObjects] objectAtIndex:0];
         }
         
-        if (self.location.name == NULL)
+        if (self.closestLocation.name == NULL)
         {
-            label = [NSString stringWithFormat:@"%@, %@",self.location.address1, self.location.city];
+            label = [NSString stringWithFormat:@"%@, %@",self.closestLocation.address1, self.closestLocation.city];
         }
         else
         {
-            label = self.location.name;
+            label = self.closestLocation.name;
         }
     }
     else
@@ -176,9 +125,9 @@
 
 - (ttMerchantLocation *) getClosestLocation
 {
-    if (location)
+    if (self.closestLocation)
     {
-        return location;
+        return self.closestLocation;
     }
     else if ([self.locations count] > 0)
     {

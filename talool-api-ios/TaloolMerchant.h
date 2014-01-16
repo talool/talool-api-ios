@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSSet *locations;
 @property (nonatomic, retain) NSSet *offers;
 @property (nonatomic, retain) TaloolCategory *category;
+@property (nonatomic, retain) ttMerchantLocation *closestLocation;
 @end
 
 @interface TaloolMerchant (CoreDataGeneratedAccessors)

@@ -201,6 +201,8 @@
 
 /* Begin PBXFileReference section */
 		339064DD97DD498A9C311083 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		810614D318882FA000CE5CCA /* Talool12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = Talool12.xcdatamodel; sourceTree = "<group>"; };
+		810614D41888448600CE5CCA /* talool-api-ios.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "talool-api-ios.bundle"; sourceTree = "<group>"; };
 		8108D0791859261500019AA5 /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
 		8108D07A1859261500019AA5 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		8108D07B1859261500019AA5 /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
@@ -218,8 +220,7 @@
 		812188851780E98A00348899 /* Talool04.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool04.xcdatamodel; sourceTree = "<group>"; };
 		8145C4441778C81C00880294 /* Talool02.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool02.xcdatamodel; sourceTree = "<group>"; };
 		8145C4451778C81C00880294 /* Talool01.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool01.xcdatamodel; sourceTree = "<group>"; };
-		8146E0D718688D1B00E905B5 /* Talool11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = Talool11.xcdatamodel; sourceTree = "<group>"; };
-		8146E0D81868904E00E905B5 /* talool-api-ios.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "talool-api-ios.bundle"; sourceTree = "<group>"; };
+		8146E0D718688D1B00E905B5 /* Talool11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool11.xcdatamodel; sourceTree = "<group>"; };
 		81510D65175EF3DC002A869A /* SocialAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialAccount.h; sourceTree = "<group>"; };
 		81510D66175EF3DC002A869A /* SocialAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialAccount.m; sourceTree = "<group>"; };
 		81510D79175EF44D002A869A /* ttGift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttGift.h; sourceTree = "<group>"; };
@@ -455,7 +456,7 @@
 		914A1AE916E6ECAD0043989A /* talool-api-ios */ = {
 			isa = PBXGroup;
 			children = (
-				8146E0D81868904E00E905B5 /* talool-api-ios.bundle */,
+				810614D41888448600CE5CCA /* talool-api-ios.bundle */,
 				914A1AEC16E6ECAD0043989A /* talool_api_ios.h */,
 				9161489116EBA743001C546C /* TaloolPersistentStoreCoordinator.h */,
 				9161489216EBA743001C546C /* TaloolPersistentStoreCoordinator.m */,
@@ -1256,6 +1257,7 @@
 		8145C4431778C81C00880294 /* Talool.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				810614D318882FA000CE5CCA /* Talool12.xcdatamodel */,
 				8146E0D718688D1B00E905B5 /* Talool11.xcdatamodel */,
 				81E7088E183BD5AA00C75C57 /* Talool10.xcdatamodel */,
 				81BB913918180E4300C4D2CF /* Talool09.xcdatamodel */,

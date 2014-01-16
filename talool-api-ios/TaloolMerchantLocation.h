@@ -30,5 +30,6 @@
 @property (nonatomic, retain) NSString * country;
 @property (nonatomic, retain) NSString * zip;
 @property (nonatomic, retain) ttMerchant *merchant;
+@property (nonatomic, retain) ttMerchant *merchantSorted;
 
 @end

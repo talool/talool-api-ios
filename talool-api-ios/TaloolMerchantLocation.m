@@ -29,5 +29,6 @@
 @dynamic zip;
 @dynamic country;
 @dynamic merchant;
+@dynamic merchantSorted;
 
 @end

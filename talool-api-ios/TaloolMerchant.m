@@ -24,5 +24,6 @@
 @dynamic locations;
 @dynamic offers;
 @dynamic category;
+@dynamic closestLocation;
 
 @end
