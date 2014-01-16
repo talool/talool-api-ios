@@ -43,7 +43,6 @@
 #pragma mark -
 #pragma mark - Convenience
 
-- (ttMerchantLocation *) getClosestLocation;
 - (NSString *) getLocationLabel;
 - (Boolean) isFavorite;
 - (int) getAvailableDealAcquireCount:(NSManagedObjectContext *)context;

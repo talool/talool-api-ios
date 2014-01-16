@@ -134,20 +134,6 @@
     return [self.isFav boolValue];
 }
 
-- (ttMerchantLocation *) getClosestLocation
-{
-    if (self.closestLocation)
-    {
-        return self.closestLocation;
-    }
-    else if ([self.locations count] > 0)
-    {
-        return [[self.locations allObjects] objectAtIndex:0];
-    }
-    NSLog(@"DEGUG::: no locations for %@",self.name);
-    return nil;
-}
-
 - (int) getAvailableDealAcquireCount:(NSManagedObjectContext *)context
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
