@@ -19,6 +19,8 @@ enum {
 };
 typedef int EnvironmentType;
 
+@property NSData *apnDeviceToken;
+
 - (void) setEnvironment:(EnvironmentType)env;
 - (NSString *) getApiUrl;
 - (BOOL) isProduction;
