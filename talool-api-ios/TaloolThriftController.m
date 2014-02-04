@@ -15,9 +15,12 @@
 #import "CustomerService.h"
 #import "TaloolFrameworkHelper.h"
 #import "ttToken.h"
+#import <UIKit/UIDevice.h>
+#import "TaloolFrameworkHelper.h"
 
 @implementation TaloolThriftController
-
+NSString* const APN_DEVICE_TOKEN_HEADER = @"ApnDeviceToken";
+NSString* const DEVICE_ID_HEADER = @"DeviceId";
 @synthesize service, errorManager;
 
 - (id)init
@@ -61,6 +64,18 @@
                                                 userAgent:[[TaloolFrameworkHelper sharedInstance] getUserAgent]
                                                   timeout:0];
         [[transport getRequest] setValue:token.token forHTTPHeaderField:CustomerServiceConstants.CTOKEN_NAME];
+        
+        //Add deviceId for app
+        NSUUID *uuid = [[UIDevice currentDevice] identifierForVendor];
+        [[transport getRequest] setValue:[uuid UUIDString] forHTTPHeaderField:DEVICE_ID_HEADER];
+        
+        //Add APN Device Token for device
+        NSData* apnDeviceToken = [TaloolFrameworkHelper sharedInstance].apnDeviceToken;
+        if (apnDeviceToken != nil) {
+            NSString *b = [apnDeviceToken base64EncodedStringWithOptions:0];
+            [[transport getRequest] setValue:b forHTTPHeaderField:APN_DEVICE_TOKEN_HEADER];
+        }
+        
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
         service = [[CustomerService_tClient alloc] initWithProtocol:protocol];
     } @catch(NSException * e) {
