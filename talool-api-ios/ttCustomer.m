@@ -323,7 +323,7 @@
         return NO;
     } else if (password == nil || password.length < 7) {
         NSMutableDictionary* details = [NSMutableDictionary dictionary];
-        [details setValue:@"Your password is invalid" forKey:NSLocalizedDescriptionKey];
+        [details setValue:@"Your password is invalid.  Passwords must be at least 8 characters." forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
         return NO;
     }
