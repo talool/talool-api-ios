@@ -118,6 +118,48 @@
     return response;
 }
 
++ (NSDictionary *) getMessages:(ttCustomer *)customer
+                      latitude:(double)latitude
+                     longitude:(double)longitude
+                       context:(NSManagedObjectContext *)context
+                         error:(NSError **)error
+{
+    BOOL result = NO;
+    ActivityController *ac = [[ActivityController alloc] init];
+    NSArray *activities = [ac getMessages:customer latitude:latitude longitude:longitude error:error];
+    int opencount = 0;
+    
+    if (activities)
+    {
+        @try {
+            // transform the Thrift response, count open activities, and save the context
+            for (Activity_t *at in activities) {
+                ttActivity *act = [ttActivity initWithThrift:at context:context];
+                if ([act isWelcomeEvent] ||
+                    [act isTaloolReachEvent] ||
+                    [act isMerchantReachEvent] ||
+                    [act isFacebookReceiveGiftEvent] ||
+                    [act isEmailReceiveGiftEvent])
+                {
+                    if (![act isClosed])
+                    {
+                        opencount++;
+                    }
+                }
+            }
+            result = [context save:error];
+        }
+        @catch (NSException * e) {
+            [ac.errorManager handleCoreDataException:e forMethod:@"getActivities" entity:@"ttActivity" error:error];
+        }
+    }
+    
+    NSMutableDictionary *response = [[NSMutableDictionary alloc] init];
+    [response setObject:[NSNumber numberWithBool:result] forKey:@"success"];
+    [response setObject:[NSNumber numberWithInt:opencount] forKey:@"openCount"];
+    return response;
+}
+
 - (BOOL) actionTaken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
 {
     ActivityController *ac = [[ActivityController alloc] init];

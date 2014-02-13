@@ -37,6 +37,11 @@
 - (BOOL) actionTaken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err;
 
 + (NSDictionary *) getActivities:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)error;
++ (NSDictionary *) getMessages:(ttCustomer *)customer
+                      latitude:(double)latitude
+                     longitude:(double)longitude
+                       context:(NSManagedObjectContext *)context
+                         error:(NSError **)error;
 
 + (NSPredicate *) getGiftPredicate;
 + (NSPredicate *) getMoneyPredicate;

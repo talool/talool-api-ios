@@ -83,5 +83,33 @@
     return activities;
 }
 
+- (NSMutableArray *) getMessages:(ttCustomer *)customer
+                        latitude:(double)latitude
+                       longitude:(double)longitude
+                           error:(NSError**)error
+{
+    NSMutableArray *messages;
+    
+    @try {
+        // Do the Thrift Merchants
+        [self connectWithToken:(ttToken *)customer.token];
+        SearchOptions_t *options = [[SearchOptions_t alloc] init];
+        [options setMaxResults:1000];
+        [options setPage:0];
+        [options setAscending:NO];
+        [options setSortProperty:@"activityDate"];
+        Location_t *loc = [[Location_t alloc] initWithLongitude:longitude latitude:latitude];
+        messages = [self.service getMessages:options location:loc];
+    }
+    @catch (NSException * e) {
+        [self.errorManager handleServiceException:e forMethod:@"getMessages" error:error];
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    return messages;
+}
+
 
 @end

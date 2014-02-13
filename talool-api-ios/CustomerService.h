@@ -159,6 +159,7 @@
 - (DealAcquire_t *) acceptGift: (NSString *) giftId;  // throws ServiceException_t *, TException
 - (void) rejectGift: (NSString *) giftId;  // throws ServiceException_t *, TException
 - (NSMutableArray *) getActivities: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
+- (NSMutableArray *) getMessages: (SearchOptions_t *) searchOptions location: (Location_t *) location;  // throws ServiceException_t *, TException
 - (void) activityAction: (NSString *) activityId;  // throws ServiceException_t *, TException
 - (void) sendResetPasswordEmail: (NSString *) email;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 - (CTokenAccess_t *) resetPassword: (NSString *) customerId resetPasswordCode: (NSString *) resetPasswordCode newPassword: (NSString *) newPassword;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException

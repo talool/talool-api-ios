@@ -14,6 +14,10 @@
 
 
 - (NSMutableArray *) getActivities:(ttCustomer *)customer error:(NSError**)error;
+- (NSMutableArray *) getMessages:(ttCustomer *)customer
+                        latitude:(double)latitude
+                       longitude:(double)longitude
+                           error:(NSError**)error;
 - (BOOL) actionTaken:(ttCustomer *)customer actionId:(NSString *)actionId error:(NSError**)error;
 
 
