@@ -86,13 +86,13 @@
 {
     BOOL result = NO;
     
-    // delete all summaries we have, so expired or recently in-active offers go away
-    [ttCustomer clearEntity:context entityName:DEAL_OFFER_GEO_SUMMARY_ENTITY_NAME];
-    
     DealOfferController *doc = [[DealOfferController alloc] init];
     NSMutableArray *resultset = [doc getDealOfferGeoSummaries:customer withLocation:location error:err];
     if (resultset)
     {
+        // delete all summaries we have, so expired or recently in-active offers go away
+        [ttCustomer clearEntity:context entityName:DEAL_OFFER_GEO_SUMMARY_ENTITY_NAME];
+        
         // store the objects in the response in CoreData
         for (int i=0; i<[resultset count]; i++) {
             [ttDealOfferGeoSummary initWithThrift:[resultset objectAtIndex:i] context:context];
