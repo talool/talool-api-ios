@@ -65,6 +65,7 @@
 - (Customer_t *)hydrateThriftObject;
 + (NSString *)nonrandomPassword:(NSString *)seed;
 + (NSString *) randomPassword:(int)length;
++ (void)clearEntity:(NSManagedObjectContext *)context entityName:(NSString *)enitityName;
 + (ttCustomer *)getLoggedInUser:(NSManagedObjectContext *)context;
 + (ttCustomer *) createCustomer:(NSString *)firstName
                        lastName:(NSString *)lastName
