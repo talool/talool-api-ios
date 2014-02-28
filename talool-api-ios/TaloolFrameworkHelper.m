@@ -17,6 +17,8 @@ NSString * const VENMO_SDK_SESSION = @"venmo_sdk_session";
 
 @implementation TaloolFrameworkHelper
 
+@synthesize whiteLabelId;
+
 + (NSBundle *) frameworkBundle {
     static NSBundle* frameworkBundle = nil;
     static dispatch_once_t predicate;

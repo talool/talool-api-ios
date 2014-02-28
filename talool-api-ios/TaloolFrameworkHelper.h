@@ -21,6 +21,8 @@ typedef int EnvironmentType;
 
 @property NSData *apnDeviceToken;
 
+@property NSString *whiteLabelId;
+
 - (void) setEnvironment:(EnvironmentType)env;
 - (NSString *) getApiUrl;
 - (BOOL) isProduction;

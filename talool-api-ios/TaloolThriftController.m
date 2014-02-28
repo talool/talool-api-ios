@@ -33,7 +33,7 @@ NSString* const DEVICE_ID_HEADER = @"DeviceId";
 
 - (void)connect
 {
-    THTTPClient *transport;
+    TaloolHTTPClient *transport;
     TBinaryProtocol *protocol;
     @try {
         // Talk to a server via socket, using a binary protocol
@@ -43,9 +43,11 @@ NSString* const DEVICE_ID_HEADER = @"DeviceId";
          controller is gabage collected.
          */
         NSURL *url = [NSURL URLWithString:[[TaloolFrameworkHelper sharedInstance] getApiUrl]];
-        transport = [[THTTPClient alloc] initWithURL:url
-                                           userAgent:[[TaloolFrameworkHelper sharedInstance] getUserAgent]
-                                             timeout:0];
+        transport = [[TaloolHTTPClient alloc] initWithURL:url
+                                                userAgent:[[TaloolFrameworkHelper sharedInstance] getUserAgent]
+                                                  timeout:0];
+        [[transport getRequest] setValue:[TaloolFrameworkHelper sharedInstance].whiteLabelId
+                      forHTTPHeaderField:@"white-label-id"];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
         service = [[CustomerService_tClient alloc] initWithProtocol:protocol];
     } @catch(NSException * e) {
@@ -64,6 +66,8 @@ NSString* const DEVICE_ID_HEADER = @"DeviceId";
                                                 userAgent:[[TaloolFrameworkHelper sharedInstance] getUserAgent]
                                                   timeout:0];
         [[transport getRequest] setValue:token.token forHTTPHeaderField:CustomerServiceConstants.CTOKEN_NAME];
+        [[transport getRequest] setValue:[TaloolFrameworkHelper sharedInstance].whiteLabelId
+                       forHTTPHeaderField:@"white-label-id"];
         
         //Add deviceId for app
         NSUUID *uuid = [[UIDevice currentDevice] identifierForVendor];
