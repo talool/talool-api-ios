@@ -8,7 +8,7 @@
 
 #import "TaloolActivity.h"
 
-@class Activity_t, ttCustomer;
+@class Activity_t, ttCustomer, ttActivityLink;
 
 @interface ttActivity : TaloolActivity
 
@@ -33,6 +33,8 @@
 - (BOOL) isUnknownEvent;
 - (BOOL) isAd;
 
+- (ttActivityLink *) getLink;
+- (BOOL) isActionable;
 - (BOOL) isClosed;
 - (BOOL) actionTaken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err;
 

@@ -172,8 +172,30 @@
     return result;
 }
 
+- (ttActivityLink *) getLink
+{
+    return (ttActivityLink *)self.link;
+}
+
+- (BOOL) isActionable
+{
+    ttActivityLink *link = [self getLink];
+    if ([link isGiftLink] ||
+        [link isEmailLink] ||
+        [link isExternalLink])
+    {
+        return YES;
+    }
+    return NO;
+}
+
 - (BOOL) isClosed
 {
+    // these events are always closed
+    if (![self isActionable])
+    {
+        return YES;
+    }
     return ([self.actionTaken intValue]==1);
 }
 
