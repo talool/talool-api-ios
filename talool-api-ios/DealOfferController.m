@@ -39,6 +39,7 @@
                 zipCode:(NSString *)zipCode
            venmoSession:(NSString *)venmoSession
                customer:(ttCustomer *)customer
+             fundraiser:(NSString *)fundraiser
                   error:(NSError**)error
 {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -58,7 +59,7 @@
         NSMutableDictionary *metadata = (NSMutableDictionary *) @{VENMO_SDK_SESSION : venmoSession};
         
         PaymentDetail_t *payment = [[PaymentDetail_t alloc] initWithEncryptedFields:YES card:creditcard paymentMetadata:metadata saveCard:YES];
-        
+#warning "pass fundraiser to service"
         TransactionResult_t *transactionResult = [self.service purchaseByCard:dealOfferId paymentDetail:payment];
         if (transactionResult.success)
         {
@@ -101,6 +102,7 @@
 - (BOOL) purchaseByCode:(NSString *)dealOfferId
             paymentCode:(NSString *)paymentCode
                customer:(ttCustomer *)customer
+             fundraiser:(NSString *)fundraiser
                   error:(NSError**)error
 {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -109,7 +111,7 @@
     
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-        
+#warning "pass fundraiser to service"
         TransactionResult_t *transactionResult = [self.service purchaseByCode:dealOfferId paymentCode:paymentCode];
         if (transactionResult.success)
         {
@@ -184,6 +186,40 @@
     return result;
 }
 
+
+#pragma mark -
+#pragma mark - Validate a Fundraising Tracking Code
+
+- (BOOL) validateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError**)error
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    BOOL result;
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+#warning "integrate validate code method"
+        //[self.service validateCode:code];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"validateCode"
+                                                               label:@"success"
+                                                               value:nil] build]];
+        result = YES;
+    }
+    @catch (NSException * e) {
+        [self.errorManager handleServiceException:e forMethod:@"validateCode" error:error];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"validateCode"
+                                                               label:@"fail"
+                                                               value:nil] build]];
+        result = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    return result;
+}
 
 
 

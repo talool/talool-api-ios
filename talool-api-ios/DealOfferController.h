@@ -21,6 +21,8 @@
 
 - (BOOL) activateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error;
 
+- (BOOL) validateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err;
+
 - (BOOL) purchaseByCard:(NSString *)dealOfferId
                    card:(NSString *)card
                expMonth:(NSString *)expMonth
@@ -29,11 +31,13 @@
                 zipCode:(NSString *)zipCode
            venmoSession:(NSString *)venmoSession
                customer:(ttCustomer *)customer
+             fundraiser:(NSString *)fundraiser
                   error:(NSError**)error;
 
 - (BOOL) purchaseByCode:(NSString *)dealOfferId
             paymentCode:(NSString *)paymentCode
                customer:(ttCustomer *)customer
+             fundraiser:(NSString *)fundraiser
                   error:(NSError**)error;
 
 

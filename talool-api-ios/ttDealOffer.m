@@ -105,6 +105,15 @@
 
 
 #pragma mark -
+#pragma mark - Convenience Methods
+
+- (BOOL) isFundraiser
+{
+    return ([self.fundraiser intValue] == 1);
+}
+
+
+#pragma mark -
 #pragma mark - Get the Deals for the Deal Offer
 
 - (BOOL)getDeals:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
@@ -144,6 +153,12 @@
     return [doc activateCode:customer offerId:self.dealOfferId code:code error:err];
 }
 
+- (BOOL)validateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err
+{
+    DealOfferController *doc = [[DealOfferController alloc] init];
+    return [doc validateCode:customer code:code error:err];
+}
+
 - (BOOL) purchaseByCard:(NSString *)card
                expMonth:(NSString *)expMonth
                 expYear:(NSString *)expYear
@@ -151,18 +166,20 @@
                 zipCode:(NSString *)zipCode
            venmoSession:(NSString *)venmoSession
                customer:(ttCustomer *)customer
+             fundraiser:(NSString *)fundraiser
                   error:(NSError**)error
 {
     DealOfferController *doc = [[DealOfferController alloc] init];
-    return [doc purchaseByCard:self.dealOfferId card:card expMonth:expMonth expYear:expYear securityCode:securityCode zipCode:zipCode venmoSession:venmoSession customer:customer error:error];
+    return [doc purchaseByCard:self.dealOfferId card:card expMonth:expMonth expYear:expYear securityCode:securityCode zipCode:zipCode venmoSession:venmoSession customer:customer fundraiser:fundraiser error:error];
 }
 
 - (BOOL) purchaseByCode:(NSString *)paymentCode
                customer:(ttCustomer *)customer
+             fundraiser:(NSString *)fundraiser
                   error:(NSError**)error
 {
     DealOfferController *doc = [[DealOfferController alloc] init];
-    return [doc purchaseByCode:self.dealOfferId paymentCode:paymentCode customer:customer error:error];
+    return [doc purchaseByCode:self.dealOfferId paymentCode:paymentCode customer:customer fundraiser:fundraiser error:error];
 }
 
 
