@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSString * locationName;
 @property (nonatomic, retain) NSNumber * price;
 @property (nonatomic, retain) NSDate * expires;
+@property (nonatomic, retain) NSNumber * fundraiser;
 @property (nonatomic, retain) TaloolMerchant *merchant;
 @property (nonatomic, retain) TaloolDealOfferGeoSummary *geoSummary;
 

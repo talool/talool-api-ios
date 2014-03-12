@@ -30,6 +30,9 @@
     newOffer.dealType = [[NSNumber alloc] initWithUnsignedInteger:offer.dealType];
     newOffer.imageUrl = offer.imageUrl;
     
+#warning "set the fundraiser property"
+    newOffer.fundraiser = 0;
+    
     if (offer.dealOfferMerchantLogoIsSet)
     {
         newOffer.iconUrl = offer.dealOfferMerchantLogo;

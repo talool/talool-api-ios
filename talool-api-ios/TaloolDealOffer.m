@@ -25,5 +25,6 @@
 @dynamic merchant;
 @dynamic locationName;
 @dynamic geoSummary;
+@dynamic fundraiser;
 
 @end
