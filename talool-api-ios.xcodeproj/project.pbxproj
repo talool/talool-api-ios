@@ -267,6 +267,7 @@
 		81E7089B183BE92C00C75C57 /* ttGiftDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttGiftDetail.h; sourceTree = "<group>"; };
 		81E7089C183BE92C00C75C57 /* ttGiftDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttGiftDetail.m; sourceTree = "<group>"; };
 		81F5E27618D0C5FC00FBDF96 /* Talool13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = Talool13.xcdatamodel; sourceTree = "<group>"; };
+		81F5E27D18D0DF4600FBDF96 /* talool-api-ios.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "talool-api-ios.bundle"; sourceTree = "<group>"; };
 		81FD676A17B675C700D3C4D1 /* Talool08.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Talool08.xcdatamodel; sourceTree = "<group>"; };
 		81FF00DD17611CF40040E1F6 /* TaloolCustomer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaloolCustomer.h; sourceTree = "<group>"; };
 		81FF00DE17611CF40040E1F6 /* TaloolCustomer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaloolCustomer.m; sourceTree = "<group>"; };
@@ -456,6 +457,7 @@
 		914A1AE916E6ECAD0043989A /* talool-api-ios */ = {
 			isa = PBXGroup;
 			children = (
+				81F5E27D18D0DF4600FBDF96 /* talool-api-ios.bundle */,
 				914A1AEC16E6ECAD0043989A /* talool_api_ios.h */,
 				9161489116EBA743001C546C /* TaloolPersistentStoreCoordinator.h */,
 				9161489216EBA743001C546C /* TaloolPersistentStoreCoordinator.m */,
