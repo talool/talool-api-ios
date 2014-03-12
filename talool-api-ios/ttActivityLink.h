@@ -20,6 +20,7 @@
 - (BOOL) isCustomerLink;
 - (BOOL) isDealAcquireLink;
 - (BOOL) isExternalLink;
+- (BOOL) isEmailLink;
 - (BOOL) isMerchantLocationLink;
 
 @end

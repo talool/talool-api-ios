@@ -75,5 +75,9 @@
 - (BOOL) isMerchantLocationLink{
     return ([self.linkType intValue] == LinkType_MERCHANT_LOCATION);
 }
+- (BOOL) isEmailLink {
+    return NO;
+#warning "integrate new email link type"
+}
 
 @end
