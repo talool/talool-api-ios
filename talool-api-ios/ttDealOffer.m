@@ -31,7 +31,7 @@
     newOffer.imageUrl = offer.imageUrl;
     
 #warning "set the fundraiser property"
-    newOffer.fundraiser = 0;
+    newOffer.fundraiser = [NSNumber numberWithBool:NO];
     
     if (offer.dealOfferMerchantLogoIsSet)
     {
