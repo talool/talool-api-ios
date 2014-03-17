@@ -633,6 +633,168 @@
 
 @end
 
+@implementation ValidateCodeResponse_t
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithValid: (BOOL) valid codeType: (NSString *) codeType
+{
+  self = [super init];
+  __valid = valid;
+  __valid_isset = YES;
+  __codeType = [codeType retain_stub];
+  __codeType_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"valid"])
+  {
+    __valid = [decoder decodeBoolForKey: @"valid"];
+    __valid_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"codeType"])
+  {
+    __codeType = [[decoder decodeObjectForKey: @"codeType"] retain_stub];
+    __codeType_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__valid_isset)
+  {
+    [encoder encodeBool: __valid forKey: @"valid"];
+  }
+  if (__codeType_isset)
+  {
+    [encoder encodeObject: __codeType forKey: @"codeType"];
+  }
+}
+
+- (void) dealloc
+{
+  [__codeType release_stub];
+  [super dealloc_stub];
+}
+
+- (BOOL) valid {
+  return __valid;
+}
+
+- (void) setValid: (BOOL) valid {
+  __valid = valid;
+  __valid_isset = YES;
+}
+
+- (BOOL) validIsSet {
+  return __valid_isset;
+}
+
+- (void) unsetValid {
+  __valid_isset = NO;
+}
+
+- (NSString *) codeType {
+  return [[__codeType retain_stub] autorelease_stub];
+}
+
+- (void) setCodeType: (NSString *) codeType {
+  [codeType retain_stub];
+  [__codeType release_stub];
+  __codeType = codeType;
+  __codeType_isset = YES;
+}
+
+- (BOOL) codeTypeIsSet {
+  return __codeType_isset;
+}
+
+- (void) unsetCodeType {
+  [__codeType release_stub];
+  __codeType = nil;
+  __codeType_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_BOOL) {
+          BOOL fieldValue = [inProtocol readBool];
+          [self setValid: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setCodeType: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"ValidateCodeResponse_t"];
+  if (__valid_isset) {
+    [outProtocol writeFieldBeginWithName: @"valid" type: TType_BOOL fieldID: 1];
+    [outProtocol writeBool: __valid];
+    [outProtocol writeFieldEnd];
+  }
+  if (__codeType_isset) {
+    if (__codeType != nil) {
+      [outProtocol writeFieldBeginWithName: @"codeType" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __codeType];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"ValidateCodeResponse_t("];
+  [ms appendString: @"valid:"];
+  [ms appendFormat: @"%i", __valid];
+  [ms appendString: @",codeType:"];
+  [ms appendFormat: @"\"%@\"", __codeType];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 static NSString * CTOKEN_NAME = @"ctok";
 
 @implementation CustomerServiceConstants
@@ -14255,6 +14417,414 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
+@interface validateCode_args : NSObject <NSCoding> {
+  NSString * __code;
+  NSString * __dealOfferId;
+
+  BOOL __code_isset;
+  BOOL __dealOfferId_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=code, setter=setCode:) NSString * code;
+@property (nonatomic, retain, getter=dealOfferId, setter=setDealOfferId:) NSString * dealOfferId;
+#endif
+
+- (id) init;
+- (id) initWithCode: (NSString *) code dealOfferId: (NSString *) dealOfferId;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) code;
+- (void) setCode: (NSString *) code;
+#endif
+- (BOOL) codeIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) dealOfferId;
+- (void) setDealOfferId: (NSString *) dealOfferId;
+#endif
+- (BOOL) dealOfferIdIsSet;
+
+@end
+
+@implementation validateCode_args
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithCode: (NSString *) code dealOfferId: (NSString *) dealOfferId
+{
+  self = [super init];
+  __code = [code retain_stub];
+  __code_isset = YES;
+  __dealOfferId = [dealOfferId retain_stub];
+  __dealOfferId_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"code"])
+  {
+    __code = [[decoder decodeObjectForKey: @"code"] retain_stub];
+    __code_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"dealOfferId"])
+  {
+    __dealOfferId = [[decoder decodeObjectForKey: @"dealOfferId"] retain_stub];
+    __dealOfferId_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__code_isset)
+  {
+    [encoder encodeObject: __code forKey: @"code"];
+  }
+  if (__dealOfferId_isset)
+  {
+    [encoder encodeObject: __dealOfferId forKey: @"dealOfferId"];
+  }
+}
+
+- (void) dealloc
+{
+  [__code release_stub];
+  [__dealOfferId release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) code {
+  return [[__code retain_stub] autorelease_stub];
+}
+
+- (void) setCode: (NSString *) code {
+  [code retain_stub];
+  [__code release_stub];
+  __code = code;
+  __code_isset = YES;
+}
+
+- (BOOL) codeIsSet {
+  return __code_isset;
+}
+
+- (void) unsetCode {
+  [__code release_stub];
+  __code = nil;
+  __code_isset = NO;
+}
+
+- (NSString *) dealOfferId {
+  return [[__dealOfferId retain_stub] autorelease_stub];
+}
+
+- (void) setDealOfferId: (NSString *) dealOfferId {
+  [dealOfferId retain_stub];
+  [__dealOfferId release_stub];
+  __dealOfferId = dealOfferId;
+  __dealOfferId_isset = YES;
+}
+
+- (BOOL) dealOfferIdIsSet {
+  return __dealOfferId_isset;
+}
+
+- (void) unsetDealOfferId {
+  [__dealOfferId release_stub];
+  __dealOfferId = nil;
+  __dealOfferId_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setCode: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setDealOfferId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"validateCode_args"];
+  if (__code_isset) {
+    if (__code != nil) {
+      [outProtocol writeFieldBeginWithName: @"code" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __code];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__dealOfferId_isset) {
+    if (__dealOfferId != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealOfferId" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __dealOfferId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"validateCode_args("];
+  [ms appendString: @"code:"];
+  [ms appendFormat: @"\"%@\"", __code];
+  [ms appendString: @",dealOfferId:"];
+  [ms appendFormat: @"\"%@\"", __dealOfferId];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface ValidateCode_result : NSObject <NSCoding> {
+  ValidateCodeResponse_t * __success;
+  TServiceException_t * __error;
+
+  BOOL __success_isset;
+  BOOL __error_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=success, setter=setSuccess:) ValidateCodeResponse_t * success;
+@property (nonatomic, retain, getter=error, setter=setError:) TServiceException_t * error;
+#endif
+
+- (id) init;
+- (id) initWithSuccess: (ValidateCodeResponse_t *) success error: (TServiceException_t *) error;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (ValidateCodeResponse_t *) success;
+- (void) setSuccess: (ValidateCodeResponse_t *) success;
+#endif
+- (BOOL) successIsSet;
+
+#if !__has_feature(objc_arc)
+- (TServiceException_t *) error;
+- (void) setError: (TServiceException_t *) error;
+#endif
+- (BOOL) errorIsSet;
+
+@end
+
+@implementation ValidateCode_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithSuccess: (ValidateCodeResponse_t *) success error: (TServiceException_t *) error
+{
+  self = [super init];
+  __success = [success retain_stub];
+  __success_isset = YES;
+  __error = [error retain_stub];
+  __error_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"success"])
+  {
+    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+    __success_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"error"])
+  {
+    __error = [[decoder decodeObjectForKey: @"error"] retain_stub];
+    __error_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__success_isset)
+  {
+    [encoder encodeObject: __success forKey: @"success"];
+  }
+  if (__error_isset)
+  {
+    [encoder encodeObject: __error forKey: @"error"];
+  }
+}
+
+- (void) dealloc
+{
+  [__success release_stub];
+  [__error release_stub];
+  [super dealloc_stub];
+}
+
+- (ValidateCodeResponse_t *) success {
+  return [[__success retain_stub] autorelease_stub];
+}
+
+- (void) setSuccess: (ValidateCodeResponse_t *) success {
+  [success retain_stub];
+  [__success release_stub];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release_stub];
+  __success = nil;
+  __success_isset = NO;
+}
+
+- (TServiceException_t *) error {
+  return [[__error retain_stub] autorelease_stub];
+}
+
+- (void) setError: (TServiceException_t *) error {
+  [error retain_stub];
+  [__error release_stub];
+  __error = error;
+  __error_isset = YES;
+}
+
+- (BOOL) errorIsSet {
+  return __error_isset;
+}
+
+- (void) unsetError {
+  [__error release_stub];
+  __error = nil;
+  __error_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          ValidateCodeResponse_t *fieldValue = [[ValidateCodeResponse_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          TServiceException_t *fieldValue = [[TServiceException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setError: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"ValidateCode_result"];
+
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__error_isset) {
+    if (__error != nil) {
+      [outProtocol writeFieldBeginWithName: @"error" type: TType_STRUCT fieldID: 1];
+      [__error write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"ValidateCode_result("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @",error:"];
+  [ms appendFormat: @"%@", __error];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 @implementation CustomerService_tClient
 - (id) initWithProtocol: (id <TProtocol>) protocol
 {
@@ -15871,6 +16441,54 @@ static NSString * CTOKEN_NAME = @"ctok";
   return [self recv_getMerchantsByDealOfferId];
 }
 
+- (void) send_validateCode: (NSString *) code dealOfferId: (NSString *) dealOfferId
+{
+  [outProtocol writeMessageBeginWithName: @"validateCode" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"validateCode_args"];
+  if (code != nil)  {
+    [outProtocol writeFieldBeginWithName: @"code" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: code];
+    [outProtocol writeFieldEnd];
+  }
+  if (dealOfferId != nil)  {
+    [outProtocol writeFieldBeginWithName: @"dealOfferId" type: TType_STRING fieldID: 2];
+    [outProtocol writeString: dealOfferId];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (ValidateCodeResponse_t *) recv_validateCode
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  ValidateCode_result * result = [[[ValidateCode_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  if ([result errorIsSet]) {
+    @throw [result error];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"validateCode failed: unknown result"];
+}
+
+- (ValidateCodeResponse_t *) validateCode: (NSString *) code dealOfferId: (NSString *) dealOfferId
+{
+  [self send_validateCode : code dealOfferId: dealOfferId];
+  return [self recv_validateCode];
+}
+
 @end
 
 @implementation CustomerService_tProcessor
@@ -16162,6 +16780,14 @@ static NSString * CTOKEN_NAME = @"ctok";
     [invocation setSelector: s];
     [invocation retainArguments];
     [mMethodMap setValue: invocation forKey: @"getMerchantsByDealOfferId"];
+  }
+  {
+    SEL s = @selector(process_validateCode_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"validateCode"];
   }
   return self;
 }
@@ -16790,6 +17416,23 @@ static NSString * CTOKEN_NAME = @"ctok";
   GetMerchantsByDealOfferId_result * result = [[GetMerchantsByDealOfferId_result alloc] init];
   [result setSuccess: [mService getMerchantsByDealOfferId: [args dealOfferId] searchOptions: [args searchOptions]]];
   [outProtocol writeMessageBeginWithName: @"getMerchantsByDealOfferId"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_validateCode_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  validateCode_args * args = [[validateCode_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  ValidateCode_result * result = [[ValidateCode_result alloc] init];
+  [result setSuccess: [mService validateCode: [args code] dealOfferId: [args dealOfferId]]];
+  [outProtocol writeMessageBeginWithName: @"validateCode"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];

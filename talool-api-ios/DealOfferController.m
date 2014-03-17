@@ -156,69 +156,58 @@
 #pragma mark -
 #pragma mark - Activate a Deal Offer
 
-- (BOOL) activateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error
+- (int) validateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error
 {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
-    BOOL result;
+    ValidateCodeResponse_t *response;
+    int resp;
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-        [self.service activateCode:offerId code:code];
         
-        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
-                                                              action:@"activateCode"
-                                                               label:@"success"
-                                                               value:nil] build]];
-        result = YES;
-    }
-    @catch (NSException * e) {
-        [self.errorManager handleServiceException:e forMethod:@"activateCode" error:error];
+        response = [self.service validateCode:code dealOfferId:offerId];
         
-        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
-                                                              action:@"activateCode"
-                                                               label:@"fail"
-                                                               value:nil] build]];
-        result = NO;
-    }
-    @finally {
-        [self disconnect];
-    }
-    return result;
-}
-
-
-#pragma mark -
-#pragma mark - Validate a Fundraising Tracking Code
-
-- (BOOL) validateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError**)error
-{
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    BOOL result;
-    @try {
-        [self connectWithToken:(ttToken *)customer.token];
-#warning "integrate validate code method"
-        //[self.service validateCode:code];
-        
-        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
-                                                              action:@"validateCode"
-                                                               label:@"success"
-                                                               value:nil] build]];
-        result = YES;
+        if (response.valid)
+        {
+            if ([response.codeType isEqualToString:CoreConstants.MERCHANT_CODE])
+            {
+                resp = ValidatationResponse_VALID;
+                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                      action:@"validateCode"
+                                                                       label:@"valid"
+                                                                       value:nil] build]];
+            }
+            else
+            {
+                resp = ValidatationResponse_ACTIVATED;
+                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                      action:@"validateCode"
+                                                                       label:@"activated"
+                                                                       value:nil] build]];
+            }
+            
+        }
+        else
+        {
+            resp = ValidatationResponse_INVALID;
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                                  action:@"validateCode"
+                                                                   label:@"invalid"
+                                                                   value:nil] build]];
+        }
     }
     @catch (NSException * e) {
         [self.errorManager handleServiceException:e forMethod:@"validateCode" error:error];
-        
+        resp = ValidatationResponse_ERROR;
         [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
                                                               action:@"validateCode"
                                                                label:@"fail"
                                                                value:nil] build]];
-        result = NO;
     }
     @finally {
         [self disconnect];
     }
-    return result;
+    return resp;
 }
 
 

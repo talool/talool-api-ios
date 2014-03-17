@@ -10,6 +10,7 @@
 #import "ttMerchant.h"
 #import "ttDeal.h"
 #import "Core.h"
+#import "Property.h"
 #import "DealOfferController.h"
 #import "TaloolPersistentStoreCoordinator.h"
 #import <APIErrorManager.h>
@@ -30,8 +31,9 @@
     newOffer.dealType = [[NSNumber alloc] initWithUnsignedInteger:offer.dealType];
     newOffer.imageUrl = offer.imageUrl;
     
-#warning "set the fundraiser property"
-    newOffer.fundraiser = [NSNumber numberWithBool:NO];
+    NSDictionary *props = offer.properties;
+    NSString* fundraisingBook = [props objectForKey:PropertyConstants.FUNDRAISING_BOOK];
+    newOffer.fundraiser = [NSNumber numberWithBool:[fundraisingBook isEqualToString:@"true"]];
     
     if (offer.dealOfferMerchantLogoIsSet)
     {
@@ -147,16 +149,10 @@
 #pragma mark -
 #pragma mark - Activate or Purchase the Deal Offer
 
-- (BOOL)activiateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err
+- (int)validateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err
 {
     DealOfferController *doc = [[DealOfferController alloc] init];
-    return [doc activateCode:customer offerId:self.dealOfferId code:code error:err];
-}
-
-- (BOOL)validateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err
-{
-    DealOfferController *doc = [[DealOfferController alloc] init];
-    return [doc validateCode:customer code:code error:err];
+    return [doc validateCode:customer offerId:self.dealOfferId code:code error:err];
 }
 
 - (BOOL) purchaseByCard:(NSString *)card

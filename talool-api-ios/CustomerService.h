@@ -132,6 +132,39 @@
 
 @end
 
+@interface ValidateCodeResponse_t : NSObject <NSCoding> {
+  BOOL __valid;
+  NSString * __codeType;
+
+  BOOL __valid_isset;
+  BOOL __codeType_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=valid, setter=setValid:) BOOL valid;
+@property (nonatomic, retain, getter=codeType, setter=setCodeType:) NSString * codeType;
+#endif
+
+- (id) init;
+- (id) initWithValid: (BOOL) valid codeType: (NSString *) codeType;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (BOOL) valid;
+- (void) setValid: (BOOL) valid;
+#endif
+- (BOOL) validIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) codeType;
+- (void) setCodeType: (NSString *) codeType;
+#endif
+- (BOOL) codeTypeIsSet;
+
+@end
+
 @protocol CustomerService_t <NSObject>
 - (CTokenAccess_t *) createAccount: (Customer_t *) customer password: (NSString *) password;  // throws ServiceException_t *, TException
 - (CTokenAccess_t *) authenticate: (NSString *) email password: (NSString *) password;  // throws ServiceException_t *, TException
@@ -168,6 +201,7 @@
 - (CTokenAccessResponse_t *) loginFacebook: (NSString *) facebookId facebookAccessToken: (NSString *) facebookAccessToken;  // throws TServiceException_t *, TException
 - (DealOfferGeoSummariesResponse_t *) getDealOfferGeoSummariesWithin: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions fallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions;  // throws TServiceException_t *, TException
 - (MerchantsResponse_t *) getMerchantsByDealOfferId: (NSString *) dealOfferId searchOptions: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
+- (ValidateCodeResponse_t *) validateCode: (NSString *) code dealOfferId: (NSString *) dealOfferId;  // throws TServiceException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {

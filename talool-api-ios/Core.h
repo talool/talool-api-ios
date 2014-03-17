@@ -735,6 +735,7 @@ typedef int64_t Timestamp;
   Timestamp __expires;
   NSString * __dealOfferMerchantLogo;
   NSString * __dealOfferBackgroundImage;
+  NSMutableDictionary * __properties;
 
   BOOL __dealOfferId_isset;
   BOOL __merchant_isset;
@@ -748,6 +749,7 @@ typedef int64_t Timestamp;
   BOOL __expires_isset;
   BOOL __dealOfferMerchantLogo_isset;
   BOOL __dealOfferBackgroundImage_isset;
+  BOOL __properties_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -763,10 +765,11 @@ typedef int64_t Timestamp;
 @property (nonatomic, getter=expires, setter=setExpires:) Timestamp expires;
 @property (nonatomic, retain, getter=dealOfferMerchantLogo, setter=setDealOfferMerchantLogo:) NSString * dealOfferMerchantLogo;
 @property (nonatomic, retain, getter=dealOfferBackgroundImage, setter=setDealOfferBackgroundImage:) NSString * dealOfferBackgroundImage;
+@property (nonatomic, retain, getter=properties, setter=setProperties:) NSMutableDictionary * properties;
 #endif
 
 - (id) init;
-- (id) initWithDealOfferId: (NSString *) dealOfferId merchant: (Merchant_t *) merchant dealType: (int) dealType title: (NSString *) title summary: (NSString *) summary code: (NSString *) code imageUrl: (NSString *) imageUrl locationName: (NSString *) locationName price: (double) price expires: (Timestamp) expires dealOfferMerchantLogo: (NSString *) dealOfferMerchantLogo dealOfferBackgroundImage: (NSString *) dealOfferBackgroundImage;
+- (id) initWithDealOfferId: (NSString *) dealOfferId merchant: (Merchant_t *) merchant dealType: (int) dealType title: (NSString *) title summary: (NSString *) summary code: (NSString *) code imageUrl: (NSString *) imageUrl locationName: (NSString *) locationName price: (double) price expires: (Timestamp) expires dealOfferMerchantLogo: (NSString *) dealOfferMerchantLogo dealOfferBackgroundImage: (NSString *) dealOfferBackgroundImage properties: (NSMutableDictionary *) properties;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -842,6 +845,12 @@ typedef int64_t Timestamp;
 - (void) setDealOfferBackgroundImage: (NSString *) dealOfferBackgroundImage;
 #endif
 - (BOOL) dealOfferBackgroundImageIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSMutableDictionary *) properties;
+- (void) setProperties: (NSMutableDictionary *) properties;
+#endif
+- (BOOL) propertiesIsSet;
 
 @end
 
@@ -1178,4 +1187,6 @@ typedef int64_t Timestamp;
 + (NSString *) METRIC_TOTAL_REDEMPTIONS;
 + (NSString *) METRIC_TOTAL_DEALS;
 + (NSString *) METRIC_TOTAL_ACQUIRES;
++ (NSString *) MERCHANT_CODE;
++ (NSString *) ACTIVATION_CODE;
 @end

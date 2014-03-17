@@ -9,7 +9,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TaloolThriftController.h"
 
-@class ttCustomer, ttDealOffer, DealOffer_t;
+@class ttCustomer, ttDealOffer, DealOffer_t, ValidateCodeResponse_t;
 
 @interface DealOfferController : TaloolThriftController
 
@@ -19,9 +19,7 @@
 - (DealOffer_t *) getDealOfferById:(NSString *)doId customer:(ttCustomer *)customer error:(NSError**)error;
 - (NSMutableArray *) getDealsByDealOfferId:(NSString *)doId customer:(ttCustomer *)customer error:(NSError**)error;
 
-- (BOOL) activateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error;
-
-- (BOOL) validateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err;
+- (int) validateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error;
 
 - (BOOL) purchaseByCard:(NSString *)dealOfferId
                    card:(NSString *)card

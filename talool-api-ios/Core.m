@@ -3515,7 +3515,7 @@
   return self;
 }
 
-- (id) initWithDealOfferId: (NSString *) dealOfferId merchant: (Merchant_t *) merchant dealType: (int) dealType title: (NSString *) title summary: (NSString *) summary code: (NSString *) code imageUrl: (NSString *) imageUrl locationName: (NSString *) locationName price: (double) price expires: (Timestamp) expires dealOfferMerchantLogo: (NSString *) dealOfferMerchantLogo dealOfferBackgroundImage: (NSString *) dealOfferBackgroundImage
+- (id) initWithDealOfferId: (NSString *) dealOfferId merchant: (Merchant_t *) merchant dealType: (int) dealType title: (NSString *) title summary: (NSString *) summary code: (NSString *) code imageUrl: (NSString *) imageUrl locationName: (NSString *) locationName price: (double) price expires: (Timestamp) expires dealOfferMerchantLogo: (NSString *) dealOfferMerchantLogo dealOfferBackgroundImage: (NSString *) dealOfferBackgroundImage properties: (NSMutableDictionary *) properties
 {
   self = [super init];
   __dealOfferId = [dealOfferId retain_stub];
@@ -3542,6 +3542,8 @@
   __dealOfferMerchantLogo_isset = YES;
   __dealOfferBackgroundImage = [dealOfferBackgroundImage retain_stub];
   __dealOfferBackgroundImage_isset = YES;
+  __properties = [properties retain_stub];
+  __properties_isset = YES;
   return self;
 }
 
@@ -3608,6 +3610,11 @@
     __dealOfferBackgroundImage = [[decoder decodeObjectForKey: @"dealOfferBackgroundImage"] retain_stub];
     __dealOfferBackgroundImage_isset = YES;
   }
+  if ([decoder containsValueForKey: @"properties"])
+  {
+    __properties = [[decoder decodeObjectForKey: @"properties"] retain_stub];
+    __properties_isset = YES;
+  }
   return self;
 }
 
@@ -3661,6 +3668,10 @@
   {
     [encoder encodeObject: __dealOfferBackgroundImage forKey: @"dealOfferBackgroundImage"];
   }
+  if (__properties_isset)
+  {
+    [encoder encodeObject: __properties forKey: @"properties"];
+  }
 }
 
 - (void) dealloc
@@ -3674,6 +3685,7 @@
   [__locationName release_stub];
   [__dealOfferMerchantLogo release_stub];
   [__dealOfferBackgroundImage release_stub];
+  [__properties release_stub];
   [super dealloc_stub];
 }
 
@@ -3917,6 +3929,27 @@
   __dealOfferBackgroundImage_isset = NO;
 }
 
+- (NSMutableDictionary *) properties {
+  return [[__properties retain_stub] autorelease_stub];
+}
+
+- (void) setProperties: (NSMutableDictionary *) properties {
+  [properties retain_stub];
+  [__properties release_stub];
+  __properties = properties;
+  __properties_isset = YES;
+}
+
+- (BOOL) propertiesIsSet {
+  return __properties_isset;
+}
+
+- (void) unsetProperties {
+  [__properties release_stub];
+  __properties = nil;
+  __properties_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -4030,6 +4063,25 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 13:
+        if (fieldType == TType_MAP) {
+          int _size11;
+          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size11];
+          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size11];
+          int _i12;
+          for (_i12 = 0; _i12 < _size11; ++_i12)
+          {
+            NSString * _key13 = [inProtocol readString];
+            NSString * _val14 = [inProtocol readString];
+            [fieldValue setObject: _val14 forKey: _key13];
+          }
+          [inProtocol readMapEnd];
+          [self setProperties: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -4119,6 +4171,23 @@
       [outProtocol writeFieldEnd];
     }
   }
+  if (__properties_isset) {
+    if (__properties != nil) {
+      [outProtocol writeFieldBeginWithName: @"properties" type: TType_MAP fieldID: 13];
+      {
+        [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_STRING size: [__properties count]];
+        NSEnumerator * _iter15 = [__properties keyEnumerator];
+        id key16;
+        while ((key16 = [_iter15 nextObject]))
+        {
+          [outProtocol writeString: key16];
+          [outProtocol writeString: [__properties objectForKey: key16]];
+        }
+        [outProtocol writeMapEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -4149,6 +4218,8 @@
   [ms appendFormat: @"\"%@\"", __dealOfferMerchantLogo];
   [ms appendString: @",dealOfferBackgroundImage:"];
   [ms appendFormat: @"\"%@\"", __dealOfferBackgroundImage];
+  [ms appendString: @",properties:"];
+  [ms appendFormat: @"%@", __properties];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -5748,15 +5819,15 @@
         break;
       case 4:
         if (fieldType == TType_MAP) {
-          int _size11;
-          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size11];
-          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size11];
-          int _i12;
-          for (_i12 = 0; _i12 < _size11; ++_i12)
+          int _size17;
+          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size17];
+          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size17];
+          int _i18;
+          for (_i18 = 0; _i18 < _size17; ++_i18)
           {
-            NSString * _key13 = [inProtocol readString];
-            double _val14 = [inProtocol readDouble];
-            [fieldValue setObject: [NSNumber numberWithDouble: _val14] forKey: _key13];
+            NSString * _key19 = [inProtocol readString];
+            double _val20 = [inProtocol readDouble];
+            [fieldValue setObject: [NSNumber numberWithDouble: _val20] forKey: _key19];
           }
           [inProtocol readMapEnd];
           [self setDoubleMetrics: fieldValue];
@@ -5767,15 +5838,15 @@
         break;
       case 5:
         if (fieldType == TType_MAP) {
-          int _size15;
-          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size15];
-          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size15];
-          int _i16;
-          for (_i16 = 0; _i16 < _size15; ++_i16)
+          int _size21;
+          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size21];
+          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size21];
+          int _i22;
+          for (_i22 = 0; _i22 < _size21; ++_i22)
           {
-            NSString * _key17 = [inProtocol readString];
-            int64_t _val18 = [inProtocol readI64];
-            [fieldValue setObject: [NSNumber numberWithLongLong: _val18] forKey: _key17];
+            NSString * _key23 = [inProtocol readString];
+            int64_t _val24 = [inProtocol readI64];
+            [fieldValue setObject: [NSNumber numberWithLongLong: _val24] forKey: _key23];
           }
           [inProtocol readMapEnd];
           [self setLongMetrics: fieldValue];
@@ -5817,12 +5888,12 @@
       [outProtocol writeFieldBeginWithName: @"doubleMetrics" type: TType_MAP fieldID: 4];
       {
         [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_DOUBLE size: [__doubleMetrics count]];
-        NSEnumerator * _iter19 = [__doubleMetrics keyEnumerator];
-        id key20;
-        while ((key20 = [_iter19 nextObject]))
+        NSEnumerator * _iter25 = [__doubleMetrics keyEnumerator];
+        id key26;
+        while ((key26 = [_iter25 nextObject]))
         {
-          [outProtocol writeString: key20];
-          [outProtocol writeDouble: [[__doubleMetrics objectForKey: key20] doubleValue]];
+          [outProtocol writeString: key26];
+          [outProtocol writeDouble: [[__doubleMetrics objectForKey: key26] doubleValue]];
         }
         [outProtocol writeMapEnd];
       }
@@ -5834,12 +5905,12 @@
       [outProtocol writeFieldBeginWithName: @"longMetrics" type: TType_MAP fieldID: 5];
       {
         [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_I64 size: [__longMetrics count]];
-        NSEnumerator * _iter21 = [__longMetrics keyEnumerator];
-        id key22;
-        while ((key22 = [_iter21 nextObject]))
+        NSEnumerator * _iter27 = [__longMetrics keyEnumerator];
+        id key28;
+        while ((key28 = [_iter27 nextObject]))
         {
-          [outProtocol writeString: key22];
-          [outProtocol writeI64: [[__longMetrics objectForKey: key22] longLongValue]];
+          [outProtocol writeString: key28];
+          [outProtocol writeI64: [[__longMetrics objectForKey: key28] longLongValue]];
         }
         [outProtocol writeMapEnd];
       }
@@ -5872,6 +5943,8 @@ static NSString * METRIC_TOTAL_MERCHANTS = @"TotalMerchants";
 static NSString * METRIC_TOTAL_REDEMPTIONS = @"TotalRedemptions";
 static NSString * METRIC_TOTAL_DEALS = @"TotalDeals";
 static NSString * METRIC_TOTAL_ACQUIRES = @"TotalAcquires";
+static NSString * MERCHANT_CODE = @"MerchantCode";
+static NSString * ACTIVATION_CODE = @"ActivationCode";
 
 @implementation CoreConstants
 + (void) initialize {
@@ -5887,6 +5960,12 @@ static NSString * METRIC_TOTAL_ACQUIRES = @"TotalAcquires";
 }
 + (NSString *) METRIC_TOTAL_ACQUIRES{
   return METRIC_TOTAL_ACQUIRES;
+}
++ (NSString *) MERCHANT_CODE{
+  return MERCHANT_CODE;
+}
++ (NSString *) ACTIVATION_CODE{
+  return ACTIVATION_CODE;
 }
 @end
 
