@@ -1,13 +1,13 @@
 PODS:
   - GoogleAnalytics-iOS-SDK (3.0.1)
-  - TestFlightSDK (2.0.2)
+  - TestFlightSDK (3.0.0)
 
 DEPENDENCIES:
   - GoogleAnalytics-iOS-SDK (= 3.0.1)
-  - TestFlightSDK (= 2.0.2)
+  - TestFlightSDK (= 3.0.0)
 
 SPEC CHECKSUMS:
   GoogleAnalytics-iOS-SDK: 4a788a66154b395717a31bfec1050f8c47b6d122
-  TestFlightSDK: 0811097c1f831afb71f68ccd07ae71325cb90f43
+  TestFlightSDK: 71e3e78d3a46144dbad975a4bf80a14dae6a818a
 
 COCOAPODS: 0.29.0
