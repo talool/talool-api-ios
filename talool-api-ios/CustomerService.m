@@ -14825,6 +14825,1224 @@ static NSString * CTOKEN_NAME = @"ctok";
 
 @end
 
+@interface purchaseWithCard_args : NSObject <NSCoding> {
+  NSString * __dealOfferId;
+  PaymentDetail_t * __paymentDetail;
+  NSMutableDictionary * __paymentProperties;
+
+  BOOL __dealOfferId_isset;
+  BOOL __paymentDetail_isset;
+  BOOL __paymentProperties_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=dealOfferId, setter=setDealOfferId:) NSString * dealOfferId;
+@property (nonatomic, retain, getter=paymentDetail, setter=setPaymentDetail:) PaymentDetail_t * paymentDetail;
+@property (nonatomic, retain, getter=paymentProperties, setter=setPaymentProperties:) NSMutableDictionary * paymentProperties;
+#endif
+
+- (id) init;
+- (id) initWithDealOfferId: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail paymentProperties: (NSMutableDictionary *) paymentProperties;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) dealOfferId;
+- (void) setDealOfferId: (NSString *) dealOfferId;
+#endif
+- (BOOL) dealOfferIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (PaymentDetail_t *) paymentDetail;
+- (void) setPaymentDetail: (PaymentDetail_t *) paymentDetail;
+#endif
+- (BOOL) paymentDetailIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSMutableDictionary *) paymentProperties;
+- (void) setPaymentProperties: (NSMutableDictionary *) paymentProperties;
+#endif
+- (BOOL) paymentPropertiesIsSet;
+
+@end
+
+@implementation purchaseWithCard_args
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithDealOfferId: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail paymentProperties: (NSMutableDictionary *) paymentProperties
+{
+  self = [super init];
+  __dealOfferId = [dealOfferId retain_stub];
+  __dealOfferId_isset = YES;
+  __paymentDetail = [paymentDetail retain_stub];
+  __paymentDetail_isset = YES;
+  __paymentProperties = [paymentProperties retain_stub];
+  __paymentProperties_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"dealOfferId"])
+  {
+    __dealOfferId = [[decoder decodeObjectForKey: @"dealOfferId"] retain_stub];
+    __dealOfferId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"paymentDetail"])
+  {
+    __paymentDetail = [[decoder decodeObjectForKey: @"paymentDetail"] retain_stub];
+    __paymentDetail_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"paymentProperties"])
+  {
+    __paymentProperties = [[decoder decodeObjectForKey: @"paymentProperties"] retain_stub];
+    __paymentProperties_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__dealOfferId_isset)
+  {
+    [encoder encodeObject: __dealOfferId forKey: @"dealOfferId"];
+  }
+  if (__paymentDetail_isset)
+  {
+    [encoder encodeObject: __paymentDetail forKey: @"paymentDetail"];
+  }
+  if (__paymentProperties_isset)
+  {
+    [encoder encodeObject: __paymentProperties forKey: @"paymentProperties"];
+  }
+}
+
+- (void) dealloc
+{
+  [__dealOfferId release_stub];
+  [__paymentDetail release_stub];
+  [__paymentProperties release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) dealOfferId {
+  return [[__dealOfferId retain_stub] autorelease_stub];
+}
+
+- (void) setDealOfferId: (NSString *) dealOfferId {
+  [dealOfferId retain_stub];
+  [__dealOfferId release_stub];
+  __dealOfferId = dealOfferId;
+  __dealOfferId_isset = YES;
+}
+
+- (BOOL) dealOfferIdIsSet {
+  return __dealOfferId_isset;
+}
+
+- (void) unsetDealOfferId {
+  [__dealOfferId release_stub];
+  __dealOfferId = nil;
+  __dealOfferId_isset = NO;
+}
+
+- (PaymentDetail_t *) paymentDetail {
+  return [[__paymentDetail retain_stub] autorelease_stub];
+}
+
+- (void) setPaymentDetail: (PaymentDetail_t *) paymentDetail {
+  [paymentDetail retain_stub];
+  [__paymentDetail release_stub];
+  __paymentDetail = paymentDetail;
+  __paymentDetail_isset = YES;
+}
+
+- (BOOL) paymentDetailIsSet {
+  return __paymentDetail_isset;
+}
+
+- (void) unsetPaymentDetail {
+  [__paymentDetail release_stub];
+  __paymentDetail = nil;
+  __paymentDetail_isset = NO;
+}
+
+- (NSMutableDictionary *) paymentProperties {
+  return [[__paymentProperties retain_stub] autorelease_stub];
+}
+
+- (void) setPaymentProperties: (NSMutableDictionary *) paymentProperties {
+  [paymentProperties retain_stub];
+  [__paymentProperties release_stub];
+  __paymentProperties = paymentProperties;
+  __paymentProperties_isset = YES;
+}
+
+- (BOOL) paymentPropertiesIsSet {
+  return __paymentProperties_isset;
+}
+
+- (void) unsetPaymentProperties {
+  [__paymentProperties release_stub];
+  __paymentProperties = nil;
+  __paymentProperties_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setDealOfferId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRUCT) {
+          PaymentDetail_t *fieldValue = [[PaymentDetail_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setPaymentDetail: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_MAP) {
+          int _size65;
+          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size65];
+          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size65];
+          int _i66;
+          for (_i66 = 0; _i66 < _size65; ++_i66)
+          {
+            NSString * _key67 = [inProtocol readString];
+            NSString * _val68 = [inProtocol readString];
+            [fieldValue setObject: _val68 forKey: _key67];
+          }
+          [inProtocol readMapEnd];
+          [self setPaymentProperties: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"purchaseWithCard_args"];
+  if (__dealOfferId_isset) {
+    if (__dealOfferId != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealOfferId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __dealOfferId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__paymentDetail_isset) {
+    if (__paymentDetail != nil) {
+      [outProtocol writeFieldBeginWithName: @"paymentDetail" type: TType_STRUCT fieldID: 2];
+      [__paymentDetail write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__paymentProperties_isset) {
+    if (__paymentProperties != nil) {
+      [outProtocol writeFieldBeginWithName: @"paymentProperties" type: TType_MAP fieldID: 3];
+      {
+        [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_STRING size: [__paymentProperties count]];
+        NSEnumerator * _iter69 = [__paymentProperties keyEnumerator];
+        id key70;
+        while ((key70 = [_iter69 nextObject]))
+        {
+          [outProtocol writeString: key70];
+          [outProtocol writeString: [__paymentProperties objectForKey: key70]];
+        }
+        [outProtocol writeMapEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"purchaseWithCard_args("];
+  [ms appendString: @"dealOfferId:"];
+  [ms appendFormat: @"\"%@\"", __dealOfferId];
+  [ms appendString: @",paymentDetail:"];
+  [ms appendFormat: @"%@", __paymentDetail];
+  [ms appendString: @",paymentProperties:"];
+  [ms appendFormat: @"%@", __paymentProperties];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface PurchaseWithCard_result : NSObject <NSCoding> {
+  TransactionResult_t * __success;
+  TServiceException_t * __serviceException;
+  TUserException_t * __userException;
+  TNotFoundException_t * __notFoundException;
+
+  BOOL __success_isset;
+  BOOL __serviceException_isset;
+  BOOL __userException_isset;
+  BOOL __notFoundException_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=success, setter=setSuccess:) TransactionResult_t * success;
+@property (nonatomic, retain, getter=serviceException, setter=setServiceException:) TServiceException_t * serviceException;
+@property (nonatomic, retain, getter=userException, setter=setUserException:) TUserException_t * userException;
+@property (nonatomic, retain, getter=notFoundException, setter=setNotFoundException:) TNotFoundException_t * notFoundException;
+#endif
+
+- (id) init;
+- (id) initWithSuccess: (TransactionResult_t *) success serviceException: (TServiceException_t *) serviceException userException: (TUserException_t *) userException notFoundException: (TNotFoundException_t *) notFoundException;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (TransactionResult_t *) success;
+- (void) setSuccess: (TransactionResult_t *) success;
+#endif
+- (BOOL) successIsSet;
+
+#if !__has_feature(objc_arc)
+- (TServiceException_t *) serviceException;
+- (void) setServiceException: (TServiceException_t *) serviceException;
+#endif
+- (BOOL) serviceExceptionIsSet;
+
+#if !__has_feature(objc_arc)
+- (TUserException_t *) userException;
+- (void) setUserException: (TUserException_t *) userException;
+#endif
+- (BOOL) userExceptionIsSet;
+
+#if !__has_feature(objc_arc)
+- (TNotFoundException_t *) notFoundException;
+- (void) setNotFoundException: (TNotFoundException_t *) notFoundException;
+#endif
+- (BOOL) notFoundExceptionIsSet;
+
+@end
+
+@implementation PurchaseWithCard_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithSuccess: (TransactionResult_t *) success serviceException: (TServiceException_t *) serviceException userException: (TUserException_t *) userException notFoundException: (TNotFoundException_t *) notFoundException
+{
+  self = [super init];
+  __success = [success retain_stub];
+  __success_isset = YES;
+  __serviceException = [serviceException retain_stub];
+  __serviceException_isset = YES;
+  __userException = [userException retain_stub];
+  __userException_isset = YES;
+  __notFoundException = [notFoundException retain_stub];
+  __notFoundException_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"success"])
+  {
+    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+    __success_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"serviceException"])
+  {
+    __serviceException = [[decoder decodeObjectForKey: @"serviceException"] retain_stub];
+    __serviceException_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"userException"])
+  {
+    __userException = [[decoder decodeObjectForKey: @"userException"] retain_stub];
+    __userException_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"notFoundException"])
+  {
+    __notFoundException = [[decoder decodeObjectForKey: @"notFoundException"] retain_stub];
+    __notFoundException_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__success_isset)
+  {
+    [encoder encodeObject: __success forKey: @"success"];
+  }
+  if (__serviceException_isset)
+  {
+    [encoder encodeObject: __serviceException forKey: @"serviceException"];
+  }
+  if (__userException_isset)
+  {
+    [encoder encodeObject: __userException forKey: @"userException"];
+  }
+  if (__notFoundException_isset)
+  {
+    [encoder encodeObject: __notFoundException forKey: @"notFoundException"];
+  }
+}
+
+- (void) dealloc
+{
+  [__success release_stub];
+  [__serviceException release_stub];
+  [__userException release_stub];
+  [__notFoundException release_stub];
+  [super dealloc_stub];
+}
+
+- (TransactionResult_t *) success {
+  return [[__success retain_stub] autorelease_stub];
+}
+
+- (void) setSuccess: (TransactionResult_t *) success {
+  [success retain_stub];
+  [__success release_stub];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release_stub];
+  __success = nil;
+  __success_isset = NO;
+}
+
+- (TServiceException_t *) serviceException {
+  return [[__serviceException retain_stub] autorelease_stub];
+}
+
+- (void) setServiceException: (TServiceException_t *) serviceException {
+  [serviceException retain_stub];
+  [__serviceException release_stub];
+  __serviceException = serviceException;
+  __serviceException_isset = YES;
+}
+
+- (BOOL) serviceExceptionIsSet {
+  return __serviceException_isset;
+}
+
+- (void) unsetServiceException {
+  [__serviceException release_stub];
+  __serviceException = nil;
+  __serviceException_isset = NO;
+}
+
+- (TUserException_t *) userException {
+  return [[__userException retain_stub] autorelease_stub];
+}
+
+- (void) setUserException: (TUserException_t *) userException {
+  [userException retain_stub];
+  [__userException release_stub];
+  __userException = userException;
+  __userException_isset = YES;
+}
+
+- (BOOL) userExceptionIsSet {
+  return __userException_isset;
+}
+
+- (void) unsetUserException {
+  [__userException release_stub];
+  __userException = nil;
+  __userException_isset = NO;
+}
+
+- (TNotFoundException_t *) notFoundException {
+  return [[__notFoundException retain_stub] autorelease_stub];
+}
+
+- (void) setNotFoundException: (TNotFoundException_t *) notFoundException {
+  [notFoundException retain_stub];
+  [__notFoundException release_stub];
+  __notFoundException = notFoundException;
+  __notFoundException_isset = YES;
+}
+
+- (BOOL) notFoundExceptionIsSet {
+  return __notFoundException_isset;
+}
+
+- (void) unsetNotFoundException {
+  [__notFoundException release_stub];
+  __notFoundException = nil;
+  __notFoundException_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          TransactionResult_t *fieldValue = [[TransactionResult_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          TServiceException_t *fieldValue = [[TServiceException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setServiceException: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRUCT) {
+          TUserException_t *fieldValue = [[TUserException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setUserException: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_STRUCT) {
+          TNotFoundException_t *fieldValue = [[TNotFoundException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setNotFoundException: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"PurchaseWithCard_result"];
+
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__serviceException_isset) {
+    if (__serviceException != nil) {
+      [outProtocol writeFieldBeginWithName: @"serviceException" type: TType_STRUCT fieldID: 1];
+      [__serviceException write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__userException_isset) {
+    if (__userException != nil) {
+      [outProtocol writeFieldBeginWithName: @"userException" type: TType_STRUCT fieldID: 2];
+      [__userException write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__notFoundException_isset) {
+    if (__notFoundException != nil) {
+      [outProtocol writeFieldBeginWithName: @"notFoundException" type: TType_STRUCT fieldID: 3];
+      [__notFoundException write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"PurchaseWithCard_result("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @",serviceException:"];
+  [ms appendFormat: @"%@", __serviceException];
+  [ms appendString: @",userException:"];
+  [ms appendFormat: @"%@", __userException];
+  [ms appendString: @",notFoundException:"];
+  [ms appendFormat: @"%@", __notFoundException];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface purchaseWithCode_args : NSObject <NSCoding> {
+  NSString * __dealOfferId;
+  NSString * __paymentCode;
+  NSMutableDictionary * __paymentProperties;
+
+  BOOL __dealOfferId_isset;
+  BOOL __paymentCode_isset;
+  BOOL __paymentProperties_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=dealOfferId, setter=setDealOfferId:) NSString * dealOfferId;
+@property (nonatomic, retain, getter=paymentCode, setter=setPaymentCode:) NSString * paymentCode;
+@property (nonatomic, retain, getter=paymentProperties, setter=setPaymentProperties:) NSMutableDictionary * paymentProperties;
+#endif
+
+- (id) init;
+- (id) initWithDealOfferId: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode paymentProperties: (NSMutableDictionary *) paymentProperties;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) dealOfferId;
+- (void) setDealOfferId: (NSString *) dealOfferId;
+#endif
+- (BOOL) dealOfferIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSString *) paymentCode;
+- (void) setPaymentCode: (NSString *) paymentCode;
+#endif
+- (BOOL) paymentCodeIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSMutableDictionary *) paymentProperties;
+- (void) setPaymentProperties: (NSMutableDictionary *) paymentProperties;
+#endif
+- (BOOL) paymentPropertiesIsSet;
+
+@end
+
+@implementation purchaseWithCode_args
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithDealOfferId: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode paymentProperties: (NSMutableDictionary *) paymentProperties
+{
+  self = [super init];
+  __dealOfferId = [dealOfferId retain_stub];
+  __dealOfferId_isset = YES;
+  __paymentCode = [paymentCode retain_stub];
+  __paymentCode_isset = YES;
+  __paymentProperties = [paymentProperties retain_stub];
+  __paymentProperties_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"dealOfferId"])
+  {
+    __dealOfferId = [[decoder decodeObjectForKey: @"dealOfferId"] retain_stub];
+    __dealOfferId_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"paymentCode"])
+  {
+    __paymentCode = [[decoder decodeObjectForKey: @"paymentCode"] retain_stub];
+    __paymentCode_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"paymentProperties"])
+  {
+    __paymentProperties = [[decoder decodeObjectForKey: @"paymentProperties"] retain_stub];
+    __paymentProperties_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__dealOfferId_isset)
+  {
+    [encoder encodeObject: __dealOfferId forKey: @"dealOfferId"];
+  }
+  if (__paymentCode_isset)
+  {
+    [encoder encodeObject: __paymentCode forKey: @"paymentCode"];
+  }
+  if (__paymentProperties_isset)
+  {
+    [encoder encodeObject: __paymentProperties forKey: @"paymentProperties"];
+  }
+}
+
+- (void) dealloc
+{
+  [__dealOfferId release_stub];
+  [__paymentCode release_stub];
+  [__paymentProperties release_stub];
+  [super dealloc_stub];
+}
+
+- (NSString *) dealOfferId {
+  return [[__dealOfferId retain_stub] autorelease_stub];
+}
+
+- (void) setDealOfferId: (NSString *) dealOfferId {
+  [dealOfferId retain_stub];
+  [__dealOfferId release_stub];
+  __dealOfferId = dealOfferId;
+  __dealOfferId_isset = YES;
+}
+
+- (BOOL) dealOfferIdIsSet {
+  return __dealOfferId_isset;
+}
+
+- (void) unsetDealOfferId {
+  [__dealOfferId release_stub];
+  __dealOfferId = nil;
+  __dealOfferId_isset = NO;
+}
+
+- (NSString *) paymentCode {
+  return [[__paymentCode retain_stub] autorelease_stub];
+}
+
+- (void) setPaymentCode: (NSString *) paymentCode {
+  [paymentCode retain_stub];
+  [__paymentCode release_stub];
+  __paymentCode = paymentCode;
+  __paymentCode_isset = YES;
+}
+
+- (BOOL) paymentCodeIsSet {
+  return __paymentCode_isset;
+}
+
+- (void) unsetPaymentCode {
+  [__paymentCode release_stub];
+  __paymentCode = nil;
+  __paymentCode_isset = NO;
+}
+
+- (NSMutableDictionary *) paymentProperties {
+  return [[__paymentProperties retain_stub] autorelease_stub];
+}
+
+- (void) setPaymentProperties: (NSMutableDictionary *) paymentProperties {
+  [paymentProperties retain_stub];
+  [__paymentProperties release_stub];
+  __paymentProperties = paymentProperties;
+  __paymentProperties_isset = YES;
+}
+
+- (BOOL) paymentPropertiesIsSet {
+  return __paymentProperties_isset;
+}
+
+- (void) unsetPaymentProperties {
+  [__paymentProperties release_stub];
+  __paymentProperties = nil;
+  __paymentProperties_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setDealOfferId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setPaymentCode: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_MAP) {
+          int _size71;
+          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size71];
+          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size71];
+          int _i72;
+          for (_i72 = 0; _i72 < _size71; ++_i72)
+          {
+            NSString * _key73 = [inProtocol readString];
+            NSString * _val74 = [inProtocol readString];
+            [fieldValue setObject: _val74 forKey: _key73];
+          }
+          [inProtocol readMapEnd];
+          [self setPaymentProperties: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"purchaseWithCode_args"];
+  if (__dealOfferId_isset) {
+    if (__dealOfferId != nil) {
+      [outProtocol writeFieldBeginWithName: @"dealOfferId" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __dealOfferId];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__paymentCode_isset) {
+    if (__paymentCode != nil) {
+      [outProtocol writeFieldBeginWithName: @"paymentCode" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __paymentCode];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__paymentProperties_isset) {
+    if (__paymentProperties != nil) {
+      [outProtocol writeFieldBeginWithName: @"paymentProperties" type: TType_MAP fieldID: 3];
+      {
+        [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_STRING size: [__paymentProperties count]];
+        NSEnumerator * _iter75 = [__paymentProperties keyEnumerator];
+        id key76;
+        while ((key76 = [_iter75 nextObject]))
+        {
+          [outProtocol writeString: key76];
+          [outProtocol writeString: [__paymentProperties objectForKey: key76]];
+        }
+        [outProtocol writeMapEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"purchaseWithCode_args("];
+  [ms appendString: @"dealOfferId:"];
+  [ms appendFormat: @"\"%@\"", __dealOfferId];
+  [ms appendString: @",paymentCode:"];
+  [ms appendFormat: @"\"%@\"", __paymentCode];
+  [ms appendString: @",paymentProperties:"];
+  [ms appendFormat: @"%@", __paymentProperties];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface PurchaseWithCode_result : NSObject <NSCoding> {
+  TransactionResult_t * __success;
+  TServiceException_t * __serviceException;
+  TUserException_t * __userException;
+  TNotFoundException_t * __notFoundException;
+
+  BOOL __success_isset;
+  BOOL __serviceException_isset;
+  BOOL __userException_isset;
+  BOOL __notFoundException_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=success, setter=setSuccess:) TransactionResult_t * success;
+@property (nonatomic, retain, getter=serviceException, setter=setServiceException:) TServiceException_t * serviceException;
+@property (nonatomic, retain, getter=userException, setter=setUserException:) TUserException_t * userException;
+@property (nonatomic, retain, getter=notFoundException, setter=setNotFoundException:) TNotFoundException_t * notFoundException;
+#endif
+
+- (id) init;
+- (id) initWithSuccess: (TransactionResult_t *) success serviceException: (TServiceException_t *) serviceException userException: (TUserException_t *) userException notFoundException: (TNotFoundException_t *) notFoundException;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (TransactionResult_t *) success;
+- (void) setSuccess: (TransactionResult_t *) success;
+#endif
+- (BOOL) successIsSet;
+
+#if !__has_feature(objc_arc)
+- (TServiceException_t *) serviceException;
+- (void) setServiceException: (TServiceException_t *) serviceException;
+#endif
+- (BOOL) serviceExceptionIsSet;
+
+#if !__has_feature(objc_arc)
+- (TUserException_t *) userException;
+- (void) setUserException: (TUserException_t *) userException;
+#endif
+- (BOOL) userExceptionIsSet;
+
+#if !__has_feature(objc_arc)
+- (TNotFoundException_t *) notFoundException;
+- (void) setNotFoundException: (TNotFoundException_t *) notFoundException;
+#endif
+- (BOOL) notFoundExceptionIsSet;
+
+@end
+
+@implementation PurchaseWithCode_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithSuccess: (TransactionResult_t *) success serviceException: (TServiceException_t *) serviceException userException: (TUserException_t *) userException notFoundException: (TNotFoundException_t *) notFoundException
+{
+  self = [super init];
+  __success = [success retain_stub];
+  __success_isset = YES;
+  __serviceException = [serviceException retain_stub];
+  __serviceException_isset = YES;
+  __userException = [userException retain_stub];
+  __userException_isset = YES;
+  __notFoundException = [notFoundException retain_stub];
+  __notFoundException_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"success"])
+  {
+    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+    __success_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"serviceException"])
+  {
+    __serviceException = [[decoder decodeObjectForKey: @"serviceException"] retain_stub];
+    __serviceException_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"userException"])
+  {
+    __userException = [[decoder decodeObjectForKey: @"userException"] retain_stub];
+    __userException_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"notFoundException"])
+  {
+    __notFoundException = [[decoder decodeObjectForKey: @"notFoundException"] retain_stub];
+    __notFoundException_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__success_isset)
+  {
+    [encoder encodeObject: __success forKey: @"success"];
+  }
+  if (__serviceException_isset)
+  {
+    [encoder encodeObject: __serviceException forKey: @"serviceException"];
+  }
+  if (__userException_isset)
+  {
+    [encoder encodeObject: __userException forKey: @"userException"];
+  }
+  if (__notFoundException_isset)
+  {
+    [encoder encodeObject: __notFoundException forKey: @"notFoundException"];
+  }
+}
+
+- (void) dealloc
+{
+  [__success release_stub];
+  [__serviceException release_stub];
+  [__userException release_stub];
+  [__notFoundException release_stub];
+  [super dealloc_stub];
+}
+
+- (TransactionResult_t *) success {
+  return [[__success retain_stub] autorelease_stub];
+}
+
+- (void) setSuccess: (TransactionResult_t *) success {
+  [success retain_stub];
+  [__success release_stub];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release_stub];
+  __success = nil;
+  __success_isset = NO;
+}
+
+- (TServiceException_t *) serviceException {
+  return [[__serviceException retain_stub] autorelease_stub];
+}
+
+- (void) setServiceException: (TServiceException_t *) serviceException {
+  [serviceException retain_stub];
+  [__serviceException release_stub];
+  __serviceException = serviceException;
+  __serviceException_isset = YES;
+}
+
+- (BOOL) serviceExceptionIsSet {
+  return __serviceException_isset;
+}
+
+- (void) unsetServiceException {
+  [__serviceException release_stub];
+  __serviceException = nil;
+  __serviceException_isset = NO;
+}
+
+- (TUserException_t *) userException {
+  return [[__userException retain_stub] autorelease_stub];
+}
+
+- (void) setUserException: (TUserException_t *) userException {
+  [userException retain_stub];
+  [__userException release_stub];
+  __userException = userException;
+  __userException_isset = YES;
+}
+
+- (BOOL) userExceptionIsSet {
+  return __userException_isset;
+}
+
+- (void) unsetUserException {
+  [__userException release_stub];
+  __userException = nil;
+  __userException_isset = NO;
+}
+
+- (TNotFoundException_t *) notFoundException {
+  return [[__notFoundException retain_stub] autorelease_stub];
+}
+
+- (void) setNotFoundException: (TNotFoundException_t *) notFoundException {
+  [notFoundException retain_stub];
+  [__notFoundException release_stub];
+  __notFoundException = notFoundException;
+  __notFoundException_isset = YES;
+}
+
+- (BOOL) notFoundExceptionIsSet {
+  return __notFoundException_isset;
+}
+
+- (void) unsetNotFoundException {
+  [__notFoundException release_stub];
+  __notFoundException = nil;
+  __notFoundException_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          TransactionResult_t *fieldValue = [[TransactionResult_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          TServiceException_t *fieldValue = [[TServiceException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setServiceException: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRUCT) {
+          TUserException_t *fieldValue = [[TUserException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setUserException: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_STRUCT) {
+          TNotFoundException_t *fieldValue = [[TNotFoundException_t alloc] init];
+          [fieldValue read: inProtocol];
+          [self setNotFoundException: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"PurchaseWithCode_result"];
+
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__serviceException_isset) {
+    if (__serviceException != nil) {
+      [outProtocol writeFieldBeginWithName: @"serviceException" type: TType_STRUCT fieldID: 1];
+      [__serviceException write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__userException_isset) {
+    if (__userException != nil) {
+      [outProtocol writeFieldBeginWithName: @"userException" type: TType_STRUCT fieldID: 2];
+      [__userException write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__notFoundException_isset) {
+    if (__notFoundException != nil) {
+      [outProtocol writeFieldBeginWithName: @"notFoundException" type: TType_STRUCT fieldID: 3];
+      [__notFoundException write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"PurchaseWithCode_result("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @",serviceException:"];
+  [ms appendFormat: @"%@", __serviceException];
+  [ms appendString: @",userException:"];
+  [ms appendFormat: @"%@", __userException];
+  [ms appendString: @",notFoundException:"];
+  [ms appendFormat: @"%@", __notFoundException];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 @implementation CustomerService_tClient
 - (id) initWithProtocol: (id <TProtocol>) protocol
 {
@@ -16489,6 +17707,144 @@ static NSString * CTOKEN_NAME = @"ctok";
   return [self recv_validateCode];
 }
 
+- (void) send_purchaseWithCard: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail paymentProperties: (NSMutableDictionary *) paymentProperties
+{
+  [outProtocol writeMessageBeginWithName: @"purchaseWithCard" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"purchaseWithCard_args"];
+  if (dealOfferId != nil)  {
+    [outProtocol writeFieldBeginWithName: @"dealOfferId" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: dealOfferId];
+    [outProtocol writeFieldEnd];
+  }
+  if (paymentDetail != nil)  {
+    [outProtocol writeFieldBeginWithName: @"paymentDetail" type: TType_STRUCT fieldID: 2];
+    [paymentDetail write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+  if (paymentProperties != nil)  {
+    [outProtocol writeFieldBeginWithName: @"paymentProperties" type: TType_MAP fieldID: 3];
+    {
+      [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_STRING size: [paymentProperties count]];
+      NSEnumerator * _iter77 = [paymentProperties keyEnumerator];
+      id key78;
+      while ((key78 = [_iter77 nextObject]))
+      {
+        [outProtocol writeString: key78];
+        [outProtocol writeString: [paymentProperties objectForKey: key78]];
+      }
+      [outProtocol writeMapEnd];
+    }
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (TransactionResult_t *) recv_purchaseWithCard
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  PurchaseWithCard_result * result = [[[PurchaseWithCard_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  if ([result serviceExceptionIsSet]) {
+    @throw [result serviceException];
+  }
+  if ([result userExceptionIsSet]) {
+    @throw [result userException];
+  }
+  if ([result notFoundExceptionIsSet]) {
+    @throw [result notFoundException];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"purchaseWithCard failed: unknown result"];
+}
+
+- (TransactionResult_t *) purchaseWithCard: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail paymentProperties: (NSMutableDictionary *) paymentProperties
+{
+  [self send_purchaseWithCard : dealOfferId paymentDetail: paymentDetail paymentProperties: paymentProperties];
+  return [self recv_purchaseWithCard];
+}
+
+- (void) send_purchaseWithCode: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode paymentProperties: (NSMutableDictionary *) paymentProperties
+{
+  [outProtocol writeMessageBeginWithName: @"purchaseWithCode" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"purchaseWithCode_args"];
+  if (dealOfferId != nil)  {
+    [outProtocol writeFieldBeginWithName: @"dealOfferId" type: TType_STRING fieldID: 1];
+    [outProtocol writeString: dealOfferId];
+    [outProtocol writeFieldEnd];
+  }
+  if (paymentCode != nil)  {
+    [outProtocol writeFieldBeginWithName: @"paymentCode" type: TType_STRING fieldID: 2];
+    [outProtocol writeString: paymentCode];
+    [outProtocol writeFieldEnd];
+  }
+  if (paymentProperties != nil)  {
+    [outProtocol writeFieldBeginWithName: @"paymentProperties" type: TType_MAP fieldID: 3];
+    {
+      [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_STRING size: [paymentProperties count]];
+      NSEnumerator * _iter79 = [paymentProperties keyEnumerator];
+      id key80;
+      while ((key80 = [_iter79 nextObject]))
+      {
+        [outProtocol writeString: key80];
+        [outProtocol writeString: [paymentProperties objectForKey: key80]];
+      }
+      [outProtocol writeMapEnd];
+    }
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (TransactionResult_t *) recv_purchaseWithCode
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  PurchaseWithCode_result * result = [[[PurchaseWithCode_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  if ([result serviceExceptionIsSet]) {
+    @throw [result serviceException];
+  }
+  if ([result userExceptionIsSet]) {
+    @throw [result userException];
+  }
+  if ([result notFoundExceptionIsSet]) {
+    @throw [result notFoundException];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"purchaseWithCode failed: unknown result"];
+}
+
+- (TransactionResult_t *) purchaseWithCode: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode paymentProperties: (NSMutableDictionary *) paymentProperties
+{
+  [self send_purchaseWithCode : dealOfferId paymentCode: paymentCode paymentProperties: paymentProperties];
+  return [self recv_purchaseWithCode];
+}
+
 @end
 
 @implementation CustomerService_tProcessor
@@ -16788,6 +18144,22 @@ static NSString * CTOKEN_NAME = @"ctok";
     [invocation setSelector: s];
     [invocation retainArguments];
     [mMethodMap setValue: invocation forKey: @"validateCode"];
+  }
+  {
+    SEL s = @selector(process_purchaseWithCard_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"purchaseWithCard"];
+  }
+  {
+    SEL s = @selector(process_purchaseWithCode_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"purchaseWithCode"];
   }
   return self;
 }
@@ -17433,6 +18805,40 @@ static NSString * CTOKEN_NAME = @"ctok";
   ValidateCode_result * result = [[ValidateCode_result alloc] init];
   [result setSuccess: [mService validateCode: [args code] dealOfferId: [args dealOfferId]]];
   [outProtocol writeMessageBeginWithName: @"validateCode"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_purchaseWithCard_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  purchaseWithCard_args * args = [[purchaseWithCard_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  PurchaseWithCard_result * result = [[PurchaseWithCard_result alloc] init];
+  [result setSuccess: [mService purchaseWithCard: [args dealOfferId] paymentDetail: [args paymentDetail] paymentProperties: [args paymentProperties]]];
+  [outProtocol writeMessageBeginWithName: @"purchaseWithCard"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_purchaseWithCode_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  purchaseWithCode_args * args = [[purchaseWithCode_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  PurchaseWithCode_result * result = [[PurchaseWithCode_result alloc] init];
+  [result setSuccess: [mService purchaseWithCode: [args dealOfferId] paymentCode: [args paymentCode] paymentProperties: [args paymentProperties]]];
+  [outProtocol writeMessageBeginWithName: @"purchaseWithCode"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];

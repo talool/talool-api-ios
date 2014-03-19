@@ -202,6 +202,8 @@
 - (DealOfferGeoSummariesResponse_t *) getDealOfferGeoSummariesWithin: (Location_t *) location maxMiles: (int32_t) maxMiles searchOptions: (SearchOptions_t *) searchOptions fallbackSearchOptions: (SearchOptions_t *) fallbackSearchOptions;  // throws TServiceException_t *, TException
 - (MerchantsResponse_t *) getMerchantsByDealOfferId: (NSString *) dealOfferId searchOptions: (SearchOptions_t *) searchOptions;  // throws ServiceException_t *, TException
 - (ValidateCodeResponse_t *) validateCode: (NSString *) code dealOfferId: (NSString *) dealOfferId;  // throws TServiceException_t *, TException
+- (TransactionResult_t *) purchaseWithCard: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail paymentProperties: (NSMutableDictionary *) paymentProperties;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
+- (TransactionResult_t *) purchaseWithCode: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode paymentProperties: (NSMutableDictionary *) paymentProperties;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {

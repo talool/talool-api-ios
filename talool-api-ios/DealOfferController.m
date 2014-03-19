@@ -59,8 +59,11 @@
         NSMutableDictionary *metadata = (NSMutableDictionary *) @{VENMO_SDK_SESSION : venmoSession};
         
         PaymentDetail_t *payment = [[PaymentDetail_t alloc] initWithEncryptedFields:YES card:creditcard paymentMetadata:metadata saveCard:YES];
-#warning "pass fundraiser to service"
-        TransactionResult_t *transactionResult = [self.service purchaseByCard:dealOfferId paymentDetail:payment];
+        
+        NSMutableDictionary *paymentProps = [[NSMutableDictionary alloc] init];
+        [paymentProps setValue:fundraiser forKey:CoreConstants.CODE_TYPE];
+
+        TransactionResult_t *transactionResult = [self.service purchaseWithCard:dealOfferId paymentDetail:payment paymentProperties:paymentProps];
         if (transactionResult.success)
         {
             
@@ -111,8 +114,11 @@
     
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-#warning "pass fundraiser to service"
-        TransactionResult_t *transactionResult = [self.service purchaseByCode:dealOfferId paymentCode:paymentCode];
+
+        NSMutableDictionary *paymentProps = [[NSMutableDictionary alloc] init];
+        [paymentProps setValue:fundraiser forKey:CoreConstants.CODE_TYPE];
+        
+        TransactionResult_t *transactionResult = [self.service purchaseWithCode:dealOfferId paymentCode:paymentCode paymentProperties:paymentProps];
         if (transactionResult.success)
         {
             
