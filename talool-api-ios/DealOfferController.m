@@ -62,7 +62,7 @@
         PaymentDetail_t *payment = [[PaymentDetail_t alloc] initWithEncryptedFields:YES card:creditcard paymentMetadata:metadata saveCard:YES];
         
         NSMutableDictionary *paymentProps = [[NSMutableDictionary alloc] init];
-        [paymentProps setValue:fundraiser forKey:CoreConstants.CODE_TYPE];
+        [paymentProps setValue:fundraiser forKey:PropertyConstants.MERCHANT_CODE];
 
         TransactionResult_t *transactionResult = [self.service purchaseWithCard:dealOfferId paymentDetail:payment paymentProperties:paymentProps];
         if (transactionResult.success)
@@ -117,7 +117,7 @@
         [self connectWithToken:(ttToken *)customer.token];
 
         NSMutableDictionary *paymentProps = [[NSMutableDictionary alloc] init];
-        [paymentProps setValue:fundraiser forKey:CoreConstants.CODE_TYPE];
+        [paymentProps setValue:fundraiser forKey:PropertyConstants.MERCHANT_CODE];
         
         TransactionResult_t *transactionResult = [self.service purchaseWithCode:dealOfferId paymentCode:paymentCode paymentProperties:paymentProps];
         if (transactionResult.success)
@@ -176,7 +176,7 @@
         
         if (response.valid)
         {
-            if ([response.codeType isEqualToString:PropertyConstants.MERCHANT_CODE])
+            if ([response.codeType isEqualToString:CoreConstants.MERCHANT_CODE])
             {
                 resp = ValidatationResponse_VALID;
                 [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
