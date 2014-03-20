@@ -23,6 +23,7 @@
 #import "Core.h"
 #import "Payment.h"
 #import "Error.h"
+#import "Property.h"
 
 @implementation DealOfferController
 
@@ -175,7 +176,7 @@
         
         if (response.valid)
         {
-            if ([response.codeType isEqualToString:CoreConstants.MERCHANT_CODE])
+            if ([response.codeType isEqualToString:PropertyConstants.MERCHANT_CODE])
             {
                 resp = ValidatationResponse_VALID;
                 [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"

@@ -18,4 +18,6 @@
 }
 + (NSString *) FUNDRAISING_BOOK;
 + (NSString *) SUBSCRIPTION;
++ (NSString *) MERCHANT_CODE;
++ (NSString *) ACTIVATION_CODE;
 @end
