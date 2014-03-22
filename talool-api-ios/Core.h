@@ -1187,7 +1187,4 @@ typedef int64_t Timestamp;
 + (NSString *) METRIC_TOTAL_REDEMPTIONS;
 + (NSString *) METRIC_TOTAL_DEALS;
 + (NSString *) METRIC_TOTAL_ACQUIRES;
-+ (NSString *) MERCHANT_CODE;
-+ (NSString *) ACTIVATION_CODE;
-+ (NSString *) CODE_TYPE;
 @end

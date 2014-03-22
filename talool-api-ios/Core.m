@@ -5943,9 +5943,6 @@ static NSString * METRIC_TOTAL_MERCHANTS = @"TotalMerchants";
 static NSString * METRIC_TOTAL_REDEMPTIONS = @"TotalRedemptions";
 static NSString * METRIC_TOTAL_DEALS = @"TotalDeals";
 static NSString * METRIC_TOTAL_ACQUIRES = @"TotalAcquires";
-static NSString * MERCHANT_CODE = @"MerchantCode";
-static NSString * ACTIVATION_CODE = @"ActivationCode";
-static NSString * CODE_TYPE = @"CodeType";
 
 @implementation CoreConstants
 + (void) initialize {
@@ -5961,15 +5958,6 @@ static NSString * CODE_TYPE = @"CodeType";
 }
 + (NSString *) METRIC_TOTAL_ACQUIRES{
   return METRIC_TOTAL_ACQUIRES;
-}
-+ (NSString *) MERCHANT_CODE{
-  return MERCHANT_CODE;
-}
-+ (NSString *) ACTIVATION_CODE{
-  return ACTIVATION_CODE;
-}
-+ (NSString *) CODE_TYPE{
-  return CODE_TYPE;
 }
 @end
 

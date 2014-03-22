@@ -176,7 +176,7 @@
         
         if (response.valid)
         {
-            if ([response.codeType isEqualToString:CoreConstants.MERCHANT_CODE])
+            if ([response.codeType isEqualToString:PropertyConstants.MERCHANT_CODE])
             {
                 resp = ValidatationResponse_VALID;
                 [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
