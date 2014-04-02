@@ -21,6 +21,8 @@
 
 - (int) validateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error;
 
+- (BOOL) activateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error;
+
 - (BOOL) purchaseByCard:(NSString *)dealOfferId
                    card:(NSString *)card
                expMonth:(NSString *)expMonth

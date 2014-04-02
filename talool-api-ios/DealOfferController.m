@@ -161,7 +161,7 @@
 
 
 #pragma mark -
-#pragma mark - Activate a Deal Offer
+#pragma mark - Validate A Code
 
 - (int) validateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error
 {
@@ -217,6 +217,38 @@
     return resp;
 }
 
+#pragma mark -
+#pragma mark - Activate a Deal Offer
+
+- (BOOL) activateCode:(ttCustomer *)customer offerId:(NSString *)offerId code:(NSString *)code error:(NSError**)error
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    BOOL result;
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        [self.service activateCode:offerId code:code];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"activateCode"
+                                                               label:@"success"
+                                                               value:nil] build]];
+        result = YES;
+    }
+    @catch (NSException * e) {
+        [self.errorManager handleServiceException:e forMethod:@"activateCode" error:error];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"activateCode"
+                                                               label:@"fail"
+                                                               value:nil] build]];
+        result = NO;
+    }
+    @finally {
+        [self disconnect];
+    }
+    return result;
+}
 
 
 #pragma mark -

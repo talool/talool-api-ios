@@ -33,6 +33,8 @@ typedef int ValidatationResponse;
 
 - (int)validateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err;
 
+- (BOOL)activiateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err;
+
 - (BOOL) purchaseByCard:(NSString *)card
                expMonth:(NSString *)expMonth
                 expYear:(NSString *)expYear

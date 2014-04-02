@@ -155,6 +155,12 @@
     return [doc validateCode:customer offerId:self.dealOfferId code:code error:err];
 }
 
+- (BOOL)activiateCode:(ttCustomer *)customer code:(NSString *)code error:(NSError **)err
+{
+    DealOfferController *doc = [[DealOfferController alloc] init];
+    return [doc activateCode:customer offerId:self.dealOfferId code:code error:err];
+}
+
 - (BOOL) purchaseByCard:(NSString *)card
                expMonth:(NSString *)expMonth
                 expYear:(NSString *)expYear
