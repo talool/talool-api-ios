@@ -8,8 +8,10 @@
 
 #import "TaloolPersistentStoreCoordinator.h"
 #import "TaloolFrameworkHelper.h"
-#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import "APIErrorManager.h"
 #import "TestFlight.h"
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 
 NSString * const CUSTOMER_ENTITY_NAME = @"TaloolCustomer";
 NSString * const CUSTOMER_UX_ENTITY_NAME = @"TaloolCustomerUX";
@@ -53,13 +55,24 @@ static NSManagedObjectModel *_managedObjectModel;
                                                         options:optionsDictionary
                                                           error:&error]) {
         
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        
+        // Track failure
         [TestFlight passCheckpoint:@"PERSISTENCE_STORE_BORKED"];
-        TFLog(@"PERSISTENCE ERROR: %@, %@", error, [error userInfo]);
+        NSLog(@"PERSISTENCE ERROR: %@, %@", error, [error userInfo]);
+        NSException *e = [[NSException alloc] initWithName:@"Persistent Store Failure" reason:@"Failed to init store" userInfo:nil];
+        APIErrorManager *errorMgr = [[APIErrorManager alloc] init];
+        [errorMgr handleCoreDataException:e forMethod:@"initWithStoreUrl" entity:@"NSPersistentStoreCoordinator" error:&error];
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"APP"
+                                                              action:@"coredata"
+                                                               label:@"fail"
+                                                               value:nil] build]];
         
         // TODO consider clearing all the data
-        // abort();
+        if (![[TaloolFrameworkHelper sharedInstance] isProduction])
+        {
+            // In dev we want to see it crash
+            abort();
+        }
 
     }
     return persistentStoreCoordinator;

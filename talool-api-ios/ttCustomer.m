@@ -19,6 +19,8 @@
 #import "ttDealOffer.h"
 #import "TaloolErrorHandler.h"
 #import "APIErrorManager.h"
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 
 
 @implementation ttCustomer
@@ -114,7 +116,17 @@
         if ([mutableFetchResults count] == 1) {
             user = [mutableFetchResults objectAtIndex:0];
         } else if ([mutableFetchResults count] > 1) {
+            
             NSLog(@"FAIL: Too many users stored!!!");
+            NSException *e = [[NSException alloc] initWithName:@"Persistent Store Failure" reason:@"Too many logged in users" userInfo:nil];
+            APIErrorManager *errorMgr = [[APIErrorManager alloc] init];
+            [errorMgr handleCoreDataException:e forMethod:@"getLoggedInUser" entity:@"ttCustomer" error:&error];
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"APP"
+                                                                  action:@"getLoggedInUser"
+                                                                   label:@"fail"
+                                                                   value:nil] build]];
+            
             [ttCustomer clearUsers:context error:&error];
         }
     }
