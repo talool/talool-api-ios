@@ -27,13 +27,15 @@
   return self;
 }
 
-- (id) initWithLinkType: (int) linkType linkElement: (NSString *) linkElement
+- (id) initWithLinkType: (int) linkType linkElement: (NSString *) linkElement properties: (NSMutableDictionary *) properties
 {
   self = [super init];
   __linkType = linkType;
   __linkType_isset = YES;
   __linkElement = [linkElement retain_stub];
   __linkElement_isset = YES;
+  __properties = [properties retain_stub];
+  __properties_isset = YES;
   return self;
 }
 
@@ -50,6 +52,11 @@
     __linkElement = [[decoder decodeObjectForKey: @"linkElement"] retain_stub];
     __linkElement_isset = YES;
   }
+  if ([decoder containsValueForKey: @"properties"])
+  {
+    __properties = [[decoder decodeObjectForKey: @"properties"] retain_stub];
+    __properties_isset = YES;
+  }
   return self;
 }
 
@@ -63,11 +70,16 @@
   {
     [encoder encodeObject: __linkElement forKey: @"linkElement"];
   }
+  if (__properties_isset)
+  {
+    [encoder encodeObject: __properties forKey: @"properties"];
+  }
 }
 
 - (void) dealloc
 {
   [__linkElement release_stub];
+  [__properties release_stub];
   [super dealloc_stub];
 }
 
@@ -109,6 +121,27 @@
   __linkElement_isset = NO;
 }
 
+- (NSMutableDictionary *) properties {
+  return [[__properties retain_stub] autorelease_stub];
+}
+
+- (void) setProperties: (NSMutableDictionary *) properties {
+  [properties retain_stub];
+  [__properties release_stub];
+  __properties = properties;
+  __properties_isset = YES;
+}
+
+- (BOOL) propertiesIsSet {
+  return __properties_isset;
+}
+
+- (void) unsetProperties {
+  [__properties release_stub];
+  __properties = nil;
+  __properties_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -140,6 +173,25 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 3:
+        if (fieldType == TType_MAP) {
+          int _size0;
+          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size0];
+          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size0];
+          int _i1;
+          for (_i1 = 0; _i1 < _size0; ++_i1)
+          {
+            NSString * _key2 = [inProtocol readString];
+            NSString * _val3 = [inProtocol readString];
+            [fieldValue setObject: _val3 forKey: _key2];
+          }
+          [inProtocol readMapEnd];
+          [self setProperties: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -163,6 +215,23 @@
       [outProtocol writeFieldEnd];
     }
   }
+  if (__properties_isset) {
+    if (__properties != nil) {
+      [outProtocol writeFieldBeginWithName: @"properties" type: TType_MAP fieldID: 3];
+      {
+        [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_STRING size: [__properties count]];
+        NSEnumerator * _iter4 = [__properties keyEnumerator];
+        id key5;
+        while ((key5 = [_iter4 nextObject]))
+        {
+          [outProtocol writeString: key5];
+          [outProtocol writeString: [__properties objectForKey: key5]];
+        }
+        [outProtocol writeMapEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -173,6 +242,8 @@
   [ms appendFormat: @"%i", __linkType];
   [ms appendString: @",linkElement:"];
   [ms appendFormat: @"\"%@\"", __linkElement];
+  [ms appendString: @",properties:"];
+  [ms appendFormat: @"%@", __properties];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }

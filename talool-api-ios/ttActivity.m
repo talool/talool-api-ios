@@ -93,16 +93,9 @@
             // transform the Thrift response, count open activities, and save the context
             for (Activity_t *at in activities) {
                 ttActivity *act = [ttActivity initWithThrift:at context:context];
-                if ([act isWelcomeEvent] ||
-                    [act isTaloolReachEvent] ||
-                    [act isMerchantReachEvent] ||
-                    [act isFacebookReceiveGiftEvent] ||
-                    [act isEmailReceiveGiftEvent])
+                if (![act isClosed])
                 {
-                    if (![act isClosed])
-                    {
-                        opencount++;
-                    }
+                    opencount++;
                 }
             }
             result = [context save:error];
@@ -135,22 +128,15 @@
             // transform the Thrift response, count open activities, and save the context
             for (Activity_t *at in activities) {
                 ttActivity *act = [ttActivity initWithThrift:at context:context];
-                if ([act isWelcomeEvent] ||
-                    [act isTaloolReachEvent] ||
-                    [act isMerchantReachEvent] ||
-                    [act isFacebookReceiveGiftEvent] ||
-                    [act isEmailReceiveGiftEvent])
+                if (![act isClosed])
                 {
-                    if (![act isClosed])
-                    {
-                        opencount++;
-                    }
+                    opencount++;
                 }
             }
             result = [context save:error];
         }
         @catch (NSException * e) {
-            [ac.errorManager handleCoreDataException:e forMethod:@"getActivities" entity:@"ttActivity" error:error];
+            [ac.errorManager handleCoreDataException:e forMethod:@"getMessages" entity:@"ttActivity" error:error];
         }
     }
     
@@ -158,6 +144,15 @@
     [response setObject:[NSNumber numberWithBool:result] forKey:@"success"];
     [response setObject:[NSNumber numberWithInt:opencount] forKey:@"openCount"];
     return response;
+}
+
++ (NSString *) getEmail:(ttCustomer *)customer
+               template:(NSString *)templateId
+                 entity:(NSString *)entityId
+                  error:(NSError **)error
+{
+    ActivityController *ac = [[ActivityController alloc] init];
+    return [ac getEmail:customer template:templateId entity:entityId error:error];
 }
 
 - (BOOL) actionTaken:(ttCustomer *)customer context:(NSManagedObjectContext *)context error:(NSError **)err
@@ -180,13 +175,9 @@
 - (BOOL) isActionable
 {
     ttActivityLink *link = [self getLink];
-    if ([link isGiftLink] ||
-        [link isEmailLink] ||
-        [link isExternalLink])
-    {
-        return YES;
-    }
-    return NO;
+    return ([link isGiftLink] ||
+            [link isEmailLink] ||
+            [link isExternalLink]);
 }
 
 - (BOOL) isClosed
@@ -269,6 +260,11 @@
     return ([self.event intValue] == ActivityEvent_t_WELCOME);
 }
 
+- (BOOL) isFundraiserSupport
+{
+    return ([self.event intValue] == ActivityEvent_t_FUNDRAISER_SUPPORT);
+}
+
 - (BOOL) isUnknownEvent
 {
     return ([self.event intValue] == ActivityEvent_t_UNKNOWN);
@@ -317,6 +313,7 @@
                      [NSNumber numberWithInt:ActivityEvent_t_MERCHANT_REACH],
                      [NSNumber numberWithInt:ActivityEvent_t_TALOOL_REACH],
                      [NSNumber numberWithInt:ActivityEvent_t_WELCOME],
+                     [NSNumber numberWithInt:ActivityEvent_t_FUNDRAISER_SUPPORT],
                      nil];
     return [NSPredicate predicateWithFormat:@"SELF.event IN %@", events];
 }

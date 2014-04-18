@@ -165,6 +165,30 @@
 
 @end
 
+@interface EmailBodyResponse_t : NSObject <NSCoding> {
+  NSString * __emailBody;
+
+  BOOL __emailBody_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=emailBody, setter=setEmailBody:) NSString * emailBody;
+#endif
+
+- (id) init;
+- (id) initWithEmailBody: (NSString *) emailBody;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if !__has_feature(objc_arc)
+- (NSString *) emailBody;
+- (void) setEmailBody: (NSString *) emailBody;
+#endif
+- (BOOL) emailBodyIsSet;
+
+@end
+
 @protocol CustomerService_t <NSObject>
 - (CTokenAccess_t *) createAccount: (Customer_t *) customer password: (NSString *) password;  // throws ServiceException_t *, TException
 - (CTokenAccess_t *) authenticate: (NSString *) email password: (NSString *) password;  // throws ServiceException_t *, TException
@@ -204,6 +228,7 @@
 - (ValidateCodeResponse_t *) validateCode: (NSString *) code dealOfferId: (NSString *) dealOfferId;  // throws TServiceException_t *, TException
 - (TransactionResult_t *) purchaseWithCard: (NSString *) dealOfferId paymentDetail: (PaymentDetail_t *) paymentDetail paymentProperties: (NSMutableDictionary *) paymentProperties;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
 - (TransactionResult_t *) purchaseWithCode: (NSString *) dealOfferId paymentCode: (NSString *) paymentCode paymentProperties: (NSMutableDictionary *) paymentProperties;  // throws TServiceException_t *, TUserException_t *, TNotFoundException_t *, TException
+- (EmailBodyResponse_t *) getEmailBody: (NSString *) templateId entityId: (NSString *) entityId;  // throws TServiceException_t *, TException
 @end
 
 @interface CustomerService_tClient : NSObject <CustomerService_t> {

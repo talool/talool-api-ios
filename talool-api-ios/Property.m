@@ -20,6 +20,7 @@ static NSString * FUNDRAISING_BOOK = @"fundraising_book";
 static NSString * SUBSCRIPTION = @"subscription";
 static NSString * MERCHANT_CODE = @"merchant_code";
 static NSString * ACTIVATION_CODE = @"activation_code";
+static NSString * TEMPLATE_ID = @"template_id";
 
 @implementation PropertyConstants
 + (void) initialize {
@@ -35,6 +36,9 @@ static NSString * ACTIVATION_CODE = @"activation_code";
 }
 + (NSString *) ACTIVATION_CODE{
   return ACTIVATION_CODE;
+}
++ (NSString *) TEMPLATE_ID{
+  return TEMPLATE_ID;
 }
 @end
 

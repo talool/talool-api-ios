@@ -31,7 +31,8 @@ enum ActivityEvent_t {
   ActivityEvent_t_FRIEND_PURCHASE_DEAL_OFFER = 12,
   ActivityEvent_t_MERCHANT_REACH = 13,
   ActivityEvent_t_TALOOL_REACH = 14,
-  ActivityEvent_t_AD = 15
+  ActivityEvent_t_AD = 15,
+  ActivityEvent_t_FUNDRAISER_SUPPORT = 16
 };
 
 enum LinkType {
@@ -42,24 +43,28 @@ enum LinkType {
   LinkType_CUSTOMER = 4,
   LinkType_DEAL_ACQUIRE = 5,
   LinkType_MERCHANT_LOCATION = 6,
-  LinkType_EXTERNAL = 7
+  LinkType_EXTERNAL = 7,
+  LinkType_EMAIL = 8
 };
 
 @interface ActivityLink_t : NSObject <NSCoding> {
   int __linkType;
   NSString * __linkElement;
+  NSMutableDictionary * __properties;
 
   BOOL __linkType_isset;
   BOOL __linkElement_isset;
+  BOOL __properties_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, getter=linkType, setter=setLinkType:) int linkType;
 @property (nonatomic, retain, getter=linkElement, setter=setLinkElement:) NSString * linkElement;
+@property (nonatomic, retain, getter=properties, setter=setProperties:) NSMutableDictionary * properties;
 #endif
 
 - (id) init;
-- (id) initWithLinkType: (int) linkType linkElement: (NSString *) linkElement;
+- (id) initWithLinkType: (int) linkType linkElement: (NSString *) linkElement properties: (NSMutableDictionary *) properties;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -75,6 +80,12 @@ enum LinkType {
 - (void) setLinkElement: (NSString *) linkElement;
 #endif
 - (BOOL) linkElementIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSMutableDictionary *) properties;
+- (void) setProperties: (NSMutableDictionary *) properties;
+#endif
+- (BOOL) propertiesIsSet;
 
 @end
 

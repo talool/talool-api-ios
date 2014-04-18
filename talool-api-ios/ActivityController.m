@@ -64,7 +64,6 @@
     NSMutableArray *activities;
     
     @try {
-        // Do the Thrift Merchants
         [self connectWithToken:(ttToken *)customer.token];
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
         [options setMaxResults:1000];
@@ -91,7 +90,6 @@
     NSMutableArray *messages;
     
     @try {
-        // Do the Thrift Merchants
         [self connectWithToken:(ttToken *)customer.token];
         SearchOptions_t *options = [[SearchOptions_t alloc] init];
         [options setMaxResults:1000];
@@ -109,6 +107,31 @@
     }
     
     return messages;
+}
+
+- (NSString *) getEmail:(ttCustomer *)customer
+                   template:(NSString *)templateId
+                     entity:(NSString *)entityId
+                      error:(NSError **)error
+{
+    NSString *emailBody;
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        EmailBodyResponse_t *resp = [self.service getEmailBody:templateId entityId:entityId];
+        if (resp.emailBodyIsSet)
+        {
+            emailBody = resp.emailBody;
+        }
+    }
+    @catch (NSException * e) {
+        [self.errorManager handleServiceException:e forMethod:@"getEmail" error:error];
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    return emailBody;
 }
 
 

@@ -20,4 +20,5 @@
 + (NSString *) SUBSCRIPTION;
 + (NSString *) MERCHANT_CODE;
 + (NSString *) ACTIVATION_CODE;
++ (NSString *) TEMPLATE_ID;
 @end
