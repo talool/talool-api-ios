@@ -14,6 +14,7 @@
 
 @dynamic linkType;
 @dynamic elementId;
+@dynamic templateId;
 @dynamic activity;
 
 @end

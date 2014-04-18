@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSNumber * linkType;
 @property (nonatomic, retain) NSString * elementId;
+@property (nonatomic, retain) NSString * templateId;
 @property (nonatomic, retain) TaloolActivity *activity;
 
 @end

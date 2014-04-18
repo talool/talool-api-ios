@@ -9,6 +9,7 @@
 #import "ttActivityLink.h"
 #import "Activity.h"
 #import "TaloolPersistentStoreCoordinator.h"
+#import "Property.h"
 
 @implementation ttActivityLink
 
@@ -18,6 +19,15 @@
     
     a.linkType = [NSNumber numberWithInt:link.linkType];
     a.elementId = link.linkElement;
+    
+    if (link.propertiesIsSet)
+    {
+        NSString *templateId = [link.properties objectForKey:PropertyConstants.TEMPLATE_ID];
+        if (templateId)
+        {
+            a.templateId = templateId;
+        }
+    }
     
     return a;
 }

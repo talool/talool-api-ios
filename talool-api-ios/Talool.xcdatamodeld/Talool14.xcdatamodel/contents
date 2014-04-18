@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Friend" representedClassName="ttFriend" syncable="YES">
         <attribute name="customerId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,7 +33,6 @@
     <entity name="TaloolActivityLink" representedClassName="ttActivityLink" syncable="YES">
         <attribute name="elementId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="linkType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="templateId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="activity" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolActivity" inverseName="link" inverseEntity="TaloolActivity" syncable="YES"/>
     </entity>
     <entity name="TaloolCategory" representedClassName="ttCategory" syncable="YES">
@@ -175,23 +174,23 @@
         <relationship name="customer" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaloolCustomer" inverseName="token" inverseEntity="TaloolCustomer" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Friend" positionX="0" positionY="0" width="128" height="135"/>
-        <element name="SocialAccount" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="SocialNetworkDetail" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="TaloolActivity" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="TaloolActivityLink" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="TaloolCategory" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="TaloolCustomer" positionX="0" positionY="0" width="128" height="225"/>
-        <element name="TaloolCustomerUX" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="TaloolDeal" positionX="0" positionY="0" width="128" height="255"/>
-        <element name="TaloolDealAcquire" positionX="0" positionY="0" width="128" height="210"/>
-        <element name="TaloolDealOffer" positionX="0" positionY="0" width="128" height="255"/>
-        <element name="TaloolDealOfferGeoSummary" positionX="0" positionY="0" width="128" height="150"/>
-        <element name="TaloolGift" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="TaloolGiftDetail" positionX="0" positionY="0" width="128" height="150"/>
-        <element name="TaloolMerchant" positionX="0" positionY="0" width="128" height="180"/>
-        <element name="TaloolMerchantLocation" positionX="0" positionY="0" width="128" height="315"/>
-        <element name="TaloolSearchOptions" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="TaloolToken" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Friend" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SocialAccount" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SocialNetworkDetail" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolActivity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolActivityLink" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolCategory" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolCustomer" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolCustomerUX" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolDeal" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolDealAcquire" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolDealOffer" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolDealOfferGeoSummary" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolGift" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolGiftDetail" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolMerchant" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolMerchantLocation" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolSearchOptions" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TaloolToken" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
