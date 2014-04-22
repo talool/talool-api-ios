@@ -19,10 +19,10 @@
                        longitude:(double)longitude
                            error:(NSError**)error;
 
-- (NSString *) getEmail:(ttCustomer *)customer
-               template:(NSString *)templateId
-                 entity:(NSString *)entityId
-                  error:(NSError **)error;
+- (NSMutableDictionary *) getEmail:(ttCustomer *)customer
+                          template:(NSString *)templateId
+                            entity:(NSString *)entityId
+                             error:(NSError **)error;
 
 - (BOOL) actionTaken:(ttCustomer *)customer actionId:(NSString *)actionId error:(NSError**)error;
 

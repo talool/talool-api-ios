@@ -146,10 +146,10 @@
     return response;
 }
 
-+ (NSString *) getEmail:(ttCustomer *)customer
-               template:(NSString *)templateId
-                 entity:(NSString *)entityId
-                  error:(NSError **)error
++ (NSMutableDictionary *) getEmail:(ttCustomer *)customer
+                          template:(NSString *)templateId
+                            entity:(NSString *)entityId
+                             error:(NSError **)error
 {
     ActivityController *ac = [[ActivityController alloc] init];
     return [ac getEmail:customer template:templateId entity:entityId error:error];

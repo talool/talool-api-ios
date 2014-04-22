@@ -45,10 +45,10 @@
                        context:(NSManagedObjectContext *)context
                          error:(NSError **)error;
 
-+ (NSString *) getEmail:(ttCustomer *)customer
-               template:(NSString *)templateId
-                 entity:(NSString *)entityId
-                  error:(NSError **)error;
++ (NSMutableDictionary *) getEmail:(ttCustomer *)customer
+                          template:(NSString *)templateId
+                            entity:(NSString *)entityId
+                             error:(NSError **)error;
 
 + (NSPredicate *) getGiftPredicate;
 + (NSPredicate *) getMoneyPredicate;

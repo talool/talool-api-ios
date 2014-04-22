@@ -109,19 +109,23 @@
     return messages;
 }
 
-- (NSString *) getEmail:(ttCustomer *)customer
-                   template:(NSString *)templateId
-                     entity:(NSString *)entityId
-                      error:(NSError **)error
+- (NSMutableDictionary *) getEmail:(ttCustomer *)customer
+                          template:(NSString *)templateId
+                            entity:(NSString *)entityId
+                             error:(NSError **)error
 {
-    NSString *emailBody;
+    NSMutableDictionary *response = [[NSMutableDictionary alloc] init];
     
     @try {
         [self connectWithToken:(ttToken *)customer.token];
-        EmailBodyResponse_t *resp = [self.service getEmailBody:templateId entityId:entityId];
-        if (resp.emailBodyIsSet)
+        EmailMessageResponse_t *resp = [self.service getEmailMessage:templateId entityId:entityId];
+        if (resp.bodyIsSet)
         {
-            emailBody = resp.emailBody;
+            [response setObject:resp.body forKey:@"body"];
+        }
+        if (resp.subjectIsSet)
+        {
+            [response setObject:resp.subject forKey:@"subject"];
         }
     }
     @catch (NSException * e) {
@@ -131,7 +135,7 @@
         [self disconnect];
     }
     
-    return emailBody;
+    return response;
 }
 
 
