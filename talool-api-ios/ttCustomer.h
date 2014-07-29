@@ -54,6 +54,8 @@
 
 + (BOOL) doesCustomerExist:(NSString *) email;
 
+- (NSString *)generateBraintreeClientToken:(NSError**)error;
+
 
 #pragma mark -
 #pragma mark Convenience Methods

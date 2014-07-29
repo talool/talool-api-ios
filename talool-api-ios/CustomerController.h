@@ -8,7 +8,7 @@
 
 #import "TaloolThriftController.h"
 
-@class Customer_t, CTokenAccess_t;
+@class Customer_t, ttCustomer, CTokenAccess_t;
 
 @interface CustomerController : TaloolThriftController
 
@@ -34,5 +34,7 @@
                        code:(NSString *)resetPasswordCode
                       error:(NSError**)error;
 
+- (NSString *)generateBraintreeClientToken:(ttCustomer *)customer
+                                     error:(NSError**)error;
 
 @end

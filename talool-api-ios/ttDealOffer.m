@@ -161,27 +161,13 @@
     return [doc activateCode:customer offerId:self.dealOfferId code:code error:err];
 }
 
-- (BOOL) purchaseByCard:(NSString *)card
-               expMonth:(NSString *)expMonth
-                expYear:(NSString *)expYear
-           securityCode:(NSString *)securityCode
-                zipCode:(NSString *)zipCode
-           venmoSession:(NSString *)venmoSession
-               customer:(ttCustomer *)customer
-             fundraiser:(NSString *)fundraiser
-                  error:(NSError**)error
+- (BOOL) purchaseWithNonce:(NSString *)nonce
+                  customer:(ttCustomer *)customer
+                fundraiser:(NSString *)fundraiser
+                     error:(NSError**)error
 {
     DealOfferController *doc = [[DealOfferController alloc] init];
-    return [doc purchaseByCard:self.dealOfferId card:card expMonth:expMonth expYear:expYear securityCode:securityCode zipCode:zipCode venmoSession:venmoSession customer:customer fundraiser:fundraiser error:error];
-}
-
-- (BOOL) purchaseByCode:(NSString *)paymentCode
-               customer:(ttCustomer *)customer
-             fundraiser:(NSString *)fundraiser
-                  error:(NSError**)error
-{
-    DealOfferController *doc = [[DealOfferController alloc] init];
-    return [doc purchaseByCode:self.dealOfferId paymentCode:paymentCode customer:customer fundraiser:fundraiser error:error];
+    return [doc purchaseWithNonce:self.dealOfferId nonce:nonce customer:customer fundraiser:fundraiser error:error];
 }
 
 

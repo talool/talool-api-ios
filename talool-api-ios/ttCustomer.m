@@ -290,6 +290,21 @@
     return [cController userExists:email];
 }
 
+- (NSString *)generateBraintreeClientToken:(NSError**)error;
+{
+    CustomerController *cc = [[CustomerController alloc] init];
+    NSString * result = [cc generateBraintreeClientToken:self error:error];
+    if (!result)
+    {
+        NSMutableDictionary* details = [NSMutableDictionary dictionary];
+        NSString *errorDetails = @"Our payment processing services are not reachable at the moment.  Please try again later.";
+        [details setValue:errorDetails forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:TALOOL_DOMAIN code:[*error code] userInfo:details];
+    }
+    
+    return result;
+}
+
 
 #pragma mark -
 #pragma mark Convenience Methods
@@ -348,7 +363,7 @@
     customer.firstName = self.firstName;
     customer.lastName = self.lastName;
     customer.email = self.email;
-    customer.sex = [self.sex integerValue];
+    customer.sex = [self.sex intValue];
     if (self.birthDate)
     {
         customer.birthDate = [self.birthDate timeIntervalSince1970]*1000;

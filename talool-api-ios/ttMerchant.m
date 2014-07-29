@@ -144,7 +144,8 @@
     
     NSError *error;
     NSArray *fetchedObj = [context executeFetchRequest:request error:&error];
-    return [fetchedObj count];
+    NSNumber *n = [NSNumber numberWithLong:[fetchedObj count]];
+    return [n intValue];
 }
 
 

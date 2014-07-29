@@ -16,6 +16,9 @@
 #import "Core.h"
 #import "Error.h"
 
+#import "ttCustomer.h"
+#import "ttToken.h"
+
 
 @implementation CustomerController
 
@@ -199,6 +202,40 @@
 
     
     return token;
+}
+
+- (NSString *)generateBraintreeClientToken:(ttCustomer *)customer
+                                     error:(NSError**)error
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    NSString *token;
+    
+    @try {
+        [self connectWithToken:(ttToken *)customer.token];
+        
+        token = [self.service generateBraintreeClientToken];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"generateBraintreeClientToken"
+                                                               label:@"success"
+                                                               value:nil] build]];
+    }
+    @catch (NSException * e) {
+        [self.errorManager handleServiceException:e forMethod:@"generateBraintreeClientToken" error:error];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
+                                                              action:@"generateBraintreeClientToken"
+                                                               label:@"fail"
+                                                               value:nil] build]];
+    }
+    @finally {
+        [self disconnect];
+    }
+    
+    
+    return token;
+    
 }
 
 

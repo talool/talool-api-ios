@@ -19,7 +19,7 @@
 {
     ttMerchantLocation *m = [ttMerchantLocation fetchMerchantLocationById:[NSNumber numberWithLongLong:location.locationId] context:context];
     
-    m.locationId = [NSNumber numberWithInt:location.locationId];
+    m.locationId = [NSNumber numberWithLongLong:location.locationId];
     m.name = location.name;
     m.email = location.email;
     m.websiteUrl = location.websiteUrl;

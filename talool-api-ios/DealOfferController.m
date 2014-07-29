@@ -32,82 +32,11 @@
 #pragma mark -
 #pragma mark - Purchase a Deal Offer
 
-- (BOOL) purchaseByCard:(NSString *)dealOfferId
-                   card:(NSString *)card
-               expMonth:(NSString *)expMonth
-                expYear:(NSString *)expYear
-           securityCode:(NSString *)securityCode
-                zipCode:(NSString *)zipCode
-           venmoSession:(NSString *)venmoSession
-               customer:(ttCustomer *)customer
-             fundraiser:(NSString *)fundraiser
-                  error:(NSError**)error
-{
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    BOOL result;
-    
-    @try {
-        [self connectWithToken:(ttToken *)customer.token];
-        
-        
-        Card_t *creditcard = [[Card_t alloc] initWithAccountNumber:card
-                                                   expirationMonth:expMonth
-                                                    expirationYear:expYear
-                                                      securityCode:securityCode
-                                                           zipCode:zipCode];
-        
-        NSMutableDictionary *metadata = (NSMutableDictionary *) @{VENMO_SDK_SESSION : venmoSession};
-        
-        PaymentDetail_t *payment = [[PaymentDetail_t alloc] initWithEncryptedFields:YES card:creditcard paymentMetadata:metadata saveCard:YES];
-        
-        NSMutableDictionary *paymentProps = [[NSMutableDictionary alloc] init];
-        [paymentProps setValue:fundraiser forKey:PropertyConstants.MERCHANT_CODE];
-
-        TransactionResult_t *transactionResult = [self.service purchaseWithCard:dealOfferId paymentDetail:payment paymentProperties:paymentProps];
-        if (transactionResult.success)
-        {
-            
-            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
-                                                                  action:@"purchaseByCard"
-                                                                   label:@"success"
-                                                                   value:nil] build]];
-        }
-        else
-        {
-            
-            // handle the error
-            [self.errorManager handlePaymentException:nil forMethod:@"purchaseByCard" message:transactionResult.message error:error];
-            
-            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
-                                                                  action:@"purchaseByCard"
-                                                                   label:@"fail"
-                                                                   value:nil] build]];
-            
-        }
-        
-        result = transactionResult.success;
-    }
-    @catch (NSException * e) {
-        [self.errorManager handlePaymentException:e forMethod:@"purchaseByCard" message:@"exception" error:error];
-        
-        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
-                                                              action:@"purchaseByCard"
-                                                               label:@"fail"
-                                                               value:nil] build]];
-        result = NO;
-    }
-    @finally {
-        [self disconnect];
-    }
-    return result;
-}
-
-- (BOOL) purchaseByCode:(NSString *)dealOfferId
-            paymentCode:(NSString *)paymentCode
-               customer:(ttCustomer *)customer
-             fundraiser:(NSString *)fundraiser
-                  error:(NSError**)error
+- (BOOL) purchaseWithNonce:(NSString *)dealOfferId
+                     nonce:(NSString *)nonce
+                  customer:(ttCustomer *)customer
+                fundraiser:(NSString *)fundraiser
+                     error:(NSError**)error
 {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
@@ -119,12 +48,12 @@
         NSMutableDictionary *paymentProps = [[NSMutableDictionary alloc] init];
         [paymentProps setValue:fundraiser forKey:PropertyConstants.MERCHANT_CODE];
         
-        TransactionResult_t *transactionResult = [self.service purchaseWithCode:dealOfferId paymentCode:paymentCode paymentProperties:paymentProps];
+        TransactionResult_t *transactionResult = [self.service purchaseWithNonce:dealOfferId nonce:nonce paymentProperties:paymentProps];
         if (transactionResult.success)
         {
             
             [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
-                                                                  action:@"purchaseByCode"
+                                                                  action:@"purchaseWithNonce"
                                                                    label:@"success"
                                                                    value:nil] build]];
         }
@@ -135,7 +64,7 @@
             [self.errorManager handlePaymentException:nil forMethod:@"purchaseByCode" message:transactionResult.message error:error];
             
             [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
-                                                                  action:@"purchaseByCode"
+                                                                  action:@"purchaseWithNonce"
                                                                    label:@"fail"
                                                                    value:nil] build]];
             
@@ -144,10 +73,10 @@
         result = transactionResult.success;
     }
     @catch (NSException * e) {
-        [self.errorManager handlePaymentException:e forMethod:@"purchaseByCode" message:@"exception" error:error];
+        [self.errorManager handlePaymentException:e forMethod:@"purchaseWithNonce" message:@"exception" error:error];
         
         [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"API"
-                                                              action:@"purchaseByCode"
+                                                              action:@"purchaseWithNonce"
                                                                label:@"fail"
                                                                value:nil] build]];
         result = NO;
