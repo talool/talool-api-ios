@@ -14,8 +14,9 @@ Pod::Spec.new do |s|
 			  }
   s.authors             = { "Doug McCuen" => "doug@talool.com", "Chris Lintz" => "chris@talool.com", "Cory Zachman" => "cory@talool.com" }
   s.platform            = :ios, '7.0'
-  s.source              = { :git => "https://github.com/talool/talool-api-ios.git", :tag => "v#{s.version}" }
+#  s.source              = { :git => "https://github.com/talool/talool-api-ios.git", :tag => "v#{s.version}" }
 #  s.source              = { :git => "https://github.com/talool/talool-api-ios.git", :branch => "whitelabel" }
+  s.source              = { :git => "https://github.com/talool/talool-api-ios.git" }
   s.source_files        = 'talool-api-ios/**/*.{h,m}'
 
   s.resource            = "talool-api-ios/talool-api-ios.bundle"

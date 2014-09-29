@@ -61,8 +61,6 @@
 
 + (void) refreshActivityForGiftId:(NSString *)entityId context:(NSManagedObjectContext *)context
 {
-    ttActivity *activity = nil;
-    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"link.elementId = %@",entityId];
     [request setPredicate:pred];
@@ -74,8 +72,7 @@
     
     if (fetchedObj != nil || [fetchedObj count] == 1)
     {
-        activity = [fetchedObj objectAtIndex:0];
-        [context refreshObject:activity mergeChanges:YES];
+        [context refreshObject:[fetchedObj objectAtIndex:0] mergeChanges:YES];
     }
     
 }
