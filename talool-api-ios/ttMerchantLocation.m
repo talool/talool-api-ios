@@ -77,7 +77,7 @@
 - (NSNumber *)getDistanceInMiles
 {
     double miles = 0;
-    if (self.distanceInMeters != nil)
+    if ( ![self isFault] && self.distanceInMeters != nil)
     {
         miles = [self.distanceInMeters doubleValue]/METERS_PER_MILE;
     }
