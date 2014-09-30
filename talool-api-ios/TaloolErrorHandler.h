@@ -33,6 +33,7 @@ enum {
     ErrorCode_EMAIL_REQUIRED                        = 1006,
     ErrorCode_EMAIL_OR_PASS_INVALID                 = 1007, // NOT BEING PASSED FROM SERVICE?
     ErrorCode_NOT_GIFT_RECIPIENT                    = 1008,
+    ErrorCode_GIFT_ALREADY_ACCEPTED                 = 1009,
                                                             // xxxx - already accepted
     ErrorCode_GENERAL_PROCESSOR_ERROR               = 1500, // NOT BEING PASSED FROM SERVICE?
     ErrorCode_ACTIVIATION_CODE_NOT_FOUND            = 3000,

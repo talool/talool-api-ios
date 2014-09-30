@@ -27,7 +27,17 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
     if ([exception isKindOfClass:[ServiceException_t class]])
     {
         ServiceException_t *e = (ServiceException_t *)exception;
-        errorDetails = [self getErrorMessageWithCode:e.errorCode];
+        
+        // sometimes we use the message from the server...
+        if (e.errorCode == ErrorCode_NOT_GIFT_RECIPIENT ||
+            e.errorCode == ErrorCode_GIFT_ALREADY_ACCEPTED)
+        {
+            errorDetails = e.errorDesc;
+        }
+        else
+        {
+            errorDetails = [self getErrorMessageWithCode:e.errorCode];
+        }
         code = e.errorCode;
     }
     else if ([exception isKindOfClass:[TUserException_t class]])
@@ -152,6 +162,9 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
             break;
         case ErrorCode_NOT_GIFT_RECIPIENT:
             message = @"This gift was sent to someone else.";
+            break;
+        case ErrorCode_GIFT_ALREADY_ACCEPTED:
+            message = @"This gift was already accepted.";
             break;
         case ErrorCode_GENERAL_PROCESSOR_ERROR:
             message = @"There was a problem processing your payment.  Please try again later.";
