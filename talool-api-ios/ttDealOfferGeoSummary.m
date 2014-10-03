@@ -92,15 +92,24 @@
     {
         // delete all summaries we have, so expired or recently in-active offers go away
         [ttCustomer clearEntity:context entityName:DEAL_OFFER_GEO_SUMMARY_ENTITY_NAME];
-        
-        // store the objects in the response in CoreData
-        for (int i=0; i<[resultset count]; i++) {
-            [ttDealOfferGeoSummary initWithThrift:[resultset objectAtIndex:i] context:context];
+        [ttCustomer clearEntity:context entityName:DEAL_OFFER_ENTITY_NAME];
+        if ([context save:err])
+        {
+            // store the objects in the response in CoreData
+            for (int i=0; i<[resultset count]; i++) {
+                [ttDealOfferGeoSummary initWithThrift:[resultset objectAtIndex:i] context:context];
+            }
+            
+            if ([context save:err]) {
+                result = YES;
+            }
+        }
+        else
+        {
+            result = NO;
         }
         
-        if ([context save:err]) {
-            result = YES;
-        }
+        
     }
     
     return result;
