@@ -47,16 +47,16 @@
     
     newOffer.locationName = offer.locationName;
     
-    if (offer.expires==0)
-    {
-        newOffer.expires = nil;
-    }
-    else
-    {
-        newOffer.expires = [[NSDate alloc] initWithTimeIntervalSince1970:(offer.expires/1000)];
-    }
-    newOffer.price = [[NSNumber alloc] initWithDouble:offer.price];
-    newOffer.merchant = [ttMerchant initWithThrift:offer.merchant context:context];
+    // The expires date is meaningless now that we have scheduling,
+    // but I am using it to hide deals rather than deleting them.
+    // Here I set the expires date to 1 year from now, so all offers
+    // coming from the service show up.
+    NSDate *today = [[NSDate alloc] init];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setYear:1];
+    NSDate *oneYearFromNow = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
+    newOffer.expires = oneYearFromNow;
     
     return newOffer;
 }
@@ -112,6 +112,34 @@
 - (BOOL) isFundraiser
 {
     return ([self.fundraiser intValue] == 1);
+}
+
++ (void) expireAll:(NSManagedObjectContext *)context
+{
+    // Deleting objects makes was causing problems, so I'm now just expiring
+    // all deals before the service fetches the current set.
+    NSDate *today = [[NSDate alloc] init];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setMonth:-1];
+    NSDate *oneMonthAgo = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:DEAL_OFFER_ENTITY_NAME inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchedSet = [context executeFetchRequest:request error:&error];
+    
+    if (fetchedSet != nil && [fetchedSet count] > 0 && error == nil)
+    {
+        for (ttDealOffer *offer in fetchedSet)
+        {
+            offer.expires = oneMonthAgo;
+        }
+        [context save:&error];
+    }
+    
 }
 
 
