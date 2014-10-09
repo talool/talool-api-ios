@@ -46,6 +46,9 @@
     }
     
     newOffer.locationName = offer.locationName;
+    newOffer.price = [[NSNumber alloc] initWithDouble:offer.price];
+    newOffer.merchant = [ttMerchant initWithThrift:offer.merchant context:context];
+
     
     // The expires date is meaningless now that we have scheduling,
     // but I am using it to hide deals rather than deleting them.
