@@ -156,7 +156,7 @@
      */
     return ([self.dealType intValue]==1 ||
             [self.dealType intValue]==3 ||
-            [self.price intValue] == 0
+            [self.price doubleValue] <= 0
             );
 }
 
