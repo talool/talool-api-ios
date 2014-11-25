@@ -21,6 +21,8 @@
 @implementation TaloolThriftController
 NSString* const APN_DEVICE_TOKEN_HEADER = @"ApnDeviceToken";
 NSString* const DEVICE_ID_HEADER = @"DeviceId";
+NSString* const FREE_BOOK_HEADER = @"X-Supports-Free-Books";
+NSString* const WHITE_LABEL_HEADER = @"X-White-Label-Id";
 @synthesize service, errorManager;
 
 - (id)init
@@ -67,7 +69,10 @@ NSString* const DEVICE_ID_HEADER = @"DeviceId";
                                                   timeout:0];
         [[transport getRequest] setValue:token.token forHTTPHeaderField:CustomerServiceConstants.CTOKEN_NAME];
         [[transport getRequest] setValue:[TaloolFrameworkHelper sharedInstance].whiteLabelId
-                       forHTTPHeaderField:@"white-label-id"];
+                       forHTTPHeaderField:WHITE_LABEL_HEADER];
+        
+        //Add free book support
+        [[transport getRequest] setValue:@"1" forHTTPHeaderField:FREE_BOOK_HEADER];
         
         //Add deviceId for app
         NSUUID *uuid = [[UIDevice currentDevice] identifierForVendor];
