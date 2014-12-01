@@ -145,6 +145,21 @@
     
 }
 
+- (BOOL) isFree
+{
+    /*
+     Based on DealType_t.java in talool-thrift...
+     PAID_BOOK(0),
+     FREE_BOOK(1),
+     PAID_DEAL(2),
+     FREE_DEAL(3);
+     */
+    return ([self.dealType intValue]==1 ||
+            [self.dealType intValue]==3 ||
+            [self.price doubleValue] <= 0
+            );
+}
+
 
 #pragma mark -
 #pragma mark - Get the Deals for the Deal Offer

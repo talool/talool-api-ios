@@ -41,6 +41,7 @@ typedef int ValidatationResponse;
                      error:(NSError**)error;
 
 - (BOOL) isFundraiser;
+- (BOOL) isFree;
 + (void) expireAll:(NSManagedObjectContext *)context;
 
 
