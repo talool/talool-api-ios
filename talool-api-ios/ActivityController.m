@@ -70,7 +70,7 @@
         [options setPage:0];
         [options setAscending:NO];
         [options setSortProperty:@"activityDate"];
-        activities = [self.service getActivities:options];
+        activities = [self.service getMessages:options location:nil];
     }
     @catch (NSException * e) {
         [self.errorManager handleServiceException:e forMethod:@"getActivities" error:error];
