@@ -40,7 +40,7 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
         }
         code = e.errorCode;
     }
-    if ([exception isKindOfClass:[TServiceException_t class]])
+    else if ([exception isKindOfClass:[TServiceException_t class]])
     {
         TServiceException_t *e = (TServiceException_t *)exception;
         if (e.messageIsSet)
