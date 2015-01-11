@@ -101,19 +101,19 @@
 
 - (BOOL) isPending
 {
-    return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_PENDING]);
+    return ([self.giftStatus intValue] == GiftStatus_t_PENDING);
 }
 - (BOOL) isAccepted
 {
-    return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_ACCEPTED]);
+    return ([self.giftStatus intValue] == GiftStatus_t_ACCEPTED);
 }
 - (BOOL) isRejected
 {
-    return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_REJECTED]);
+    return ([self.giftStatus intValue] == GiftStatus_t_REJECTED);
 }
 - (BOOL) isInvalidated
 {
-    return (self.giftStatus == [NSNumber numberWithInt:GiftStatus_t_INVALIDATED]);
+    return ([self.giftStatus intValue] == GiftStatus_t_INVALIDATED);
 }
 
 
