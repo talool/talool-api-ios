@@ -49,7 +49,7 @@ NSString* const WHITE_LABEL_HEADER = @"X-White-Label-Id";
                                                 userAgent:[[TaloolFrameworkHelper sharedInstance] getUserAgent]
                                                   timeout:0];
         [[transport getRequest] setValue:[TaloolFrameworkHelper sharedInstance].whiteLabelId
-                      forHTTPHeaderField:@"white-label-id"];
+                      forHTTPHeaderField:WHITE_LABEL_HEADER];
         protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
         service = [[CustomerService_tClient alloc] initWithProtocol:protocol];
     } @catch(NSException * e) {
