@@ -9,7 +9,6 @@
 #import "TaloolPersistentStoreCoordinator.h"
 #import "TaloolFrameworkHelper.h"
 #import "APIErrorManager.h"
-#import "TestFlight.h"
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 
@@ -56,7 +55,6 @@ static NSManagedObjectModel *_managedObjectModel;
                                                           error:&error]) {
         
         // Track failure
-        [TestFlight passCheckpoint:@"PERSISTENCE_STORE_BORKED"];
         NSLog(@"PERSISTENCE ERROR: %@, %@", error, [error userInfo]);
         NSException *e = [[NSException alloc] initWithName:@"Persistent Store Failure" reason:@"Failed to init store" userInfo:nil];
         APIErrorManager *errorMgr = [[APIErrorManager alloc] init];

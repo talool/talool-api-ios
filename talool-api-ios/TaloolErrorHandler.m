@@ -27,17 +27,7 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
     if ([exception isKindOfClass:[ServiceException_t class]])
     {
         ServiceException_t *e = (ServiceException_t *)exception;
-        
-        // sometimes we use the message from the server...
-        if (e.errorCode == ErrorCode_NOT_GIFT_RECIPIENT ||
-            e.errorCode == ErrorCode_GIFT_ALREADY_ACCEPTED)
-        {
-            errorDetails = e.errorDesc;
-        }
-        else
-        {
-            errorDetails = [self getErrorMessageWithCode:e.errorCode];
-        }
+        errorDetails = [self getErrorMessageWithCode:e.errorCode default:e.errorDesc];
         code = e.errorCode;
     }
     else if ([exception isKindOfClass:[TServiceException_t class]])
@@ -49,7 +39,7 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
         }
         else
         {
-            errorDetails = [self getErrorMessageWithCode:e.errorCode];
+            errorDetails = [self getErrorMessageWithCode:e.errorCode default:nil];
         }
         
         code = e.errorCode;
@@ -57,7 +47,7 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
     else if ([exception isKindOfClass:[TUserException_t class]])
     {
         TUserException_t *e = (TUserException_t *)exception;
-        errorDetails = [self getErrorMessageWithCode:e.errorCode];
+        errorDetails = [self getErrorMessageWithCode:e.errorCode default:nil];
         code = e.errorCode;
     }
     else if ([exception isKindOfClass:[TNotFoundException_t class]])
@@ -67,12 +57,12 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
         NSLog(@"TNotFoundException Handled: %@",errorDetails);
         
         code = ErrorCode_NOT_FOUND_EXCEPTION;
-        errorDetails = [self getErrorMessageWithCode:code];
+        errorDetails = [self getErrorMessageWithCode:code default:nil];
     }
     else if ([exception isKindOfClass:[TApplicationException class]])
     {
         code = ErrorCode_APP_FAIL;
-        errorDetails = [self getErrorMessageWithCode:code];
+        errorDetails = [self getErrorMessageWithCode:code default:nil];
     }
     else if ([exception isKindOfClass:[TTransportException class]])
     {
@@ -81,18 +71,18 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
         if (err.code == ErrorCode_NETWORK_DOWN)
         {
             code = ErrorCode_NETWORK_DOWN;
-            errorDetails = [self getErrorMessageWithCode:code];
+            errorDetails = [self getErrorMessageWithCode:code default:nil];
         }
         else
         {
             code = ErrorCode_SERVICE_DOWN;
-            errorDetails = [self getErrorMessageWithCode:code];
+            errorDetails = [self getErrorMessageWithCode:code default:nil];
         }
     }
     else
     {
         code = ErrorCode_UNKNOWN;
-        errorDetails = [self getErrorMessageWithCode:code];
+        errorDetails = [self getErrorMessageWithCode:code default:nil];
     }
     
     [details setValue:errorDetails forKey:NSLocalizedDescriptionKey];
@@ -113,7 +103,7 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
     ErrorCode code = ErrorCode_CORE_DATA;
     
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    NSString *errorDetails = [self getErrorMessageWithCode:code];
+    NSString *errorDetails = [self getErrorMessageWithCode:code default:nil];
     [details setValue:errorDetails forKey:NSLocalizedDescriptionKey];
     *error = [NSError errorWithDomain:domain code:code userInfo:details];
     
@@ -131,7 +121,7 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
     [self handleServiceException:exception domain:domain method:method error:error];
 }
 
-- (NSString *) getErrorMessageWithCode:(int)code
+- (NSString *) getErrorMessageWithCode:(int)code default:(NSString *)defaultMessage
 {
     NSString *message;
     
@@ -172,13 +162,7 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
             message = @"We couldn't find your account.";
             break;
         case ErrorCode_EMAIL_REQUIRED:
-            message = @"You're email is required.";
-            break;
-        case ErrorCode_NOT_GIFT_RECIPIENT:
-            message = @"This gift was sent to someone else.";
-            break;
-        case ErrorCode_GIFT_ALREADY_ACCEPTED:
-            message = @"This gift was already accepted.";
+            message = @"Your email is required.";
             break;
         case ErrorCode_GENERAL_PROCESSOR_ERROR:
             message = @"There was a problem processing your payment.  Please try again later.";
@@ -195,13 +179,15 @@ static NSString *defaultMessage = @"We were unable to complete your request.";
         case ErrorCode_NETWORK_DOWN:
             message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Your network connection appears to be down."];
             break;
-        case ErrorCode_NOT_FOUND_EXCEPTION:
-        case ErrorCode_APP_FAIL:
-            message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Please report this error to support@talool.com."];
-            break;
         default:
-            message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Please try again later."];
-            NSLog(@"Unknown error: %d", code);
+            if (defaultMessage)
+            {
+                message = defaultMessage;
+            }
+            else
+            {
+                message = [NSString stringWithFormat:@"%@ %@",defaultMessage, @"Please report this error to support@talool.com."];
+            }
             break;
     }
     
