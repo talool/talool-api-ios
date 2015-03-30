@@ -2,10 +2,6 @@
 // Prefix header for all source files of the 'talool-api-ios' target in the 'talool-api-ios' project
 //
 
-#import "TTLog.h"
-
-#define NSLog TTLog
-
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
 #endif
