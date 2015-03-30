@@ -336,15 +336,7 @@
 -(BOOL)isValid:(NSError *__autoreleasing *)error password:(NSString *)password
 {
     NSMutableDictionary* details = [NSMutableDictionary dictionary];
-    if (self.firstName == nil || self.firstName.length < 2) {
-        [details setValue:@"Your first name is invalid" forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
-        return NO;
-    } else if (self.lastName == nil || self.lastName.length < 2) {
-        [details setValue:@"Your last name is invalid" forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
-        return NO;
-    } else if (self.email == nil || self.email.length < 2) {
+    if (self.email == nil || self.email.length < 2) {
         [details setValue:@"Your email is invalid" forKey:NSLocalizedDescriptionKey];
         *error = [NSError errorWithDomain:@"customerValidation" code:200 userInfo:details];
         return NO;
